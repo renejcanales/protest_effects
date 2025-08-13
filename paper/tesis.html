@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="René Canales">
+
+<title>El impacto del fuego: Un análisis longitudinal de los perfiles de protesta en el ciclo contencioso chileno (2016-2023)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="tesis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tesis_files/libs/quarto-html/quarto.js"></script>
+<script src="tesis_files/libs/quarto-html/popper.min.js"></script>
+<script src="tesis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="tesis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="tesis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tesis_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="tesis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="tesis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="tesis_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">El impacto del fuego: Un análisis longitudinal de los perfiles de protesta en el ciclo contencioso chileno (2016-2023)</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">René Canales <a href="mailto:renecanales@uc.cl" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0002-4299-2725" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Instituto de Sociología, Pontificia Universidad Católica de Chile
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      <p><strong>Keywords</strong>:</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="tesis.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="justify">
+<section id="introducción" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
+<p>Durante las últimas décadas, el mundo ha sido testigo de un aumento sostenido en las formas no convencionales de participación política. Diversas fuentes han constatado que esta transformación en las formas de involucramiento ciudadano estaría asociada, esencialmente, con una desconfianza cada vez más aguda hacia las instituciones y canales tradicionales de la democracia representativa (Grasso, 2016; Rosanvallon, 2007; Prats &amp; Meunier, 2021).</p>
+<p>En este sentido, las democracias occidentales han experimentado una expansión sostenida de los repertorios de acción política que trascienden las elecciones periódicas y la participación en partidos políticos, otorgando un rol importante a la participación en eventos de protesta (Crozat, 1998; Jeroense &amp; Spierings, 2023). Diversos estudios argumentan, incluso, que nos encontramos frente a un proceso de “normalización” de la protesta en las democracias avanzadas (Tarrow, 2011; Kubik, 1998; McCarthy &amp; McPhail, 1998), en la medida en que esta forma de participación se ha convertido en una de las más frecuentes y aceptadas dentro del panorama democrático, gozando de una legitimidad creciente en comparación con el pasado (Van Aelst &amp; Walgrave, 2001).</p>
+<p>A partir de esta tendencia global, distintos sectores de la ciudadanía han optado por la protesta como vía para expresar sus demandas, aspiraciones y descontento. Si bien ciertos grupos, como las generaciones más jóvenes, han tenido una presencia más pronunciada en muchos de estos episodios de movilización (Soler-i-Martí, 2015; Zhang &amp; Lin, 2018), el fenómeno de la protesta abarca a una diversidad de actores sociales y perfiles sociodemográficos. Desde las movilizaciones por el movimiento Black Lives Matter en EE.UU. y las manifestaciones de Hong Kong en 2019, hasta el llamado estallido social chileno de 2019, múltiples sectores sociales han protagonizado los eventos de la llamada “década de la protesta masiva” (Bevins, 2023), reflejando una creciente disposición a salirse de los canales institucionales para expresar disconformidad.</p>
+<p>Algunos autores sugieren que factores como la disponibilidad biográfica —relativa al tiempo libre, las responsabilidades laborales o familiares, y el acceso a redes de activismo— contribuyen a explicar quiénes tienen más probabilidades de participar en protestas (Schussman &amp; Soule, 2005; Wiltfang &amp; McAdam, 1991; Klandermans et al., 2008; Justino &amp; Martorano, 2019). No obstante, aunque esta perspectiva ofrece una aproximación inicial, resulta insuficiente para comprender la heterogeneidad existente entre quienes se movilizan. Las personas no solo difieren en su decisión de protestar, sino también en las formas que adoptan para hacerlo, en su intensidad y en las motivaciones que las impulsan. Por ello, es necesario profundizar en el estudio de los perfiles de quienes emplean la protesta como mecanismo, atendiendo a sus características específicas, sus preferencias y actitudes políticas, para entender cómo estas inciden en las diversas maneras de involucrarse en la acción colectiva.</p>
+<p>En este marco, conceptos como la autoeficacia política —entendida como la percepción de que la acción individual puede generar cambios en el sistema político— han demostrado ser especialmente relevantes. Tanto la eficacia interna, que alude a la confianza subjetiva en la propia habilidad para comprender y participar en asuntos políticos, como la eficacia externa, la percepción de que las autoridades e instituciones responderán a las demandas ciudadanas (Craig et al., 1990; Reichert, 2016) dan luces para comprender la inmersión de las personas en la política contenciosa. Investigaciones previas han evidenciado que quienes poseen una mayor sensación de eficacia interna tienden a involucrarse más activamente en protestas, al creer que su participación puede contribuir efectivamente a transformar la realidad (Gallego &amp; Oberski, 2012; van Zomeren et al., 2008). Al mismo tiempo, cuando esta confianza en las propias capacidades no va acompañada de una percepción positiva sobre la receptividad del sistema, las personas podrían estar más dispuestas a adoptar formas disruptivas en desmedro de los medios convencionales&nbsp; (Reichert, 2016; Justino &amp; Martorano, 2019).</p>
+<p>En el caso particular de Chile, el patrón de movilización adquiere características especialmente relevantes. La historia política reciente del país ha estado marcada por un potente ciclo de protestas, protagonizado por diversos sectores sociales. Desde la llamada “revolución pingüina” en 2006 y las protestas del 2011 lideradas por estudiantes, hasta el estallido social de 2019 que congregó a una amplia gama de manifestantes, el malestar y la demanda por transformaciones estructurales se ha convertido en algo transversal para la población (Donoso &amp; von Bülow, 2017; Somma et al., 2021). Manifestando cada uno de estos eventos, repertorios de acción y perfiles diferentes (Cox et al., 2024).</p>
+<p>Este escenario ha abierto una serie de preguntas que no se limitan únicamente a entender por qué las personas protestan o cómo lo hacen, sino también a estudiar quiénes son las personas que protestan en determinados contextos, cuáles son sus características, condiciones y actitudes, y cómo estas influyen en su decisión de optar por ciertas formas de participación por sobre otras. En particular, resulta relevante comprender de qué manera el involucramiento en política contenciosa repercute en otras formas de participación política, y cómo estas relaciones se manifiestan en el tiempo.</p>
+<p>En este contexto, el presente proyecto de investigación se propone analizar cómo la protesta incide en los repertorios de participación política desde una perspectiva longitudinal. Es decir, se busca indagar en la relación entre la participación en eventos de protesta y los cambios —o persistencias— en las actitudes políticas y en los repertorios de acción de las personas a lo largo del tiempo.</p>
+<p>El estudio se sitúa en el contexto chileno y tiene como objetivo comprender cómo se configuran distintos perfiles de participación política en función de trayectorias temporales. Así, las preguntas que orientan la investigación son: ¿Qué perfiles de participación política se observan a través del tiempo entre quienes se involucran en protestas en el contexto chileno? ¿Qué características individuales —como actitudes políticas, recursos disponibles, trayectorias previas u orientación ideológica— permiten diferenciar estos perfiles, y como se transforman en el tiempo?&nbsp;</p>
+<p>El objetivo general del estudio es identificar y caracterizar los distintos perfiles de personas que participan en protestas en Chile, analizando cómo variables individuales configuran formas diferenciadas de involucramiento en la acción colectiva en distintos momentos del ciclo de protesta.</p>
+<p>Para abordar este tema, se planea utilizar datos provenientes del Estudio Longitudinal Social de Chile (ELSOC). Esta fuente permite analizar con profundidad las actitudes políticas de la ciudadanía chilena, así como sus formas de participación y conflictividad social en distintos momentos del tiempo.&nbsp;</p>
+<p>ELSOC consiste en una encuesta panel de carácter longitudinal que indaga sobre la evolución de diversas dimensiones de la cultura política y la cohesión social en Chile, incluyendo actitudes hacia la democracia, la desigualdad, la justicia y las instituciones. Su diseño permite observar trayectorias individuales a lo largo del tiempo, lo que ofrece una valiosa oportunidad para estudiar los cambios en creencias y comportamientos políticos en un contexto social dinámico. Para este estudio, se utilizarán las olas aplicadas entre los años 2016 y 2023, un periodo marcado por importantes transformaciones sociales y políticas en el país.</p>
+<p>La metodología del estudio está pensada a partir de un enfoque basado en modelos de clases latentes de crecimiento (Latent Class Growth Analysis, LCGA), que permiten identificar perfiles latentes de evolución en la participación en protestas a lo largo del tiempo. Esta estrategia metodológica parte de la premisa de que existen distintos patrones o trayectorias de cambio, en lugar de una única evolución promedio compartida por todos los individuos.</p>
+<p>Este modelo, a partir del uso de datos longitudinales, permitirá estimar un conjunto de clases latentes, agrupando a los individuos según la forma en que cambian su involucramiento en participación política o sus actitudes políticas en el tiempo, capturando las trayectorias de cada individuo. Para luego, incorporar predictores relativos a sus actitudes políticas con el fin de explicar la probabilidad de pertenecer a cada una de las clases identificadas.</p>
+<p>Este enfoque tiene la ventaja de integrar el análisis estructural de perfiles y el análisis dinámico de cambio, permitiendo observar tanto cómo se configuran distintas formas de participación política en el tiempo, como qué factores explican esas diferencias.</p>
+</section>
+<section id="antecedentes" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Antecedentes</h1>
+<section id="la-normalización-de-la-protesta" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="la-normalización-de-la-protesta"><span class="header-section-number">2.1</span> La normalización de la protesta</h2>
+<p>Van Aelst y Walgrave (2001) desarrollan el concepto de normalización de la protesta, entendido como el proceso mediante el cual la protesta callejera ha dejado de ser una forma marginal y disruptiva de acción colectiva para convertirse en una modalidad legítima y comúnmente aceptada de participación política en las democracias occidentales. Esta transformación se evidencia en el aumento sostenido tanto del número de protestas como del porcentaje de ciudadanos que participa en ellas, así como en la creciente aceptación social e institucional de este tipo de acciones (Fuchs, 1990; Marsh &amp; Kaase, 1979; Filleule &amp; Tartakowsky, 2011).</p>
+<p>La normalización no se manifiesta únicamente en términos cuantitativos, sino también en un cambio en la percepción normativa de la protesta, que pasa a considerarse parte del repertorio participativo democrático. Lejos de ser vista como una amenaza al orden institucional, la protesta comienza a entenderse como un complemento de las formas convencionales de participación, como el voto o la afiliación partidaria (Barnes &amp; Kaase, 1979; Dalton, 1996). Este giro teórico se apoya en la transición desde los enfoques clásicos del comportamiento colectivo hacia modelos que enfatizan los recursos organizativos, las estructuras de oportunidades políticas y los marcos interpretativos de la acción (McCarthy &amp; Zald, 1977; Tarrow, 1996; McAdam et al., 1996).</p>
+<p>Evidencia reciente apunta a una creciente institucionalización de la protesta (Van Aelst &amp; Walgrave, 2001; Gurza Lavalle &amp; Szwako, 2023; Chicoine &amp; Ancelovici, 2021), observable no solo en su frecuencia o en la permisividad estatal, sino también en su estructura organizativa y en su presencia en los medios de comunicación. A ello se suma la consolidación de repertorios legales y pacíficos —como marchas o peticiones—, en contraste con formas más radicales de acción que en muchos casos continúan estando fuertemente estigmatizadas (della Porta, 1999). Asimismo, la actitud de las fuerzas policiales en diversos contextos ha evolucionado hacia modelos de negociación y cooperación, en lugar de represión sistemática, lo que refuerza la percepción de la protesta como una herramienta legítima dentro del juego democrático (McPhail et al., 1998).</p>
+<p>No obstante, la normalización de la protesta no es homogénea ni implica, necesariamente, que quienes protestan tengan la misma visión sobre su legitimación y tácticas adoptadas. Si bien ha aumentado la frecuencia y legitimidad de la protesta, varios estudios indican que quienes participan con mayor intensidad tienden a estar mejor educados, son más jóvenes y están integrados en redes organizativas, mientras que los sectores con menos recursos siguen subrepresentados (Verba et al., 1995; Piven &amp; Cloward, 1991).</p>
+<p>En este sentido, aunque la normalización de la protesta —en términos de frecuencia, legitimidad y aceptación institucional— es un proceso ampliamente documentado por la literatura sobre acción colectiva (Tarrow, 2011;&nbsp; Kubik, 1998; McCarthy &amp; McPhail, 1998), ello no garantiza una inclusión equitativa de todos los sectores sociales en su ejercicio. Incluso cuando la protesta se encuentra normalizada, sigue siendo más accesible para ciertos grupos que para otros. Además, las formas en que los distintos grupos participan presentan diferencias específicas, reflejando la heterogeneidad entre quienes protestan. Algo que la literatura destaca nuevamente al momento de trasladarse a las formas de radicalización política.</p>
+</section>
+<section id="el-impacto-del-fuego-el-ciclo-contencioso-chileno-2010-2020" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="el-impacto-del-fuego-el-ciclo-contencioso-chileno-2010-2020"><span class="header-section-number">2.2</span> <strong>El impacto del fuego: El ciclo contencioso chileno (2010-2020)</strong></h2>
+<p>Entre 2010 y 2014, la movilización social en Chile protagonizó una de las expresiones más articuladas en torno al descontento social desde el retorno a la democracia. Si bien se pueden rastrear sus raíces a procesos de organización previos, como la “revolución pingüina” de 2006, fue durante este ciclo que el estallido de protestas tomó una madurez política, y una sofisticación táctica sin precedentes en la historia reciente, una inscripción clara en una práctica contenciosa que cuestionó tanto al modelo neoliberal consolidado en el país (Garretón, 2012) y sus fundamentos institucionales (Bellei et al., 2014; Guzmán-Concha, 2012).</p>
+<p>Cuando se habla del ciclo contencioso chileno de la última década, es común asociarlo con el resurgimiento del movimiento estudiantil, ya que fue aquel que se tomó gran parte de la agenda política contenciosa de dichos años. Su articulación emergió como una respuesta acumulativa a las políticas de mercado implementadas desde la dictadura de Pinochet, las cuales transformaron profundamente el sistema educativo chileno: segmentación institucional, privatización agresiva, financiamiento vía deuda, y una profunda desigualdad en el acceso y la calidad (Bellei et al., 2014; Guzmán-Concha, 2012). A nivel político, la llegada de la derecha al poder en 2010 intensificó la percepción de cierre institucional y la ausencia de canales de participación efectivos, sobre todo entre sectores juveniles distantes del periodo de transición (Somma &amp; Bargsted, 2015). Y si bien, se podría mencionar otra serie de movimientos que se sumaron en la inscripción de esta forma de participación política, tales como el resurgimiento del Movimiento Mapuche en el mismo periodo (Bidegain, 2017) o el Movimiento “NO+AFP” a mediados de década; se habla del movimiento estudiantil de 2011 como el exponente principal del ciclo tanto por su trayectoria como por su organización.</p>
+<p>El repertorio del movimiento estudiantil entre 2011 y 2014 combinó formas clásicas de protesta (marchas, tomas, paros, huelgas de hambre) con acciones performativas, intervenciones artísticas y el uso intensivo de redes sociales, lo que dio forma a una táctica híbrida entre la tradición de lucha estudiantil y una estética de la protesta anclada en la cultura digital contemporánea (Donoso, 2017; Bellei et al., 2014).&nbsp;</p>
+<p>Entre las acciones más destacadas estuvieron las “1800 horas por la educación” (una corrida simbólica frente a La Moneda), las “besatones”, las intervenciones coreográficas, y las ocupaciones pacíficas de espacios públicos. Estas expresiones performativas no sólo permitieron captar la atención mediática, sino también desplegar un discurso político visual, lúdico y emocional que desbordó los marcos tradicionales de la protesta (Bellei et al., 2014; Guzmán-Concha, 2012). Las redes sociales, como Facebook, Twitter y YouTube, jugaron un rol organizador y discursivo clave: permitieron coordinar acciones descentralizadas, responder en tiempo real a la represión, y construir una narrativa alternativa a los medios de comunicación tradicionales (Scherman, Arriagada &amp; Valenzuela, 2015).</p>
+<p>Lo distintivo de este ciclo no fue solamente la innovación táctica, sino también su radicalización discursiva y organizativa. Como señalan Bellei et al.&nbsp;(2014), el movimiento no fue simplemente una reacción juvenil espontánea, sino la expresión de una generación politizada, con memoria organizacional acumulada, y con una crítica estructural al rol subsidiario del Estado en la provisión de derechos sociales.</p>
+<p>Hay quienes, como argumenta Guzmán-Concha (2012), se refieren a la evolución del conflicto desde lo sectorial (educación) hacia lo político (cuestionamiento del modelo de democracia) refleja un proceso de radicalización de segundo orden: no en términos violentos, sino como desplazamiento de la contienda hacia los pilares del orden institucional. En efecto, el movimiento demandó una transformación estructural del sistema político, proponiendo incluso mecanismos de democracia directa como plebiscitos, frente a un sistema constitucional que los inhibía.</p>
+<p>El movimiento estudiantil no puede ser comprendido fuera del contexto de una práctica contenciosa histórica. Como plantea Guzmán-Concha (2012), la capacidad de movilización no depende sólo de las condiciones estructurales, sino de una identidad política sedimentada, una red organizacional densa, y un repertorio colectivo de lucha que permitió reproducir y renovar la movilización.</p>
+<p>De esta manera, el ciclo de protestas no representa únicamente la repetición de repertorios anteriores, sino una rearticulación de repertorios clásicos con herramientas contemporáneas, lo que permitió en un principio al movimiento estudiantil pero luego al resto, proyectarse como una fuerza política legítima, transversal y generacional. La ocupación del espacio público, la interpelación moral al Estado y la politización de la desigualdad son elementos clave de esta transformación.</p>
+<section id="el-estallido-social-de-2019-un-nuevo-punto-de-inflexión" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="el-estallido-social-de-2019-un-nuevo-punto-de-inflexión"><span class="header-section-number">2.2.1</span> El estallido social de 2019: Un nuevo punto de inflexión</h3>
+<p>Asimismo, las protestas sucedidas durante el llamado estallido social chileno, iniciado el 18 de octubre de 2019, marcaron un punto de inflexión político y cultural. Lo que comenzó como una protesta estudiantil frente al alza de la tarifa del metro en Santiago, rápidamente escaló hacia una movilización nacional masiva, caracterizada por su espontaneidad, descentralización y ausencia de liderazgo tradicional (González &amp; Le Foulon, 2020; Cox et al., 2024). Como otros movimientos de la llamada “década global de los movimientos sociales” (Vivens, 2023; Pleyers, 2023), el Estallido se articuló a través de formas alternativas de organización, con un fuerte uso de redes socio-digitales, ocupación de espacios públicos y prácticas expresivas y artísticas que materializaron una demanda transversal por justicia social, dignidad y democratización (Pleyers, 2023).</p>
+<p>Desde el punto de vista organizacional, el movimiento rompió con la lógica de mediación institucional. A diferencia de ciclos previos de protesta —como el movimiento estudiantil—, las organizaciones sindicales y partidarias jugaron un rol secundario. Los ciudadanos se movilizaron principalmente desde su indignación personal y colectiva, no desde convocatorias formales. Esta horizontalidad fue acompañada por una estructura fluida, compuesta por redes de afinidad y coordinación espontánea (Henríquez, 2020).</p>
+<p>El perfil de los participantes también evidenció una transformación. Según los datos analizados por Cox et al.&nbsp;(2024), los “manifestantes fuertes” fueron en su mayoría jóvenes menores de 35 años, con niveles educativos más altos y una mayor orientación política hacia la izquierda. Estudios previos han señalado que este grupo era el que mayor interés en la política habría mostrado, presentando una participación más activa tanto en protestas como en elecciones, y una marcada desafección hacia las instituciones representativas, incluyendo partidos políticos, el Congreso y la policía (Cox et al., 2024; Castillo et al., 2015; Somma et al., 2021).</p>
+<p>En términos de repertorio de acción, las tácticas fueron diversas y abarcaron desde formas pacíficas —como cacerolazos y marchas— hasta prácticas disruptivas como evasión del metro, barricadas o la ocupación de espacios públicos. Si bien el uso de la violencia fue minoritario, un sector importante de los manifestantes justificó ciertas acciones ilegales como forma legítima de presión política, en un contexto percibido como injusto y represivo (Gerber et al., 2018; Cox et al., 2024).</p>
+<p>Las demandas expresadas fueron igualmente diversas, pero compartieron una fuerte dimensión interseccional. Se articularon reclamos por pensiones dignas, salud y educación de calidad, feminismo, justicia ambiental y reconocimiento de los pueblos originarios, entre otros. Esta heterogeneidad reflejó no una debilidad, sino una capacidad de convergencia simbólica en torno a la idea de dignidad como principio organizador (Miranda, 2023; Julián-Vejar, et al., 2024).</p>
+<p>En suma, el Estallido Social marcó un punto de quiebre en las formas de protesta, caracterizado por una politización desde abajo, una fuerte dimensión expresiva y cultural, y una crítica transversal al orden político y socioeconómico general. Su análisis exige superar las categorías tradicionales de los estudios de movimientos sociales, reconociendo su carácter híbrido, su inscripción en dinámicas globales y su impacto estructural.</p>
+</section>
+</section>
+<section id="elaboración-de-perfiles-y-participación-política" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="elaboración-de-perfiles-y-participación-política"><span class="header-section-number">2.3</span> <strong>Elaboración de perfiles y participación política</strong></h2>
+<p>En los últimos años, la literatura sobre participación política ha avanzado desde el análisis de acciones individuales hacia la identificación de perfiles de participación que combinan prácticas, disposiciones actitudinales y recursos de manera sistemática. Esta perspectiva, centrada en los repertorios integrales de acción, reconoce que los ciudadanos no participan simplemente “más o menos”, sino que lo hacen de formas cualitativamente distintas, en combinaciones que reflejan orientaciones normativas, evaluaciones institucionales, niveles de interés, capacidades y vínculos organizativos.</p>
+<p>Una de las razones de este giro ha sido la crítica a los enfoques centrados en acciones aisladas —como votar, protestar o firmar peticiones— que, al ser analizadas por separado, tienden a producir resultados fragmentados o efectos diluidos (Sinclair-Chapman et al., 2009; Jeroense &amp; Spierings, 2023). En su lugar, diversas investigaciones han optado por una mirada más configuracional, que permite entender cómo las personas articulan distintos tipos de participación en función de sus orientaciones hacia la política y sus condiciones de posibilidad.</p>
+<p>Este cambio analítico ha sido facilitado por el uso creciente de metodologías como el análisis de clases latentes (LCA), que permite clasificar empíricamente a los individuos en grupos con características no directamente observables, a partir de patrones compartidos en sus respuestas. En términos teóricos, este enfoque se vincula a una visión “centrada en el actor” (Collins &amp; Lanza, 2009), que considera la participación como una expresión de múltiples caminos posibles (multi-finalidad) y reconoce la diversidad empírica que subyace en las formas de involucramiento ciudadano.</p>
+<p>La construcción de perfiles ha sido aplicada con mayor frecuencia en el estudio de la participación convencional, especialmente en lo que refiere al acto de votar. Desde los clásicos trabajos de Verba y Nie (1972) y Verba et al.&nbsp;(1995), la participación electoral ha sido abordada como una función de recursos y actitudes, derivando en tipologías de votantes según su nivel de implicación cívica. Copeland (2014) y Dalton (2008) ampliaron esta perspectiva al incorporar formas no institucionales, proponiendo marcos de transformación de la ciudadanía activa. Más recientemente, autores como Amnå y Ekman (2014) propusieron el concepto de “ciudadanos en espera”, subrayando que la inactividad no implica necesariamente desafección, sino formas más latentes o condicionales de participación.</p>
+<p>En términos empíricos, Johann (2012) y Keating y Melis (2017) aplicaron LCA para identificar tipologías de participación en jóvenes, mientras que Alvarez et al.&nbsp;(2017) usaron esta técnica en contextos latinoamericanos, encontrando combinaciones que incluían tanto formas convencionales como no convencionales. En esa línea, Oser (2017) propuso una medida centrada en el individuo para analizar cómo las personas combinan actos dentro de lo que denominó su “political toolkit”, identificando perfiles normativos de ciudadanía que varían desde los tradicionalistas hasta los que valoran expresamente la protesta como forma legítima de acción cívica. Su trabajo, basado en una muestra multinacional de adolescentes, muestra cómo las normas de ciudadanía internalizadas desde etapas tempranas moldean los patrones futuros de participación.</p>
+<p>Un desarrollo importante de esta línea es el trabajo de Jeroense y Spierings (2023), quienes proponen una tipología empírica de cinco perfiles de participación en los Países Bajos, basada en datos del panel longitudinal LISS. Aplicando LCA sobre 12 formas de participación —incluyendo actos electorales, protesta, consumo político, actividades digitales y voluntariado partidario—, identifican los siguientes grupos: Votantes fieles: personas que votan de forma consistente, pero no participan en otras formas de acción; Ciudadanos inactivos: individuos con bajos niveles de participación en todos los tipos de actos; Votantes expresivos: combinan participación electoral con acciones simbólicas como firmar peticiones o comentar en redes sociales; Insiders activos: participan tanto en canales institucionales como en actividades de contacto político y membresía partidaria; Outsiders expresivos: priorizan acciones no convencionales y digitales, con escaso involucramiento electoral.</p>
+<p>Estos perfiles no solo capturan diferencias en conductas, sino también en motivaciones y recursos. Por ejemplo, los insiders activos tienden a tener mayor educación, interés político y autoeficacia, mientras que los outsiders expresivos presentan niveles bajos de confianza institucional pero alta disposición a participar fuera del sistema. Así, la pertenencia a un perfil está explicada por la interacción entre motivaciones políticas (interés, eficacia, confianza) y recursos (educación, tiempo disponible), como demuestra su análisis mediante regresión logística multinomial fraccional.</p>
+<p>Este enfoque tiene repercusión en estudios comparados. Jeroense y Spierings muestran que, incluso con conjuntos de datos más limitados, los patrones de perfiles son replicables, aunque sus proporciones varían según el contexto institucional. Esto refuerza la idea de que los perfiles no son construcciones arbitrarias ni exclusivamente contextuales, sino formas estructuradas de participación que emergen en diversas democracias.</p>
+<p>Pese a estos avances, la aplicación del análisis de perfiles al estudio de la protesta política sigue siendo un terreno menos explorado. Buena parte de los estudios disponibles se concentran en los perfiles electorales, mientras que la participación no institucional —y particularmente la protesta— tiende a analizarse de forma aislada o agregada, sin considerar la diversidad interna de quienes se movilizan. Sin embargo, estudios recientes han comenzado a llenar este vacío, como veremos a continuación.</p>
+</section>
+<section id="elaboración-de-perfiles-y-protesta" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="elaboración-de-perfiles-y-protesta"><span class="header-section-number">2.4</span> <strong>Elaboración de perfiles y protesta</strong></h2>
+<p>Si bien la elaboración de perfiles como herramienta para el estudio de la participación política cuenta con una tradición consolidada, su aplicación específica al análisis de la protesta y otras formas no convencionales de acción política ha sido más reciente y menos frecuente. En este ámbito, la mayor parte de la literatura se ha enfocado en identificar predictores individuales de la participación en protesta —como la orientación ideológica, la autoeficacia política o el malestar con las instituciones— sin explorar suficientemente las configuraciones internas que caracterizan a quienes se movilizan. Frente a ello, el enfoque basado en perfiles de protesta ofrece una oportunidad para capturar la heterogeneidad de trayectorias, motivaciones y repertorios de quienes optan por formas contenciosas de acción.</p>
+<p>Uno de los avances más relevantes en esta línea ha sido desarrollado por Oser (2022), quien propone entender la protesta no como un comportamiento aislado, sino como parte de un repertorio individual más amplio, en el que se combinan acciones institucionales y no institucionales. Mediante un análisis de clases latentes aplicado a datos de Estados Unidos, Oser identifica cinco perfiles: “desconectados”, “votantes institucionales”, “activistas digitales”, “participantes mixtos” y “activistas integrales”. Este último grupo se caracteriza por una participación intensa tanto en formas convencionales como no convencionales, incluyendo protesta, contacto político, campañas y acción digital. El hallazgo central es que la protesta aparece integrada en trayectorias estructuradas, lo que desafía la noción del “especialista en protesta” como actor puramente disruptivo o marginal. En cambio, muchos manifestantes combinan su involucramiento contencioso con una participación cívica más amplia y sostenida.</p>
+<p>Este tipo de aproximaciones permite analizar la coexistencia y articulación de normas de ciudadanía. Por ejemplo, en los perfiles identificados por Oser, se observa cómo ciertas personas sostienen una visión de la protesta como forma legítima de compromiso democrático, mientras que otras la perciben como una medida de último recurso o directamente ilegítima. Estos hallazgos muestran que la disposición a protestar no depende sólo de factores contextuales, sino también de orientaciones normativas duraderas sobre el rol del ciudadano en democracia.</p>
+<p>En el contexto latinoamericano, este enfoque ha comenzado a ser adoptado para estudiar ciclos de protesta recientes. En el caso chileno, Álvarez et al.&nbsp;(2024) aplican LCA y análisis de transición latente (LTA) a datos sobre el movimiento estudiantil, identificando cuatro perfiles de participantes: Simpatizantes inactivos, que apoyan simbólicamente las causas pero no participan; Radicales bajos, con alta identificación grupal pero baja frecuencia de acciones; Radicales moderados, que combinan movilización y acción simbólica; Radicales altos, con participación sostenida y disposición a la confrontación.</p>
+<p>Estos perfiles difieren según variables como la percepción de eficacia colectiva, la identificación con el grupo, el nivel socioeconómico percibido y el sentimiento de exclusión. El estudio se apoya teóricamente en el modelo SIMCA (van Zomeren et al., 2008), que articula la movilización con tres componentes subjetivos: identificación grupal, emociones y creencias sobre injusticia. También retoma aportes de Jiménez-Moya et al.&nbsp;(2015), quienes destacan la importancia de las disposiciones subjetivas hacia la acción transgresora, sin reducirlas a explicaciones racionalistas.</p>
+<p>Un enfoque complementario ha sido propuesto por Dollbaum et al.&nbsp;(2024), quienes articulan los niveles individual y del evento para estudiar cómo las características de la protesta afectan la composición de los manifestantes. En su propuesta, las protestas se clasifican según tres ejes analíticos:</p>
+<ol type="1">
+<li><p>Colectiva vs.&nbsp;conectiva: según el grado de organización formal o espontaneidad digital;</p></li>
+<li><p>Instrumental vs.&nbsp;expresiva: según el objetivo estratégico o simbólico de la acción;</p></li>
+<li><p>Particularista vs.&nbsp;universalista: según el alcance de sus demandas.</p></li>
+</ol>
+<p>Su análisis muestra que protestas universalistas tienden a atraer participantes más ideologizados, críticos del sistema y con repertorios múltiples, mientras que las particularistas convocan a actores con mayores vínculos organizativos y demandas sectoriales. Esta perspectiva meso-micro permite observar cómo se relacionan los perfiles individuales con las características estructurantes del evento, y cómo ciertas configuraciones de protesta favorecen la participación de actores con determinadas orientaciones políticas o niveles de integración social.</p>
+<p>Desde un punto de vista analítico, el uso de LCA para construir perfiles de protesta permite superar las limitaciones de los modelos explicativos tradicionales. En lugar de centrarse en efectos causales aislados, este enfoque reconoce que la participación política —en su dimensión contenciosa o no— se estructura en torno a configuraciones múltiples y simultáneas de factores. Así, se trata de una herramienta especialmente útil para estudiar contextos como el chileno, donde los ciclos de protesta recientes han movilizado a sectores diversos, cuyas motivaciones y trayectorias no se reducen a categorías binarias como “institucionales vs.&nbsp;no institucionales”.</p>
+<p>En suma, la elaboración de perfiles de protesta mediante técnicas como el LCA permite captar la complejidad de los actores movilizados, sus disposiciones subjetivas, normas de ciudadanía y trayectorias de participación. Este enfoque no sólo ofrece una descripción más rica de quiénes protestan, sino que también permite comprender cómo se articulan las distintas formas de participación en contextos de alta conflictividad política. En el caso chileno, su aplicación resulta particularmente prometedora para analizar la diversidad de repertorios que emergieron durante el periodo 2016-2023, en un entorno marcado por demandas estructurales, crisis de representación y apertura institucional.</p>
+</section>
+</section>
+<section id="datos-y-métodos" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Datos y Métodos</h1>
+<section id="métodos" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="métodos"><span class="header-section-number">3.1</span> Métodos</h2>
+<p>Uno de los primeros estudios de gran escala sobre participación política en Estados Unidos, desarrollado por Verba y Nie (1972), advertía la importancia de estudiar el tema a partir de la identificación de tipos de participantes. Sin embargo, también señalaban que las limitaciones técnicas de la época impedían seleccionar de forma objetiva los modelos óptimos para esa tarea. Décadas más tarde, el Análisis de Clases Latentes (LCA) ha emergido como una herramienta robusta y ampliamente utilizada para clasificar individuos en las ciencias sociales a partir de patrones compartidos en múltiples indicadores (Ahlquist &amp; Breunig, 2012). Esta técnica permite identificar empíricamente grupos que comparten combinaciones similares de comportamientos, actitudes u opiniones, siendo especialmente útil cuando se busca comprender fenómenos complejos que no pueden reducirse a categorías únicas o dicotómicas.</p>
+<p>En investigaciones recientes, el LCA –como bien se señaló anteriormente– ha sido aplicado con éxito en temas como tolerancia, normas de ciudadanía, actitudes tecnocráticas, sentimiento nacionalista, ideales democráticos y patrones de apoyo partidario (McCutcheon, 1985; Breen, 2000; Hooghe &amp; Oser, 2015; Bonikowski &amp; DiMaggio, 2016; Bertsou &amp; Caramani, 2020). A pesar de su potencial, su uso para el estudio de la participación política y, en particular, de los repertorios de acción colectiva sigue siendo relativamente incipiente. No obstante, estudios previamente revisados como los de Álvarez et al.&nbsp;(2017) y Oser (2017) han comenzado a demostrar cómo esta técnica permite diferenciar con precisión distintos tipos de participantes, según las combinaciones de actos políticos que realizan. Esta aproximación es especialmente relevante para investigaciones que no sólo se interesan en si las personas participan o no, sino en cómo lo hacen, a través de qué repertorios, y en qué trayectorias se insertan esas prácticas.</p>
+<p>A esta perspectiva se suma, en el presente estudio, el uso del Latent Class Growth Analysis (LCGA), una variante del LCA diseñada específicamente para contextos longitudinales. Esta técnica permite identificar trayectorias diferenciadas de cambio o persistencia en la participación política a lo largo del tiempo, modelando el comportamiento individual como parte de subpoblaciones latentes con dinámicas comunes (Jung &amp; Wickrama, 2008). A diferencia de los modelos de crecimiento convencionales, que asumen una trayectoria promedio para toda la población, el LCGA relaja esta suposición y permite capturar heterogeneidad no observada, es decir, que distintos grupos sociales pueden seguir trayectorias distintas de involucramiento político, como participar de forma persistente, intermitente u ocasional.</p>
+<p>Una de las ventajas clave del LCA y el LCGA frente a otras técnicas de clasificación reside en su capacidad de estimar de forma probabilística la pertenencia de cada individuo a las clases latentes. Esto no sólo permite evaluar el ajuste del modelo mediante indicadores objetivos como el Criterio de Información Bayesiano (BIC), donde valores más bajos indican mejor ajuste (Raftery, 1995; Nylund et al., 2007), sino también interpretar los resultados con base en dos dimensiones fundamentales: por un lado, las probabilidades condicionales permiten conocer la probabilidad de que una persona, dado que pertenece a una clase específica, participe en cada uno de los actos políticos considerados; por otro, las probabilidades individuales de pertenencia a cada clase permiten analizar cómo factores sociodemográficos o actitudinales se relacionan con las trayectorias específicas de participación.</p>
+<p>El enfoque LCGA resulta particularmente útil en contextos de alta intensidad participativa y transformación política, como el caso chileno entre 2016 y 2020. En este periodo, marcado por una creciente normalización de la protesta y una desafección institucional generalizada, se vuelve crucial entender cómo distintas formas de participación se combinan, se acumulan o se sustituyen a lo largo del tiempo. El uso de datos longitudinales permite precisamente modelar estos cambios, detectando no solo patrones estáticos, sino transiciones intertemporales entre perfiles como los “neutrales”, “oportunistas” y “críticos”. Esto ofrece una comprensión más rica de la participación política, no como una condición binaria o estable, sino como una trayectoria dinámica influida por factores contextuales, disposicionales y estructurales.</p>
+<p>Sin embargo, es importante reconocer las limitaciones inherentes a estas técnicas. Tanto el LCA como el LCGA dependen críticamente de las decisiones del investigador respecto a la selección de los indicadores y el número de clases latentes, lo que puede introducir sesgos teóricos o empíricos si no se realiza una evaluación cuidadosa del modelo. Además, los resultados pueden ser sensibles a pequeñas variaciones en los datos, especialmente en muestras con tamaños reducidos o en presencia de baja prevalencia de ciertas conductas (Vermunt, 2010). Asimismo, si bien la técnica asume independencia condicional entre los indicadores dentro de cada clase, esta suposición puede no cumplirse en contextos donde las prácticas participativas están fuertemente interrelacionadas, lo que podría distorsionar la identificación de los perfiles.</p>
+<p>A pesar de estas limitaciones, el LCA y su extensión longitudinal, el LCGA, representan herramientas valiosas para la investigación de repertorios y trayectorias de participación política, en la medida en que se apliquen con criterios teóricos sólidos y se complementen con modelos de regresión logística, que permitan robustecer la interpretación sustantiva de los resultados.</p>
+</section>
+</section>
+<section id="análisis" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Análisis</h1>
+</section>
+<section id="discusión" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Discusión</h1>
+</section>
+<section id="conclusión" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusión</h1>
+</section>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
