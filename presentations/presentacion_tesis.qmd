@@ -1,0 +1,152 @@
+---
+pagetitle: "Presentación Tesis 1"
+Author: René Canales
+lang: es
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    R.options:
+      
+      knitr.graphics.auto_pdf: true
+format:
+  revealjs:
+    #logo: images/puc.png
+    slide-number: true
+    theme: "libs/tesis.scss"
+    auto-stretch: false
+    title-slide-attributes:
+      visibility: false
+    transition: fade
+    transition-speed: slow
+# data-background-image: images/cover.jpg
+# data-background-size: cover
+    auto-play-media: true
+    mathjax: "default"
+  pdf:
+    format: beamer 
+    keep-tex: true  # Debug LaTeX output if needed
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(knitr)
+knitr::opts_chunk$set(echo = F,
+                      warning = F,
+                      error = F, 
+                      message = F) 
+
+options(kableExtra.html.bsTable = T)
+options(knitr.kable.NA = "")
+```
+
+```{r}
+#| label: packages
+#| include: false
+
+if (! require("pacman")) install.packages("pacman")
+
+pacman::p_load(tidyverse,
+               sjmisc, 
+               sjPlot,
+               here,
+               lavaan,
+               psych,
+               corrplot,
+               ggdist,
+               patchwork,
+               sjlabelled,
+               semTools,
+               gtools,
+               RColorBrewer,
+               skimr,
+               readxl)
+
+
+options(scipen=999)
+rm(list = ls())
+```
+
+:::::: columns
+::: {.column width="20%"}
+![](images/puc.gif)
+:::
+
+:::: {.column .column-right width="80%"}
+# **Un análisis longitudinal de los perfiles de protesta en el ciclo contencioso chileno (2016-2023)**
+
+------------------------------------------------------------------------
+
+**René Canales Sellés** <br> **Prof. Guía Nicolás Somma**
+
+::: {.red2 .medium}
+**Instituto de Sociología, Pontificia Universidad Católica de Chile**
+
+:::
+
+Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, estilos de socialización escolar e influencias intergeneracionales"
+
+20 de agosto, 2025
+::::
+::::::
+
+# Contexto {data-background-color="#5f5758"}
+
+## Antecedentes
+
+::: {.incremental .highlight-last style="font-size: 85%;"}
+-   En las últimas décadas, la protesta se ha convertido en una forma central de participación política en democracias contemporáneas, asociada al desgaste de los canales institucionales y a la creciente legitimidad de la acción colectiva no convencional. Si bien estudios previos han identificado factores individuales que inciden en la decisión de participar en protestas, esta aproximación resulta limitada para comprender la diversidad de trayectorias, intensidades y motivaciones que adoptan quienes se movilizan.
+
+- En el caso de Chile, la historia reciente está marcada por un ciclo sostenido de protestas (2006, 2011, 2019), lo que abre la necesidad de ir más allá de explicar por qué las personas protestan, y avanzar hacia el estudio de quiénes protestan, qué perfiles sociodemográficos y actitudinales configuran, cómo varían en el tiempo y de qué manera el involucramiento en política contenciosa repercute en otras formas de participación política.
+
+- El problema de investigación, entonces, radica en la falta de comprensión sobre los perfiles diferenciados de participación política entre quienes protestan, sus trayectorias longitudinales y los factores que explican la heterogeneidad en su involucramiento.
+
+- Este vacío motiva un análisis longitudinal, en el contexto chileno, que permita identificar clases o patrones de evolución en la participación en protestas y comprender cómo actitudes políticas, recursos y orientaciones ideológicas influyen en la pertenencia a distintos perfiles de acción colectiva.
+:::
+
+## Pregunta y objetivos
+
+::: {.incremental .highlight-last style="font-size: 120%;"}
+- ¿Qué perfiles de participación política se observan a través del tiempo entre quienes se involucran en protestas en el contexto chileno? ¿Qué características individuales —como actitudes políticas, recursos disponibles, trayectorias previas u orientación ideológica— permiten diferenciar estos perfiles, y como se transforman en el tiempo? 
+- El objetivo general del estudio es identificar y caracterizar los distintos perfiles de personas que participan en protestas en Chile, analizando cómo variables individuales configuran formas diferenciadas de involucramiento en la acción colectiva en distintos momentos del ciclo de protesta.
+:::
+
+# Datos y Metodología {data-background-color="#5f5758"}
+
+## Datos
+
+Estudio Longitudinal Social de Chile (ELSOC): encuesta panel diseñada por el Centro de Estudios de Conflicto y Cohesión Social (COES) para analizar, a lo largo del tiempo, la evolución del conflicto y la cohesión en la sociedad chilena. Su objetivo central es proveer un insumo empírico que permita comprender cómo cambian las creencias, actitudes y percepciones de la ciudadanía en torno a la convivencia social, la desigualdad y el conflicto.
+
+```{r}
+#| label: fig-muestra
+#| fig-align: center
+#| fig-cap: "Muestra final por ola"
+#| fig-cap-location: top
+#| fig-width: 7
+#| out-width: '50%'
+
+
+# Cargar librerías
+library(dplyr)
+library(knitr)
+
+# Crear data frame
+elsoc_muestra <- data.frame(
+  Medicion = c(2016, 2017, 2018, 2019, 2021, 2022),
+  Muestra_Original = c(2927, 2473, 2229, 2153, 1739, 1728),
+  Muestra_Refresco = c(NA, NA, 1519, 1264, 1001, 1002)
+) %>%
+  mutate(
+    Muestra_Final = Muestra_Original + coalesce(Muestra_Refresco, 0)
+  )
+
+# Mostrar tabla
+kable(elsoc_muestra,
+      col.names = c("Medición", "Muestra Original", "Muestra Refresco", "Muestra Final"),
+      caption = "Muestra lograda por ola en ELSOC (2016-2022)")
+
+```
+
