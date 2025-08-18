@@ -174,3 +174,17 @@ kable(tabla_ola,
 
 ```
 
+```{r}
+library(dplyr)
+library(janitor)
+
+tabla_protesta_por_ola <- elsoc_long %>%
+  tabyl(ola, frq_marcha) %>%                # cruza año (ola recodificada) con la variable
+  adorn_totals(where = "col") %>%        # agrega totales por fila
+  adorn_percentages("row") %>%           # porcentajes dentro de cada fila
+  adorn_pct_formatting(digits = 2) %>%   # formato %
+  adorn_ns()                             # agrega la N a cada celda
+
+tabla_protesta_por_ola
+```
+
