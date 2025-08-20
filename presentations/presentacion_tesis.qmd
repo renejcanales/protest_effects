@@ -64,7 +64,8 @@ pacman::p_load(tidyverse,
                RColorBrewer,
                skimr,
                readxl, knitr,
-               kableExtra)
+               kableExtra,
+               DiagrammeR)
 
 
 options(scipen=999)
@@ -104,9 +105,9 @@ Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, est
 ::: {.incremental .highlight-last style="font-size: 85%;"}
 -   En las últimas décadas, la protesta se ha convertido en una forma central de participación política en democracias contemporáneas, asociada al desgaste de los canales institucionales y a la creciente legitimidad de la acción colectiva no convencional. Si bien estudios previos han identificado factores individuales que inciden en la decisión de participar en protestas, esta aproximación resulta limitada para comprender la diversidad de trayectorias, intensidades y motivaciones que adoptan quienes se movilizan.
 
--   En el caso de Chile, la historia reciente está marcada por un ciclo sostenido de protestas (2006, 2011, 2019), lo que abre la necesidad de ir más allá de explicar por qué las personas protestan, y avanzar hacia el estudio de quiénes protestan, qué perfiles sociodemográficos y actitudinales configuran, cómo varían en el tiempo y de qué manera el involucramiento en política contenciosa repercute en otras formas de participación política.
+-   En el caso de Chile, la historia reciente está marcada por un **ciclo sostenido de protestas (2006, 2011, 2019)**, lo que abre la necesidad de ir más allá de explicar por qué las personas protestan, y avanzar hacia el estudio de quiénes protestan, qué perfiles sociodemográficos y actitudinales configuran, cómo varían en el tiempo y de qué manera el involucramiento en política contenciosa repercute en otras formas de participación política.
 
--   El problema de investigación, entonces, radica en la falta de comprensión sobre los perfiles diferenciados de participación política entre quienes protestan, sus trayectorias longitudinales y los factores que explican la heterogeneidad en su involucramiento.
+-   El problema de investigación, entonces, radica en **la falta de comprensión sobre los perfiles diferenciados de participación política entre quienes protestan**, sus trayectorias longitudinales y los factores que explican la heterogeneidad en su involucramiento.
 
 -   Este vacío motiva un análisis longitudinal, en el contexto chileno, que permita identificar clases o patrones de evolución en la participación en protestas y comprender cómo actitudes políticas, recursos y orientaciones ideológicas influyen en la pertenencia a distintos perfiles de acción colectiva.
 :::
@@ -126,34 +127,6 @@ Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, est
 Estudio Longitudinal Social de Chile (ELSOC): encuesta panel diseñada por el Centro de Estudios de Conflicto y Cohesión Social (COES) para analizar, a lo largo del tiempo, la evolución del conflicto y la cohesión en la sociedad chilena. Su objetivo central es proveer un insumo empírico que permita comprender cómo cambian las creencias, actitudes y percepciones de la ciudadanía en torno a la convivencia social, la desigualdad y el conflicto.
 
 ```{r}
-#| label: fig-muestra
-#| fig-align: center
-#| fig-cap: "Muestra final por ola"
-#| fig-cap-location: top
-#| fig-width: 7
-#| out-width: '50%'
-
-# Data frame
-elsoc_muestra <- data.frame(
-  Medicion = c(2016, 2017, 2018, 2019, 2021, 2022),
-  Muestra_Original = c(2927, 2473, 2229, 2153, 1739, 1728),
-  Muestra_Refresco = c(NA, NA, 1519, 1264, 1001, 1002)
-) %>%
-  mutate(
-    Muestra_Final = Muestra_Original + coalesce(Muestra_Refresco, 0)
-  )
-
-# Tabla
-kable(elsoc_muestra,
-      col.names = c("Medición", "Muestra Original", "Muestra Refresco", "Muestra Final"),
-      caption = "Muestra lograda por ola en ELSOC (2016-2022)")
-
-```
-:::
-
-### Número de casos por Ola
-
-```{r}
 #| label: fig-n2
 #| fig-align: center
 #| fig-cap: "N por ola"
@@ -163,26 +136,46 @@ kable(elsoc_muestra,
 
 tabla_ola <- elsoc_long_2016_2023 %>%
   group_by(ola) %>%
-  summarise(
-    N = n()
-  ) %>%
+  summarise(N = n()) %>%
   mutate(ola = ifelse(is.na(ola), "NA", as.character(ola)))
 
 kable(tabla_ola,
       col.names = c("Ola", "N"),
-      caption = "Número de casos por ola")
+      caption = "Número de casos por ola") %>%
+  kable_styling(full_width = FALSE, font_size = 12) %>%  # ajusta tamaño de la tabla
+  column_spec(1, width = "4cm") %>%  # ancho de la primera columna
+  column_spec(2, width = "3cm")      # ancho de la segunda columna
+
 ```
+:::
 
 ::: incremental
 ## Métodos
+
+### Primer Paso: Latent Growth Mixture Modeling (LGMM)
+
+Extensión de los modelos de crecimiento que se utiliza para analizar datos longitudinales. Permite identificar subgrupos no observados (clases latentes) de individuos que siguen trayectorias de cambio diferentes entre sí (Jung & Wickramma, 2007).
+
+En el estudio de participación en protestas, un LGMM podría identificar:
+
+-   Clase 1: quienes nunca participan.
+
+-   Clase 2: quienes baja participación al inicio pero creciente en el tiempo.
+
+-   Clase 3: quienes poseen una participación sostenida
+:::
+
+::: {.incremental style="font-size: 100%;"}
+## Métodos
+
 ### Construcción Tipología Temporal
 
-Año y Asistenica a protesta o manifestación: <br> - Ola + Frecuencia de Asistencia a marcha o manifestación (c08_02)
+Año y Asistenica a protesta o manifestación: <br> Ola + Frecuencia de Asistencia a marcha o manifestación (c08_02)
 
-Asistencia a Marcha o Manifestación: <br> - Escala de 1 a 5 (Nunca a Muy Frecuentemente)
+Asistencia a Marcha o Manifestación: <br> Escala de 1 a 5 (Nunca a Muy Frecuentemente)
 
 ```{r}
-#| label: fig-n
+#| label: fig-n3
 #| fig-align: center
 #| fig-cap: "Operacionalización Protesta"
 #| fig-cap-location: top
@@ -202,98 +195,119 @@ tabla <- data.frame(
 
 kable(tabla,
       col.names = c("Variable / Pregunta", "Categorías de Respuesta"),
-      escape = FALSE,   # 👈 muy importante para que <br> se interprete
-      caption = "Tabla de variables y categorías de respuesta")
+      escape = FALSE,
+      caption = "Tabla de variables y categorías de respuesta") 
 ```
+:::
 
-::: incremental
+::: {.incremental style="font-size: 100%;"}
 ## Métodos
-### LGMM: Latent Growth Mixture Modeling
 
-Extensión de los modelos de crecimiento que se utiliza para analizar datos longitudinales. Permite  identificar subgrupos no observados (clases latentes) de individuos que siguen trayectorias de cambio diferentes entre sí.
+### Segundo paso: Incorporar Covariables
 
-En el estudio de participación en protestas, un LGMM podría identificar:
-- Clase 1: quienes nunca participan.
-- Clase 2: quienes baja participación al inicio pero creciente en el tiempo.
-- Clase 3: quienes poseen una participación sostenida
+Las covariables ayudan a explicar quién pertenece a cada trayectoria.
 
+Se modela como una regresión logística multinomial: las características individuales predicen la probabilidad de pertenecer a cada clase.
+
+En este caso: Autoeficacia, Orientación Ideológica, Confianza Institucional y las demás variables sociodemográficas.
+
+![](images/predictores.png)
 :::
 
 ::: incremental
+## Métodos
 
-###Ejemplo
+### Ventajes y Limitaciones de LGMM
+
 ```{r}
-library(lcmm)
-library(ggplot2)
-library(dplyr)
+#| label: fig-n5
+#| fig-align: center
+#| fig-cap-location: top
+#| fig-width: 5
+#| out-width: '20%'
 
-set.seed(1234)
+tabla_compara <- data.frame(
+  Aspecto = c("Ventajas", "Limitaciones"),
+  Contenido = c(
+    paste(
+      "Captura heterogeneidad en trayectorias <br>
+      Permite identificar subgrupos latentes<br>
+      Más flexible que el LCGA (permite varianza dentro de clases)<br>
+      Puede incluir covariables que predicen clases<br>Maneja datos longitudinales incompletos bajo MAR"
+    ),
+    paste(
+      "Depende de supuestos de distribución<br>
+      Selección del número de clases es ambigua (AIC, BIC, etc.)<br>
+      Riesgo de soluciones locales / no convergencia<br>
+      Clases pueden ser artefactos estadísticos<br>
+      Requiere muestras grandes y es computacionalmente demandante"
+    )
+  )
+)
 
-# ---------------------------
-# 1. Simulación clara de 3 clases
-# ---------------------------
-n <- 300
-t <- 6
-id <- rep(1:n, each = t)
-time <- rep(0:(t-1), n)
-
-# clases latentes "reales"
-true_class <- sample(1:3, n, replace = TRUE, prob = c(0.33, 0.34, 0.33))
-
-# parámetros claros
-intercepts <- c(5, 10, 15)
-slopes <- c(1.0, 0.0, -0.8)  # una sube, una se mantiene, una baja
-
-y <- unlist(lapply(1:n, function(i) {
-  sapply(0:(t-1), function(tt) {
-    mu <- intercepts[true_class[i]] + slopes[true_class[i]]*tt
-    rnorm(1, mean = mu, sd = 0.8) # poca varianza → trayectorias más nítidas
-  })
-}))
-
-df <- data.frame(ID = id, time = time, y = y)
-
-# ---------------------------
-# 2. Modelo base (1 clase)
-# ---------------------------
-m1 <- hlme(fixed = y ~ time,
-           random = ~ time,
-           subject = "ID",
-           ng = 1,
-           data = df)
-
-# ---------------------------
-# 3. Modelo de 3 clases con gridsearch
-# ---------------------------
-m3 <- gridsearch(rep = 50, maxiter = 50, minit = m1,
-                 hlme(fixed = y ~ time,
-                      random = ~ time,
-                      subject = "ID",
-                      ng = 3,
-                      mixture = ~ time,
-                      nwg = TRUE,
-                      data = df))
-
-summary(m3)
-
-# ---------------------------
-# 4. Probabilidades y clases
-# ---------------------------
-pp <- postprob(m3)
-df$Class <- factor(pp$class)
-
-table(df$Class) / nrow(df) * 100   # proporción estimada por clase
-
-# ---------------------------
-# 5. Gráfico de trayectorias
-# ---------------------------
-ggplot(df, aes(x = time, y = y, group = ID, color = Class)) +
-  geom_line(alpha = 0.05) +
-  stat_summary(fun = mean, geom = "line", aes(group = Class, color = Class),
-               size = 1.5) +
-  theme_minimal() +
-  labs(title = "Trayectorias promedio estimadas por clase (LGMM, 3 clases claras)",
-       x = "Tiempo", y = "Outcome")
+kable(tabla, "html", escape = FALSE, align = "l") %>%
+  kable_styling(full_width = FALSE, position = "center", font_size = 20) %>%
+  column_spec(1, bold = TRUE, width = "4cm") %>%
+  column_spec(2, width = "12cm")
 ```
+:::
 
+# Hipótesis {data-background-color="#5f5758"}
 
+::: {.incremental style="font-size: 120%;"}
+### Hipótesis para LGMM
+
+**H1. A partir del análisis de trayectorias, se espera identificar tres clases posibles**
+
+<br>
+
+-   Activistas (Presentan participación en todas las olas)
+-   Intermitentes (Presentan participación en algunas olas)
+-   Desafectos (No participan en ninguna ola)
+
+<br>
+
+**H2. De acuerdo con lo que expresa la literatura, es posible que la mayoría se encuentre entre los desafectos y que los intermitentes sean sensibles a cambios contextuales (Verhulst & Walgrave, 2009).**
+:::
+
+::: {.incremental style="font-size: 100%;"}
+### Hipótesis con Predictores
+
+**H3. Asumiendo que se identifican estos perfiles, siguiendo a la literatura, se esperaría que:**
+
+a.  Autoeficacia política
+
+Aquellas personas con mayor autoeficacia política tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con trayectorias de baja protesta.
+
+b.  Orientación ideológica
+
+Aquellas personas con orientación ideológica de izquierda (o más distante del centro) tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con quienes se ubican en el centro o la derecha.
+
+c.  Confianza Institucional
+
+Aquellas personas con menor confianza en las instituciones tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con quienes reportan alta confianza institucional.
+:::
+
+# Plan de trabajo semestral <br> (20 semanas) {data-background-color="#5f5758"}
+
+::: {.incremental style="font-size: 120%;"}
+## Planificación
+
+**Informe 1**
+
+-   Preparación de la base y recodificación (En curso)
+-   Confección de modelos
+-   Primeros resultados
+
+**Informe 2**
+
+-   Correcciones en contenido y resultadoss
+-   Reescritura
+-   Confección informe final
+
+**Informe Final**
+:::
+
+# Gracias {data-background-color="#5f5758"}
+
+Github del proyecto: <https://github.com/renejcanales/protest_effects>

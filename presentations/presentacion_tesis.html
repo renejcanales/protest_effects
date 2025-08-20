@@ -319,6 +319,14 @@
       margin-right: 0; 
     }
   </style>
+  <script src="presentacion_tesis_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+  <link href="presentacion_tesis_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <link href="presentacion_tesis_files/libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+
+  <script src="presentacion_tesis_files/libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -354,8 +362,8 @@
 <div class="highlight-last" style="font-size: 85%;">
 <ul>
 <li class="fragment"><p>En las últimas décadas, la protesta se ha convertido en una forma central de participación política en democracias contemporáneas, asociada al desgaste de los canales institucionales y a la creciente legitimidad de la acción colectiva no convencional. Si bien estudios previos han identificado factores individuales que inciden en la decisión de participar en protestas, esta aproximación resulta limitada para comprender la diversidad de trayectorias, intensidades y motivaciones que adoptan quienes se movilizan.</p></li>
-<li class="fragment"><p>En el caso de Chile, la historia reciente está marcada por un ciclo sostenido de protestas (2006, 2011, 2019), lo que abre la necesidad de ir más allá de explicar por qué las personas protestan, y avanzar hacia el estudio de quiénes protestan, qué perfiles sociodemográficos y actitudinales configuran, cómo varían en el tiempo y de qué manera el involucramiento en política contenciosa repercute en otras formas de participación política.</p></li>
-<li class="fragment"><p>El problema de investigación, entonces, radica en la falta de comprensión sobre los perfiles diferenciados de participación política entre quienes protestan, sus trayectorias longitudinales y los factores que explican la heterogeneidad en su involucramiento.</p></li>
+<li class="fragment"><p>En el caso de Chile, la historia reciente está marcada por un <strong>ciclo sostenido de protestas (2006, 2011, 2019)</strong>, lo que abre la necesidad de ir más allá de explicar por qué las personas protestan, y avanzar hacia el estudio de quiénes protestan, qué perfiles sociodemográficos y actitudinales configuran, cómo varían en el tiempo y de qué manera el involucramiento en política contenciosa repercute en otras formas de participación política.</p></li>
+<li class="fragment"><p>El problema de investigación, entonces, radica en <strong>la falta de comprensión sobre los perfiles diferenciados de participación política entre quienes protestan</strong>, sus trayectorias longitudinales y los factores que explican la heterogeneidad en su involucramiento.</p></li>
 <li class="fragment"><p>Este vacío motiva un análisis longitudinal, en el contexto chileno, que permita identificar clases o patrones de evolución en la participación en protestas y comprender cómo actitudes políticas, recursos y orientaciones ideológicas influyen en la pertenencia a distintos perfiles de acción colectiva.</p></li>
 </ul>
 </div>
@@ -378,114 +386,85 @@
 <h2>Datos</h2>
 <p>Estudio Longitudinal Social de Chile (ELSOC): encuesta panel diseñada por el Centro de Estudios de Conflicto y Cohesión Social (COES) para analizar, a lo largo del tiempo, la evolución del conflicto y la cohesión en la sociedad chilena. Su objetivo central es proveer un insumo empírico que permita comprender cómo cambian las creencias, actitudes y percepciones de la ciudadanía en torno a la convivencia social, la desigualdad y el conflicto.</p>
 <div class="cell fig-cap-location-top" data-layout-align="center">
-<div id="fig-muestra" class="cell-output-display quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-muestra-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top">
-<caption>Muestra lograda por ola en ELSOC (2016-2022)</caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Medición</th>
-<th style="text-align: right;">Muestra Original</th>
-<th style="text-align: right;">Muestra Refresco</th>
-<th style="text-align: right;">Muestra Final</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">2016</td>
-<td style="text-align: right;">2927</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;">2927</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2017</td>
-<td style="text-align: right;">2473</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;">2473</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2018</td>
-<td style="text-align: right;">2229</td>
-<td style="text-align: right;">1519</td>
-<td style="text-align: right;">3748</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2019</td>
-<td style="text-align: right;">2153</td>
-<td style="text-align: right;">1264</td>
-<td style="text-align: right;">3417</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2021</td>
-<td style="text-align: right;">1739</td>
-<td style="text-align: right;">1001</td>
-<td style="text-align: right;">2740</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2022</td>
-<td style="text-align: right;">1728</td>
-<td style="text-align: right;">1002</td>
-<td style="text-align: right;">2730</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-muestra-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: Muestra final por ola
-</figcaption>
-</figure>
-</div>
-</div>
-</section>
-<section id="datos-1" class="slide level2">
-<h2>Datos</h2>
-<div class="cell fig-cap-location-top" data-layout-align="center">
 <div id="fig-n2" class="cell-output-display quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-n2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top">
-<caption>Número de casos por ola</caption>
+<table class="table" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+Número de casos por ola
+</caption>
 <thead>
-<tr class="header">
-<th style="text-align: left;">Ola</th>
-<th style="text-align: right;">N</th>
+<tr>
+<th style="text-align:left;">
+Ola
+</th>
+<th style="text-align:right;">
+N
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">2927</td>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+1
+</td>
+<td style="text-align:right;width: 3cm; ">
+2927
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: right;">2473</td>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+2
+</td>
+<td style="text-align:right;width: 3cm; ">
+2473
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: right;">3748</td>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+3
+</td>
+<td style="text-align:right;width: 3cm; ">
+3748
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: right;">3417</td>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+4
+</td>
+<td style="text-align:right;width: 3cm; ">
+3417
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: right;">2740</td>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+5
+</td>
+<td style="text-align:right;width: 3cm; ">
+2740
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: right;">2730</td>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+6
+</td>
+<td style="text-align:right;width: 3cm; ">
+2730
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">7</td>
-<td style="text-align: right;">2726</td>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+7
+</td>
+<td style="text-align:right;width: 3cm; ">
+2726
+</td>
 </tr>
 </tbody>
 </table>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-n2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2: N por ola
+Figura&nbsp;1: N por ola
 </figcaption>
 </figure>
 </div>
@@ -493,13 +472,24 @@ Figura&nbsp;2: N por ola
 </section>
 <section id="métodos" class="slide level2 incremental">
 <h2>Métodos</h2>
+<h3 id="primer-paso-latent-growth-mixture-modeling-lgmm">Primer Paso: Latent Growth Mixture Modeling (LGMM)</h3>
+<p>Extensión de los modelos de crecimiento que se utiliza para analizar datos longitudinales. Permite identificar subgrupos no observados (clases latentes) de individuos que siguen trayectorias de cambio diferentes entre sí (Jung &amp; Wickramma, 2007).</p>
+<p>En el estudio de participación en protestas, un LGMM podría identificar:</p>
+<ul>
+<li><p>Clase 1: quienes nunca participan.</p></li>
+<li><p>Clase 2: quienes baja participación al inicio pero creciente en el tiempo.</p></li>
+<li><p>Clase 3: quienes poseen una participación sostenida</p></li>
+</ul>
+</section>
+<section id="métodos-1" class="slide level2 incremental" style="font-size: 100%;">
+<h2>Métodos</h2>
 <h3 id="construcción-tipología-temporal">Construcción Tipología Temporal</h3>
-<p>Año y Asistenica a protesta o manifestación: <br> - Ola + Frecuencia de Asistencia a marcha o manifestación (c08_02)</p>
-<p>Asistencia a Marcha o Manifestación: <br> - Escala de 1 a 5 (Nunca a Muy Frecuentemente)</p>
+<p>Año y Asistenica a protesta o manifestación: <br> Ola + Frecuencia de Asistencia a marcha o manifestación (c08_02)</p>
+<p>Asistencia a Marcha o Manifestación: <br> Escala de 1 a 5 (Nunca a Muy Frecuentemente)</p>
 <div class="cell fig-cap-location-top" data-layout-align="center">
-<div id="fig-n" class="cell-output-display quarto-float quarto-figure quarto-figure-center">
+<div id="fig-n3" class="cell-output-display quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-n-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="fig-n3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top">
 <caption>Tabla de variables y categorías de respuesta</caption>
 <colgroup>
@@ -524,18 +514,121 @@ Figura&nbsp;2: N por ola
 </tbody>
 </table>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-n-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3: Operacionalización Protesta
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-n3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Operacionalización Protesta
 </figcaption>
 </figure>
 </div>
 </div>
 </section>
+<section id="métodos-2" class="slide level2 incremental" style="font-size: 100%;">
+<h2>Métodos</h2>
+<h3 id="segundo-paso-incorporar-covariables">Segundo paso: Incorporar Covariables</h3>
+<p>Las covariables ayudan a explicar quién pertenece a cada trayectoria.</p>
+<p>Se modela como una regresión logística multinomial: las características individuales predicen la probabilidad de pertenecer a cada clase.</p>
+<p>En este caso: Autoeficacia, Orientación Ideológica, Confianza Institucional y las demás variables sociodemográficas.</p>
+<p><img data-src="images/predictores.png"></p>
+</section>
+<section id="métodos-3" class="slide level2 incremental">
+<h2>Métodos</h2>
+<h3 id="ventajes-y-limitaciones-de-lgmm">Ventajes y Limitaciones de LGMM</h3>
+<div class="cell fig-cap-location-top" data-layout-align="center">
+<div id="fig-n5" class="cell-output-display">
+<table class="table caption-top" data-quarto-postprocess="true" style="font-size: 20px; width: auto !important; margin-left: auto; margin-right: auto;">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Codigos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: 4cm; font-weight: bold;">Frecuencia: Asiste a marcha o manifestación pacífica</td>
+<td style="text-align: left; width: 12cm;">0. No asiste<br>
+1. Asiste</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 4cm; font-weight: bold;">c08_02: Durante los últimos 12 meses, ¿con cuánta frecuencia usted ha...?</td>
+<td style="text-align: left; width: 12cm;">1. Nunca<br>
+2. Casi Nunca<br>
+3. A veces<br>
+4. Frecuentemente<br>
+5. Muy frecuentemente</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section></section>
+<section>
+<section id="hipótesis" class="title-slide slide level1 center" data-background-color="#5f5758">
+<h1>Hipótesis</h1>
+
+</section>
+<section id="hipótesis-para-lgmm" class="incremental" style="font-size: 120%;">
+<h3>Hipótesis para LGMM</h3>
+<p><strong>H1. A partir del análisis de trayectorias, se espera identificar tres clases posibles</strong></p>
+<p><br></p>
+<ul>
+<li>Activistas (Presentan participación en todas las olas)</li>
+<li>Intermitentes (Presentan participación en algunas olas)</li>
+<li>Desafectos (No participan en ninguna ola)</li>
+</ul>
+<p><br></p>
+<p><strong>H2. De acuerdo con lo que expresa la literatura, es posible que la mayoría se encuentre entre los desafectos y que los intermitentes sean sensibles a cambios contextuales (Verhulst &amp; Walgrave, 2009).</strong></p>
+</section>
+<section id="hipótesis-con-predictores" class="incremental" style="font-size: 100%;">
+<h3>Hipótesis con Predictores</h3>
+<p><strong>H3. Asumiendo que se identifican estos perfiles, siguiendo a la literatura, se esperaría que:</strong></p>
+<ol type="a">
+<li>Autoeficacia política</li>
+</ol>
+<p>Aquellas personas con mayor autoeficacia política tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con trayectorias de baja protesta.</p>
+<ol start="2" type="a">
+<li>Orientación ideológica</li>
+</ol>
+<p>Aquellas personas con orientación ideológica de izquierda (o más distante del centro) tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con quienes se ubican en el centro o la derecha.</p>
+<ol start="3" type="a">
+<li>Confianza Institucional</li>
+</ol>
+<p>Aquellas personas con menor confianza en las instituciones tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con quienes reportan alta confianza institucional.</p>
+</section></section>
+<section>
+<section id="plan-de-trabajo-semestral-20-semanas" class="title-slide slide level1 center" data-background-color="#5f5758">
+<h1>Plan de trabajo semestral <br> (20 semanas)</h1>
+
+</section>
+<section id="planificación" class="slide level2 incremental" style="font-size: 120%;">
+<h2>Planificación</h2>
+<p><strong>Informe 1</strong></p>
+<ul>
+<li>Preparación de la base y recodificación (En curso)</li>
+<li>Confección de modelos</li>
+<li>Primeros resultados</li>
+</ul>
+<p><strong>Informe 2</strong></p>
+<ul>
+<li>Correcciones en contenido y resultadoss</li>
+<li>Reescritura</li>
+<li>Confección informe final</li>
+</ul>
+<p><strong>Informe Final</strong></p>
+</section></section>
+<section id="gracias" class="title-slide slide level1 center" data-background-color="#5f5758">
+<h1>Gracias</h1>
+<p>Github del proyecto: https://github.com/renejcanales/protest_effects</p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
-</div></section>
+</div>
+</section>
     </div>
   </div>
 
