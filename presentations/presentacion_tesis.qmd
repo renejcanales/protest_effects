@@ -224,31 +224,29 @@ En este caso: Autoeficacia, Orientación Ideológica, Confianza Institucional y 
 #| fig-align: center
 #| fig-cap-location: top
 #| fig-width: 5
-#| out-width: '20%'
+#| out-width: '22%'
 
 tabla_compara <- data.frame(
   Aspecto = c("Ventajas", "Limitaciones"),
   Contenido = c(
-    paste(
-      "Captura heterogeneidad en trayectorias <br>
-      Permite identificar subgrupos latentes<br>
-      Más flexible que el LCGA (permite varianza dentro de clases)<br>
-      Puede incluir covariables que predicen clases<br>Maneja datos longitudinales incompletos bajo MAR"
-    ),
-    paste(
-      "Depende de supuestos de distribución<br>
-      Selección del número de clases es ambigua (AIC, BIC, etc.)<br>
-      Riesgo de soluciones locales / no convergencia<br>
-      Clases pueden ser artefactos estadísticos<br>
-      Requiere muestras grandes y es computacionalmente demandante"
-    )
+    "Captura heterogeneidad en trayectorias <br>
+    Permite identificar subgrupos latentes<br>
+    Más flexible que el LCGA (permite varianza dentro de clases)<br>
+    Puede incluir covariables que predicen clases<br>
+    Maneja datos longitudinales incompletos bajo MAR",
+    
+    "Depende de supuestos de distribución<br>
+    Selección del número de clases es ambigua (AIC, BIC, etc.)<br>
+    Riesgo de soluciones locales / no convergencia<br>
+    Clases pueden ser artefactos estadísticos<br>
+    Requiere muestras grandes y es computacionalmente demandante"
   )
 )
 
-kable(tabla, "html", escape = FALSE, align = "l") %>%
+kable(tabla_compara, "html", escape = FALSE, align = "l") %>%
   kable_styling(full_width = FALSE, position = "center", font_size = 20) %>%
   column_spec(1, bold = TRUE, width = "4cm") %>%
-  column_spec(2, width = "12cm")
+  column_spec(2, width = "14cm")
 ```
 :::
 
@@ -286,26 +284,31 @@ Aquellas personas con orientación ideológica de izquierda (o más distante del
 c.  Confianza Institucional
 
 Aquellas personas con menor confianza en las instituciones tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con quienes reportan alta confianza institucional.
+
+**(Posible inclusión)** Interés en la política
+
+Las personas con mayor interés en la política tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con aquellas con bajo interés político.
 :::
 
 # Plan de trabajo semestral <br> (20 semanas) {data-background-color="#5f5758"}
 
-::: {.incremental style="font-size: 120%;"}
+::: {.incremental style="font-size: 110%;"}
 ## Planificación
 
-**Informe 1**
+**Reunión Grupal 2** (Agosto y Septiembre)
 
 -   Preparación de la base y recodificación (En curso)
+-   Observar relaciones preliminares entre variables
 -   Confección de modelos
 -   Primeros resultados
 
-**Informe 2**
+**Informe 1: 13 de octubre** (Octubre y Noviembre)
 
 -   Correcciones en contenido y resultadoss
 -   Reescritura
 -   Confección informe final
 
-**Informe Final**
+**Borrador Tesis: 2 de diciembre**
 :::
 
 # Gracias {data-background-color="#5f5758"}
