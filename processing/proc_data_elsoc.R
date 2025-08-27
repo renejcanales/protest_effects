@@ -23,7 +23,7 @@ rm(list = ls())
 
 # 2. Data --------------------------------------------------------------
 
-load("~/GitHub/protest_effects/output/data/ELSOC_Long_2016_2023 (3).RData")
+load("~/GitHub/protest_effects/input/data/raw/ELSOC_Long_2016_2023 (3).RData")
 
 elsoc_long <- elsoc_long_2016_2023
 
@@ -35,7 +35,7 @@ glimpse(elsoc_long)
 
 # select ----
 
-elsoc_long <- elsoc_long %>% 
+elsoc <- elsoc_long %>% 
   select(idencuesta, tipo_caso,
          ola,
          comuna,
@@ -55,10 +55,22 @@ elsoc_long <- elsoc_long %>%
          frq_marcha = c08_02,
          ideologia = c15)
 
-elsoc_long <- elsoc_long %>% select(-n_miss_all)
+get_labels(elsoc$conf_cong, values = TRUE)
+get_labels(elsoc$educacion, values = TRUE)
 
-sapply(elsoc_long, class)
-save(elsoc_long, file = here("protest_effects/output/data/elsoc_proc.RData"))
+elsoc$educacion <- recode(elsoc$educacion, "c(-666, -777, -888, -999) = NA") 
+elsoc$ocupacion <- recode(elsoc$ocupacion, "c(-666, -777, -888, -999) = NA")
+elsoc$conf_gob <- recode(elsoc$conf_gob, "c(-666, -777, -888, -999) = NA")
+elsoc$conf_cong <- recode(elsoc$conf_cong, "c(-666, -777, -888, -999) = NA")
+elsoc$conf_pres <- recode(elsoc$conf_pres, "c(-666, -777, -888, -999) = NA")
+elsoc$efic_voto <- recode(elsoc$efic_voto, "c(-666, -777, -888, -999) = NA")
+elsoc$efic_result <- recode(elsoc$efic_result, "c(-666, -777, -888, -999) = NA")
+elsoc$efic_expr <- recode(elsoc$efic_expr, "c(-666, -777, -888, -999) = NA")
+elsoc$frq_marcha <- recode(elsoc$frq_marcha, "c(-666, -777, -888, -999) = NA")
+elsoc$ideologia <- recode(elsoc$ideologia, "c(-666, -777, -888, -999) = NA")
+
+sapply(elsoc, class)
+save(elsoc, file = here("Github/protest_effects/input/data/proc/elsoc_proc2.RData"))
 
 
 # recode and transform ----
