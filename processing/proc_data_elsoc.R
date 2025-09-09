@@ -263,6 +263,163 @@ grid.arrange(p3, p4, ncol = 2)
 #El efecto es pequeño pero consistente con la teoría
 
 
+##Comparativos##
+# 1. Preparar datos con educación de padres
+elsoc_2019 <- elsoc_long %>%
+  filter(!is.na(educ_encuestado),
+         !is.na(marcha)) %>%
+  mutate(
+    educ_encuestado = as.numeric(educ_encuestado),
+    educ_padre = as.numeric(educ_padre),
+    educ_madre = as.numeric(educ_madre),
+    marcha = as.numeric(marcha)
+  )
+
+# Verificar casos disponibles
+cat("Casos con educación encuestado y marcha:", nrow(elsoc_2019), "\n")
+cat("Casos con educación padre:", sum(!is.na(elsoc_2019$educ_padre)), "\n")
+cat("Casos con educación madre:", sum(!is.na(elsoc_2019$educ_madre)), "\n")
+
+# 2. MODELO 1: Solo educación del encuestado
+modelo1_simple <- lm(marcha ~ educ_encuestado, data = elsoc_2019)
+
+# 3. MODELO 2: Educación encuestado + educación padres
+# Filtrar casos con datos completos de educación familiar
+datos_familia <- elsoc_2019 %>%
+  filter(!is.na(educ_padre), !is.na(educ_madre))
+
+cat("Casos finales con datos completos de familia:", nrow(datos_familia), "\n")
+
+# Modelo con educación familiar
+modelo2_familia <- lm(marcha ~ educ_encuestado + educ_padre + educ_madre, 
+                      data = datos_familia)
+
+# Modelo Solo educación de los padres
+modelo2_simple <- lm(marcha ~ educ_padre + educ_madre, data = datos_familia)
+
+# También ejecutar modelo simple en la misma muestra para comparación justa
+modelo1_restringido <- lm(marcha ~ educ_encuestado, data = datos_familia)
+
+library(broom)
+library(knitr)
+
+# Resumen de modelos
+summary(modelo1_simple)
+summary(modelo1_restringido) 
+summary(modelo2_familia)
+summary(modelo2_simple)
+
+# Tabla comparativa
+comparacion <- data.frame(
+  Modelo = c("Solo Educación Encuestado (muestra completa)",
+             "Solo Educación Encuestado (muestra restringida)", 
+             "Con Educación Padres"),
+  N = c(nrow(elsoc_2019), nrow(datos_familia), nrow(datos_familia)),
+  R_cuadrado = c(summary(modelo1_simple)$r.squared,
+                 summary(modelo1_restringido)$r.squared,
+                 summary(modelo2_familia)$r.squared),
+  R_cuadrado_adj = c(summary(modelo1_simple)$adj.r.squared,
+                     summary(modelo1_restringido)$adj.r.squared,
+                     summary(modelo2_familia)$adj.r.squared)
+)
+
+library(kableExtra)
+kable(comparacion, digits = 4)
+
+# Test F para comparar modelos anidados
+anova(modelo1_restringido, modelo2_familia)
+#El test ANOVA confirma que los dos modelos son estadísticamente diferentes (p < 0.001), 
+#lo que significa que incluir la educación parental mejora significativamente la predicción de asistencia a marchas.
+
+# AIC para comparar ajuste
+AIC(modelo1_restringido, modelo2_familia)
+
+# Coeficientes modelo simple
+coef_simple <- tidy(modelo1_restringido) %>%
+  mutate(modelo = "Simple")
+
+# Coeficientes modelo con padres
+coef_familia <- tidy(modelo2_familia) %>%
+  mutate(modelo = "Con padres")
+
+# Tabla combinada
+tabla_coef <- bind_rows(coef_simple, coef_familia) %>%
+  select(modelo, term, estimate, std.error, statistic, p.value) %>%
+  mutate(
+    estimate = round(estimate, 4),
+    std.error = round(std.error, 4),
+    p.value = round(p.value, 4)
+  )
+
+print(tabla_coef)
+
+library(ggplot2)
+
+# Coeficientes de educación en ambos modelos
+efectos <- data.frame(
+  Modelo = c("Solo Encuestado", "Con Padres"),
+  Coeficiente = c(coef(modelo1_restringido)["educ_encuestado"],
+                  coef(modelo2_familia)["educ_encuestado"]),
+  Error_std = c(summary(modelo1_restringido)$coefficients["educ_encuestado", "Std. Error"],
+                summary(modelo2_familia)$coefficients["educ_encuestado", "Std. Error"])
+)
+
+# Crear datos con información de significancia
+efectos_sig <- data.frame(
+  Modelo = c("Solo Encuestado", "Con Padres"),
+  Coeficiente = c(coef(modelo1_restringido)["educ_encuestado"],
+                  coef(modelo2_familia)["educ_encuestado"]),
+  Error_std = c(summary(modelo1_restringido)$coefficients["educ_encuestado", "Std. Error"],
+                summary(modelo2_familia)$coefficients["educ_encuestado", "Std. Error"]),
+  p_value = c(summary(modelo1_restringido)$coefficients["educ_encuestado", "Pr(>|t|)"],
+              summary(modelo2_familia)$coefficients["educ_encuestado", "Pr(>|t|)"]),
+  significancia = c("p < 0.001", "p < 0.001")
+)
+
+ggplot(efectos_sig, aes(x = Modelo, y = Coeficiente)) +
+  geom_point(size = 4, aes(color = Modelo)) +
+  geom_errorbar(aes(ymin = Coeficiente - 1.96*Error_std, 
+                    ymax = Coeficiente + 1.96*Error_std,
+                    color = Modelo), 
+                width = 0.1, linewidth = 1) +
+  geom_text(aes(label = significancia), 
+            vjust = -0.5, hjust = 0.5, size = 3.5, fontface = "bold") +
+  scale_color_manual(values = c("Solo Encuestado" = "red", "Con Padres" = "blue")) +
+  labs(title = "Efecto de Educación del Encuestado sobre Asistencia a Marchas",
+       subtitle = "Comparación con y sin controles de educación parental (IC 95%)",
+       y = "Coeficiente (IC 95%)",
+       caption = "Ambos coeficientes son altamente significativos (p < 0.001)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Gráfico de coeficientes con intervalos de confianza
+ggplot(efectos, aes(x = Modelo, y = Coeficiente)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = Coeficiente - 1.645*Error_std,  # 90% IC en lugar de 95%
+                    ymax = Coeficiente + 1.645*Error_std), 
+                width = 0.1) +
+  labs(title = "Efecto de Educación del Encuestado sobre Asistencia a Marchas",
+       subtitle = "Comparación con y sin controles de educación parental (IC 90%)",
+       y = "Coeficiente (IC 90%)") +
+  theme_minimal()
+
+ggplot(efectos, aes(x = Modelo, y = Coeficiente)) +
+  geom_col(aes(fill = Modelo), alpha = 0.7, width = 0.6) +
+  geom_errorbar(aes(ymin = Coeficiente - 1.96*Error_std, 
+                    ymax = Coeficiente + 1.96*Error_std), 
+                width = 0.2, linewidth = 1) +
+  geom_text(aes(label = paste("β =", round(Coeficiente, 3))), 
+            vjust = -2.5, fontface = "bold") +
+  geom_text(aes(label = "p < 0.001"), 
+            vjust = -1.2, size = 3.5, fontface = "italic") +
+  scale_fill_manual(values = c("Solo Encuestado" = "#E74C3C", "Con Padres" = "#3498DB")) +
+  labs(title = "Efecto de Educación del Encuestado sobre Asistencia a Marchas",
+       subtitle = "Ambos efectos son estadísticamente significativos",
+       y = "Coeficiente (IC 95%)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+
 ### LONGITUDINAL ####
 
 # recode and transform ----
