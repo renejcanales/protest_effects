@@ -3,14 +3,19 @@
 # Adaptado para datos longitudinales ELSOC con enfoque en educación familiar
 # =============================================================================
 
-# Librerías necesarias
-library(tidyverse)
-library(plm)           # Para modelos panel
-library(lme4)          # Para modelos mixtos
-library(modelsummary)  # Para tablas de resultados
-library(ggplot2)
-library(sjPlot)        # Para gráficos de efectos
-library(broom.mixed)   # Para extraer resultados de modelos mixtos
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(tidyverse,
+               plm, #Panel Models
+               lme4, # Modelos Mixtos
+               modelsummary, # Tablas
+               ggplot2, 
+               sjplot, # Gráficos de Efectos
+               broom,
+               broom.mixed, # Extraer Resultados de los modelos mixtos
+               here)
+
+load(here('protest_effects/input/data/proc/elsoc_long.RData'))
 
 # =============================================================================
 # 1. PREPARACIÓN DE DATOS LONGITUDINALES
@@ -445,7 +450,12 @@ run_panel_analysis <- function(elsoc_long) {
 # =============================================================================
 
 # Para ejecutar el análisis:
-resultados_panel <- run_panel_analysis(elsoc_long)
+resultados_panel <- run_panel_analysis(elsoc_long) 
+
+###----------Diagnostico------###
+
+# Compara coeficientes clave entre modelos
+# Evalúa si la pérdida de observaciones afecta resultados principales
 
 # Ver tabla de resultados:
 print(resultados_panel$tabla)
@@ -456,7 +466,7 @@ resultados_panel$graficos$familia
 resultados_panel$graficos$temporal
 
 # Ver efectos marginales:
-print(resultados_panel$efectos_marginales)
+resultados_panel$efectos_marginales
 
 # Guardar resultados:
 # saveRDS(resultados_panel, "resultados_efectos_aleatorios_elsoc.rds")

@@ -16,7 +16,11 @@ pacman::p_load(tidyverse,
                sjmisc, 
                sjPlot,
                here,
-               naniar)
+               naniar,
+               dplr,
+               broom,
+               broom.mixed,
+               screenreg)
 
 options(scipen=999)
 rm(list = ls())
@@ -63,9 +67,9 @@ elsoc_long <- elsoc_long %>%
          just_vio_carab = f05_03,
          just_vio_trab = f05_06,
          just_vio_est = f05_07,
-         vio_inmob = f05_09,
-         vio_transp = f05_10,
-         vio_comer = f05_11,
+         just_vio_inmob = f05_09,
+         just_vio_transp = f05_10,
+         just_vio_comer = f05_11,
          ideologia = c15) %>% 
   as_tibble() %>% 
   sjlabelled::drop_labels(., drop.na = FALSE)
@@ -74,49 +78,21 @@ elsoc_long <- elsoc_long %>%
 frq(elsoc_long$just_vio_carab)
 frq(elsoc_long$just_vio_est)
 frq(elsoc_long$just_vio_trab)
+frq(elsoc_long$just_vio_inmob)
+frq(elsoc_long$just_vio_transp)
+frq(elsoc_long$just_vio_comer)
 
-elsoc_long <- elsoc_long %>% 
-  mutate(
-    across(
-      .cols = c(just_vio_carab, just_vio_est, just_vio_trab),
-      .fns = ~ car::recode(., recodes = c("1='Nunca'; 2='Pocas veces';
-                                          3='Algunas'; 4='Muchas veces';
-                                          5='Siempre se justifica'"), 
-                           levels = c("Nunca", "Pocas veces", "Algunas veces", "Muchas veces", "Siempre"),
-                           as.factor = T)
-    )
-  )
-
-elsoc_long$just_vio_carab <- sjlabelled::set_label(elsoc_long$just_vio_carab,
-                                                          label = "Justificacion carabineros repriman marcha pacifica")
-
-elsoc_long$just_vio_est <- sjlabelled::set_label(elsoc_long$just_vio_est,
-                                                           label = "Justificacion estudiantes pedreen carabineros")
-
-elsoc_long$just_vio_trab <- sjlabelled::set_label(elsoc_long$just_vio_trab,
-                                                        label = "Justificacion trabajadores cortacalle")
 
 # Protesta
 frq(elsoc_long$marcha)
 
-elsoc_long <- elsoc_long %>% 
-  mutate(
-    across(
-      .cols = c(marcha),
-      .fns = ~ car::recode(., recodes = c("1='Nunca'; 2='Casi nunca';
-                                          3='A veces'; 4='Frecuentemente';
-                                          5='Muy frecuentemente'"), 
-                           levels = c("Nunca", "Casi nunca", "A veces", "Frecuentemente", "Muy frecuentemente"),
-                           as.factor = T)
-    )
-  )
-
-elsoc_long$marcha <- sjlabelled::set_label(elsoc_long$marcha,
-                                                   label = "Asistencia a Marchas en el último año")
-
 # Educacion
 frq(elsoc_long$educ_encuestado)
 frq(elsoc_long$educ_padre)
+frq(elsoc_long$educ_madre)
+
+# Ideología
+frq(elsoc_long$ideologia)
 
 # Confianza
 frq(elsoc_long$conf_cong)
@@ -124,7 +100,9 @@ frq(elsoc_long$conf_part)
 frq(elsoc_long$conf_pres)
 frq(elsoc_long$conf_gob)
 
+save(elsoc_long, file = "~/GitHub/protest_effects/input/data/proc/elsoc_long.RData")
 
+# 3. Analysis --------------------------------------------------------------
 
 # Analisis transversal
 
@@ -134,7 +112,7 @@ elsoc_2019 <- elsoc_long %>%
   select(idencuesta, tipo_caso, ola, comuna, region,
          genero, edad, educ_encuestado, marcha,
          just_vio_carab, just_vio_trab, just_vio_est,
-         vio_inmob, vio_transp, vio_comer)
+         just_vio_inmob, just_vio_transp, just_vio_comer, ideologia)
 
 # Verificar que solo tienes datos de 2019
 table(elsoc_2019$ola)
@@ -142,28 +120,45 @@ nrow(elsoc_2019)
 
 # Explorar variables principales
 summary(elsoc_2019$educ_encuestado)  # Educación (variable independiente)
-summary(elsoc_2019$marcha)           # Asistencia a marchas
-summary(elsoc_2019$just_vio_carab)   # Justificación violencia carabineros
+frq(elsoc_2019$educ_encuestado)
+
+summary(elsoc_2019$marcha) # Asistencia a marchas
+frq(elsoc_2019$marcha)
+
+summary(elsoc_2019$just_vio_carab)   # Justificación violencia por parte de carabineros
+frq(elsoc_2019$just_vio_carab)
+
 summary(elsoc_2019$just_vio_trab)    # Justificación violencia trabajadores
+frq(elsoc_2019$just_vio_carab)
+
 summary(elsoc_2019$just_vio_est)     # Justificación violencia estudiantes
+frq(elsoc_2019$just_vio_est)
 
 # Verificar valores perdidos
-library(dplyr)
 elsoc_2019 %>% 
   select(educ_encuestado, marcha, just_vio_carab, just_vio_trab, just_vio_est) %>%
-  summarise_all(~sum(is.na(.)))
+  summarise(across(everything(), ~sum(is.na(.))))
 
 # Crear dataset limpio para regresiones
 datos_2019 <- elsoc_2019 %>%
   filter(!is.na(educ_encuestado),
-         !is.na(marcha)) %>%  # Filtrar casos con datos completos
+         !is.na(marcha),
+         !is.na(just_vio_carab),
+         !is.na(just_vio_trab),
+         !is.na(just_vio_est),
+         !is.na(just_vio_inmob),
+         !is.na(just_vio_transp),
+         !is.na(just_vio_comer)) %>%  # Filtrar casos con datos completos
   mutate(
     # Convertir a numérico si es necesario
     educ_encuestado = as.numeric(educ_encuestado),
     marcha = as.numeric(marcha),
     just_vio_carab = as.numeric(just_vio_carab),
     just_vio_trab = as.numeric(just_vio_trab),
-    just_vio_est = as.numeric(just_vio_est)
+    just_vio_est = as.numeric(just_vio_est),
+    just_vio_inmob = as.numeric(just_vio_inmob),
+    just_vio_transp = as.numeric(just_vio_transp),
+    just_vio_comer = as.numeric(just_vio_comer),
   )
 
 # Verificar casos finales
@@ -185,14 +180,16 @@ datos_vio_trab <- datos_2019 %>% filter(!is.na(just_vio_trab))
 modelo_vio_trab <- lm(just_vio_trab ~ educ_encuestado, data = datos_vio_trab)
 summary(modelo_vio_trab)
 
-
 # Filtrar casos sin NA en justificación violencia estudiantes
 datos_vio_est <- datos_2019 %>% filter(!is.na(just_vio_est))
 
 modelo_vio_est <- lm(just_vio_est ~ educ_encuestado, data = datos_vio_est)
 summary(modelo_vio_est)
 
-library(broom)
+
+#Visualización de todos los modelos
+screenreg(list(modelo_marcha, modelo_vio_carab, modelo_vio_est, modelo_vio_trab))
+
 
 # Crear tabla con todos los modelos
 resultados <- bind_rows(
@@ -220,7 +217,7 @@ p1 <- ggplot(datos_2019, aes(x = educ_encuestado, y = marcha)) +
 # Gráfico 2: Educación vs Justificación violencia carabineros
 p2 <- ggplot(datos_vio_carab, aes(x = educ_encuestado, y = just_vio_carab)) +
   geom_jitter(alpha = 0.3, width = 0.1) +
-  geom_smooth(method = "lm", se = TRUE, color = "blue") +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
   labs(title = "Educación → Just. Violencia Carabineros (2019)",
        x = "Nivel Educativo", y = "Justificación Violencia") +
   theme_minimal()
@@ -228,12 +225,12 @@ p2 <- ggplot(datos_vio_carab, aes(x = educ_encuestado, y = just_vio_carab)) +
 # Gráfico 3: Educación vs Justificacion violencia estudiantes
 p3 <- ggplot(datos_2019, aes(x = educ_encuestado, y = just_vio_est)) +
   geom_jitter(alpha = 0.3, width = 0.1) +
-  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  geom_smooth(method = "lm", se = TRUE, color = "blue") +
   labs(title = "Educación → Justificacion Violencia estudiantes (2019)",
        x = "Nivel Educativo", y = "Justificacion Violencia") +
   theme_minimal()
 
-# Gráfico 4: Educación vs Justificación violencia carabineros
+# Gráfico 4: Educación vs Justificación violencia trabajadores
 p4 <- ggplot(datos_2019, aes(x = educ_encuestado, y = just_vio_trab)) +
   geom_jitter(alpha = 0.3, width = 0.1) +
   geom_smooth(method = "lm", se = TRUE, color = "blue") +
@@ -242,9 +239,9 @@ p4 <- ggplot(datos_2019, aes(x = educ_encuestado, y = just_vio_trab)) +
   theme_minimal()
 
 # Mostrar gráficos
-grid.arrange(p1, p2, ncol = 2)
+grid.arrange(p1)
 
-grid.arrange(p3, p4, ncol = 2)
+grid.arrange(p2, p3, p4, ncol = 3)
 
 # Interpreta:
 ####Gráfico 1: Educación → Asistencia a Marchas (2019)###
@@ -282,6 +279,7 @@ cat("Casos con educación madre:", sum(!is.na(elsoc_2019$educ_madre)), "\n")
 
 # 2. MODELO 1: Solo educación del encuestado
 modelo1_simple <- lm(marcha ~ educ_encuestado, data = elsoc_2019)
+summary(modelo1_simple)
 
 # 3. MODELO 2: Educación encuestado + educación padres
 # Filtrar casos con datos completos de educación familiar
@@ -290,24 +288,20 @@ datos_familia <- elsoc_2019 %>%
 
 cat("Casos finales con datos completos de familia:", nrow(datos_familia), "\n")
 
+# Modelo Solo educación de los padres
+modelo2_simple <- lm(marcha ~ educ_padre + educ_madre, data = datos_familia)
+summary(modelo2_simple)
+
 # Modelo con educación familiar
 modelo2_familia <- lm(marcha ~ educ_encuestado + educ_padre + educ_madre, 
                       data = datos_familia)
-
-# Modelo Solo educación de los padres
-modelo2_simple <- lm(marcha ~ educ_padre + educ_madre, data = datos_familia)
+summary(modelo2_familia)
 
 # También ejecutar modelo simple en la misma muestra para comparación justa
 modelo1_restringido <- lm(marcha ~ educ_encuestado, data = datos_familia)
 
 library(broom)
 library(knitr)
-
-# Resumen de modelos
-summary(modelo1_simple)
-summary(modelo1_restringido) 
-summary(modelo2_familia)
-summary(modelo2_simple)
 
 # Tabla comparativa
 comparacion <- data.frame(
