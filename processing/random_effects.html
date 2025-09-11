@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="René Canales">
+
+<title>Modelo de efectos aleatorios: Tesis de Magister</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="random_effects_files/libs/clipboard/clipboard.min.js"></script>
+<script src="random_effects_files/libs/quarto-html/quarto.js"></script>
+<script src="random_effects_files/libs/quarto-html/popper.min.js"></script>
+<script src="random_effects_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="random_effects_files/libs/quarto-html/anchor.min.js"></script>
+<link href="random_effects_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="random_effects_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="random_effects_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="random_effects_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="random_effects_files/libs/bootstrap/bootstrap-98130fe98437913b719b4995a60ea122.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Modelo de efectos aleatorios: Tesis de Magister</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">René Canales </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Instituto de Sociología, Pontificia Universidad Católica de Chile
+            </p>
+          <p class="affiliation">
+              Centro de estudios del conflicto y cohesión social (COES)
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      <p><strong>Keywords</strong>:</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="random_effects.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="librerías-y-data" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="librerías-y-data"><span class="header-section-number">0.1</span> Librerías y Data</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               dplyr,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               plm, <span class="co">#Panel Models</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               lme4, <span class="co"># Modelos Mixtos</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               modelsummary, <span class="co"># Tablas</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               ggplot2, </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               sjplot, <span class="co"># Gráficos de Efectos</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               broom,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               broom.mixed, <span class="co"># Extraer Resultados de los modelos mixtos</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>               here,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>               texreg)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"~/GitHub/protest_effects/input/data/proc/elsoc_long.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="preparación-de-datos-longitudinales" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Preparación de Datos Longitudinales</h1>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>elsoc_panel <span class="ot">&lt;-</span> elsoc_long <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Seleccionar variables relevantes</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Variables principales</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">idencuesta =</span> idencuesta,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">ola =</span> ola,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Variables de protesta</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">marcha =</span> <span class="fu">as.numeric</span>(marcha),  <span class="co"># Variable dependiente principal</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Variables educación (numéricas)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_encuestado =</span> <span class="fu">as.numeric</span>(educ_encuestado),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_padre =</span> <span class="fu">as.numeric</span>(educ_padre),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_madre =</span> <span class="fu">as.numeric</span>(educ_madre),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Variables de control</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">edad =</span> <span class="fu">as.numeric</span>(edad),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">genero =</span> <span class="fu">as.factor</span>(genero),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">region =</span> <span class="fu">as.factor</span>(region),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">ideologia =</span> <span class="fu">as.numeric</span>(ideologia),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Crear variables derivadas</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_padres_max =</span> <span class="fu">pmax</span>(educ_padre, educ_madre, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Movilidad educacional -&gt; Se calcula Movilidad Absoluta</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">movilidad_educ =</span> educ_encuestado <span class="sc">-</span> educ_padres_max,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Educación categórica del encuestado</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        educ_encuestado <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Básica o menos"</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        educ_encuestado <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Media incompleta"</span>, </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        educ_encuestado <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Media completa"</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        educ_encuestado <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="st">"Técnica superior"</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        educ_encuestado <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">"Universitaria incompleta"</span>,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        educ_encuestado <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">~</span> <span class="st">"Universitaria completa+"</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Educación categórica de los padres</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_padres_cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        educ_padres_max <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Básica o menos"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        educ_padres_max <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Media incompleta"</span>, </span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        educ_padres_max <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Media completa"</span>,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        educ_padres_max <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="st">"Técnica superior"</span>,</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        educ_padres_max <span class="sc">&gt;=</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">"Universitaria+"</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Tipología de movilidad</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>      <span class="at">tipo_movilidad =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        movilidad_educ <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"Descendente"</span>,</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        movilidad_educ <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> movilidad_educ <span class="sc">&lt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Sin movilidad"</span>,</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        movilidad_educ <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> movilidad_educ <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Ascendente moderada"</span>,</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        movilidad_educ <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Ascendente alta"</span>,</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Variables temporales</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>      <span class="at">post_estallido =</span> <span class="fu">ifelse</span>(ola <span class="sc">&gt;=</span> <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="co"># Ola 4+ es post estallido: Se controla por el momento histórico y asó poder ver el efecto de educación post-estallido</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Factorizar variables categóricas</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_cat =</span> <span class="fu">factor</span>(educ_cat, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Básica o menos"</span>, <span class="st">"Media incompleta"</span>, </span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Media completa"</span>, <span class="st">"Técnica superior"</span>, </span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Universitaria incompleta"</span>, </span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Universitaria completa+"</span>)),</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>      <span class="at">educ_padres_cat =</span> <span class="fu">factor</span>(educ_padres_cat),</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>      <span class="at">tipo_movilidad =</span> <span class="fu">factor</span>(tipo_movilidad)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filtrar observaciones válidas para análisis longitudinal</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">is.na</span>(marcha), </span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">is.na</span>(educ_encuestado),</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">is.na</span>(edad)</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ordenar por individuo y tiempo</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(idencuesta, ola)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="modelos-de-efectos-aleatorios" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="modelos-de-efectos-aleatorios"><span class="header-section-number">1.1</span> Modelos de efectos aleatorios</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MODELO 1: Efecto lineal básico</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_encuestado <span class="sc">+</span> edad <span class="sc">+</span> genero <span class="sc">+</span> post_estallido <span class="sc">+</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                  (<span class="dv">1</span> <span class="sc">|</span> idencuesta), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> elsoc_panel, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(modelo1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+==========================================
+                             Model 1      
+------------------------------------------
+(Intercept)                       1.43 ***
+                                 (0.04)   
+educ_encuestado                   0.05 ***
+                                 (0.00)   
+edad                             -0.01 ***
+                                 (0.00)   
+genero2                          -0.03 *  
+                                 (0.01)   
+post_estallido                    0.08 ***
+                                 (0.01)   
+------------------------------------------
+AIC                           42268.49    
+BIC                           42324.06    
+Log Likelihood               -21127.24    
+Num. obs.                     20727       
+Num. groups: idencuesta        4445       
+Var: idencuesta (Intercept)       0.15    
+Var: Residual                     0.36    
+==========================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MODELO 2: Educación + educación parental</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_completa <span class="ot">&lt;-</span> elsoc_panel <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(educ_padre), <span class="sc">!</span><span class="fu">is.na</span>(educ_madre))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_encuestado <span class="sc">+</span> educ_padre <span class="sc">+</span> educ_madre <span class="sc">+</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                  edad <span class="sc">+</span> genero <span class="sc">+</span> post_estallido <span class="sc">+</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                  (<span class="dv">1</span> <span class="sc">|</span> idencuesta), </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> data_completa, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(modelo2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=========================================
+                             Model 1     
+-----------------------------------------
+(Intercept)                      1.18 ***
+                                (0.06)   
+educ_encuestado                  0.06 ***
+                                (0.01)   
+educ_padre                       0.02 *  
+                                (0.01)   
+educ_madre                       0.01    
+                                (0.01)   
+edad                            -0.01 ***
+                                (0.00)   
+genero2                         -0.05    
+                                (0.02)   
+post_estallido                  -0.04    
+                                (0.03)   
+-----------------------------------------
+AIC                          10224.12    
+BIC                          10282.06    
+Log Likelihood               -5103.06    
+Num. obs.                     4617       
+Num. groups: idencuesta       3835       
+Var: idencuesta (Intercept)      0.17    
+Var: Residual                    0.37    
+=========================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MODELO 3: Efectos categóricos</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_cat <span class="sc">+</span> educ_padres_cat <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                  edad <span class="sc">+</span> genero <span class="sc">+</span> post_estallido <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                  (<span class="dv">1</span> <span class="sc">|</span> idencuesta), </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> data_completa, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(modelo3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+==============================================
+                                  Model 1     
+----------------------------------------------
+(Intercept)                           1.39 ***
+                                     (0.06)   
+educ_catMedia incompleta              0.05    
+                                     (0.04)   
+educ_catMedia completa                0.10 ** 
+                                     (0.04)   
+educ_catTécnica superior              0.21 ***
+                                     (0.06)   
+educ_catUniversitaria incompleta      0.13 ** 
+                                     (0.04)   
+educ_catUniversitaria completa+       0.40 ***
+                                     (0.04)   
+educ_padres_catMedia completa         0.05    
+                                     (0.03)   
+educ_padres_catMedia incompleta       0.00    
+                                     (0.04)   
+educ_padres_catTécnica superior       0.08    
+                                     (0.11)   
+educ_padres_catUniversitaria+         0.13 ***
+                                     (0.04)   
+edad                                 -0.01 ***
+                                     (0.00)   
+genero2                              -0.05 *  
+                                     (0.02)   
+post_estallido                       -0.04    
+                                     (0.03)   
+----------------------------------------------
+AIC                               10207.97    
+BIC                               10304.53    
+Log Likelihood                    -5088.99    
+Num. obs.                          4617       
+Num. groups: idencuesta            3835       
+Var: idencuesta (Intercept)           0.17    
+Var: Residual                         0.37    
+==============================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MODELO 4: Con movilidad educacional</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data_completa <span class="ot">&lt;-</span> data_completa <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(movilidad_educ))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>modelo4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_encuestado <span class="sc">+</span> educ_padres_max <span class="sc">+</span> movilidad_educ <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                  edad <span class="sc">+</span> genero <span class="sc">+</span> post_estallido <span class="sc">+</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                  (<span class="dv">1</span> <span class="sc">|</span> idencuesta), </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> data_completa, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(modelo4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=========================================
+                             Model 1     
+-----------------------------------------
+(Intercept)                      1.17 ***
+                                (0.06)   
+educ_encuestado                  0.06 ***
+                                (0.01)   
+educ_padres_max                  0.02 ***
+                                (0.01)   
+edad                            -0.01 ***
+                                (0.00)   
+genero2                         -0.05 *  
+                                (0.02)   
+post_estallido                  -0.04    
+                                (0.03)   
+-----------------------------------------
+AIC                          10220.60    
+BIC                          10272.10    
+Log Likelihood               -5102.30    
+Num. obs.                     4617       
+Num. groups: idencuesta       3835       
+Var: idencuesta (Intercept)      0.17    
+Var: Residual                    0.37    
+=========================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MODELO 5: Interacción educación × periodo</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>modelo5 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_encuestado <span class="sc">*</span> post_estallido <span class="sc">+</span> educ_padre <span class="sc">+</span> educ_madre <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                  edad <span class="sc">+</span> genero <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                  (<span class="dv">1</span> <span class="sc">|</span> idencuesta), </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> data_completa, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># MODELO 6: Modelo completo con interacciones</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>modelo6 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_cat <span class="sc">*</span> tipo_movilidad <span class="sc">+</span> post_estallido <span class="sc">+</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                  edad <span class="sc">+</span> genero <span class="sc">+</span> </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                  (<span class="dv">1</span> <span class="sc">|</span> idencuesta), </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> data_completa, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Lista de modelos</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>modelos_aleatorios <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Lineal básico"</span> <span class="ot">=</span> modelo1,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Con padres"</span> <span class="ot">=</span> modelo2, </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Categórico"</span> <span class="ot">=</span> modelo3,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Con movilidad"</span> <span class="ot">=</span> modelo4,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Interacción temporal"</span> <span class="ot">=</span> modelo5,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Completo"</span> <span class="ot">=</span> modelo6</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Función para extraer información de ajuste</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>extraer_info_ajuste <span class="ot">&lt;-</span> <span class="cf">function</span>(modelos) {</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Modelo =</span> <span class="fu">character</span>(),</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_observaciones =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_individuos =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">AIC =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">BIC =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(modelos)) {</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    modelo <span class="ot">&lt;-</span> modelos[[i]]</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    info <span class="ot">&lt;-</span> <span class="fu">rbind</span>(info, <span class="fu">data.frame</span>(</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">Modelo =</span> <span class="fu">names</span>(modelos)[i],</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">N_observaciones =</span> <span class="fu">nobs</span>(modelo),</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">N_individuos =</span> <span class="fu">length</span>(<span class="fu">unique</span>(<span class="fu">model.frame</span>(modelo)<span class="sc">$</span>idencuesta)),</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">AIC =</span> <span class="fu">round</span>(<span class="fu">AIC</span>(modelo), <span class="dv">2</span>),</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">BIC =</span> <span class="fu">round</span>(<span class="fu">BIC</span>(modelo), <span class="dv">2</span>),</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(info)</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer información de ajuste</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>info_ajuste_aleatorios <span class="ot">&lt;-</span> <span class="fu">extraer_info_ajuste</span>(modelos_aleatorios)</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar información de ajuste</span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"=== INFORMACIÓN DE AJUSTE DE MODELOS DE EFECTOS ALEATORIOS ==="</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "=== INFORMACIÓN DE AJUSTE DE MODELOS DE EFECTOS ALEATORIOS ==="</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(info_ajuste_aleatorios)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Modelo N_observaciones N_individuos      AIC      BIC
+1        Lineal básico           20727         4445 42268.49 42324.06
+2           Con padres            4617         3835 10224.12 10282.06
+3           Categórico            4617         3835 10207.97 10304.53
+4        Con movilidad            4617         3835 10220.60 10272.10
+5 Interacción temporal            4617         3835 10206.20 10270.58
+6             Completo            4617         3835 10217.41 10391.22</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función para mostrar resultados formateos</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mostrar_resultados_aleatorios <span class="ot">&lt;-</span> <span class="cf">function</span>(modelos) {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(modelos)) {</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span> , <span class="st">"=== MODELO:"</span>, <span class="fu">names</span>(modelos)[i], <span class="st">"===</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">summary</span>(modelos[[i]]))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">rep</span>(<span class="st">"-"</span>, <span class="dv">50</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Si quieres ver todos los resultados (descomenta la siguiente línea)</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mostrar_resultados_aleatorios</span>(modelos_aleatorios)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ === MODELO: Lineal básico ===
+Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: marcha ~ educ_encuestado + edad + genero + post_estallido + (1 |  
+    idencuesta)
+   Data: elsoc_panel
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  42268.5   42324.1  -21127.2   42254.5     20720 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.6837 -0.3377 -0.1310  0.0068  5.8823 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ idencuesta (Intercept) 0.1469   0.3833  
+ Residual               0.3615   0.6012  
+Number of obs: 20727, groups:  idencuesta, 4445
+
+Fixed effects:
+                  Estimate Std. Error t value
+(Intercept)      1.4300601  0.0353644  40.438
+educ_encuestado  0.0514354  0.0031965  16.091
+edad            -0.0092039  0.0004975 -18.501
+genero2         -0.0341722  0.0149402  -2.287
+post_estallido   0.0761921  0.0089675   8.496
+
+Correlation of Fixed Effects:
+            (Intr) edc_nc edad   gener2
+educ_encstd -0.716                     
+edad        -0.809  0.341              
+genero2     -0.272  0.062 -0.021       
+post_estlld  0.057 -0.092 -0.212 -0.016
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ === MODELO: Con padres ===
+Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: marcha ~ educ_encuestado + educ_padre + educ_madre + edad + genero +  
+    post_estallido + (1 | idencuesta)
+   Data: data_completa
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  10224.1   10282.1   -5103.1   10206.1      4608 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1371 -0.4177 -0.2304 -0.0160  4.7951 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ idencuesta (Intercept) 0.1725   0.4154  
+ Residual               0.3712   0.6092  
+Number of obs: 4617, groups:  idencuesta, 3835
+
+Fixed effects:
+                  Estimate Std. Error t value
+(Intercept)      1.1762801  0.0586921  20.042
+educ_encuestado  0.0568678  0.0062877   9.044
+educ_padre       0.0182504  0.0074803   2.440
+educ_madre       0.0060687  0.0081862   0.741
+edad            -0.0054069  0.0008051  -6.716
+genero2         -0.0452402  0.0231379  -1.955
+post_estallido  -0.0396321  0.0251545  -1.576
+
+Correlation of Fixed Effects:
+            (Intr) edc_nc edc_pd edc_md edad   gener2
+educ_encstd -0.490                                   
+educ_padre  -0.048 -0.227                            
+educ_madre  -0.181 -0.225 -0.604                     
+edad        -0.802  0.178  0.008  0.163              
+genero2     -0.262  0.042 -0.004  0.022 -0.009       
+post_estlld  0.006 -0.046 -0.005 -0.003 -0.068 -0.016
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ === MODELO: Categórico ===
+Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: 
+marcha ~ educ_cat + educ_padres_cat + edad + genero + post_estallido +  
+    (1 | idencuesta)
+   Data: data_completa
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  10208.0   10304.5   -5089.0   10178.0      4602 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1606 -0.3875 -0.2052 -0.0467  4.8129 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ idencuesta (Intercept) 0.1690   0.4111  
+ Residual               0.3711   0.6092  
+Number of obs: 4617, groups:  idencuesta, 3835
+
+Fixed effects:
+                                   Estimate Std. Error t value
+(Intercept)                       1.3937123  0.0551673  25.263
+educ_catMedia incompleta          0.0516664  0.0418241   1.235
+educ_catMedia completa            0.0987120  0.0356476   2.769
+educ_catTécnica superior          0.2102917  0.0627700   3.350
+educ_catUniversitaria incompleta  0.1288498  0.0429952   2.997
+educ_catUniversitaria completa+   0.3957764  0.0420844   9.404
+educ_padres_catMedia completa     0.0451095  0.0299663   1.505
+educ_padres_catMedia incompleta   0.0045314  0.0403063   0.112
+educ_padres_catTécnica superior   0.0750912  0.1147130   0.655
+educ_padres_catUniversitaria+     0.1312808  0.0366104   3.586
+edad                             -0.0052784  0.0008217  -6.424
+genero2                          -0.0461723  0.0230731  -2.001
+post_estallido                   -0.0433667  0.0251514  -1.724</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ === MODELO: Con movilidad ===
+Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: marcha ~ educ_encuestado + educ_padres_max + movilidad_educ +  
+    edad + genero + post_estallido + (1 | idencuesta)
+   Data: data_completa
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  10220.6   10272.1   -5102.3   10204.6      4609 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1343 -0.4169 -0.2274 -0.0153  4.7627 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ idencuesta (Intercept) 0.1726   0.4155  
+ Residual               0.3709   0.6090  
+Number of obs: 4617, groups:  idencuesta, 3835
+
+Fixed effects:
+                  Estimate Std. Error t value
+(Intercept)      1.1709072  0.0582900  20.088
+educ_encuestado  0.0563630  0.0062194   9.062
+educ_padres_max  0.0233342  0.0059822   3.901
+edad            -0.0053153  0.0008008  -6.638
+genero2         -0.0466164  0.0231285  -2.016
+post_estallido  -0.0419812  0.0251595  -1.669
+
+Correlation of Fixed Effects:
+            (Intr) edc_nc edc_p_ edad   gener2
+educ_encstd -0.512                            
+edc_pdrs_mx -0.243 -0.493                     
+edad        -0.800  0.189  0.186              
+genero2     -0.258  0.053 -0.001 -0.014       
+post_estlld  0.011 -0.035 -0.032 -0.073 -0.016
+fit warnings:
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ === MODELO: Interacción temporal ===
+Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: marcha ~ educ_encuestado * post_estallido + educ_padre + educ_madre +  
+    edad + genero + (1 | idencuesta)
+   Data: data_completa
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  10206.2   10270.6   -5093.1   10186.2      4607 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.2742 -0.4064 -0.2228 -0.0173  4.7621 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ idencuesta (Intercept) 0.1774   0.4211  
+ Residual               0.3647   0.6039  
+Number of obs: 4617, groups:  idencuesta, 3835
+
+Fixed effects:
+                                 Estimate Std. Error t value
+(Intercept)                     1.1288896  0.0595935  18.943
+educ_encuestado                 0.0657897  0.0065873   9.987
+post_estallido                  0.2542924  0.0701312   3.626
+educ_padre                      0.0178193  0.0074697   2.386
+educ_madre                      0.0064522  0.0081737   0.789
+edad                           -0.0054507  0.0008046  -6.774
+genero2                        -0.0455898  0.0231256  -1.971
+educ_encuestado:post_estallido -0.0506723  0.0113152  -4.478
+
+Correlation of Fixed Effects:
+            (Intr) edc_nc pst_st edc_pd edc_md edad   gener2
+educ_encstd -0.514                                          
+post_estlld -0.164  0.266                                   
+educ_padre  -0.045 -0.221 -0.014                            
+educ_madre  -0.180 -0.211  0.010 -0.604                     
+edad        -0.787  0.166 -0.035  0.009  0.163              
+genero2     -0.258  0.039 -0.009 -0.004  0.022 -0.009       
+edc_ncstd:_  0.178 -0.302 -0.934  0.013 -0.011  0.012  0.003
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ === MODELO: Completo ===
+Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: marcha ~ educ_cat * tipo_movilidad + post_estallido + edad +  
+    genero + (1 | idencuesta)
+   Data: data_completa
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  10217.4   10391.2   -5081.7   10163.4      4590 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1494 -0.3755 -0.2080 -0.0480  4.8177 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ idencuesta (Intercept) 0.1666   0.4081  
+ Residual               0.3716   0.6096  
+Number of obs: 4617, groups:  idencuesta, 3835
+
+Fixed effects:
+                                                                     Estimate
+(Intercept)                                                         1.2635749
+educ_catMedia incompleta                                            0.0973288
+educ_catMedia completa                                              0.1940431
+educ_catTécnica superior                                            0.2979258
+educ_catUniversitaria incompleta                                    0.2764847
+educ_catUniversitaria completa+                                     0.5299090
+tipo_movilidadAscendente moderada                                   0.1618055
+tipo_movilidadDescendente                                           0.1979340
+tipo_movilidadSin movilidad                                         0.1234468
+post_estallido                                                     -0.0411037
+edad                                                               -0.0052142
+genero2                                                            -0.0484461
+educ_catMedia incompleta:tipo_movilidadAscendente moderada         -0.0868943
+educ_catMedia completa:tipo_movilidadAscendente moderada           -0.1153176
+educ_catTécnica superior:tipo_movilidadAscendente moderada         -0.1144136
+educ_catUniversitaria incompleta:tipo_movilidadAscendente moderada -0.1554961
+educ_catUniversitaria completa+:tipo_movilidadAscendente moderada  -0.0330314
+educ_catMedia incompleta:tipo_movilidadDescendente                 -0.2486111
+educ_catMedia completa:tipo_movilidadDescendente                   -0.0397461
+educ_catTécnica superior:tipo_movilidadDescendente                  0.3522712
+educ_catUniversitaria incompleta:tipo_movilidadDescendente          0.0590415
+educ_catUniversitaria completa+:tipo_movilidadDescendente          -0.2626993
+educ_catMedia completa:tipo_movilidadSin movilidad                 -0.0670325
+educ_catTécnica superior:tipo_movilidadSin movilidad               -0.1021427
+educ_catUniversitaria incompleta:tipo_movilidadSin movilidad       -0.1174316
+                                                                   Std. Error
+(Intercept)                                                         0.0795375
+educ_catMedia incompleta                                            0.0525228
+educ_catMedia completa                                              0.1327720
+educ_catTécnica superior                                            0.1647017
+educ_catUniversitaria incompleta                                    0.0783760
+educ_catUniversitaria completa+                                     0.0511234
+tipo_movilidadAscendente moderada                                   0.1140687
+tipo_movilidadDescendente                                           0.1040714
+tipo_movilidadSin movilidad                                         0.0518235
+post_estallido                                                      0.0251551
+edad                                                                0.0008236
+genero2                                                             0.0230427
+educ_catMedia incompleta:tipo_movilidadAscendente moderada          0.1199153
+educ_catMedia completa:tipo_movilidadAscendente moderada            0.1669222
+educ_catTécnica superior:tipo_movilidadAscendente moderada          0.2188795
+educ_catUniversitaria incompleta:tipo_movilidadAscendente moderada  0.1326393
+educ_catUniversitaria completa+:tipo_movilidadAscendente moderada   0.1203697
+educ_catMedia incompleta:tipo_movilidadDescendente                  0.1838924
+educ_catMedia completa:tipo_movilidadDescendente                    0.1724239
+educ_catTécnica superior:tipo_movilidadDescendente                  0.2390980
+educ_catUniversitaria incompleta:tipo_movilidadDescendente          0.1525459
+educ_catUniversitaria completa+:tipo_movilidadDescendente           0.2649985
+educ_catMedia completa:tipo_movilidadSin movilidad                  0.1328324
+educ_catTécnica superior:tipo_movilidadSin movilidad                0.1767229
+educ_catUniversitaria incompleta:tipo_movilidadSin movilidad        0.1026398
+                                                                   t value
+(Intercept)                                                         15.887
+educ_catMedia incompleta                                             1.853
+educ_catMedia completa                                               1.461
+educ_catTécnica superior                                             1.809
+educ_catUniversitaria incompleta                                     3.528
+educ_catUniversitaria completa+                                     10.365
+tipo_movilidadAscendente moderada                                    1.418
+tipo_movilidadDescendente                                            1.902
+tipo_movilidadSin movilidad                                          2.382
+post_estallido                                                      -1.634
+edad                                                                -6.331
+genero2                                                             -2.102
+educ_catMedia incompleta:tipo_movilidadAscendente moderada          -0.725
+educ_catMedia completa:tipo_movilidadAscendente moderada            -0.691
+educ_catTécnica superior:tipo_movilidadAscendente moderada          -0.523
+educ_catUniversitaria incompleta:tipo_movilidadAscendente moderada  -1.172
+educ_catUniversitaria completa+:tipo_movilidadAscendente moderada   -0.274
+educ_catMedia incompleta:tipo_movilidadDescendente                  -1.352
+educ_catMedia completa:tipo_movilidadDescendente                    -0.231
+educ_catTécnica superior:tipo_movilidadDescendente                   1.473
+educ_catUniversitaria incompleta:tipo_movilidadDescendente           0.387
+educ_catUniversitaria completa+:tipo_movilidadDescendente           -0.991
+educ_catMedia completa:tipo_movilidadSin movilidad                  -0.505
+educ_catTécnica superior:tipo_movilidadSin movilidad                -0.578
+educ_catUniversitaria incompleta:tipo_movilidadSin movilidad        -1.144</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>fit warnings:
+fixed-effect model matrix is rank deficient so dropping 2 columns / coefficients
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </code></pre>
+</div>
+</div>
+</section>
+<section id="análisis-de-modelos-de-efectos-aleatorios" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="análisis-de-modelos-de-efectos-aleatorios"><span class="header-section-number">1.2</span> Análisis de Modelos de Efectos Aleatorios</h2>
+<ol type="1">
+<li>Comparación con Efectos Fijos</li>
+</ol>
+<p>Diferencias metodológicas clave:</p>
+<ul>
+<li>Efectos aleatorios: Asumen que la heterogeneidad individual no está correlacionada con las variables explicativas</li>
+<li>Efectos fijos: Controlan por toda la heterogeneidad individual (correlacionada o no)</li>
+</ul>
+<ol start="2" type="1">
+<li>Resultados de Educación del Encuestado</li>
+</ol>
+<p>Interpretación: Los coeficientes son prácticamente idénticos, sugiriendo que:</p>
+<ul>
+<li>No hay sesgo significativo por heterogeneidad individual no observada</li>
+<li>La educación es exógena respecto a características individuales fijas que afectan participación en marchas</li>
+<li>Robustez de los resultados principales</li>
+</ul>
+<ol start="3" type="1">
+<li>Educación Parental</li>
+</ol>
+<p>Efectos aleatorios: - Educación padre: 0.018 (t=2.44, significativo) - Educación madre: 0.006 (t=0.74, no significativo)</p>
+<p>Consistencia: Misma magnitud y significancia que en efectos fijos, confirmando la robustez del hallazgo de que solo la educación paterna tiene efecto residual.</p>
+<ol start="4" type="1">
+<li>Interacción Temporal (Modelo 5) Hallazgo clave: educ_encuestado:post_estallido = -0.051 (t=-4.48, p&lt;0.001)</li>
+</ol>
+<p>Esto sugeriría que: - Antes del estallido: Efecto de educación = 0.066 puntos - Después del estallido: Efecto de educación = 0.066 - 0.051 = 0.015 puntos</p>
+<p>Implicación: El efecto de la educación sobre participación en marchas disminuyó significativamente después del estallido social</p>
+<ol start="5" type="1">
+<li>Ajuste de Modelos Mejor modelo por AIC: Interacción temporal (10,206.2)</li>
+</ol>
+<p>Captura heterogeneidad temporal importante Consistente entre efectos fijos y aleatorios</p>
+<ol start="6" type="1">
+<li>Modelo Categórico (Gradiente Educacional)</li>
+</ol>
+<p>Efectos by nivel educativo:</p>
+<p>Media incompleta: +0.052 Media completa: +0.099 Técnica superior: +0.210 Universitaria incompleta: +0.129 Universitaria completa+: +0.396 (efecto más fuerte)</p>
+<p>Patrón: Relación no completamente lineal - hay un salto importante en educación universitaria completa.</p>
+</section>
+</section>
+<section id="interacción-temporal-máxima-prioridad" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Interacción Temporal (MÁXIMA PRIORIDAD)</h1>
+<ul>
+<li>Mejor ajuste estadístico (AIC más bajo)</li>
+<li>Hallazgo sustantivo clave: Cambio en el efecto de educación post-estallido</li>
+<li>Implicaciones teóricas importantes sobre democratización de la participación</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Efectos marginales por período</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(modelo5, <span class="at">by =</span> <span class="st">"post_estallido"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+            Term Contrast post_estallido Estimate Std. Error      z Pr(&gt;|z|)
+ edad               dY/dX              0 -0.00545   0.000805 -6.774   &lt;0.001
+ edad               dY/dX              1 -0.00545   0.000805 -6.774   &lt;0.001
+ educ_encuestado    dY/dX              0  0.06579   0.006588  9.987   &lt;0.001
+ educ_encuestado    dY/dX              1  0.01512   0.011244  1.344   0.1788
+ educ_madre         dY/dX              0  0.00645   0.008176  0.789   0.4300
+ educ_madre         dY/dX              1  0.00645   0.008174  0.789   0.4299
+ educ_padre         dY/dX              0  0.01782   0.007469  2.386   0.0170
+ educ_padre         dY/dX              1  0.01782   0.007470  2.385   0.0171
+ genero             2 - 1              0 -0.04559   0.023126 -1.971   0.0487
+ genero             2 - 1              1 -0.04559   0.023126 -1.971   0.0487
+ post_estallido     1 - 0              0 -0.02668   0.025162 -1.060   0.2890
+ post_estallido     1 - 0              1 -0.03978   0.025009 -1.591   0.1117
+    S    2.5 %    97.5 %
+ 36.2 -0.00703 -0.003874
+ 36.2 -0.00703 -0.003874
+ 75.6  0.05288  0.078701
+  2.5 -0.00692  0.037156
+  1.2 -0.00957  0.022476
+  1.2 -0.00957  0.022473
+  5.9  0.00318  0.032459
+  5.9  0.00318  0.032460
+  4.4 -0.09092 -0.000265
+  4.4 -0.09092 -0.000265
+  1.8 -0.07600  0.022639
+  3.2 -0.08879  0.009240
+
+Type: response</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Crear grid completo manualmente</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>nuevo_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">educ_encuestado =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">16</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">post_estallido =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregar las otras variables con valores típicos</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>nuevo_data<span class="sc">$</span>educ_padre <span class="ot">&lt;-</span> <span class="fu">mean</span>(data_completa<span class="sc">$</span>educ_padre, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>nuevo_data<span class="sc">$</span>educ_madre <span class="ot">&lt;-</span> <span class="fu">mean</span>(data_completa<span class="sc">$</span>educ_madre, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>nuevo_data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">mean</span>(data_completa<span class="sc">$</span>edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>nuevo_data<span class="sc">$</span>genero <span class="ot">&lt;-</span> data_completa<span class="sc">$</span>genero[<span class="dv">1</span>]  <span class="co"># primer valor</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicciones</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>pred_resultado <span class="ot">&lt;-</span> <span class="fu">predictions</span>(modelo5, <span class="at">data =</span> nuevo_data)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pred_resultado)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Std. Error    z Pr(&gt;|z|)      S 2.5 % 97.5 %
+    0.926     0.0262 35.4   &lt;0.001  908.7 0.875  0.977
+    1.046     0.0200 52.3   &lt;0.001    Inf 1.007  1.085
+    1.498     0.0263 56.9   &lt;0.001    Inf 1.446  1.549
+    1.396     0.0357 39.1   &lt;0.001    Inf 1.326  1.466
+    1.088     0.0270 40.3   &lt;0.001    Inf 1.035  1.141
+--- 4607 rows omitted. See ?print.marginaleffects ---
+    1.331     0.0346 38.4   &lt;0.001 1070.7 1.263  1.399
+    1.106     0.0191 58.0   &lt;0.001    Inf 1.069  1.144
+    1.152     0.0221 52.1   &lt;0.001    Inf 1.108  1.195
+    1.178     0.0452 26.1   &lt;0.001  495.0 1.089  1.267
+    1.164     0.0188 61.8   &lt;0.001    Inf 1.127  1.201
+Type: response</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_completa, <span class="fu">aes</span>(<span class="at">x =</span> educ_encuestado, <span class="at">y =</span> marcha, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> <span class="fu">factor</span>(post_estallido))) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cambio en el Efecto de Educación Post-Estallido"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Años de educación"</span>, </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Participación en marchas"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Período"</span>) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Pre-estallido"</span>, <span class="st">"Post-estallido"</span>)) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="random_effects_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li>Convergencia de Pendientes</li>
+</ol>
+<p>Pre-estallido (rojo): Pendiente más pronunciada - educación tiene mayor efecto Post-estallido (azul): Pendiente más suave - educación tiene menor efecto Las líneas convergen hacia la derecha, confirmando la interacción negativa</p>
+<ol start="2" type="1">
+<li>Democratización de la Participación</li>
+</ol>
+<p>Brecha educacional se reduce: La diferencia entre alta y baja educación es menor post-estallido Participación base aumenta: El intercepto post-estallido parece ligeramente más alto “Techo” similar: Los más educados participan de forma similar en ambos períodos</p>
+<ol start="3" type="1">
+<li>Magnitud del Cambio</li>
+</ol>
+<p>La diferencia entre las pendientes es visualmente clara y estadísticamente significativa (t=-4.48) El cambio es más pronunciado en los niveles bajos de educación (lado izquierdo del gráfico)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo con interacción completa</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>modelo_cat_temporal <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_cat <span class="sc">*</span> post_estallido <span class="sc">+</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                           educ_padres_cat <span class="sc">+</span> edad <span class="sc">+</span> genero <span class="sc">+</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                           (<span class="dv">1</span> <span class="sc">|</span> idencuesta), </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> data_completa, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_cat_temporal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: marcha ~ educ_cat * post_estallido + educ_padres_cat + edad +  
+    genero + (1 | idencuesta)
+   Data: data_completa
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  10188.1   10316.9   -5074.1   10148.1      4597 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.3437 -0.3585 -0.2001 -0.0427  4.7818 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ idencuesta (Intercept) 0.1749   0.4183  
+ Residual               0.3625   0.6021  
+Number of obs: 4617, groups:  idencuesta, 3835
+
+Fixed effects:
+                                                  Estimate Std. Error t value
+(Intercept)                                      1.3904242  0.0558095  24.914
+educ_catMedia incompleta                         0.0360476  0.0449349   0.802
+educ_catMedia completa                           0.0890191  0.0378984   2.349
+educ_catTécnica superior                         0.2271704  0.0679393   3.344
+educ_catUniversitaria incompleta                 0.1424852  0.0457103   3.117
+educ_catUniversitaria completa+                  0.4476602  0.0442250  10.122
+post_estallido                                   0.0281113  0.0634771   0.443
+educ_padres_catMedia completa                    0.0420435  0.0299116   1.406
+educ_padres_catMedia incompleta                  0.0064302  0.0401928   0.160
+educ_padres_catTécnica superior                  0.0472963  0.1143000   0.414
+educ_padres_catUniversitaria+                    0.1338538  0.0365445   3.663
+edad                                            -0.0053890  0.0008209  -6.565
+genero2                                         -0.0475880  0.0230487  -2.065
+educ_catMedia incompleta:post_estallido          0.0802367  0.0982007   0.817
+educ_catMedia completa:post_estallido            0.0417768  0.0790430   0.529
+educ_catTécnica superior:post_estallido         -0.1090545  0.1363654  -0.800
+educ_catUniversitaria incompleta:post_estallido -0.0984380  0.0937846  -1.050
+educ_catUniversitaria completa+:post_estallido  -0.2837787  0.0803446  -3.532</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efectos marginales por categoría educativa y período</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>efectos_cat <span class="ot">&lt;-</span> <span class="fu">avg_slopes</span>(modelo_cat_temporal, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">variables =</span> <span class="st">"post_estallido"</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">by =</span> <span class="st">"educ_cat"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(efectos_cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                 educ_cat Estimate Std. Error      z Pr(&gt;|z|)    S   2.5 %
+ Básica o menos             0.0281     0.0635  0.443    0.658  0.6 -0.0963
+ Media incompleta           0.1083     0.0746  1.452    0.147  2.8 -0.0379
+ Media completa             0.0699     0.0469  1.491    0.136  2.9 -0.0220
+ Técnica superior          -0.0809     0.1206 -0.671    0.502  1.0 -0.3174
+ Universitaria incompleta  -0.0703     0.0691 -1.018    0.309  1.7 -0.2058
+ Universitaria completa+   -0.2557     0.0493 -5.184   &lt;0.001 22.1 -0.3523
+  97.5 %
+  0.1525
+  0.2546
+  0.1617
+  0.1555
+  0.0651
+ -0.1590
+
+Term: post_estallido
+Type: response
+Comparison: 1 - 0</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tabla para visualización</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>resultados_viz <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">educ_cat =</span> <span class="fu">c</span>(<span class="st">"Básica o menos"</span>, <span class="st">"Media incompleta"</span>, <span class="st">"Media completa"</span>, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Técnica superior"</span>, <span class="st">"Universitaria incompleta"</span>, <span class="st">"Universitaria completa+"</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fu">c</span>(<span class="fl">0.028</span>, <span class="fl">0.108</span>, <span class="fl">0.070</span>, <span class="sc">-</span><span class="fl">0.081</span>, <span class="sc">-</span><span class="fl">0.070</span>, <span class="sc">-</span><span class="fl">0.256</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="fu">c</span>(<span class="fl">0.0635</span>, <span class="fl">0.0746</span>, <span class="fl">0.0469</span>, <span class="fl">0.1206</span>, <span class="fl">0.0691</span>, <span class="fl">0.0493</span>),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">significativo =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de coeficientes</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados_viz, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(educ_cat, estimate), <span class="at">y =</span> estimate,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> significativo)) <span class="sc">+</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> estimate <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>se, <span class="at">ymax =</span> estimate <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>se),</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"gray60"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cambio en Participación Post-Estallido por Nivel Educativo"</span>,</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Efecto de la interacción educación × post-estallido"</span>,</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Nivel educativo"</span>, <span class="at">y =</span> <span class="st">"Cambio en participación"</span>,</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Significativo"</span>) <span class="sc">+</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="random_effects_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Eje X: Cambio en Participación</p>
+<p>Valores negativos (izquierda): Reducción en participación post-estallido Valores positivos (derecha): Aumento en participación post-estallido Línea vertical en 0: Sin cambio</p>
+<p>Eje Y: Niveles Educativos (ordenados por cambio)</p>
+<p>Arriba: Grupos que más aumentaron Abajo: Grupos que más disminuyeron</p>
+<p>Colores:</p>
+<p>Gris: Cambios no estadísticamente significativos Rojo: Cambios estadísticamente significativos (p&lt;0.05)</p>
+<p>Patrón Principal Visualizado: 1. Solo un Grupo Cambia Significativamente</p>
+<p>Universitaria completa+: Única categoría en rojo Reducción significativa de ~0.25 puntos Todos los demás: Cambios no significativos (gris)</p>
+<ol start="2" type="1">
+<li>Gradiente Educacional</li>
+</ol>
+<p>Educación baja (arriba): Cambios levemente positivos pero no significativos Educación alta (abajo): Cambios negativos, solo universitarios significativo</p>
+<ol start="3" type="1">
+<li>Patrón de “Convergencia Selectiva” El gráfico muestra que la democratización proviene exclusivamente de que los universitarios completos redujeron significativamente su participación, mientras todos los demás grupos se mantuvieron relativamente estables. Implicaciones del Gráfico: Refinamiento de la Interpretación</li>
+</ol>
+<p>NO hay movilización masiva de los menos educados SÍ hay desmovilización específica de los más educados El cambio es SELECTIVO, no general</p>
+<p>Robustez Estadística</p>
+<p>Solo una de las seis categorías cambia significativamente Sugiere que el efecto está altamente concentrado en el grupo más educado Todos los otros cambios pueden ser ruido estadístico</p>
+<p>Conclusión Principal: La democratización de la participación en marchas post-estallido chileno es un fenómeno de “techo”, no de “piso” - los universitarios se retiraron parcialmente, reduciendo la desigualdad participativa, pero sin que hubiera una movilización significativa de otros grupos sociales.</p>
+<p>La democratización fue por “techo” (ceiling effect) en los más educados, no por “piso” (floor effect) en los menos educados. Esto sugiere dinámicas de diferenciación de clase más que inclusión masiva</p>
+<p>Tentativo: La democratización política en crisis NO proviene principalmente de movilización masiva de los excluidos, sino de “desmovilización selectiva” de las élites educadas.</p>
+<p>Categórico (ALTA PRIORIDAD) Por qué es valioso:</p>
+<p>Revela no-linealidades que el modelo lineal oculta Umbral en universitaria completa+ (efecto 4x mayor que media) Gradiente educacional más realista</p>
+<p>Análisis adicionales recomendados:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Contrastes específicos entre niveles</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">contrast</span>(<span class="fu">emmeans</span>(modelo3, <span class="st">"educ_cat"</span>), <span class="at">method =</span> <span class="st">"pairwise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast                                             estimate     SE  df
+ Básica o menos - Media incompleta                     -0.0517 0.0418 Inf
+ Básica o menos - Media completa                       -0.0987 0.0356 Inf
+ Básica o menos - Técnica superior                     -0.2103 0.0628 Inf
+ Básica o menos - Universitaria incompleta             -0.1288 0.0430 Inf
+ Básica o menos - (Universitaria completa+)            -0.3958 0.0421 Inf
+ Media incompleta - Media completa                     -0.0470 0.0380 Inf
+ Media incompleta - Técnica superior                   -0.1586 0.0634 Inf
+ Media incompleta - Universitaria incompleta           -0.0772 0.0447 Inf
+ Media incompleta - (Universitaria completa+)          -0.3441 0.0432 Inf
+ Media completa - Técnica superior                     -0.1116 0.0573 Inf
+ Media completa - Universitaria incompleta             -0.0301 0.0365 Inf
+ Media completa - (Universitaria completa+)            -0.2971 0.0336 Inf
+ Técnica superior - Universitaria incompleta            0.0814 0.0611 Inf
+ Técnica superior - (Universitaria completa+)          -0.1855 0.0584 Inf
+ Universitaria incompleta - (Universitaria completa+)  -0.2669 0.0386 Inf
+ z.ratio p.value
+  -1.235  0.8195
+  -2.769  0.0625
+  -3.350  0.0105
+  -2.997  0.0326
+  -9.404  &lt;.0001
+  -1.238  0.8183
+  -2.500  0.1238
+  -1.725  0.5148
+  -7.966  &lt;.0001
+  -1.946  0.3742
+  -0.826  0.9629
+  -8.843  &lt;.0001
+   1.333  0.7667
+  -3.177  0.0186
+  -6.910  &lt;.0001
+
+Results are averaged over the levels of: educ_padres_cat, genero, post_estallido 
+Degrees-of-freedom method: asymptotic 
+P value adjustment: tukey method for comparing a family of 6 estimates </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tendencia no-lineal</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  marginaleffects::avg_slopes(modelo3, variables = "educ_cat", </span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                           hypothesis = "pairwise")</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Interacción categórica × temporal</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>modelo_cat_temporal <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_cat <span class="sc">*</span> post_estallido <span class="sc">+</span> </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                           educ_padres_cat <span class="sc">+</span> edad <span class="sc">+</span> genero <span class="sc">+</span> </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>                           (<span class="dv">1</span> <span class="sc">|</span> idencuesta), <span class="at">data =</span> data_completa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>RECOMENDACIÓN DE SECUENCIA ANALÍTICA Fase 1: Profundización de hallazgos clave</p>
+<p>Interacción temporal → Paper principal Modelo categórico → Análisis complementario</p>
+<p>Fase 2: Exploración de mecanismos</p>
+<p>Movilidad educacional → Análisis de trayectorias Heterogeneidad por grupos → Análisis de moderadores</p>
+<p>Fase 3: Robustez y extensiones</p>
+<p>Modelos alternativos → Verificación Análisis de mediación → Mecanismos causales (si tienes datos)</p>
+<ol type="a">
+<li>Especificaciones alternativas</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo con controles adicionales</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo_robusto &lt;- lmer(marcha ~ educ_encuestado + edad + I(edad^2) + </span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                      genero + ingreso + zona_residencia + post_estallido +</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                      (1 | idencuesta), data = data_completa)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo con efectos fijos temporales</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>modelo_tiempo_fijo <span class="ot">&lt;-</span> <span class="fu">lmer</span>(marcha <span class="sc">~</span> educ_encuestado <span class="sc">+</span> edad <span class="sc">+</span> genero <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">factor</span>(ola) <span class="sc">+</span> </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>                          (<span class="dv">1</span> <span class="sc">|</span> idencuesta), <span class="at">data =</span> data_completa)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>modelo_tiempo_fijo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: marcha ~ educ_encuestado + edad + genero + factor(ola) + (1 |  
+    idencuesta)
+   Data: data_completa
+REML criterion at convergence: 10252.49
+Random effects:
+ Groups     Name        Std.Dev.
+ idencuesta (Intercept) 0.4159  
+ Residual               0.6096  
+Number of obs: 4617, groups:  idencuesta, 3835
+Fixed Effects:
+    (Intercept)  educ_encuestado             edad          genero2  
+       1.260060         0.068849        -0.006037        -0.046977  
+   factor(ola)3     factor(ola)5  
+      -0.089891        -0.085678  </code></pre>
+</div>
+</div>
+<ol start="2" type="a">
+<li>Análisis de sensibilidad</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diferentes definiciones de la variable dependiente</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Si marcha tiene muchos ceros, considerar:</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Modelo Tobit/censurado</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - Modelo de dos partes (participación + intensidad)</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - Categorización binaria (participó vs no participó)</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># modelo_binario &lt;- glmer(marcha_binaria ~ educ_encuestado + edad + genero + </span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                       post_estallido + (1 | idencuesta),</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                       family = binomial, data = data)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="efectos-de-la-educación-sobre-la-participación-en-marchas-interpretación-de-resultados-de-efectos-fijos" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Efectos de la Educación sobre la Participación en Marchas: Interpretación de Resultados de Efectos Fijos</h1>
+<section id="contexto-metodológico" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="contexto-metodológico"><span class="header-section-number">3.1</span> 1. Contexto Metodológico</h2>
+<section id="especificación-del-modelo" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="especificación-del-modelo"><span class="header-section-number">3.1.1</span> Especificación del Modelo</h3>
+<p>Los modelos de efectos fijos individuales permiten identificar el <strong>efecto causal within</strong> de cambios en educación sobre la participación en marchas, controlando por heterogeneidad individual no observada que permanece constante en el tiempo. Esta especificación es particularmente valiosa para el estudio de educación y participación política porque:</p>
+<ul>
+<li><strong>Controla por factores individuales fijos</strong>: motivación política, valores familiares, personalidad</li>
+<li><strong>Identifica efectos de movilidad educacional</strong>: cambios en educación dentro del mismo individuo</li>
+<li><strong>Minimiza sesgo de selección</strong>: características no observadas que afectan tanto educación como participación</li>
+</ul>
+</section>
+<section id="variable-dependiente" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="variable-dependiente"><span class="header-section-number">3.1.2</span> Variable Dependiente</h3>
+<p>La participación en marchas se mide en escala ordinal 1-5 (Nunca - Muy Frecuentemente), capturando la <strong>intensidad</strong> de participación en actividades de protesta, una forma específica de participación política no convencional.</p>
+</section>
+</section>
+<section id="resultados-principales" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="resultados-principales"><span class="header-section-number">3.2</span> 2. Resultados Principales</h2>
+<section id="educación-del-encuestado-efecto-within" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="educación-del-encuestado-efecto-within"><span class="header-section-number">3.2.1</span> Educación del Encuestado (Efecto Within)</h3>
+<p><strong>Magnitud del efecto</strong>: 0.051-0.066 puntos por año adicional de educación - <strong>Modelo lineal básico</strong>: 0.051 (SE=0.003, p&lt;0.001) - <strong>Modelos con controles familiares</strong>: 0.057-0.066 - <strong>Robustez</strong>: Efecto consistente y altamente significativo en todas las especificaciones</p>
+<p><strong>Interpretación práctica</strong>: - Un año adicional de educación aumenta la frecuencia de participación en marchas en <strong>0.05-0.07 puntos</strong> en la escala 1-5 - Diferencia <strong>educación universitaria vs.&nbsp;media</strong> (4-5 años): <strong>0.20-0.35 puntos</strong> - Diferencia <strong>educación universitaria vs.&nbsp;básica</strong> (8+ años): <strong>0.40-0.56 puntos</strong> - En términos porcentuales: <strong>1.25-1.75% de la escala</strong> por año adicional</p>
+</section>
+<section id="educación-paterna-efecto-between" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="educación-paterna-efecto-between"><span class="header-section-number">3.2.2</span> Educación Paterna (Efecto Between)</h3>
+<p><strong>Magnitud del efecto</strong>: ~0.018 puntos por año de educación del padre - <strong>Efecto pequeño pero estadísticamente significativo</strong> (p&lt;0.05) - <strong>Consistente</strong> entre modelos que incluyen background familiar - Representa aproximadamente <strong>1/3 del efecto</strong> de la educación propia</p>
+<p><strong>Interpretación</strong>: - Diferencia padre universitario vs.&nbsp;básico: ~0.14 puntos adicionales en participación - Sugiere <strong>transmisión intergeneracional</strong> de capital político, pero con magnitud limitada</p>
+</section>
+<section id="educación-materna-sin-efecto" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="educación-materna-sin-efecto"><span class="header-section-number">3.2.3</span> Educación Materna (Sin Efecto)</h3>
+<p><strong>Resultado</strong>: Efecto no significativo (~0.006, intervalos de confianza incluyen 0) - Contrasta con educación paterna - Posible reflejo de <strong>diferencias generacionales</strong> en roles de transmisión política - Consistente con literatura sobre predominio paterno en socialización política en contextos tradicionales</p>
+</section>
+</section>
+<section id="interpretación-teórica" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="interpretación-teórica"><span class="header-section-number">3.3</span> 3. Interpretación Teórica</h2>
+<section id="movilidad-educacional-vs.-reproducción-social" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="movilidad-educacional-vs.-reproducción-social"><span class="header-section-number">3.3.1</span> Movilidad Educacional vs.&nbsp;Reproducción Social</h3>
+<p>Los resultados apoyan fuertemente la <strong>hipótesis de empowerment individual</strong> sobre la de <strong>mera reproducción de clase</strong>:</p>
+<ol type="1">
+<li><strong>Predominio del efecto individual</strong>: La educación propia tiene efectos 3 veces mayores que el background familiar</li>
+<li><strong>Efectos within robustos</strong>: Cambios en educación dentro del mismo individuo predicen cambios en participación</li>
+<li><strong>Control por heterogeneidad</strong>: Los efectos persisten controlando por características familiares y individuales fijas</li>
+</ol>
+</section>
+<section id="mecanismos-causales-plausibles" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="mecanismos-causales-plausibles"><span class="header-section-number">3.3.2</span> Mecanismos Causales Plausibles</h3>
+<p><strong>Recursos cognitivos y políticos</strong>: - Mayor <strong>capacidad de procesamiento</strong> de información política - Desarrollo de <strong>habilidades cívicas</strong> (organización, comunicación, liderazgo) - <strong>Autoeficacia política</strong> incrementada</p>
+<p><strong>Capital social y redes</strong>: - Expansión de <strong>redes sociales</strong> con individuos políticamente activos - Exposición a <strong>diversidad ideológica</strong> y debates políticos - <strong>Identificación con grupos</strong> sociales más participativos</p>
+<p><strong>Valores y actitudes</strong>: - <strong>Liberalización de valores</strong> asociada con educación superior - Mayor <strong>tolerancia a la diversidad</strong> y apoyo a derechos civiles - <strong>Conciencia crítica</strong> sobre desigualdades y problemas sociales</p>
+</section>
+</section>
+<section id="magnitud-y-significancia-práctica" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="magnitud-y-significancia-práctica"><span class="header-section-number">3.4</span> 4. Magnitud y Significancia Práctica</h2>
+<section id="efectos-modestos-pero-sistemáticos" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="efectos-modestos-pero-sistemáticos"><span class="header-section-number">3.4.1</span> Efectos Modestos pero Sistemáticos</h3>
+<p>Los efectos encontrados son <strong>estadísticamente robustos</strong> pero <strong>sustantivamente moderados</strong>:</p>
+<ul>
+<li><strong>Realismo</strong>: Coherente con evidencia internacional sobre educación y participación</li>
+<li><strong>Acumulación</strong>: Diferencias educacionales importantes (8+ años) generan cambios detectables</li>
+<li><strong>Estabilidad temporal</strong>: Efectos consistentes sugieren relación duradera</li>
+</ul>
+</section>
+<section id="comparación-con-literatura" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="comparación-con-literatura"><span class="header-section-number">3.4.2</span> Comparación con Literatura</h3>
+<p><strong>Consistente con estudios previos</strong> que encuentran: - Efectos positivos de educación sobre participación política no convencional - Predominio de efectos individuales sobre familiares en comportamiento político - Magnitudes modestas pero significativas para variables educacionales</p>
+</section>
+</section>
+<section id="limitaciones-y-consideraciones" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="limitaciones-y-consideraciones"><span class="header-section-number">3.5</span> 5. Limitaciones y Consideraciones</h2>
+<section id="direccionalidad-causal" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="direccionalidad-causal"><span class="header-section-number">3.5.1</span> Direccionalidad Causal</h3>
+<p>Aunque los efectos fijos controlan por muchas fuentes de endogeneidad, persisten algunas limitaciones: - <strong>Eventos vitales</strong>: Cambios simultáneos en educación y motivación política - <strong>Selección temporal</strong>: Timing de educación puede estar correlacionado con ciclos políticos</p>
+</section>
+<section id="generalización" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="generalización"><span class="header-section-number">3.5.2</span> Generalización</h3>
+<ul>
+<li><strong>Contexto específico</strong>: Resultados corresponden a datos ELSOC Chile</li>
+<li><strong>Periodo temporal</strong>: Efectos pueden variar según contexto político nacional</li>
+<li><strong>Tipo de participación</strong>: Específico para participación en marchas/protestas</li>
+</ul>
+</section>
+</section>
+<section id="implicaciones" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="implicaciones"><span class="header-section-number">3.6</span> 6. Implicaciones</h2>
+<section id="para-política-pública" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="para-política-pública"><span class="header-section-number">3.6.1</span> Para Política Pública</h3>
+<ol type="1">
+<li><strong>Educación como herramienta democrática</strong>: Inversión educacional tiene retornos en participación cívica</li>
+<li><strong>Efectos a largo plazo</strong>: Políticas educacionales impactan la cultura política generacional</li>
+<li><strong>Movilidad social</strong>: Educación puede romper patrones de exclusión política familiar</li>
+</ol>
+</section>
+<section id="para-investigación-futura" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="para-investigación-futura"><span class="header-section-number">3.6.2</span> Para Investigación Futura</h3>
+<ol type="1">
+<li><strong>Mecanismos específicos</strong>: Investigar qué aspectos de la educación (contenidos, redes, credenciales) impulsan participación</li>
+<li><strong>Heterogeneidad de efectos</strong>: Explorar variación por género, clase social, o región</li>
+<li><strong>Tipos de participación</strong>: Comparar efectos en participación convencional vs.&nbsp;no convencional</li>
+</ol>
+</section>
+</section>
+<section id="conclusión" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="conclusión"><span class="header-section-number">3.7</span> Conclusión</h2>
+<p>Los resultados demuestran un <strong>efecto causal robusto</strong> de la educación individual sobre la participación en marchas, con magnitud práctica significativa y evidencia sólida de que la <strong>movilidad educacional</strong> tiene efectos empoderadores más allá de la mera <strong>reproducción del capital cultural familiar</strong>. Este hallazgo contribuye a la comprensión de cómo la educación funciona como mecanismo de inclusión democrática y transformación social.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

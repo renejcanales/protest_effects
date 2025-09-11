@@ -67,7 +67,7 @@ pacman::p_load(tidyverse,
                here,
                texreg)
 
-load(here('protest_effects/input/data/proc/elsoc_long.RData'))
+load("~/GitHub/protest_effects/input/data/proc/elsoc_long.RData")
 ```
 
 # Preparación de Datos Longitudinales
@@ -521,12 +521,15 @@ Análisis adicionales recomendados:
 #| warning: false
 #| message: false
 
+library(emmeans)
+library(lme4)
+
 # 1. Contrastes específicos entre niveles
 emmeans::contrast(emmeans(modelo3, "educ_cat"), method = "pairwise")
 
 # 2. Tendencia no-lineal
-marginaleffects::avg_slopes(modelo3, variables = "educ_cat", 
-                           hypothesis = "pairwise")
+#  marginaleffects::avg_slopes(modelo3, variables = "educ_cat", 
+#                           hypothesis = "pairwise")
 
 # 3. Interacción categórica × temporal
 modelo_cat_temporal <- lmer(marcha ~ educ_cat * post_estallido + 
@@ -554,14 +557,15 @@ Análisis de mediación → Mecanismos causales (si tienes datos)
 a) Especificaciones alternativas
 ```{r}
 # Modelo con controles adicionales
-modelo_robusto <- lmer(marcha ~ educ_encuestado + edad + I(edad^2) + 
-                      genero + ingreso + zona_residencia + post_estallido +
-                      (1 | idencuesta), data = data_completa)
+#modelo_robusto <- lmer(marcha ~ educ_encuestado + edad + I(edad^2) + 
+#                      genero + ingreso + zona_residencia + post_estallido +
+#                      (1 | idencuesta), data = data_completa)
 
 # Modelo con efectos fijos temporales
 modelo_tiempo_fijo <- lmer(marcha ~ educ_encuestado + edad + genero +
-                          factor(wave) + 
+                          factor(ola) + 
                           (1 | idencuesta), data = data_completa)
+modelo_tiempo_fijo
 ```
 
 b) Análisis de sensibilidad
@@ -572,9 +576,9 @@ b) Análisis de sensibilidad
 # - Modelo de dos partes (participación + intensidad)
 # - Categorización binaria (participó vs no participó)
 
-modelo_binario <- glmer(marcha_binaria ~ educ_encuestado + edad + genero + 
-                       post_estallido + (1 | idencuesta),
-                       family = binomial, data = data)
+# modelo_binario <- glmer(marcha_binaria ~ educ_encuestado + edad + genero + 
+#                       post_estallido + (1 | idencuesta),
+#                       family = binomial, data = data)
 ```
 
 
