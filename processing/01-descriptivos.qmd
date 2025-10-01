@@ -1,0 +1,152 @@
+---
+title: "Modelo de efectos aleatorios: Tesis de Magister"
+format:
+  html: 
+    code-fold: true
+    html-math-method: katex
+    number-sections: true
+    code-link: true
+    title-block-banner: true
+    theme:
+      - pretty.scss
+  pdf: 
+    geometry: margin=2cm
+    template-partials: 
+      - title.tex
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+    number-sections: true
+editor: source
+author:   
+  - name: René Canales
+    affiliations:
+      - ref: 1
+      - ref: 2     
+affiliations: 
+  - id: 1
+    name: Instituto de Sociología, Pontificia Universidad Católica de Chile
+  - id: 2
+    name: Centro de estudios del conflicto y cohesión social (COES)
+citeproc: true
+abstract: | 
+  \newline
+  **Keywords**: 
+link-citations: true
+linestretch: 1.5       
+mainfont: Times New Roman
+fontsize: 13pt          
+colorlinks: true
+fig-height: 4
+fig-width: 7.5
+---
+
+# Paquetes
+
+```{r}
+#| results: false
+#| warning: false
+#| message: false
+#| echo: false
+
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(tidyverse,
+               sjlabelled, 
+               sjmisc, 
+               sjPlot,
+               here,
+               tidyr,
+               naniar,
+               dplyr,
+               broom,
+               broom.mixed,
+               texreg)
+
+options(scipen=999)
+rm(list = ls())
+```
+
+# Datos
+
+```{r}
+#| results: false
+#| warning: false
+#| message: false
+#| echo: false
+
+
+load(here("~/GitHub/protest_effects/input/data/proc/elsoc_long.RData"))
+```
+
+# Descriptivos
+
+```{r}
+#| echo: false
+
+elsoc_long %>%
+  group_by(ola) %>%
+  summarise(mean_protesta = mean(asist_marcha, na.rm = TRUE)) %>%
+  ggplot(aes(x = ola, y = mean_protesta)) +
+  geom_line(color = "darkblue", size = 1.2, group = 1) +
+  geom_point(color = "firebrick", size = 3) +
+  scale_y_continuous(limits = c(1, 3), breaks = 1:3) +
+  labs(
+    title = "Evolución de la participación en protestas",
+    x = "Ola / Año",
+    y = "Promedio en escala 1–3"
+  )
+```
+
+
+
+
+```{r}
+#| echo: FALSE
+
+library(janitor)
+
+datos <- elsoc_long %>%
+  mutate(educ_label = case_when(
+    educ_encuestado == 1 ~ "Básica incompleta",
+    educ_encuestado == 2 ~ "Básica completa",
+    educ_encuestado == 3 ~ "Media incompleta",
+    educ_encuestado == 4 ~ "Media completa",
+    educ_encuestado == 5 ~ "Técnica Superior incompleta",
+    educ_encuestado == 6 ~ "Técnica Superior completa",
+    educ_encuestado == 7 ~ "Universitaria incompleta",
+    educ_encuestado == 8 ~ "Universitaria completa",
+    educ_encuestado == 9 ~ "Posgrado incompleto",
+    educ_encuestado == 10 ~ "Posgrado completo",
+    TRUE ~ NA_character_
+  ))
+
+tabla_educ <- datos %>%
+  group_by(ola, educ_label) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(ola) %>%
+  mutate(prop = round(100 * n / sum(n), 1)) %>%
+  select(ola, educ_label, prop) %>%
+  pivot_wider(names_from = ola, values_from = prop)
+
+tabla_educ
+```
+
+
+```{r}
+#| echo: false
+
+elsoc_long %>%
+  group_by(ola) %>%
+  summarise(mean_part = mean(asist_marcha, na.rm = TRUE)) %>%
+  ggplot(aes(x = ola, y = mean_part)) +
+  geom_col(fill = "steelblue") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(x = "Ola", y = "% que participa")
+```
+
