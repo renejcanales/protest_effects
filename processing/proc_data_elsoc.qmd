@@ -482,7 +482,7 @@ summary(modelo5)
 # COMPARACIÓN DE MODELOS
 # ========================================
 
-texreg(list(modelo1, modelo2, modelo3, modelo4, modelo5),
+screenreg(list(modelo1, modelo2, modelo3, modelo4, modelo5),
           custom.model.names = c("M1: Base", "M2: Movilidad", 
                                  "M3: Interacción", "M4: Cat. Interacción",
                                  "M5: Grupos"))

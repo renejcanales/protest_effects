@@ -159,77 +159,69 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
-\begin{table}
-\begin{center}
-\begin{tabular}{l c c c c c}
-\hline
- &amp; M1: Base &amp; M2: Movilidad &amp; M3: Interacción &amp; M4: Cat. Interacción &amp; M5: Grupos \\
-\hline
-(Intercept)                                              &amp; $1.62^{***}$  &amp; $1.57^{***}$  &amp; $1.58^{***}$  &amp; $1.49^{***}$  &amp; $1.86^{***}$  \\
-                                                         &amp; $(0.05)$      &amp; $(0.06)$      &amp; $(0.06)$      &amp; $(0.08)$      &amp; $(0.04)$      \\
-anos\_educ\_resp                                         &amp; $0.03^{***}$  &amp; $0.04^{***}$  &amp; $0.04^{***}$  &amp; $0.04^{***}$  &amp;               \\
-                                                         &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.01)$      &amp;               \\
-edad                                                     &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ \\
-                                                         &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      \\
-genero                                                   &amp; $-0.03$       &amp; $-0.03$       &amp; $-0.03$       &amp; $-0.03$       &amp; $-0.03$       \\
-                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
-ideologia                                                &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ \\
-                                                         &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      \\
-ola\_factor2                                             &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ \\
-                                                         &amp; $(0.03)$      &amp; $(0.03)$      &amp; $(0.03)$      &amp; $(0.03)$      &amp; $(0.03)$      \\
-ola\_factor3                                             &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ \\
-                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
-ola\_factor4                                             &amp; $0.31^{***}$  &amp; $0.30^{***}$  &amp; $0.30^{***}$  &amp; $0.30^{***}$  &amp; $0.31^{***}$  \\
-                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
-ola\_factor5                                             &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ \\
-                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
-ola\_factor6                                             &amp; $-0.06^{**}$  &amp; $-0.07^{**}$  &amp; $-0.07^{**}$  &amp; $-0.07^{**}$  &amp; $-0.06^{*}$   \\
-                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
-ola\_factor7                                             &amp; $-0.15^{***}$ &amp; $-0.15^{***}$ &amp; $-0.15^{***}$ &amp; $-0.15^{***}$ &amp; $-0.14^{***}$ \\
-                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
-movilidad\_educ                                          &amp;               &amp; $-0.01^{***}$ &amp; $-0.02^{**}$  &amp;               &amp;               \\
-                                                         &amp;               &amp; $(0.00)$      &amp; $(0.01)$      &amp;               &amp;               \\
-anos\_educ\_resp:movilidad\_educ                         &amp;               &amp;               &amp; $0.00$        &amp;               &amp;               \\
-                                                         &amp;               &amp;               &amp; $(0.00)$      &amp;               &amp;               \\
-movilidad\_catSin movilidad                              &amp;               &amp;               &amp;               &amp; $0.16^{*}$    &amp;               \\
-                                                         &amp;               &amp;               &amp;               &amp; $(0.08)$      &amp;               \\
-movilidad\_catMovilidad moderada                         &amp;               &amp;               &amp;               &amp; $-0.22$       &amp;               \\
-                                                         &amp;               &amp;               &amp;               &amp; $(0.14)$      &amp;               \\
-movilidad\_catAlta movilidad ascendente                  &amp;               &amp;               &amp;               &amp; $0.05$        &amp;               \\
-                                                         &amp;               &amp;               &amp;               &amp; $(0.09)$      &amp;               \\
-anos\_educ\_padres                                       &amp;               &amp;               &amp;               &amp; $0.01$        &amp;               \\
-                                                         &amp;               &amp;               &amp;               &amp; $(0.00)$      &amp;               \\
-anos\_educ\_resp:movilidad\_catSin movilidad             &amp;               &amp;               &amp;               &amp; $-0.02^{**}$  &amp;               \\
-                                                         &amp;               &amp;               &amp;               &amp; $(0.01)$      &amp;               \\
-anos\_educ\_resp:movilidad\_catMovilidad moderada        &amp;               &amp;               &amp;               &amp; $0.01$        &amp;               \\
-                                                         &amp;               &amp;               &amp;               &amp; $(0.01)$      &amp;               \\
-anos\_educ\_resp:movilidad\_catAlta movilidad ascendente &amp;               &amp;               &amp;               &amp; $-0.01$       &amp;               \\
-                                                         &amp;               &amp;               &amp;               &amp; $(0.01)$      &amp;               \\
-grupo\_hipotesis\_amplioMedia completa                   &amp;               &amp;               &amp;               &amp;               &amp; $0.09^{***}$  \\
-                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.02)$      \\
-grupo\_hipotesis\_amplioTécnicos sin movilidad           &amp;               &amp;               &amp;               &amp;               &amp; $0.37^{***}$  \\
-                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
-grupo\_hipotesis\_amplioTécnicos alta movilidad          &amp;               &amp;               &amp;               &amp;               &amp; $0.18^{***}$  \\
-                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
-grupo\_hipotesis\_amplioUniversitarios sin movilidad     &amp;               &amp;               &amp;               &amp;               &amp; $0.31^{***}$  \\
-                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.04)$      \\
-grupo\_hipotesis\_amplioUniversitarios alta movilidad    &amp;               &amp;               &amp;               &amp;               &amp; $0.34^{***}$  \\
-                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
-grupo\_hipotesis\_amplioOtros                            &amp;               &amp;               &amp;               &amp;               &amp; $0.25^{***}$  \\
-                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
-\hline
-s\_idios                                                 &amp; $0.65$        &amp; $0.65$        &amp; $0.65$        &amp; $0.65$        &amp; $0.65$        \\
-s\_id                                                    &amp; $0.39$        &amp; $0.39$        &amp; $0.39$        &amp; $0.38$        &amp; $0.38$        \\
-R$^2$                                                    &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        \\
-Adj. R$^2$                                               &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        \\
-Num. obs.                                                &amp; $12402$       &amp; $12402$       &amp; $12402$       &amp; $12402$       &amp; $12402$       \\
-\hline
-\multicolumn{6}{l}{\scriptsize{$^{***}p&lt;0.001$; $^{**}p&lt;0.01$; $^{*}p&lt;0.05$}}
-\end{tabular}
-\caption{Statistical models}
-\label{table:coefficients}
-\end{center}
-\end{table}</code></pre>
+=======================================================================================================================================
+                                                       M1: Base      M2: Movilidad  M3: Interacción  M4: Cat. Interacción  M5: Grupos  
+---------------------------------------------------------------------------------------------------------------------------------------
+(Intercept)                                                1.62 ***      1.57 ***       1.58 ***         1.49 ***              1.86 ***
+                                                          (0.05)        (0.06)         (0.06)           (0.08)                (0.04)   
+anos_educ_resp                                             0.03 ***      0.04 ***       0.04 ***         0.04 ***                      
+                                                          (0.00)        (0.00)         (0.00)           (0.01)                         
+edad                                                      -0.01 ***     -0.01 ***      -0.01 ***        -0.01 ***             -0.01 ***
+                                                          (0.00)        (0.00)         (0.00)           (0.00)                (0.00)   
+genero                                                    -0.03         -0.03          -0.03            -0.03                 -0.03    
+                                                          (0.02)        (0.02)         (0.02)           (0.02)                (0.02)   
+ideologia                                                 -0.05 ***     -0.05 ***      -0.05 ***        -0.05 ***             -0.05 ***
+                                                          (0.00)        (0.00)         (0.00)           (0.00)                (0.00)   
+ola_factor2                                               -0.09 ***     -0.09 ***      -0.09 ***        -0.09 ***             -0.09 ***
+                                                          (0.03)        (0.03)         (0.03)           (0.03)                (0.03)   
+ola_factor3                                               -0.09 ***     -0.09 ***      -0.09 ***        -0.09 ***             -0.09 ***
+                                                          (0.02)        (0.02)         (0.02)           (0.02)                (0.02)   
+ola_factor4                                                0.31 ***      0.30 ***       0.30 ***         0.30 ***              0.31 ***
+                                                          (0.02)        (0.02)         (0.02)           (0.02)                (0.02)   
+ola_factor5                                               -0.11 ***     -0.11 ***      -0.11 ***        -0.11 ***             -0.11 ***
+                                                          (0.02)        (0.02)         (0.02)           (0.02)                (0.02)   
+ola_factor6                                               -0.06 **      -0.07 **       -0.07 **         -0.07 **              -0.06 *  
+                                                          (0.02)        (0.02)         (0.02)           (0.02)                (0.02)   
+ola_factor7                                               -0.15 ***     -0.15 ***      -0.15 ***        -0.15 ***             -0.14 ***
+                                                          (0.02)        (0.02)         (0.02)           (0.02)                (0.02)   
+movilidad_educ                                                          -0.01 ***      -0.02 **                                        
+                                                                        (0.00)         (0.01)                                          
+anos_educ_resp:movilidad_educ                                                           0.00                                           
+                                                                                       (0.00)                                          
+movilidad_catSin movilidad                                                                               0.16 *                        
+                                                                                                        (0.08)                         
+movilidad_catMovilidad moderada                                                                         -0.22                          
+                                                                                                        (0.14)                         
+movilidad_catAlta movilidad ascendente                                                                   0.05                          
+                                                                                                        (0.09)                         
+anos_educ_padres                                                                                         0.01                          
+                                                                                                        (0.00)                         
+anos_educ_resp:movilidad_catSin movilidad                                                               -0.02 **                       
+                                                                                                        (0.01)                         
+anos_educ_resp:movilidad_catMovilidad moderada                                                           0.01                          
+                                                                                                        (0.01)                         
+anos_educ_resp:movilidad_catAlta movilidad ascendente                                                   -0.01                          
+                                                                                                        (0.01)                         
+grupo_hipotesis_amplioMedia completa                                                                                           0.09 ***
+                                                                                                                              (0.02)   
+grupo_hipotesis_amplioTécnicos sin movilidad                                                                                   0.37 ***
+                                                                                                                              (0.03)   
+grupo_hipotesis_amplioTécnicos alta movilidad                                                                                  0.18 ***
+                                                                                                                              (0.03)   
+grupo_hipotesis_amplioUniversitarios sin movilidad                                                                             0.31 ***
+                                                                                                                              (0.04)   
+grupo_hipotesis_amplioUniversitarios alta movilidad                                                                            0.34 ***
+                                                                                                                              (0.03)   
+grupo_hipotesis_amplioOtros                                                                                                    0.25 ***
+                                                                                                                              (0.03)   
+---------------------------------------------------------------------------------------------------------------------------------------
+s_idios                                                    0.65          0.65           0.65             0.65                  0.65    
+s_id                                                       0.39          0.39           0.39             0.38                  0.38    
+R^2                                                        0.12          0.12           0.12             0.12                  0.12    
+Adj. R^2                                                   0.12          0.12           0.12             0.12                  0.12    
+Num. obs.                                              12402         12402          12402            12402                 12402       
+=======================================================================================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
 <p>Los resultados muestran que la relación entre educación y protesta es moderada por la movilidad educacional. El grupo con mayor probabilidad de participar en protestas son los técnicos sin movilidad (β=0.37, p&lt;0.001), seguidos por los universitarios independientemente de su movilidad (β=0.31-0.34, p&lt;0.001). Esto sugiere que la frustración relativa opera principalmente entre quienes alcanzaron educación técnica pero no experimentaron movilidad social, mientras que la protesta universitaria puede responder a motivaciones ideológicas más que a frustración personal. Consistente con estudios previos, la participación en protestas fue significativamente mayor durante el estallido social de 2019 (Ola 4: β=0.31, p&lt;0.001).</p>
