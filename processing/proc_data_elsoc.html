@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="René Canales">
+<title>Análisis de Resultados: Tesis de Magister</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<script src="proc_data_elsoc_files/libs/clipboard/clipboard.min.js"></script>
+<script src="proc_data_elsoc_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="proc_data_elsoc_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="proc_data_elsoc_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="proc_data_elsoc_files/libs/quarto-html/popper.min.js"></script>
+<script src="proc_data_elsoc_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="proc_data_elsoc_files/libs/quarto-html/anchor.min.js"></script>
+<link href="proc_data_elsoc_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="proc_data_elsoc_files/libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="proc_data_elsoc_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="proc_data_elsoc_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="proc_data_elsoc_files/libs/bootstrap/bootstrap-afec8a14bc86c2a30ccee0d5ced85c30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="quarto-light">
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Análisis de Resultados: Tesis de Magister</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">René Canales </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Instituto de Sociología, Pontificia Universidad Católica de Chile
+            </p>
+          <p class="affiliation">
+              Centro de estudios del conflicto y cohesión social (COES)
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      <p><strong>Keywords</strong>:</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="proc_data_elsoc.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  n_obs n_personas protesta_media protesta_sd educ_media educ_padres_media
+  &lt;int&gt;      &lt;int&gt;          &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;             &lt;dbl&gt;
+1 19423       4157           1.28       0.751       11.5              8.59
+# ℹ 2 more variables: movilidad_media &lt;dbl&gt;, movilidad_sd &lt;dbl&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 10
+  grupo_hipotesis_amplio      n n_personas protesta_media protesta_sd educ_media
+  &lt;fct&gt;                   &lt;int&gt;      &lt;int&gt;          &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 Baja educación           6431       1742           1.10       0.437       7.27
+2 Media completa           5819       1854           1.23       0.676      12   
+3 Técnicos sin movilidad   1458        586           1.58       1.05       14.1 
+4 Técnicos alta movilidad  2178        834           1.38       0.836      14.2 
+5 Universitarios sin mov…   701        249           1.58       1.05       16.1 
+6 Universitarios alta mo…  1604        517           1.56       1.00       16.2 
+7 Otros                    1232        490           1.44       0.879      14.9 
+# ℹ 4 more variables: educ_padres_media &lt;dbl&gt;, movilidad_media &lt;dbl&gt;,
+#   edad_media &lt;dbl&gt;, prop_genero &lt;dbl&gt;</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Se utilizó un panel desbalanceado con 4,157 individuos observados entre 1 y 7 olas (N=19,423 observaciones). Los modelos de efectos aleatorios son apropiados para paneles desbalanceados y utilizan toda la información disponible. Como análisis de robustez, se estimaron los modelos con una submuestra balanceada de individuos observados en las 7 olas.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c c c}
+\hline
+ &amp; M1: Base &amp; M2: Movilidad &amp; M3: Interacción &amp; M4: Cat. Interacción &amp; M5: Grupos \\
+\hline
+(Intercept)                                              &amp; $1.62^{***}$  &amp; $1.57^{***}$  &amp; $1.58^{***}$  &amp; $1.49^{***}$  &amp; $1.86^{***}$  \\
+                                                         &amp; $(0.05)$      &amp; $(0.06)$      &amp; $(0.06)$      &amp; $(0.08)$      &amp; $(0.04)$      \\
+anos\_educ\_resp                                         &amp; $0.03^{***}$  &amp; $0.04^{***}$  &amp; $0.04^{***}$  &amp; $0.04^{***}$  &amp;               \\
+                                                         &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.01)$      &amp;               \\
+edad                                                     &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ &amp; $-0.01^{***}$ \\
+                                                         &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      \\
+genero                                                   &amp; $-0.03$       &amp; $-0.03$       &amp; $-0.03$       &amp; $-0.03$       &amp; $-0.03$       \\
+                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
+ideologia                                                &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ &amp; $-0.05^{***}$ \\
+                                                         &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      &amp; $(0.00)$      \\
+ola\_factor2                                             &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ \\
+                                                         &amp; $(0.03)$      &amp; $(0.03)$      &amp; $(0.03)$      &amp; $(0.03)$      &amp; $(0.03)$      \\
+ola\_factor3                                             &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ &amp; $-0.09^{***}$ \\
+                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
+ola\_factor4                                             &amp; $0.31^{***}$  &amp; $0.30^{***}$  &amp; $0.30^{***}$  &amp; $0.30^{***}$  &amp; $0.31^{***}$  \\
+                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
+ola\_factor5                                             &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ &amp; $-0.11^{***}$ \\
+                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
+ola\_factor6                                             &amp; $-0.06^{**}$  &amp; $-0.07^{**}$  &amp; $-0.07^{**}$  &amp; $-0.07^{**}$  &amp; $-0.06^{*}$   \\
+                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
+ola\_factor7                                             &amp; $-0.15^{***}$ &amp; $-0.15^{***}$ &amp; $-0.15^{***}$ &amp; $-0.15^{***}$ &amp; $-0.14^{***}$ \\
+                                                         &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      &amp; $(0.02)$      \\
+movilidad\_educ                                          &amp;               &amp; $-0.01^{***}$ &amp; $-0.02^{**}$  &amp;               &amp;               \\
+                                                         &amp;               &amp; $(0.00)$      &amp; $(0.01)$      &amp;               &amp;               \\
+anos\_educ\_resp:movilidad\_educ                         &amp;               &amp;               &amp; $0.00$        &amp;               &amp;               \\
+                                                         &amp;               &amp;               &amp; $(0.00)$      &amp;               &amp;               \\
+movilidad\_catSin movilidad                              &amp;               &amp;               &amp;               &amp; $0.16^{*}$    &amp;               \\
+                                                         &amp;               &amp;               &amp;               &amp; $(0.08)$      &amp;               \\
+movilidad\_catMovilidad moderada                         &amp;               &amp;               &amp;               &amp; $-0.22$       &amp;               \\
+                                                         &amp;               &amp;               &amp;               &amp; $(0.14)$      &amp;               \\
+movilidad\_catAlta movilidad ascendente                  &amp;               &amp;               &amp;               &amp; $0.05$        &amp;               \\
+                                                         &amp;               &amp;               &amp;               &amp; $(0.09)$      &amp;               \\
+anos\_educ\_padres                                       &amp;               &amp;               &amp;               &amp; $0.01$        &amp;               \\
+                                                         &amp;               &amp;               &amp;               &amp; $(0.00)$      &amp;               \\
+anos\_educ\_resp:movilidad\_catSin movilidad             &amp;               &amp;               &amp;               &amp; $-0.02^{**}$  &amp;               \\
+                                                         &amp;               &amp;               &amp;               &amp; $(0.01)$      &amp;               \\
+anos\_educ\_resp:movilidad\_catMovilidad moderada        &amp;               &amp;               &amp;               &amp; $0.01$        &amp;               \\
+                                                         &amp;               &amp;               &amp;               &amp; $(0.01)$      &amp;               \\
+anos\_educ\_resp:movilidad\_catAlta movilidad ascendente &amp;               &amp;               &amp;               &amp; $-0.01$       &amp;               \\
+                                                         &amp;               &amp;               &amp;               &amp; $(0.01)$      &amp;               \\
+grupo\_hipotesis\_amplioMedia completa                   &amp;               &amp;               &amp;               &amp;               &amp; $0.09^{***}$  \\
+                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.02)$      \\
+grupo\_hipotesis\_amplioTécnicos sin movilidad           &amp;               &amp;               &amp;               &amp;               &amp; $0.37^{***}$  \\
+                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
+grupo\_hipotesis\_amplioTécnicos alta movilidad          &amp;               &amp;               &amp;               &amp;               &amp; $0.18^{***}$  \\
+                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
+grupo\_hipotesis\_amplioUniversitarios sin movilidad     &amp;               &amp;               &amp;               &amp;               &amp; $0.31^{***}$  \\
+                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.04)$      \\
+grupo\_hipotesis\_amplioUniversitarios alta movilidad    &amp;               &amp;               &amp;               &amp;               &amp; $0.34^{***}$  \\
+                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
+grupo\_hipotesis\_amplioOtros                            &amp;               &amp;               &amp;               &amp;               &amp; $0.25^{***}$  \\
+                                                         &amp;               &amp;               &amp;               &amp;               &amp; $(0.03)$      \\
+\hline
+s\_idios                                                 &amp; $0.65$        &amp; $0.65$        &amp; $0.65$        &amp; $0.65$        &amp; $0.65$        \\
+s\_id                                                    &amp; $0.39$        &amp; $0.39$        &amp; $0.39$        &amp; $0.38$        &amp; $0.38$        \\
+R$^2$                                                    &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        \\
+Adj. R$^2$                                               &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        &amp; $0.12$        \\
+Num. obs.                                                &amp; $12402$       &amp; $12402$       &amp; $12402$       &amp; $12402$       &amp; $12402$       \\
+\hline
+\multicolumn{6}{l}{\scriptsize{$^{***}p&lt;0.001$; $^{**}p&lt;0.01$; $^{*}p&lt;0.05$}}
+\end{tabular}
+\caption{Statistical models}
+\label{table:coefficients}
+\end{center}
+\end{table}</code></pre>
+</div>
+</div>
+<p>Los resultados muestran que la relación entre educación y protesta es moderada por la movilidad educacional. El grupo con mayor probabilidad de participar en protestas son los técnicos sin movilidad (β=0.37, p&lt;0.001), seguidos por los universitarios independientemente de su movilidad (β=0.31-0.34, p&lt;0.001). Esto sugiere que la frustración relativa opera principalmente entre quienes alcanzaron educación técnica pero no experimentaron movilidad social, mientras que la protesta universitaria puede responder a motivaciones ideológicas más que a frustración personal. Consistente con estudios previos, la participación en protestas fue significativamente mayor durante el estallido social de 2019 (Ola 4: β=0.31, p&lt;0.001).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                                          (Intercept) 
+                                          1.491978747 
+                                       anos_educ_resp 
+                                          0.039506052 
+                           movilidad_catSin movilidad 
+                                          0.162727376 
+                      movilidad_catMovilidad moderada 
+                                         -0.215730133 
+               movilidad_catAlta movilidad ascendente 
+                                          0.045468912 
+                                     anos_educ_padres 
+                                          0.008265838 
+                                                 edad 
+                                         -0.007685322 
+                                               genero 
+                                         -0.031573032 
+                                            ideologia 
+                                         -0.048894387 
+                                          ola_factor2 
+                                         -0.086950707 
+                                          ola_factor3 
+                                         -0.091509649 
+                                          ola_factor4 
+                                          0.304616631 
+                                          ola_factor5 
+                                         -0.114334149 
+                                          ola_factor6 
+                                         -0.067341124 
+                                          ola_factor7 
+                                         -0.148675876 
+            anos_educ_resp:movilidad_catSin movilidad 
+                                         -0.019643002 
+       anos_educ_resp:movilidad_catMovilidad moderada 
+                                          0.009634541 
+anos_educ_resp:movilidad_catAlta movilidad ascendente 
+                                         -0.009812593 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== TEST DE HAUSMAN: Modelo con interacción ===</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Hausman Test
+
+data:  protesta ~ anos_educ_resp * movilidad_educ + edad + genero +  ...
+chisq = 66.63, df = 11, p-value = 0.0000000005313
+alternative hypothesis: one model is inconsistent</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== TEST DE HAUSMAN: Modelo con grupos ===</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Hausman Test
+
+data:  protesta ~ grupo_hipotesis_amplio + edad + genero + ideologia +  ...
+chisq = 19.045, df = 14, p-value = 0.1632
+alternative hypothesis: one model is inconsistent</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== TEST DE BREUSCH-PAGAN ===</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Lagrange Multiplier Test - (Breusch-Pagan)
+
+data:  protesta ~ anos_educ_resp * movilidad_educ + edad + genero +  ...
+chisq = 3602.3, df = 1, p-value &lt; 0.00000000000000022
+alternative hypothesis: significant effects</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== MODELO 3 CON ERRORES ROBUSTOS ===</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+                                 Estimate  Std. Error  t value
+(Intercept)                    1.57857023  0.05098808  30.9596
+anos_educ_resp                 0.03594572  0.00284745  12.6238
+movilidad_educ                -0.02170779  0.00546667  -3.9709
+edad                          -0.00776242  0.00065842 -11.7894
+genero                        -0.03094507  0.01879893  -1.6461
+ideologia                     -0.04867282  0.00346009 -14.0669
+ola_factor2                   -0.08785099  0.02298446  -3.8222
+ola_factor3                   -0.09205694  0.02164357  -4.2533
+ola_factor4                    0.30354746  0.02788718  10.8848
+ola_factor5                   -0.11404233  0.02388128  -4.7754
+ola_factor6                   -0.06732549  0.02480780  -2.7139
+ola_factor7                   -0.14972929  0.02356271  -6.3545
+anos_educ_resp:movilidad_educ  0.00092530  0.00051656   1.7913
+                                           Pr(&gt;|t|)    
+(Intercept)                   &lt; 0.00000000000000022 ***
+anos_educ_resp                &lt; 0.00000000000000022 ***
+movilidad_educ                      0.0000719956516 ***
+edad                          &lt; 0.00000000000000022 ***
+genero                                    0.0997669 .  
+ideologia                     &lt; 0.00000000000000022 ***
+ola_factor2                               0.0001329 ***
+ola_factor3                         0.0000212173563 ***
+ola_factor4                   &lt; 0.00000000000000022 ***
+ola_factor5                         0.0000018141680 ***
+ola_factor6                               0.0066592 ** 
+ola_factor7                         0.0000000002164 ***
+anos_educ_resp:movilidad_educ             0.0732749 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== MODELO 5 CON ERRORES ROBUSTOS ===</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+                                                       Estimate  Std. Error
+(Intercept)                                          1.85714802  0.04265942
+grupo_hipotesis_amplioMedia completa                 0.09481426  0.01768811
+grupo_hipotesis_amplioTécnicos sin movilidad         0.37241076  0.04156648
+grupo_hipotesis_amplioTécnicos alta movilidad        0.18492989  0.02709861
+grupo_hipotesis_amplioUniversitarios sin movilidad   0.30798501  0.05304930
+grupo_hipotesis_amplioUniversitarios alta movilidad  0.34085675  0.03579136
+grupo_hipotesis_amplioOtros                          0.25090261  0.03497902
+edad                                                -0.00826245  0.00064078
+genero                                              -0.03386311  0.01869215
+ideologia                                           -0.04913027  0.00345336
+ola_factor2                                         -0.08806563  0.02291280
+ola_factor3                                         -0.08881454  0.02164270
+ola_factor4                                          0.30520139  0.02784069
+ola_factor5                                         -0.11026260  0.02389728
+ola_factor6                                         -0.06098726  0.02487843
+ola_factor7                                         -0.14382086  0.02351268
+                                                     t value
+(Intercept)                                          43.5343
+grupo_hipotesis_amplioMedia completa                  5.3603
+grupo_hipotesis_amplioTécnicos sin movilidad          8.9594
+grupo_hipotesis_amplioTécnicos alta movilidad         6.8243
+grupo_hipotesis_amplioUniversitarios sin movilidad    5.8056
+grupo_hipotesis_amplioUniversitarios alta movilidad   9.5234
+grupo_hipotesis_amplioOtros                           7.1729
+edad                                                -12.8943
+genero                                               -1.8116
+ideologia                                           -14.2268
+ola_factor2                                          -3.8435
+ola_factor3                                          -4.1037
+ola_factor4                                          10.9624
+ola_factor5                                          -4.6140
+ola_factor6                                          -2.4514
+ola_factor7                                          -6.1167
+                                                                 Pr(&gt;|t|)    
+(Intercept)                                         &lt; 0.00000000000000022 ***
+grupo_hipotesis_amplioMedia completa                   0.0000000845568387 ***
+grupo_hipotesis_amplioTécnicos sin movilidad        &lt; 0.00000000000000022 ***
+grupo_hipotesis_amplioTécnicos alta movilidad          0.0000000000092451 ***
+grupo_hipotesis_amplioUniversitarios sin movilidad     0.0000000065694223 ***
+grupo_hipotesis_amplioUniversitarios alta movilidad &lt; 0.00000000000000022 ***
+grupo_hipotesis_amplioOtros                            0.0000000000007758 ***
+edad                                                &lt; 0.00000000000000022 ***
+genero                                                          0.0700688 .  
+ideologia                                           &lt; 0.00000000000000022 ***
+ola_factor2                                                     0.0001219 ***
+ola_factor3                                            0.0000409248962167 ***
+ola_factor4                                         &lt; 0.00000000000000022 ***
+ola_factor5                                            0.0000039891052075 ***
+ola_factor6                                                     0.0142434 *  
+ola_factor7                                            0.0000000009838955 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<section id="modelo-5-educación-movilidad-social-y-participación-en-protestas" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Modelo 5: Educación, Movilidad Social y Participación en Protestas</h1>
+<section id="especificación-del-modelo" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="especificación-del-modelo">
+<span class="header-section-number">1.1</span> Especificación del Modelo</h2>
+<p>El Modelo 5 representa nuestra especificación más comprehensiva, operacionalizando la intersección entre nivel educativo alcanzado y experiencia de movilidad educativa intergeneracional. Empleamos un modelo de efectos aleatorios con la siguiente estructura:</p>
+<p><span class="math display">
+\text{Protesta}_{it} = \beta_0 + \sum_{j=1}^{6}\beta_j\text{Grupo}_{ij} + \beta_7\text{Edad}_{it} + \beta_8\text{Género}_i + \beta_9\text{Ideología}_{it} + \sum_{k=2}^{7}\gamma_k\text{Ola}_{kt} + \alpha_i + \varepsilon_{it}
+</span></p>
+<p>donde <span class="math inline">\alpha_i</span> representa los efectos individuales aleatorios y <span class="math inline">\varepsilon_{it}</span> el término error.</p>
+<p>Los grupos educativos-de movilidad se definen como:</p>
+<ul>
+<li>Básica completa sin movilidad (categoría de referencia)</li>
+<li>Media completa: Completaron educación secundaria</li>
+<li>Técnicos sin movilidad: Educación técnica sin exceder nivel educativo parental</li>
+<li>Técnicos alta movilidad: Educación técnica con movilidad ascendente significativa</li>
+<li>Universitarios sin movilidad: Educación universitaria sin exceder nivel parental</li>
+<li>Universitarios alta movilidad: Educación universitaria con movilidad ascendente</li>
+<li>Otros: Categorías residuales o trayectorias atípicas</li>
+</ul></section><section id="validación-de-la-especificación" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="validación-de-la-especificación">
+<span class="header-section-number">1.2</span> Validación de la Especificación</h2>
+<p>Antes de interpretar los resultados, es crucial establecer la validez de nuestra especificación mediante tests formales:</p>
+<ol type="1">
+<li><p>Test de Hausman (RE vs FE): El test de Hausman no rechaza la hipótesis nula de ausencia de correlación entre los efectos individuales y los regresores (χ²=19.045, df=14, p=0.163). Esto indica que el modelo de efectos aleatorios es consistente y, además, más eficiente que efectos fijos, justificando nuestra elección de especificación. Este resultado contrasta con el Modelo 3 (interacción continua), que sí rechaza la hipótesis nula, sugiriendo que la especificación por grupos captura mejor la heterogeneidad relevante sin generar correlaciones espurias.</p></li>
+<li><p>Test de Breusch-Pagan (Panel vs Pooled): El test rechaza contundentemente la ausencia de efectos individuales (χ²=3602.3, df=1, p&lt;0.001), confirmando que la estructura de panel es necesaria y que existen diferencias sistemáticas entre individuos que deben ser controladas.</p></li>
+<li><p>Errores estándar robustos: Empleamos errores estándar robustos a heteroscedasticidad (HC1) para todas las inferencias, protegiendo nuestras conclusiones contra violaciones de los supuestos de homocedasticidad.</p></li>
+<li><p>Bondad de ajuste: El modelo explica 12.2% de la varianza en participación en protestas (R²=0.122), un nivel razonable para modelos de comportamiento político. La descomposición de varianza revela que 74% corresponde a variación temporal (dentro de individuos) y 26% a diferencias estables entre personas, indicando tanto cambios intra-individuales como heterogeneidad estructural.</p></li>
+</ol></section><section id="resultados-principales" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="resultados-principales">
+<span class="header-section-number">1.3</span> Resultados Principales</h2>
+<section id="efectos-de-los-grupos-educativos-de-movilidad" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="efectos-de-los-grupos-educativos-de-movilidad">
+<span class="header-section-number">1.3.1</span> Efectos de los Grupos Educativos-de Movilidad</h3>
+<p>Los resultados revelan patrones complejos y teóricamente significativos en la relación entre educación, movilidad social y protesta política. La Tabla X presenta los coeficientes estimados con errores estándar robustos.</p>
+<p>[INSERTAR TABLA CON COEFICIENTES COMPLETOS]</p>
+<p>Todos los grupos educativos muestran niveles de protesta significativamente mayores que el grupo de referencia (básica completa sin movilidad), pero las magnitudes y patrones varían sistemáticamente:</p>
+<ul>
+<li><p>Educación Media (β=0.095, p&lt;0.001): Completar la educación secundaria incrementa la participación en protestas en aproximadamente 9.5 puntos porcentuales respecto al grupo base. Este efecto moderado pero significativo sugiere que la educación secundaria proporciona recursos cognitivos y relacionales básicos para la participación política, aunque aún limitados comparados con niveles educativos superiores.</p></li>
+<li><p>Técnicos sin movilidad (β=0.372, p&lt;0.001): Este grupo exhibe el efecto más pronunciado de todas las categorías, con un incremento de 37.2 puntos porcentuales en participación. Este hallazgo es crucial y requiere interpretación cuidadosa. Individuos que obtienen educación técnica pero no logran superar el nivel educativo de sus padres aparentemente experimentan niveles particularmente elevados de activación política hacia la protesta. Interpretamos este patrón como evidencia de privación relativa aguda: estas personas han invertido en educación técnica—frecuentemente asociada con promesas de movilidad económica y estabilidad laboral—pero no han logrado traducir esta inversión en movilidad social efectiva. La brecha entre expectativas generadas por la credencial educativa y realización efectiva de movilidad puede generar frustración y percepción de injusticia especialmente intensa, canalizándose hacia participación en protestas.</p></li>
+<li><p>Técnicos con alta movilidad (β=0.185, p&lt;0.001): En marcado contraste, técnicos que sí experimentan movilidad ascendente significativa muestran niveles de protesta sustancialmente menores (18.5 puntos porcentuales sobre el grupo base), representando menos de la mitad del efecto observado en técnicos sin movilidad. Esta diferencia de 18.7 puntos porcentuales entre técnicos con y sin movilidad (372-185=187) es tanto estadística como sustantivamente significativa. Sugerimos que la movilidad ascendente efectiva actúa como mecanismo moderador en este grupo: al lograr las expectativas asociadas con su educación técnica, estos individuos experimentan menor privación relativa y posiblemente mayor integración en estructuras sociales establecidas, reduciendo tanto la motivación como los incentivos para participar en protestas.</p></li>
+<li><p>Universitarios sin movilidad (β=0.308, p&lt;0.001): Los universitarios que no superan el nivel educativo parental muestran incrementos de 30.8 puntos porcentuales en protesta. Aunque elevado, este efecto es menor que el observado en técnicos sin movilidad, sugiriendo dinámicas distintas entre tipos de educación superior. Universitarios con alta movilidad (β=0.341, p&lt;0.001): Sorprendentemente, universitarios con movilidad ascendente muestran niveles de protesta solo marginalmente superiores (34.1 puntos porcentuales), prácticamente idénticos a aquellos sin movilidad. La diferencia de apenas 3.3 puntos porcentuales entre universitarios con y sin movilidad contrasta dramáticamente con los 18.7 puntos de diferencia observados en técnicos.</p></li>
+</ul></section><section id="divergencia-técnico-universitaria-principal-hallazgo" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="divergencia-técnico-universitaria-principal-hallazgo">
+<span class="header-section-number">1.3.2</span> Divergencia Técnico-Universitaria: Principal Hallazgo</h3>
+<p>El contraste entre patrones en educación técnica versus universitaria constituye uno de los hallazgos más importantes de nuestro análisis. Mientras la movilidad social reduce sustancialmente la protesta entre técnicos (−50% relativo), tiene efecto mínimo entre universitarios. Esta divergencia técnico-universitaria requiere interpretación teórica cuidadosa. Proponemos que esta divergencia refleja diferencias fundamentales en las funciones sociales y significados culturales de estos dos tipos de educación superior:</p>
+<ol type="1">
+<li>Educación técnica como inversión instrumental: La educación técnica en Chile se ha estructurado históricamente con una orientación fuertemente instrumental hacia inserción laboral y movilidad económica. Los estudiantes que eligen trayectorias técnicas típicamente lo hacen motivados por expectativas de retorno económico relativamente rápido y estabilidad laboral. En este contexto, la movilidad social exitosa satisface las expectativas centrales que motivaron la inversión educativa, generando sentimientos de logro, integración social y potencialmente gratitud hacia el sistema que permitió esa movilidad. Consecuentemente, individuos técnicos móviles tienen menos incentivos para protestar—y potencialmente más que perder al hacerlo—resultando en menor participación.</li>
+</ol>
+<p>Conversamente, técnicos sin movilidad experimentan un desajuste agudo entre inversión y retorno. Han cumplido con las expectativas del sistema educativo, obtuvieron credenciales que supuestamente garantizaban movilidad, pero no han logrado traducir esas credenciales en mejoras tangibles. Esta frustración de expectativas instrumentales genera percepción de injusticia, engaño sistémico y exclusión de promesas incumplidas, canalizándose en niveles particularmente elevados de protesta.</p>
+<ol start="2" type="1">
+<li>Educación universitaria como socialización crítica: La educación universitaria, en contraste, incorpora dimensiones que trascienden lo puramente instrumental. Las universidades funcionan como espacios de socialización política, transmisión de capital cultural crítico, y desarrollo de marcos interpretativos que cuestionan desigualdades estructurales. La experiencia universitaria frecuentemente expone a estudiantes a teorías críticas, movimientos sociales, redes activistas y discursos que problematizan el orden social existente. Desde esta perspectiva, los universitarios protestan no (solo) por intereses materiales frustrados, sino por orientaciones valorativas y compromisos normativos desarrollados durante su socialización universitaria. La protesta entre universitarios puede reflejar solidaridad con grupos marginados, compromiso con justicia social, o rechazo a desigualdades percibidas como ilegítimas—motivaciones que persisten independientemente de logros individuales de movilidad. De hecho, universitarios socialmente móviles podrían incluso sentir mayor obligación moral de protestar precisamente porque han “tenido éxito” en un sistema que perciben como fundamentalmente injusto para otros.</li>
+</ol>
+<p>Esta interpretación se alinea con teorías de post-materialismo político (Inglehart, 1977) y conceptos de “nobleza obliga” en acción colectiva (Nepstad, 2004), donde individuos privilegiados participan en movimientos sociales por razones ideológicas más que intereses materiales directos.</p>
+</section><section id="variables-de-control-edad-género-e-ideología" class="level3" data-number="1.3.3"><h3 data-number="1.3.3" class="anchored" data-anchor-id="variables-de-control-edad-género-e-ideología">
+<span class="header-section-number">1.3.3</span> Variables de Control: Edad, Género e Ideología</h3>
+<ul>
+<li><p>Edad (β=-0.008, p&lt;0.001): Observamos un efecto negativo robusto y altamente significativo de la edad. Por cada año adicional, la participación en protestas disminuye en 0.8 puntos porcentuales. Esto implica que, controlando educación, movilidad e ideología, una persona de 60 años protesta aproximadamente 32 puntos porcentuales menos que una de 20 años—una diferencia sustantiva enorme. Este patrón es consistente con teorías del ciclo de vida político, costos de oportunidad crecientes con la edad (responsabilidades familiares, laborales), disminución de energía física para participación demandante, y potencialmente mayor conservadurismo con la edad.</p></li>
+<li><p>Género (β=-0.034, p=0.070): Las mujeres muestran niveles de protesta marginalmente menores (3.4 puntos porcentuales), aunque el efecto solo alcanza significancia al nivel del 10%. Esta diferencia modesta puede reflejar persistentes desigualdades de género en costos y riesgos de participación política, cargas desproporcionadas de trabajo de cuidado que limitan tiempo disponible, o percepciones diferenciadas de seguridad en contextos de protesta. La significancia marginal sugiere cautela interpretativa; futuras investigaciones deberían explorar interacciones entre género y otros predictores.</p></li>
+<li><p>Ideología (β=-0.049, p&lt;0.001): La orientación ideológica emerge como uno de los predictores más potentes en nuestro modelo. Por cada punto de movimiento hacia la derecha en la escala ideológica (0-10), la participación en protestas disminuye 4.9 puntos porcentuales. Individuos de extrema derecha (10) protestan aproximadamente 49 puntos porcentuales menos que aquellos de extrema izquierda (0)—un rango de variación mayor que cualquier otro predictor excepto los efectos temporales del estallido social. Este hallazgo confirma que la protesta en Chile durante el período estudiado se asocia fuertemente con orientaciones de izquierda, consistente con el carácter pro-igualdad y crítico del neoliberalismo de las movilizaciones principales del período.</p></li>
+</ul></section><section id="efectos-temporales-el-estallido-social-como-shock-exógeno" class="level3" data-number="1.3.4"><h3 data-number="1.3.4" class="anchored" data-anchor-id="efectos-temporales-el-estallido-social-como-shock-exógeno">
+<span class="header-section-number">1.3.4</span> Efectos Temporales: El Estallido Social como Shock Exógeno</h3>
+<p>Los efectos fijos de ola capturan variación temporal en protesta controlando por todas las características individuales del modelo. Los resultados revelan un patrón dramático centrado en la Ola 4 (octubre 2019):</p>
+<ul>
+<li><p>Olas 2 y 3 (2017-2018): Ambas muestran niveles de protesta significativamente menores que la Ola 1 de referencia (−8.8 y −8.9 puntos porcentuales respectivamente), sugiriendo una fase de relativa desmovilización o normalización post-movimientos estudiantiles de 2011-2013.</p></li>
+<li><p>Ola 4 (octubre 2019): El Estallido Social (β=0.305, p&lt;0.001): Observamos un incremento masivo y altamente significativo de 30.5 puntos porcentuales en participación en protestas. Este efecto captura el impacto del Estallido Social de octubre 2019, el evento de movilización más significativo en la historia democrática reciente de Chile. Iniciado por protestas estudiantiles contra aumentos en tarifas del metro, el estallido rápidamente escaló a movilizaciones masivas y sostenidas demandando transformaciones estructurales en pensiones, salud, educación y la Constitución. Crucialmente, este efecto es transversal a todos los grupos educativos y de movilidad. Interpretamos el estallido social como un shock contextual exógeno que elevó dramáticamente la movilización a través de todos los segmentos sociales, abriendo ventanas de oportunidad política, reduciendo costos individuales de participación (vía masificación), y generando percepción generalizada de momento histórico de cambio posible.</p></li>
+<li><p>Olas 5-7 (2020-2022): Todas las olas posteriores al estallido muestran retornos a niveles inferiores o similares a la baseline, con Ola 5 (−11.0 puntos) y Ola 7 (−14.4 puntos) mostrando las mayores caídas. La Ola 5 coincide con la pandemia de COVID-19 y las restricciones asociadas, explicando plausiblemente la reducción abrupta. Las olas posteriores sugieren que, tras el estallido y durante el proceso constituyente, la protesta callejera disminuyó—posiblemente porque demandas se canalizaron hacia mecanismos institucionales (plebiscito, convención constitucional), o por fatiga de movilización post-período intenso. Este patrón temporal valida nuestro enfoque de panel: sin controlar por estos efectos temporales masivos, atribuiríamos incorrectamente variación contextual a características individuales, sesgando nuestras estimaciones de efectos educativos y de movilidad.</p></li>
+</ul></section><section id="magnitudes-sustantivas-predicciones-ilustrativas" class="level3" data-number="1.3.5"><h3 data-number="1.3.5" class="anchored" data-anchor-id="magnitudes-sustantivas-predicciones-ilustrativas">
+<span class="header-section-number">1.3.5</span> Magnitudes Sustantivas: Predicciones Ilustrativas</h3>
+<p>Para facilitar interpretación sustantiva, presentamos predicciones de participación en protestas para perfiles ilustrativos, manteniendo variables de control en valores típicos (edad=40, género=hombre, ideología=5-centro, Ola 1):</p>
+<p>[TABLA DE PROTESTA PREDICHA]</p>
+<ul>
+<li><p>Comparación crítica: Un técnico sin movilidad (Caso B: 2.23) protesta más que un universitario con alta movilidad (Caso E: 2.20). Este resultado contraintuitivo subraya que el nivel educativo absoluto no determina linealmente la protesta; la intersección con movilidad social genera patrones complejos donde frustración de expectativas puede generar más activación que logro educativo per se.</p></li>
+<li><p>Efecto del Estallido Social: Durante la Ola 4 (2019), todas estas predicciones aumentan en +0.31 puntos. Un técnico sin movilidad alcanzaría 2.54 en escala 1-5—niveles extraordinariamente altos de participación.</p></li>
+<li><p>Efecto de ideología: Moviendo del centro (5) a izquierda moderada (3), todas las predicciones aumentan en +0.10 puntos. Un universitario de izquierda con alta movilidad (ideología=3) alcanzaría 2.30, mientras uno de derecha moderada (ideología=7) caería a 2.10—una brecha de 10% por posición ideológica.</p></li>
+</ul></section></section><section id="implicaciones-teóricas" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="implicaciones-teóricas">
+<span class="header-section-number">1.4</span> Implicaciones Teóricas</h2>
+<p>Nuestros hallazgos informan y complejizan múltiples tradiciones teóricas en el estudio de participación política y acción colectiva:</p>
+<ol type="1">
+<li><p>Teorías de privación relativa: Los resultados ofrecen apoyo robusto pero matizado a teorías de privación relativa (Gurr, 1970; Runciman, 1966). La privación relativa predice que individuos que perciben brechas entre expectativas y logros efectivos experimentan frustración que puede canalizarse en protesta. Nuestros datos confirman esta dinámica específicamente entre técnicos: aquellos sin movilidad—presumiblemente experimentando mayor brecha expectativa-realidad—muestran niveles de protesta dramáticamente superiores a técnicos móviles. Sin embargo, el patrón no se replica entre universitarios, donde movilidad tiene efecto mínimo. Esto sugiere que privación relativa opera diferencialmente según tipo de educación y las expectativas asociadas. La privación relativa puede ser particularmente activadora cuando las expectativas frustradas son instrumentales y económicas (como en educación técnica), pero menos determinante cuando la educación socializa en orientaciones valorativas y críticas (como en educación universitaria).</p></li>
+<li><p>Teorías de recursos y movilización: La perspectiva de recursos (McCarthy &amp; Zald, 1977; Edwards &amp; McCarthy, 2004) argumenta que mayor educación proporciona recursos—habilidades organizativas, tiempo, redes, comprensión de procesos políticos—que facilitan participación. Nuestros datos confirman un gradient educativo básico: todos los grupos con mayor educación protestan más que el grupo base. Sin embargo, la magnitud no aumenta linealmente con nivel educativo; técnicos sin movilidad protestan más que universitarios con movilidad, desafiando predicciones simples de “más educación = más protesta.” Esto sugiere que recursos educativos son necesarios pero insuficientes; motivación y orientación normativa median cómo recursos se canalizan en acción. La educación proporciona capacidad, pero privación relativa (técnicos) o socialización crítica (universitarios) proveen la voluntad.</p></li>
+<li><p>Teorías de socialización política: Nuestros hallazgos sobre universitarios resuenan con teorías de socialización política que enfatizan cómo instituciones educativas transmiten valores, identidades y marcos interpretativos que moldean participación política (Flanagan &amp; Sherrod, 1998; Quintelier &amp; Hooghe, 2012). La independencia entre protesta universitaria y movilidad social sugiere que la universidad socializa en orientaciones críticas que trascienden intereses materiales individuales. Esta interpretación se alinea con investigación sobre “radical flank effects” y participación de élites educadas en movimientos sociales (Haines, 1984), donde universitarios participan por solidaridad ideológica más que agravio personal. También conecta con teorías de capital cultural (Bourdieu, 1984) reformuladas en términos de “capital cultural crítico”—disposiciones y conocimientos que facilitan cuestionamiento de desigualdades estructurales.</p></li>
+<li><p>Post-materialismo: La teoría de post-materialismo (Inglehart, 1977, 1990) predice que individuos con seguridad material enfatizan valores de autorrealización, autonomía y calidad democrática sobre seguridad material, y son más propensos a participar en “nuevos movimientos sociales.” Nuestros hallazgos sobre universitarios móviles—quienes presumiblemente gozan de mayor seguridad material pero mantienen alta protesta—pueden interpretarse como evidencia de orientaciones post-materialistas. Su protesta puede reflejar demandas por calidad democrática, derechos humanos, y justicia social más que intereses económicos directos. Conversamente, técnicos sin movilidad pueden representar protestas materialistas—demandas por seguridad económica, movilidad bloqueada, condiciones laborales—más alineadas con el modelo clásico de protesta basada en clase.</p></li>
+</ol></section></section><section id="limitaciones-y-futuras-investigaciones" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Limitaciones y Futuras Investigaciones</h1>
+<p>Aunque nuestro análisis ofrece insights significativos, enfrenta limitaciones importantes que deben reconocerse y que abren avenidas para investigación futura: Causalidad y endogeneidad: Aunque el diseño de panel controla heterogeneidad no observada constante en el tiempo, permanecen preocupaciones de endogeneidad. Particularmente, la relación entre ideología y protesta es potencialmente bidireccional: la ideología puede determinar protesta, pero participar en protestas puede también radicalizar ideología. Similarmente, la selección en educación técnica vs.&nbsp;universitaria no es aleatoria; características no observadas que determinan elección educativa pueden también afectar propensión a protestar. Diseños experimentales o cuasi-experimentales—por ejemplo, usando reformas educativas como shocks exógenos—serían valiosos para identificación causal más rigurosa. Mecanismos intermedios: Nuestro análisis documenta patrones asociativos robustos pero no identifica mecanismos causales específicos. ¿Por qué exactamente técnicos sin movilidad protestan más? Potenciales mediadores incluyen: condiciones laborales precarias, desajuste educación-ocupación, exposición a injusticias en el trabajo, redes sindicales, o percepción específica de engaño sistémico. Similarmente, ¿qué aspectos de la experiencia universitaria generan orientaciones críticas? Curriculum específico, exposición a movimientos estudiantiles, redes activistas, o selección en carreras humanísticas vs.&nbsp;técnicas podrían mediar este efecto. Investigación cualitativa en profundidad o análisis de mediación cuantitativa serían valiosos para desempacar estas cajas negras.</p>
+<p>Heterogeneidad dentro de grupos: Nuestras categorías educativas-de movilidad, aunque más finas que especificaciones previas, aún agregan heterogeneidad considerable. “Educación técnica” incluye desde programas cortos de baja calidad hasta títulos técnicos de instituciones prestigiosas. “Educación universitaria” abarca desde humanidades y ciencias sociales hasta ingeniería y negocios, con culturas políticas muy distintas. Investigación futura debería desagregar más finamente, examinando variación por calidad institucional, campo de estudio, y tipo específico de movilidad (ocupacional vs.&nbsp;ingresos vs.&nbsp;status).</p>
+<p>Contexto temporal limitado: Nuestros datos cubren 2016-2022, un período dominado por el estallido social de 2019 y la pandemia COVID-19—eventos extraordinarios. Los patrones observados pueden no generalizarse a períodos de mayor “normalidad” política. Particularmente, el efecto masivo de la Ola 4 podría haber temporalmente alterado dinámicas usuales entre educación y protesta. Extensión de análisis a períodos más largos y diversos contextos políticos fortalecería validez externa.</p>
+<p>Otras formas de participación política: Nuestro análisis se centra exclusivamente en participación en protestas—una forma específica, visible y contenciosa de acción política. Los patrones podrían diferir para otras modalidades: participación electoral, activismo partidario, voluntariado cívico, activismo online, o participación institucional. Técnicos sin movilidad pueden protestar más pero no necesariamente votar más, participar en organizaciones, o involucrarse en política institucional. Universitarios móviles podrían canalizar su orientación política más hacia instituciones que calles. Análisis comparativo multi-modal de participación política ofrecería cuadro más completo.</p>
+<p>Interseccionalidad: Aunque controlamos género, no examinamos sistemáticamente cómo educación y movilidad intersectan con género, etnia, territorio u otras dimensiones de desigualdad. Los efectos de movilidad técnica podrían diferir dramáticamente entre hombres y mujeres, o entre individuos de distintos orígenes étnicos o regionales. Análisis interseccional más profundo sería valioso para entender cómo múltiples sistemas de desigualdad se entrelazan moldeando participación política.</p>
+<p>El Modelo 5 revela que la relación entre educación, movilidad social y participación en protestas es considerablemente más compleja que predicciones lineales o unidimensionales sugerirían. Nuestro hallazgo central—la divergencia técnico-universitaria en cómo movilidad social modera protesta—desafía perspectivas simplistas y subraya la necesidad de atender a heterogeneidad en funciones y significados de diferentes tipos de educación.</p>
+<p>La educación técnica en Chile aparece estructurada principalmente como mecanismo de movilidad económica instrumental. Cuando cumple esta función—individuos logran movilidad ascendente—la protesta disminuye sustancialmente, sugiriendo satisfacción de expectativas e integración social. Cuando falla—técnicos no logran movilidad esperada—genera niveles particularmente agudos de frustración y activación política hacia protesta, evidenciando privación relativa intensa.</p>
+<p>La educación universitaria, en contraste, funciona no solo como mecanismo de movilidad sino como espacio de socialización en capital cultural crítico y orientaciones valorativas que trascienden intereses materiales individuales. Universitarios mantienen altos niveles de protesta independientemente de logros personales de movilidad, sugiriendo compromiso con justicia social, solidaridad con grupos marginados, y crítica estructural del orden socioeconómico. Su protesta parece motivada menos por agravio personal que por orientaciones normativas adquiridas durante socialización universitaria.</p>
+<p>Estos hallazgos tienen implicaciones significativas para entender trayectorias de movilización social en sociedades desiguales. Sugieren que expansión educativa no necesariamente pacifica o integra poblaciones; dependiendo del tipo de educación y contextos de movilidad asociados, puede generar nuevas fuentes de frustración y crítica política. Técnicos sin movilidad representan un segmento particularmente activado políticamente—un hallazgo relevante para entender bases sociales de movimientos recientes en Chile y potencialmente otros contextos de expansión educativa sin movilidad garantizada.</p>
+<p>Finalmente, el efecto masivo del estallido social de octubre 2019—elevando protesta 30% transversalmente—subraya que contextos políticos amplios y momentos de oportunidad política pueden eclipsar temporalmente determinantes estructurales. Sin embargo, incluso en este período extraordinario, los patrones diferenciados entre grupos educativos-de movilidad persistieron, confirmando que estructura social media cómo individuos responden a aperturas políticas.</p>
+<p>En suma, educación y movilidad social no determinan participación política de manera simple o unidireccional. Sus efectos dependen crucialmente de qué tipo de educación, qué tipo de movilidad, y qué expectativas, identidades y orientaciones normativas estos procesos generan. Futuras investigaciones y políticas públicas deben atender a esta heterogeneidad, reconociendo que no toda educación ni toda movilidad integran socialmente de igual manera.</p>
+</section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>

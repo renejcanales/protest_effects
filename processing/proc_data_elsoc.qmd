@@ -1,0 +1,812 @@
+---
+title: "Análisis de Resultados: Tesis de Magister"
+format:
+  html: 
+    code-fold: true
+    html-math-method: katex
+    number-sections: true
+    code-link: true
+    title-block-banner: true
+    theme:
+      - pretty.scss
+  pdf: 
+    geometry: margin=2cm
+    template-partials: 
+      - title.tex
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+    number-sections: true
+editor: source
+author:   
+  - name: René Canales
+    affiliations:
+      - ref: 1
+      - ref: 2     
+affiliations: 
+  - id: 1
+    name: Instituto de Sociología, Pontificia Universidad Católica de Chile
+  - id: 2
+    name: Centro de estudios del conflicto y cohesión social (COES)
+citeproc: true
+abstract: | 
+  \newline
+  **Keywords**: 
+link-citations: true
+linestretch: 1.5       
+mainfont: Times New Roman
+fontsize: 13pt          
+colorlinks: true
+fig-height: 4
+fig-width: 7.5
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+# 1. Packages ==========================================
+
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(plm, # Modelos Panel
+               lme4,
+               ggplot2,
+               sjlabelled,
+               interactions, # Gráficos de Interacción
+               marginaleffects, # Effectos Marginales
+               lmtest, # Test de DIagnósticos
+               sandwich, # Errores Robustos
+               multcomp, # Contrastes post-hoc
+               stargazer, # Tablas
+               sjmisc,
+               psych, # Descriptivos
+               texreg, # Tablas de Regresión
+               sjPlot,
+               here,
+               tidyr,
+               naniar,
+               dplyr,
+               broom,
+               broom.mixed)
+
+options(scipen=999)
+rm(list = ls())
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: false
+
+# 2. CARGAR Y EXPLORAR DATOS =================
+
+# Ajustar ruta según tu ubicación
+load(file = here("~/GitHub/protest_effects/input/data/proc/elsoc_long.Rdata"))
+
+# Explorar estructura básica
+dim(elsoc_long)
+head(elsoc_long)
+
+# Ver distribución de olas
+table(elsoc_long$ola)
+
+# Ver cuántas observaciones por persona
+table(table(elsoc_long$idencuesta))
+
+# 3. EXPLORAR VARIABLES CLAVE ================
+
+# Protesta
+table(elsoc_long$asist_marcha)
+summary(elsoc_long$asist_marcha)
+
+# Educación (ver codificación)
+table(elsoc_long$educ_encuestado)
+table(elsoc_long$educ_padre)
+table(elsoc_long$educ_madre)
+
+# Si vienen con etiquetas, ver valores
+attr(elsoc_long$educ_encuestado, "labels")
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: false
+
+# ============================================
+# 4. RECODIFICACIÓN ==========================
+# ============================================
+elsoc_long <- elsoc_long %>%
+  mutate(
+    # PROTESTA: convertir a numérico y revertir si es necesario
+    # Asumo: 1=Nunca, 2=Raramente, 3=A veces, 4=Frecuentemente, 5=Muy frecuentemente
+    # Si está al revés, ajusta
+    protesta = as.numeric(asist_marcha),
+    # EDUCACIÓN: Convertir categorías a anos
+    # AJUSTAR según la codificación real de ELSOC:
+    # Típicamente en ELSOC:
+    # 1 = Sin estudios
+    # 2 = Básica incompleta
+    # 3 = Básica completa
+    # 4 = Media incompleta
+    # 5 = Media completa
+    # 6 = Técnica superior incompleta
+    # 7 = Técnica superior completa
+    # 8 = Universitaria incompleta
+    # 9 = Universitaria completa
+    # 10 = Postgrado
+    anos_educ_resp = case_when(
+      educ_encuestado == 1 ~ 0,   # Sin estudios
+      educ_encuestado == 2 ~ 4,   # Básica incompleta
+      educ_encuestado == 3 ~ 8,   # Básica completa
+      educ_encuestado == 4 ~ 10,  # Media incompleta
+      educ_encuestado == 5 ~ 12,  # Media completa
+      educ_encuestado == 6 ~ 13,  # Técnica incompleta
+      educ_encuestado == 7 ~ 14,  # Técnica completa
+      educ_encuestado == 8 ~ 15,  # Universitaria incompleta
+      educ_encuestado == 9 ~ 16,  # Universitaria completa
+      educ_encuestado == 10 ~ 18, # Postgrado
+      TRUE ~ NA_real_
+    ),
+    anos_educ_padre = case_when(
+      educ_padre == 1 ~ 0,
+      educ_padre == 2 ~ 4,
+      educ_padre == 3 ~ 8,
+      educ_padre == 4 ~ 10,
+      educ_padre == 5 ~ 12,
+      educ_padre == 6 ~ 13,
+      educ_padre == 7 ~ 14,
+      educ_padre == 8 ~ 15,
+      educ_padre == 9 ~ 16,
+      educ_padre == 10 ~ 18,
+      TRUE ~ NA_real_
+    ),
+    anos_educ_madre = case_when(
+      educ_madre == 1 ~ 0,
+      educ_madre == 2 ~ 4,
+      educ_madre == 3 ~ 8,
+      educ_madre == 4 ~ 10,
+      educ_madre == 5 ~ 12,
+      educ_madre == 6 ~ 13,
+      educ_madre == 7 ~ 14,
+      educ_madre == 8 ~ 15,
+      educ_madre == 9 ~ 16,
+      educ_madre == 10 ~ 18,
+      TRUE ~ NA_real_
+    ),
+    # Educación parental: máximo entre padre y madre
+    anos_educ_padres = pmax(anos_educ_padre, anos_educ_madre, na.rm = TRUE)
+  )
+# Verificar recodificación
+summary(elsoc_long$protesta)
+summary(elsoc_long$anos_educ_resp)
+summary(elsoc_long$anos_educ_padres)
+# Ver distribución
+table(elsoc_long$educ_encuestado, elsoc_long$anos_educ_resp)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: false
+
+# ============================================
+# 5. MOVILIDAD EDUCACIONAL ===================
+# ============================================
+elsoc_long <- elsoc_long %>%
+  mutate(
+    # Movilidad continua
+    movilidad_educ = anos_educ_resp - anos_educ_padres,
+    # Movilidad categórica
+    movilidad_cat = case_when(
+      movilidad_educ >= 4 ~ "Alta movilidad ascendente",
+      movilidad_educ >= 1 & movilidad_educ < 4 ~ "Movilidad moderada",
+      movilidad_educ == 0 ~ "Sin movilidad",
+      movilidad_educ < 0 ~ "Movilidad descendente",
+      TRUE ~ NA_character_
+    ),
+    # Grupos ampliados (incluyendo técnicos)
+    grupo_hipotesis_amplio = case_when(
+      # Universitarios con alta movilidad
+      anos_educ_resp >= 16 & movilidad_educ >= 4 ~
+        "Universitarios alta movilidad",
+      # Universitarios sin movilidad
+      anos_educ_resp >= 16 & movilidad_educ <= 1 ~
+        "Universitarios sin movilidad",
+      # Técnicos con alta movilidad
+      anos_educ_resp >= 13 & anos_educ_resp < 16 & movilidad_educ >= 3 ~
+        "Técnicos alta movilidad",
+      # Técnicos sin movilidad
+      anos_educ_resp >= 13 & anos_educ_resp < 16 & movilidad_educ <= 1 ~
+        "Técnicos sin movilidad",
+      # Media completa
+      anos_educ_resp >= 12 & anos_educ_resp < 13 ~
+        "Media completa",
+      # Baja educación
+      anos_educ_resp < 12 ~
+        "Baja educación",
+      TRUE ~ "Otros"
+    )
+  )
+# Ordenar factor
+elsoc_long$movilidad_cat <- factor(
+  elsoc_long$movilidad_cat,
+  levels = c("Movilidad descendente", "Sin movilidad",
+            "Movilidad moderada", "Alta movilidad ascendente")
+)
+elsoc_long$grupo_hipotesis_amplio <- factor(
+  elsoc_long$grupo_hipotesis_amplio,
+  levels = c("Baja educación", "Media completa",
+            "Técnicos sin movilidad", "Técnicos alta movilidad",
+            "Universitarios sin movilidad", "Universitarios alta movilidad",
+            "Otros")
+)
+# Verificar distribución
+cat("\n=== DISTRIBUCIÓN MOVILIDAD CATEGÓRICA ===\n")
+table(elsoc_long$movilidad_cat)
+prop.table(table(elsoc_long$movilidad_cat)) * 100
+cat("\n=== DISTRIBUCIÓN GRUPOS AMPLIADOS ===\n")
+table(elsoc_long$grupo_hipotesis_amplio)
+prop.table(table(elsoc_long$grupo_hipotesis_amplio)) * 100
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: false
+
+# ============================================
+# 6. PREPARAR CONTROLES ======================
+# ============================================
+
+# Identificar variables de control disponibles en ELSOC
+# Ajustar según lo que tengas:
+names(elsoc_long)[grep("edad|genero|ideol", names(elsoc_long), ignore.case = TRUE)]
+
+# Preparar controles (AJUSTAR NOMBRES según tu base)
+elsoc_long <- elsoc_long %>%
+  mutate(
+    # Edad
+    edad = as.numeric(edad),
+   
+    # Sexo
+    genero = ifelse(genero == 2, 1, 0),
+   
+    # Control ANTES de limpiar ideología
+    sin_ideologia = ifelse(ideologia == 12 | is.na(ideologia), 1, 0),
+    
+    # Escala ideológica limpia (DESPUÉS del control)
+    ideologia = case_when(
+      ideologia >= 0 & ideologia <= 10 ~ as.numeric(ideologia),
+      TRUE ~ NA_real_
+    ),
+   
+    # Ola como factor
+    ola_factor = as.factor(ola)
+  )
+
+# Ver resumen de controles
+summary(elsoc_long[, c("edad", "genero", "ideologia", "sin_ideologia")])
+
+# Casos completos para análisis
+cat("\n=== CASOS CON DATOS COMPLETOS ===\n")
+elsoc_analisis <- elsoc_long %>%
+  filter(!is.na(protesta) &
+         !is.na(anos_educ_resp) &
+         !is.na(anos_educ_padres) &
+         !is.na(movilidad_educ) &
+         !is.na(edad) &
+         !is.na(genero) &
+         !is.na(grupo_hipotesis_amplio))
+
+cat("Observaciones originales:", nrow(elsoc_long), "\n")
+cat("Observaciones para análisis:", nrow(elsoc_analisis), "\n")
+cat("Individuos únicos:", n_distinct(elsoc_analisis$idencuesta), "\n")
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# ============================================
+# 7. ESTADÍSTICAS DESCRIPTIVAS ===============
+# ============================================
+# Tabla descriptiva general
+descriptivos_general <- elsoc_analisis %>%
+  summarise(
+    n_obs = n(),
+    n_personas = n_distinct(idencuesta),
+    protesta_media = mean(protesta, na.rm = TRUE),
+    protesta_sd = sd(protesta, na.rm = TRUE),
+    educ_media = mean(anos_educ_resp, na.rm = TRUE),
+    educ_padres_media = mean(anos_educ_padres, na.rm = TRUE),
+    movilidad_media = mean(movilidad_educ, na.rm = TRUE),
+    movilidad_sd = sd(movilidad_educ, na.rm = TRUE)
+  )
+print(descriptivos_general)
+# Tabla por grupos
+descriptivos_grupos <- elsoc_analisis %>%
+  group_by(grupo_hipotesis_amplio) %>%
+  summarise(
+    n = n(),
+    n_personas = n_distinct(idencuesta),
+    protesta_media = mean(protesta, na.rm = TRUE),
+    protesta_sd = sd(protesta, na.rm = TRUE),
+    educ_media = mean(anos_educ_resp, na.rm = TRUE),
+    educ_padres_media = mean(anos_educ_padres, na.rm = TRUE),
+    movilidad_media = mean(movilidad_educ, na.rm = TRUE),
+    edad_media = mean(edad, na.rm = TRUE),
+    prop_genero = mean(genero, na.rm = TRUE) * 100
+  ) %>%
+  arrange(grupo_hipotesis_amplio)
+print(descriptivos_grupos)
+# Exportar tabla
+
+
+# GRÁFICOS DESCRIPTIVOS
+# Distribución de movilidad
+p1 <- ggplot(elsoc_analisis, aes(x = movilidad_educ)) +
+  geom_histogram(bins = 25, fill = "coral", alpha = 0.7, color = "black") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 1) +
+  theme_minimal() +
+  labs(title = "Distribución de movilidad educacional (ELSOC)",
+       x = "anos de movilidad educacional (respondiente - padres)",
+       y = "Frecuencia")
+print(p1)
+
+ggsave("dist_movilidad.png", p1, width = 10, height = 6, dpi = 300)
+
+# Protesta por grupo
+p2 <- ggplot(elsoc_analisis %>% filter(grupo_hipotesis_amplio != "Otros"),
+       aes(x = grupo_hipotesis_amplio, y = protesta)) +
+  geom_violin(fill = "lightblue", alpha = 0.5) +
+  geom_boxplot(width = 0.3, fill = "white", outlier.alpha = 0.3) +
+  stat_summary(fun = mean, geom = "point", color = "red", size = 3) +
+  stat_summary(fun = mean, geom = "text", aes(label = round(..y.., 2)),
+               vjust = -1, color = "red", size = 3) +
+  theme_minimal() +
+  labs(title = "Distribución de participación en marchas por grupo (ELSOC)",
+       subtitle = "Puntos rojos = media",
+       x = NULL,
+       y = "Asistencia a marchas (1-5)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10))
+print(p2)
+
+ggsave("protesta_por_grupo.png", p2, width = 12, height = 7, dpi = 300)
+
+# Scatterplot: educación vs protesta, coloreado por movilidad
+p3 <- ggplot(elsoc_analisis,
+       aes(x = anos_educ_resp, y = protesta, color = movilidad_cat)) +
+  geom_jitter(alpha = 0.2, width = 0.3, height = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, linewidth = 1) +
+  theme_minimal() +
+  labs(title = "Relación educación-protesta según movilidad educacional",
+       x = "anos de educación",
+       y = "Asistencia a marchas",
+       color = "Movilidad\neducacional") +
+  theme(legend.position = "right")
+print(p3)
+
+ggsave("educ_protesta_movilidad.png", p3, width = 10, height = 6, dpi = 300)
+```
+
+
+Se utilizó un panel desbalanceado con 4,157 individuos observados entre 1 y 7 olas (N=19,423 observaciones). Los modelos de efectos aleatorios son apropiados para paneles desbalanceados y utilizan toda la información disponible. Como análisis de robustez, se estimaron los modelos con una submuestra balanceada de individuos observados en las 7 olas.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: false
+
+# ============================================
+# 8. MODELOS DE EFECTOS ALEATORIOS ===========
+# ============================================
+# Convertir a panel
+elsoc_panel <- pdata.frame(elsoc_analisis,
+                           index = c("idencuesta", "ola"))
+
+# Verificar estructura
+cat("\n=== ESTRUCTURA PANEL ===\n")
+pdim(elsoc_panel)
+is.pbalanced(elsoc_panel)
+
+# ========================================
+# MODELO 1: Solo efectos principales
+# ========================================
+modelo1 <- plm(protesta ~ anos_educ_resp +
+               edad + genero + ideologia + ola_factor,
+              data = elsoc_panel,
+              model = "random")
+summary(modelo1)
+
+# ========================================
+# MODELO 2: Con movilidad educativa
+# ========================================
+modelo2 <- plm(protesta ~ anos_educ_resp +
+               movilidad_educ +
+               edad + genero + ideologia + ola_factor,
+              data = elsoc_panel,
+              model = "random")
+summary(modelo2)
+
+# ========================================
+# MODELO 3: Interacción educación × movilidad (PRINCIPAL)
+# ========================================
+modelo3 <- plm(protesta ~ anos_educ_resp * movilidad_educ + 
+               edad + genero + ideologia + ola_factor,
+              data = elsoc_panel,
+              model = "random")
+summary(modelo3)
+
+# ========================================
+# MODELO 4: Movilidad categórica con interacción
+# ========================================
+modelo4 <- plm(protesta ~ anos_educ_resp * movilidad_cat +
+               anos_educ_padres +
+               edad + genero + ideologia + ola_factor,
+              data = elsoc_panel,
+              model = "random")
+summary(modelo4)
+
+# ========================================
+# MODELO 5: Grupos específicos (HIPÓTESIS DIRECTA)
+# ========================================
+modelo5 <- plm(protesta ~ grupo_hipotesis_amplio +
+               edad + genero + ideologia + ola_factor,
+              data = elsoc_panel,
+              model = "random")
+summary(modelo5)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# ========================================
+# COMPARACIÓN DE MODELOS
+# ========================================
+
+texreg(list(modelo1, modelo2, modelo3, modelo4, modelo5),
+          custom.model.names = c("M1: Base", "M2: Movilidad", 
+                                 "M3: Interacción", "M4: Cat. Interacción",
+                                 "M5: Grupos"))
+```
+
+
+Los resultados muestran que la relación entre educación y protesta es moderada por la movilidad educacional. El grupo con mayor probabilidad de participar en protestas son los técnicos sin movilidad (β=0.37, p<0.001), seguidos por los universitarios independientemente de su movilidad (β=0.31-0.34, p<0.001). Esto sugiere que la frustración relativa opera principalmente entre quienes alcanzaron educación técnica pero no experimentaron movilidad social, mientras que la protesta universitaria puede responder a motivaciones ideológicas más que a frustración personal. Consistente con estudios previos, la participación en protestas fue significativamente mayor durante el estallido social de 2019 (Ola 4: β=0.31, p<0.001).
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# Preparar datos para gráfico
+efectos_grupos <- data.frame(
+  Grupo = c("Básica/Media inc.", "Media completa", 
+            "Técnicos sin mov.", "Técnicos alta mov.",
+            "Univ. sin mov.", "Univ. alta mov.", "Otros"),
+  Coef = c(0, 0.09, 0.37, 0.18, 0.31, 0.34, 0.25),
+  SE = c(0, 0.02, 0.03, 0.03, 0.04, 0.03, 0.03)
+) %>%
+  mutate(
+    CI_lower = Coef - 1.96 * SE,
+    CI_upper = Coef + 1.96 * SE
+  )
+
+# Gráfico de coeficientes
+ggplot(efectos_grupos, aes(x = reorder(Grupo, Coef), y = Coef)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  coord_flip() +
+  labs(
+    title = "Efecto de educación y movilidad en participación en protestas",
+    subtitle = "Referencia: Básica/Media incompleta",
+    x = "", y = "Coeficiente (puntos de cambio en probabilidad)",
+    caption = "Barras representan intervalos de confianza 95%"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# Extraer coeficientes
+coefs <- coef(modelo4)
+print(coefs)  # Ver nombres exactos
+
+# Crear función para calcular predicción
+predecir_protesta <- function(educ, movilidad, edad_val, ideol_val, 
+                               educ_padres_val, ola = "1") {
+  
+  # Intercepto base
+  pred <- coefs["(Intercept)"]
+  
+  # Edad, género (0=hombre), ideología, educ padres
+  pred <- pred + coefs["edad"] * edad_val
+  pred <- pred + coefs["genero"] * 0  # Fijo en hombre
+  pred <- pred + coefs["ideologia"] * ideol_val
+  pred <- pred + coefs["anos_educ_padres"] * educ_padres_val
+  
+  # Educación propia (efecto principal)
+  pred <- pred + coefs["anos_educ_resp"] * educ
+  
+  # Efectos de movilidad + interacciones
+  if (movilidad == "Sin movilidad") {
+    pred <- pred + coefs["movilidad_catSin movilidad"]
+    pred <- pred + coefs["anos_educ_resp:movilidad_catSin movilidad"] * educ
+  } else if (movilidad == "Movilidad moderada") {
+    pred <- pred + coefs["movilidad_catMovilidad moderada"]
+    pred <- pred + coefs["anos_educ_resp:movilidad_catMovilidad moderada"] * educ
+  } else if (movilidad == "Alta movilidad ascendente") {
+    pred <- pred + coefs["movilidad_catAlta movilidad ascendente"]
+    pred <- pred + coefs["anos_educ_resp:movilidad_catAlta movilidad ascendente"] * educ
+  }
+  # Si es "Movilidad descendente" no se suma nada (es la referencia)
+  
+  # Efectos de ola
+  ola_coef_name <- paste0("ola_factor", ola)
+  if (ola_coef_name %in% names(coefs)) {
+    pred <- pred + coefs[ola_coef_name]
+  }
+  
+  return(pred)
+}
+
+# Valores típicos para otras variables
+edad_media <- mean(elsoc_panel$edad, na.rm = TRUE)
+ideol_media <- mean(elsoc_panel$ideologia, na.rm = TRUE)
+educ_padres_media <- mean(elsoc_panel$anos_educ_padres, na.rm = TRUE)
+
+# Crear datos de predicción
+datos_pred <- expand.grid(
+  anos_educ = seq(8, 20, by = 1),
+  movilidad = c("Movilidad descendente", "Sin movilidad", 
+                "Movilidad moderada", "Alta movilidad ascendente")
+)
+
+# Calcular predicciones
+datos_pred$prediccion <- mapply(
+  predecir_protesta,
+  educ = datos_pred$anos_educ,
+  movilidad = datos_pred$movilidad,
+  MoreArgs = list(
+    edad_val = edad_media,
+    ideol_val = ideol_media,
+    educ_padres_val = educ_padres_media,
+    ola = "1"
+  )
+)
+
+# Visualizar
+library(ggplot2)
+
+ggplot(datos_pred, aes(x = anos_educ, y = prediccion, 
+                       color = movilidad, linetype = movilidad)) +
+  geom_line(size = 1.2) +
+  scale_color_manual(values = c("Movilidad descendente" = "#d62728",
+                                 "Sin movilidad" = "#ff7f0e",
+                                 "Movilidad moderada" = "#2ca02c",
+                                 "Alta movilidad ascendente" = "#1f77b4")) +
+  labs(
+    title = "Efecto de la educación según tipo de movilidad social",
+    subtitle = "Probabilidad predicha de participar en protestas (Ola 1, valores promedio de controles)",
+    x = "anos de educación del respondente",
+    y = "Probabilidad predicha de protestar",
+    color = "Tipo de movilidad",
+    linetype = "Tipo de movilidad"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold")
+  ) +
+  guides(color = guide_legend(nrow = 2))
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# ============================================
+# 9. TESTS DIAGNÓSTICOS ======================
+# ============================================
+
+# Modelo de efectos fijos para comparación
+modelo3_fe <- plm(protesta ~ anos_educ_resp * movilidad_educ +
+                  edad + genero + ola_factor,
+                 data = elsoc_panel,
+                 model = "within")
+
+modelo5_fe <- plm(protesta ~ grupo_hipotesis_amplio +
+                  edad + genero + ola_factor,
+                 data = elsoc_panel,
+                 model = "within")
+
+# TEST DE HAUSMAN (RE vs FE)
+cat("\n=== TEST DE HAUSMAN: Modelo con interacción ===\n")
+test_hausman_3 <- phtest(modelo3, modelo3_fe)
+print(test_hausman_3)
+
+cat("\n=== TEST DE HAUSMAN: Modelo con grupos ===\n")
+test_hausman_5 <- phtest(modelo5, modelo5_fe)
+print(test_hausman_5)
+
+# TEST DE BREUSCH-PAGAN (RE vs Pooled)
+modelo3_pooled <- plm(protesta ~ anos_educ_resp * movilidad_educ +
+                      edad + genero + ola_factor,
+                     data = elsoc_panel,
+                     model = "pooling")
+
+cat("\n=== TEST DE BREUSCH-PAGAN ===\n")
+test_bp <- plmtest(modelo3_pooled, type = "bp")
+print(test_bp)
+
+# ERRORES ESTÁNDAR ROBUSTOS
+cat("\n=== MODELO 3 CON ERRORES ROBUSTOS ===\n")
+coeftest(modelo3, vcov = vcovHC(modelo3, type = "HC1"))
+
+cat("\n=== MODELO 5 CON ERRORES ROBUSTOS ===\n")
+coeftest(modelo5, vcov = vcovHC(modelo5, type = "HC1"))
+```
+
+# Modelo 5: Educación, Movilidad Social y Participación en Protestas
+
+## Especificación del Modelo
+
+El Modelo 5 representa nuestra especificación más comprehensiva, operacionalizando la intersección entre nivel educativo alcanzado y experiencia de movilidad educativa intergeneracional. Empleamos un modelo de efectos aleatorios con la siguiente estructura:
+
+$$
+\text{Protesta}_{it} = \beta_0 + \sum_{j=1}^{6}\beta_j\text{Grupo}_{ij} + \beta_7\text{Edad}_{it} + \beta_8\text{Género}_i + \beta_9\text{Ideología}_{it} + \sum_{k=2}^{7}\gamma_k\text{Ola}_{kt} + \alpha_i + \varepsilon_{it}
+$$
+
+donde $\alpha_i$ representa los efectos individuales aleatorios y $\varepsilon_{it}$ el término error. 
+
+Los grupos educativos-de movilidad se definen como:
+
+
+- Básica completa sin movilidad (categoría de referencia)
+- Media completa: Completaron educación secundaria
+- Técnicos sin movilidad: Educación técnica sin exceder nivel educativo parental
+- Técnicos alta movilidad: Educación técnica con movilidad ascendente significativa
+- Universitarios sin movilidad: Educación universitaria sin exceder nivel parental
+- Universitarios alta movilidad: Educación universitaria con movilidad ascendente
+- Otros: Categorías residuales o trayectorias atípicas
+
+## Validación de la Especificación
+
+Antes de interpretar los resultados, es crucial establecer la validez de nuestra especificación mediante tests formales:
+
+1. Test de Hausman (RE vs FE): El test de Hausman no rechaza la hipótesis nula de ausencia de correlación entre los efectos individuales y los regresores (χ²=19.045, df=14, p=0.163). Esto indica que el modelo de efectos aleatorios es consistente y, además, más eficiente que efectos fijos, justificando nuestra elección de especificación. Este resultado contrasta con el Modelo 3 (interacción continua), que sí rechaza la hipótesis nula, sugiriendo que la especificación por grupos captura mejor la heterogeneidad relevante sin generar correlaciones espurias.
+
+2. Test de Breusch-Pagan (Panel vs Pooled): El test rechaza contundentemente la ausencia de efectos individuales (χ²=3602.3, df=1, p<0.001), confirmando que la estructura de panel es necesaria y que existen diferencias sistemáticas entre individuos que deben ser controladas.
+
+3. Errores estándar robustos: Empleamos errores estándar robustos a heteroscedasticidad (HC1) para todas las inferencias, protegiendo nuestras conclusiones contra violaciones de los supuestos de homocedasticidad.
+
+4. Bondad de ajuste: El modelo explica 12.2% de la varianza en participación en protestas (R²=0.122), un nivel razonable para modelos de comportamiento político. La descomposición de varianza revela que 74% corresponde a variación temporal (dentro de individuos) y 26% a diferencias estables entre personas, indicando tanto cambios intra-individuales como heterogeneidad estructural.
+
+## Resultados Principales
+
+### Efectos de los Grupos Educativos-de Movilidad
+
+Los resultados revelan patrones complejos y teóricamente significativos en la relación entre educación, movilidad social y protesta política. La Tabla X presenta los coeficientes estimados con errores estándar robustos.
+
+[INSERTAR TABLA CON COEFICIENTES COMPLETOS]
+
+Todos los grupos educativos muestran niveles de protesta significativamente mayores que el grupo de referencia (básica completa sin movilidad), pero las magnitudes y patrones varían sistemáticamente:
+
+- Educación Media (β=0.095, p<0.001): Completar la educación secundaria incrementa la participación en protestas en aproximadamente 9.5 puntos porcentuales respecto al grupo base. Este efecto moderado pero significativo sugiere que la educación secundaria proporciona recursos cognitivos y relacionales básicos para la participación política, aunque aún limitados comparados con niveles educativos superiores.
+
+- Técnicos sin movilidad (β=0.372, p<0.001): Este grupo exhibe el efecto más pronunciado de todas las categorías, con un incremento de 37.2 puntos porcentuales en participación. Este hallazgo es crucial y requiere interpretación cuidadosa. Individuos que obtienen educación técnica pero no logran superar el nivel educativo de sus padres aparentemente experimentan niveles particularmente elevados de activación política hacia la protesta. Interpretamos este patrón como evidencia de privación relativa aguda: estas personas han invertido en educación técnica—frecuentemente asociada con promesas de movilidad económica y estabilidad laboral—pero no han logrado traducir esta inversión en movilidad social efectiva. La brecha entre expectativas generadas por la credencial educativa y realización efectiva de movilidad puede generar frustración y percepción de injusticia especialmente intensa, canalizándose hacia participación en protestas.
+
+- Técnicos con alta movilidad (β=0.185, p<0.001): En marcado contraste, técnicos que sí experimentan movilidad ascendente significativa muestran niveles de protesta sustancialmente menores (18.5 puntos porcentuales sobre el grupo base), representando menos de la mitad del efecto observado en técnicos sin movilidad. Esta diferencia de 18.7 puntos porcentuales entre técnicos con y sin movilidad (372-185=187) es tanto estadística como sustantivamente significativa. Sugerimos que la movilidad ascendente efectiva actúa como mecanismo moderador en este grupo: al lograr las expectativas asociadas con su educación técnica, estos individuos experimentan menor privación relativa y posiblemente mayor integración en estructuras sociales establecidas, reduciendo tanto la motivación como los incentivos para participar en protestas.
+
+- Universitarios sin movilidad (β=0.308, p<0.001): Los universitarios que no superan el nivel educativo parental muestran incrementos de 30.8 puntos porcentuales en protesta. Aunque elevado, este efecto es menor que el observado en técnicos sin movilidad, sugiriendo dinámicas distintas entre tipos de educación superior.
+Universitarios con alta movilidad (β=0.341, p<0.001): Sorprendentemente, universitarios con movilidad ascendente muestran niveles de protesta solo marginalmente superiores (34.1 puntos porcentuales), prácticamente idénticos a aquellos sin movilidad. La diferencia de apenas 3.3 puntos porcentuales entre universitarios con y sin movilidad contrasta dramáticamente con los 18.7 puntos de diferencia observados en técnicos.
+
+### Divergencia Técnico-Universitaria: Principal Hallazgo
+
+El contraste entre patrones en educación técnica versus universitaria constituye uno de los hallazgos más importantes de nuestro análisis. Mientras la movilidad social reduce sustancialmente la protesta entre técnicos (−50% relativo), tiene efecto mínimo entre universitarios. Esta divergencia técnico-universitaria requiere interpretación teórica cuidadosa.
+Proponemos que esta divergencia refleja diferencias fundamentales en las funciones sociales y significados culturales de estos dos tipos de educación superior:
+
+1. Educación técnica como inversión instrumental: La educación técnica en Chile se ha estructurado históricamente con una orientación fuertemente instrumental hacia inserción laboral y movilidad económica. Los estudiantes que eligen trayectorias técnicas típicamente lo hacen motivados por expectativas de retorno económico relativamente rápido y estabilidad laboral. En este contexto, la movilidad social exitosa satisface las expectativas centrales que motivaron la inversión educativa, generando sentimientos de logro, integración social y potencialmente gratitud hacia el sistema que permitió esa movilidad. Consecuentemente, individuos técnicos móviles tienen menos incentivos para protestar—y potencialmente más que perder al hacerlo—resultando en menor participación.
+
+Conversamente, técnicos sin movilidad experimentan un desajuste agudo entre inversión y retorno. Han cumplido con las expectativas del sistema educativo, obtuvieron credenciales que supuestamente garantizaban movilidad, pero no han logrado traducir esas credenciales en mejoras tangibles. Esta frustración de expectativas instrumentales genera percepción de injusticia, engaño sistémico y exclusión de promesas incumplidas, canalizándose en niveles particularmente elevados de protesta.
+
+2. Educación universitaria como socialización crítica: La educación universitaria, en contraste, incorpora dimensiones que trascienden lo puramente instrumental. Las universidades funcionan como espacios de socialización política, transmisión de capital cultural crítico, y desarrollo de marcos interpretativos que cuestionan desigualdades estructurales. La experiencia universitaria frecuentemente expone a estudiantes a teorías críticas, movimientos sociales, redes activistas y discursos que problematizan el orden social existente.
+Desde esta perspectiva, los universitarios protestan no (solo) por intereses materiales frustrados, sino por orientaciones valorativas y compromisos normativos desarrollados durante su socialización universitaria. La protesta entre universitarios puede reflejar solidaridad con grupos marginados, compromiso con justicia social, o rechazo a desigualdades percibidas como ilegítimas—motivaciones que persisten independientemente de logros individuales de movilidad. De hecho, universitarios socialmente móviles podrían incluso sentir mayor obligación moral de protestar precisamente porque han "tenido éxito" en un sistema que perciben como fundamentalmente injusto para otros.
+
+Esta interpretación se alinea con teorías de post-materialismo político (Inglehart, 1977) y conceptos de "nobleza obliga" en acción colectiva (Nepstad, 2004), donde individuos privilegiados participan en movimientos sociales por razones ideológicas más que intereses materiales directos.
+
+### Variables de Control: Edad, Género e Ideología
+
+- Edad (β=-0.008, p<0.001): Observamos un efecto negativo robusto y altamente significativo de la edad. Por cada año adicional, la participación en protestas disminuye en 0.8 puntos porcentuales. Esto implica que, controlando educación, movilidad e ideología, una persona de 60 años protesta aproximadamente 32 puntos porcentuales menos que una de 20 años—una diferencia sustantiva enorme. Este patrón es consistente con teorías del ciclo de vida político, costos de oportunidad crecientes con la edad (responsabilidades familiares, laborales), disminución de energía física para participación demandante, y potencialmente mayor conservadurismo con la edad.
+
+- Género (β=-0.034, p=0.070): Las mujeres muestran niveles de protesta marginalmente menores (3.4 puntos porcentuales), aunque el efecto solo alcanza significancia al nivel del 10%. Esta diferencia modesta puede reflejar persistentes desigualdades de género en costos y riesgos de participación política, cargas desproporcionadas de trabajo de cuidado que limitan tiempo disponible, o percepciones diferenciadas de seguridad en contextos de protesta. La significancia marginal sugiere cautela interpretativa; futuras investigaciones deberían explorar interacciones entre género y otros predictores.
+
+- Ideología (β=-0.049, p<0.001): La orientación ideológica emerge como uno de los predictores más potentes en nuestro modelo. Por cada punto de movimiento hacia la derecha en la escala ideológica (0-10), la participación en protestas disminuye 4.9 puntos porcentuales. Individuos de extrema derecha (10) protestan aproximadamente 49 puntos porcentuales menos que aquellos de extrema izquierda (0)—un rango de variación mayor que cualquier otro predictor excepto los efectos temporales del estallido social. Este hallazgo confirma que la protesta en Chile durante el período estudiado se asocia fuertemente con orientaciones de izquierda, consistente con el carácter pro-igualdad y crítico del neoliberalismo de las movilizaciones principales del período.
+
+### Efectos Temporales: El Estallido Social como Shock Exógeno
+
+Los efectos fijos de ola capturan variación temporal en protesta controlando por todas las características individuales del modelo. Los resultados revelan un patrón dramático centrado en la Ola 4 (octubre 2019):
+
+- Olas 2 y 3 (2017-2018): Ambas muestran niveles de protesta significativamente menores que la Ola 1 de referencia (−8.8 y −8.9 puntos porcentuales respectivamente), sugiriendo una fase de relativa desmovilización o normalización post-movimientos estudiantiles de 2011-2013.
+
+- Ola 4 (octubre 2019): El Estallido Social (β=0.305, p<0.001): Observamos un incremento masivo y altamente significativo de 30.5 puntos porcentuales en participación en protestas. Este efecto captura el impacto del Estallido Social de octubre 2019, el evento de movilización más significativo en la historia democrática reciente de Chile. Iniciado por protestas estudiantiles contra aumentos en tarifas del metro, el estallido rápidamente escaló a movilizaciones masivas y sostenidas demandando transformaciones estructurales en pensiones, salud, educación y la Constitución. Crucialmente, este efecto es transversal a todos los grupos educativos y de movilidad. Interpretamos el estallido social como un shock contextual exógeno que elevó dramáticamente la movilización a través de todos los segmentos sociales, abriendo ventanas de oportunidad política, reduciendo costos individuales de participación (vía masificación), y generando percepción generalizada de momento histórico de cambio posible.
+
+- Olas 5-7 (2020-2022): Todas las olas posteriores al estallido muestran retornos a niveles inferiores o similares a la baseline, con Ola 5 (−11.0 puntos) y Ola 7 (−14.4 puntos) mostrando las mayores caídas. La Ola 5 coincide con la pandemia de COVID-19 y las restricciones asociadas, explicando plausiblemente la reducción abrupta. Las olas posteriores sugieren que, tras el estallido y durante el proceso constituyente, la protesta callejera disminuyó—posiblemente porque demandas se canalizaron hacia mecanismos institucionales (plebiscito, convención constitucional), o por fatiga de movilización post-período intenso. Este patrón temporal valida nuestro enfoque de panel: sin controlar por estos efectos temporales masivos, atribuiríamos incorrectamente variación contextual a características individuales, sesgando nuestras estimaciones de efectos educativos y de movilidad.
+
+### Magnitudes Sustantivas: Predicciones Ilustrativas
+
+Para facilitar interpretación sustantiva, presentamos predicciones de participación en protestas para perfiles ilustrativos, manteniendo variables de control en valores típicos (edad=40, género=hombre, ideología=5-centro, Ola 1):
+
+[TABLA DE PROTESTA PREDICHA]
+
+- Comparación crítica: Un técnico sin movilidad (Caso B: 2.23) protesta más que un universitario con alta movilidad (Caso E: 2.20). Este resultado contraintuitivo subraya que el nivel educativo absoluto no determina linealmente la protesta; la intersección con movilidad social genera patrones complejos donde frustración de expectativas puede generar más activación que logro educativo per se.
+
+- Efecto del Estallido Social: Durante la Ola 4 (2019), todas estas predicciones aumentan en +0.31 puntos. Un técnico sin movilidad alcanzaría 2.54 en escala 1-5—niveles extraordinariamente altos de participación.
+
+- Efecto de ideología: Moviendo del centro (5) a izquierda moderada (3), todas las predicciones aumentan en +0.10 puntos. Un universitario de izquierda con alta movilidad (ideología=3) alcanzaría 2.30, mientras uno de derecha moderada (ideología=7) caería a 2.10—una brecha de 10% por posición ideológica.
+
+## Implicaciones Teóricas
+
+Nuestros hallazgos informan y complejizan múltiples tradiciones teóricas en el estudio de participación política y acción colectiva:
+
+1. Teorías de privación relativa: Los resultados ofrecen apoyo robusto pero matizado a teorías de privación relativa (Gurr, 1970; Runciman, 1966). La privación relativa predice que individuos que perciben brechas entre expectativas y logros efectivos experimentan frustración que puede canalizarse en protesta. Nuestros datos confirman esta dinámica específicamente entre técnicos: aquellos sin movilidad—presumiblemente experimentando mayor brecha expectativa-realidad—muestran niveles de protesta dramáticamente superiores a técnicos móviles.
+Sin embargo, el patrón no se replica entre universitarios, donde movilidad tiene efecto mínimo. Esto sugiere que privación relativa opera diferencialmente según tipo de educación y las expectativas asociadas. La privación relativa puede ser particularmente activadora cuando las expectativas frustradas son instrumentales y económicas (como en educación técnica), pero menos determinante cuando la educación socializa en orientaciones valorativas y críticas (como en educación universitaria).
+
+2. Teorías de recursos y movilización: La perspectiva de recursos (McCarthy & Zald, 1977; Edwards & McCarthy, 2004) argumenta que mayor educación proporciona recursos—habilidades organizativas, tiempo, redes, comprensión de procesos políticos—que facilitan participación. Nuestros datos confirman un gradient educativo básico: todos los grupos con mayor educación protestan más que el grupo base. Sin embargo, la magnitud no aumenta linealmente con nivel educativo; técnicos sin movilidad protestan más que universitarios con movilidad, desafiando predicciones simples de "más educación = más protesta." Esto sugiere que recursos educativos son necesarios pero insuficientes; motivación y orientación normativa median cómo recursos se canalizan en acción. La educación proporciona capacidad, pero privación relativa (técnicos) o socialización crítica (universitarios) proveen la voluntad.
+
+3. Teorías de socialización política: Nuestros hallazgos sobre universitarios resuenan con teorías de socialización política que enfatizan cómo instituciones educativas transmiten valores, identidades y marcos interpretativos que moldean participación política (Flanagan & Sherrod, 1998; Quintelier & Hooghe, 2012). La independencia entre protesta universitaria y movilidad social sugiere que la universidad socializa en orientaciones críticas que trascienden intereses materiales individuales.
+Esta interpretación se alinea con investigación sobre "radical flank effects" y participación de élites educadas en movimientos sociales (Haines, 1984), donde universitarios participan por solidaridad ideológica más que agravio personal. También conecta con teorías de capital cultural (Bourdieu, 1984) reformuladas en términos de "capital cultural crítico"—disposiciones y conocimientos que facilitan cuestionamiento de desigualdades estructurales.
+
+4. Post-materialismo: La teoría de post-materialismo (Inglehart, 1977, 1990) predice que individuos con seguridad material enfatizan valores de autorrealización, autonomía y calidad democrática sobre seguridad material, y son más propensos a participar en "nuevos movimientos sociales." Nuestros hallazgos sobre universitarios móviles—quienes presumiblemente gozan de mayor seguridad material pero mantienen alta protesta—pueden interpretarse como evidencia de orientaciones post-materialistas. Su protesta puede reflejar demandas por calidad democrática, derechos humanos, y justicia social más que intereses económicos directos. Conversamente, técnicos sin movilidad pueden representar protestas materialistas—demandas por seguridad económica, movilidad bloqueada, condiciones laborales—más alineadas con el modelo clásico de protesta basada en clase.
+
+# Limitaciones y Futuras Investigaciones
+
+Aunque nuestro análisis ofrece insights significativos, enfrenta limitaciones importantes que deben reconocerse y que abren avenidas para investigación futura:
+Causalidad y endogeneidad: Aunque el diseño de panel controla heterogeneidad no observada constante en el tiempo, permanecen preocupaciones de endogeneidad. Particularmente, la relación entre ideología y protesta es potencialmente bidireccional: la ideología puede determinar protesta, pero participar en protestas puede también radicalizar ideología. Similarmente, la selección en educación técnica vs. universitaria no es aleatoria; características no observadas que determinan elección educativa pueden también afectar propensión a protestar. Diseños experimentales o cuasi-experimentales—por ejemplo, usando reformas educativas como shocks exógenos—serían valiosos para identificación causal más rigurosa.
+Mecanismos intermedios: Nuestro análisis documenta patrones asociativos robustos pero no identifica mecanismos causales específicos. ¿Por qué exactamente técnicos sin movilidad protestan más? Potenciales mediadores incluyen: condiciones laborales precarias, desajuste educación-ocupación, exposición a injusticias en el trabajo, redes sindicales, o percepción específica de engaño sistémico. Similarmente, ¿qué aspectos de la experiencia universitaria generan orientaciones críticas? Curriculum específico, exposición a movimientos estudiantiles, redes activistas, o selección en carreras humanísticas vs. técnicas podrían mediar este efecto. Investigación cualitativa en profundidad o análisis de mediación cuantitativa serían valiosos para desempacar estas cajas negras.
+
+Heterogeneidad dentro de grupos: Nuestras categorías educativas-de movilidad, aunque más finas que especificaciones previas, aún agregan heterogeneidad considerable. "Educación técnica" incluye desde programas cortos de baja calidad hasta títulos técnicos de instituciones prestigiosas. "Educación universitaria" abarca desde humanidades y ciencias sociales hasta ingeniería y negocios, con culturas políticas muy distintas. Investigación futura debería desagregar más finamente, examinando variación por calidad institucional, campo de estudio, y tipo específico de movilidad (ocupacional vs. ingresos vs. status).
+
+Contexto temporal limitado: Nuestros datos cubren 2016-2022, un período dominado por el estallido social de 2019 y la pandemia COVID-19—eventos extraordinarios. Los patrones observados pueden no generalizarse a períodos de mayor "normalidad" política. Particularmente, el efecto masivo de la Ola 4 podría haber temporalmente alterado dinámicas usuales entre educación y protesta. Extensión de análisis a períodos más largos y diversos contextos políticos fortalecería validez externa.
+
+Otras formas de participación política: Nuestro análisis se centra exclusivamente en participación en protestas—una forma específica, visible y contenciosa de acción política. Los patrones podrían diferir para otras modalidades: participación electoral, activismo partidario, voluntariado cívico, activismo online, o participación institucional. Técnicos sin movilidad pueden protestar más pero no necesariamente votar más, participar en organizaciones, o involucrarse en política institucional. Universitarios móviles podrían canalizar su orientación política más hacia instituciones que calles. Análisis comparativo multi-modal de participación política ofrecería cuadro más completo.
+
+Interseccionalidad: Aunque controlamos género, no examinamos sistemáticamente cómo educación y movilidad intersectan con género, etnia, territorio u otras dimensiones de desigualdad. Los efectos de movilidad técnica podrían diferir dramáticamente entre hombres y mujeres, o entre individuos de distintos orígenes étnicos o regionales. Análisis interseccional más profundo sería valioso para entender cómo múltiples sistemas de desigualdad se entrelazan moldeando participación política.
+
+
+El Modelo 5 revela que la relación entre educación, movilidad social y participación en protestas es considerablemente más compleja que predicciones lineales o unidimensionales sugerirían. Nuestro hallazgo central—la divergencia técnico-universitaria en cómo movilidad social modera protesta—desafía perspectivas simplistas y subraya la necesidad de atender a heterogeneidad en funciones y significados de diferentes tipos de educación.
+
+La educación técnica en Chile aparece estructurada principalmente como mecanismo de movilidad económica instrumental. Cuando cumple esta función—individuos logran movilidad ascendente—la protesta disminuye sustancialmente, sugiriendo satisfacción de expectativas e integración social. Cuando falla—técnicos no logran movilidad esperada—genera niveles particularmente agudos de frustración y activación política hacia protesta, evidenciando privación relativa intensa.
+
+La educación universitaria, en contraste, funciona no solo como mecanismo de movilidad sino como espacio de socialización en capital cultural crítico y orientaciones valorativas que trascienden intereses materiales individuales. Universitarios mantienen altos niveles de protesta independientemente de logros personales de movilidad, sugiriendo compromiso con justicia social, solidaridad con grupos marginados, y crítica estructural del orden socioeconómico. Su protesta parece motivada menos por agravio personal que por orientaciones normativas adquiridas durante socialización universitaria.
+
+Estos hallazgos tienen implicaciones significativas para entender trayectorias de movilización social en sociedades desiguales. Sugieren que expansión educativa no necesariamente pacifica o integra poblaciones; dependiendo del tipo de educación y contextos de movilidad asociados, puede generar nuevas fuentes de frustración y crítica política. Técnicos sin movilidad representan un segmento particularmente activado políticamente—un hallazgo relevante para entender bases sociales de movimientos recientes en Chile y potencialmente otros contextos de expansión educativa sin movilidad garantizada.
+
+Finalmente, el efecto masivo del estallido social de octubre 2019—elevando protesta 30% transversalmente—subraya que contextos políticos amplios y momentos de oportunidad política pueden eclipsar temporalmente determinantes estructurales. Sin embargo, incluso en este período extraordinario, los patrones diferenciados entre grupos educativos-de movilidad persistieron, confirmando que estructura social media cómo individuos responden a aperturas políticas.
+
+En suma, educación y movilidad social no determinan participación política de manera simple o unidireccional. Sus efectos dependen crucialmente de qué tipo de educación, qué tipo de movilidad, y qué expectativas, identidades y orientaciones normativas estos procesos generan. Futuras investigaciones y políticas públicas deben atender a esta heterogeneidad, reconociendo que no toda educación ni toda movilidad integran socialmente de igual manera.

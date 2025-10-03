@@ -1,5 +1,5 @@
 ---
-title: "Modelo de efectos aleatorios: Tesis de Magister"
+title: "Análisis de Resultados: Tesis de Magister"
 format:
   html: 
     code-fold: true
@@ -55,652 +55,147 @@ fig-width: 7.5
 
 if (!require("pacman")) install.packages("pacman")
 
-pacman::p_load(tidyverse,
+pacman::p_load(plm, # Modelos Panel
                dplyr,
-               plm, #Panel Models
-               lme4, # Modelos Mixtos
-               modelsummary, # Tablas
-               ggplot2, 
-               sjplot, # Gráficos de Efectos
-               broom,
-               broom.mixed, # Extraer Resultados de los modelos mixtos
+               lme4,
+               ggplot2,
+               sjlabelled,
+               interactions, # Gráficos de Interacción
+               marginaleffects, # Effectos Marginales
+               lmtest, # Test de DIagnósticos
+               sandwich, # Errores Robustos
+               multcomp, # Contrastes post-hoc
+               stargazer, # Tablas
+               sjmisc,
+               psych, # Descriptivos
+               texreg, # Tablas de Regresión
+               sjPlot,
                here,
-               texreg)
+               tidyr,
+               naniar,
+               dplyr,
+               broom,
+               broom.mixed)
+
+options(scipen=999)
+rm(list = ls())
 
 load("~/GitHub/protest_effects/input/data/proc/elsoc_long.RData")
 ```
 
-# Preparación de Datos Longitudinales
+# Descriptivos
+
+```{r}
+#| warning: false
+#| message: false 
+
+# Grupos para hipótesis específica
+elsoc_long <- elsoc_long %>%
+  mutate(grupo_hipotesis = case_when(
+   # Universitarios con alta movilidad
+    anos_educ_encuestado >= 16 & movilidad >= 4 ~ 
+      "Universitarios alta movilidad",
+    
+    # Universitarios sin movilidad
+    anos_educ_encuestado >= 16 & movilidad <= 1 ~ 
+      "Universitarios sin movilidad",
+    
+    # Técnicos con movilidad
+    anos_educ_encuestado >= 13 & anos_educ_encuestado < 16 & movilidad >= 3 ~ 
+      "Técnicos alta movilidad",
+    
+    # Técnicos sin movilidad
+    anos_educ_encuestado >= 13 & anos_educ_encuestado < 16 & movilidad <= 1 ~ 
+      "Técnicos sin movilidad",
+    
+    # Media completa (referencia)
+    anos_educ_encuestado >= 12 & anos_educ_encuestado < 13 ~ 
+      "Media completa",
+    
+    # Baja educación
+    anos_educ_encuestado < 12 ~ 
+      "Baja educación",
+    
+    # Otros (movilidad moderada en ambos niveles)
+    TRUE ~ "Otros"
+  ))
+
+# Ordenar niveles de forma lógica
+elsoc_long$grupo_hipotesis <- factor(
+  elsoc_long$grupo_hipotesis,
+  levels = c("Baja educación",
+            "Media completa",
+            "Técnicos sin movilidad",
+            "Técnicos alta movilidad",
+            "Universitarios sin movilidad",
+            "Universitarios alta movilidad",
+            "Otros")
+)
+```
+
+
+## Descriptor de Variables
+
 ```{r}
 #| warning: false
 #| message: false
 #| results: false
 
-elsoc_panel <- elsoc_long %>%
-    # Seleccionar variables relevantes
-    mutate(
-      # Variables principales
-      idencuesta = idencuesta,
-      ola = ola,
-      
-      # Variables de protesta
-      marcha = as.numeric(marcha),  # Variable dependiente principal
-      
-      # Variables educación (numéricas)
-      educ_encuestado = as.numeric(educ_encuestado),
-      educ_padre = as.numeric(educ_padre),
-      educ_madre = as.numeric(educ_madre),
-      
-      # Variables de control
-      edad = as.numeric(edad),
-      genero = as.factor(genero),
-      region = as.factor(region),
-      ideologia = as.numeric(ideologia),
-      
-      # Crear variables derivadas
-      educ_padres_max = pmax(educ_padre, educ_madre, na.rm = TRUE),
-      
-      # Movilidad educacional -> Se calcula Movilidad Absoluta
-      movilidad_educ = educ_encuestado - educ_padres_max,
-      
-      # Educación categórica del encuestado
-      educ_cat = case_when(
-        educ_encuestado <= 3 ~ "Básica o menos",
-        educ_encuestado == 4 ~ "Media incompleta", 
-        educ_encuestado == 5 ~ "Media completa",
-        educ_encuestado == 6 ~ "Técnica superior",
-        educ_encuestado == 7 ~ "Universitaria incompleta",
-        educ_encuestado >= 8 ~ "Universitaria completa+",
-        TRUE ~ NA_character_
-      ),
-      
-      # Educación categórica de los padres
-      educ_padres_cat = case_when(
-        educ_padres_max <= 3 ~ "Básica o menos",
-        educ_padres_max == 4 ~ "Media incompleta", 
-        educ_padres_max == 5 ~ "Media completa",
-        educ_padres_max == 6 ~ "Técnica superior",
-        educ_padres_max >= 7 ~ "Universitaria+",
-        TRUE ~ NA_character_
-      ),
-      
-      # Tipología de movilidad
-      tipo_movilidad = case_when(
-        movilidad_educ < -1 ~ "Descendente",
-        movilidad_educ >= -1 & movilidad_educ <= 1 ~ "Sin movilidad",
-        movilidad_educ > 1 & movilidad_educ <= 3 ~ "Ascendente moderada",
-        movilidad_educ > 3 ~ "Ascendente alta",
-        TRUE ~ NA_character_
-      ),
-      
-      # Variables temporales
-      post_estallido = ifelse(ola >= 4, 1, 0), # Ola 4+ es post estallido: Se controla por el momento histórico y asó poder ver el efecto de educación post-estallido
-      
-      # Factorizar variables categóricas
-      educ_cat = factor(educ_cat, levels = c("Básica o menos", "Media incompleta", 
-                                             "Media completa", "Técnica superior", 
-                                             "Universitaria incompleta", 
-                                             "Universitaria completa+")),
-      educ_padres_cat = factor(educ_padres_cat),
-      tipo_movilidad = factor(tipo_movilidad)
-    ) %>%
-    
-    # Filtrar observaciones válidas para análisis longitudinal
-    filter(
-      !is.na(marcha), 
-      !is.na(educ_encuestado),
-      !is.na(edad)
-    ) %>%
-    
-    # Ordenar por individuo y tiempo
-    arrange(idencuesta, ola)
+describe (elsoc_long[,c("asist_marcha", "protesta_dummy", "anos_educ_encuestado", "anos_educ_padres_max", "movilidad")]) 
 ```
 
-## Modelos de efectos aleatorios
+## Histogramas de Frecuencia
 
 ```{r}
 #| warning: false
 #| message: false
 
+#Distribución de Asistencia a Marhcas
 
-# MODELO 1: Efecto lineal básico
-modelo1 <- lmer(marcha ~ educ_encuestado + edad + genero + post_estallido + 
-                  (1 | idencuesta), 
-                data = elsoc_panel, REML = FALSE)
+ggplot(elsoc_long, aes(x = asist_marcha)) + 
+  geom_histogram(bins = 30, fill = "steelblue", alpha = 0.7) + 
+  theme_minimal() + 
+  labs(title = "Distribución de Asistencia a Marchas", x = "Protesta", y = "Frecuencia")
 
-screenreg(modelo1)
+ggplot(elsoc_long, aes(x = anos_educ_encuestado)) + 
+  geom_histogram(bins = 30, fill = "steelblue", alpha = 0.7) + 
+  theme_minimal() + 
+  labs(title = "Distribución de Movilidad", x = "Años de Educación", y = "Frecuencia")
+
+ggplot(elsoc_long, aes(x = anos_educ_padres_max)) + 
+  geom_histogram(bins = 30, fill = "darkgreen", alpha = 0.7) + 
+  theme_minimal() + 
+  labs(title = "Distribución de Años de Educación Padres", x = "Años de Educación Padres", y = "Frecuencia")
+
+ggplot(elsoc_long, aes(x = movilidad)) + 
+  geom_histogram(bins = 20, fill = "coral", alpha = 0.7) + 
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red") + 
+  theme_minimal() + 
+  labs(title = "Distribución de Movilidad Educacional", x = "Años de Movilidad", y = "Frecuencia")
 
 
-# MODELO 2: Educación + educación parental
-data_completa <- elsoc_panel %>% filter(!is.na(educ_padre), !is.na(educ_madre))
-
-modelo2 <- lmer(marcha ~ educ_encuestado + educ_padre + educ_madre + 
-                  edad + genero + post_estallido + 
-                  (1 | idencuesta), 
-                data = data_completa, REML = FALSE)
-
-screenreg(modelo2)
-
-# MODELO 3: Efectos categóricos
-modelo3 <- lmer(marcha ~ educ_cat + educ_padres_cat + 
-                  edad + genero + post_estallido + 
-                  (1 | idencuesta), 
-                data = data_completa, REML = FALSE)
-
-screenreg(modelo3)
-
-# MODELO 4: Con movilidad educacional
-data_completa <- data_completa %>% filter(!is.na(movilidad_educ))
-
-modelo4 <- lmer(marcha ~ educ_encuestado + educ_padres_max + movilidad_educ + 
-                  edad + genero + post_estallido + 
-                  (1 | idencuesta), 
-                data = data_completa, REML = FALSE)
-
-screenreg(modelo4)
-
-# MODELO 5: Interacción educación × periodo
-modelo5 <- lmer(marcha ~ educ_encuestado * post_estallido + educ_padre + educ_madre + 
-                  edad + genero + 
-                  (1 | idencuesta), 
-                data = data_completa, REML = FALSE)
-
-# MODELO 6: Modelo completo con interacciones
-modelo6 <- lmer(marcha ~ educ_cat * tipo_movilidad + post_estallido + 
-                  edad + genero + 
-                  (1 | idencuesta), 
-                data = data_completa, REML = FALSE)
-
-# Lista de modelos
-modelos_aleatorios <- list(
-  "Lineal básico" = modelo1,
-  "Con padres" = modelo2, 
-  "Categórico" = modelo3,
-  "Con movilidad" = modelo4,
-  "Interacción temporal" = modelo5,
-  "Completo" = modelo6
-)
-
-# Función para extraer información de ajuste
-extraer_info_ajuste <- function(modelos) {
-  info <- data.frame(
-    Modelo = character(),
-    N_observaciones = numeric(),
-    N_individuos = numeric(),
-    AIC = numeric(),
-    BIC = numeric(),
-    stringsAsFactors = FALSE
-  )
-  
-  for(i in seq_along(modelos)) {
-    modelo <- modelos[[i]]
-    info <- rbind(info, data.frame(
-      Modelo = names(modelos)[i],
-      N_observaciones = nobs(modelo),
-      N_individuos = length(unique(model.frame(modelo)$idencuesta)),
-      AIC = round(AIC(modelo), 2),
-      BIC = round(BIC(modelo), 2),
-      stringsAsFactors = FALSE
-    ))
-  }
-  return(info)
-}
-
-# Extraer información de ajuste
-info_ajuste_aleatorios <- extraer_info_ajuste(modelos_aleatorios)
-
-# Mostrar información de ajuste
-print("=== INFORMACIÓN DE AJUSTE DE MODELOS DE EFECTOS ALEATORIOS ===")
-print(info_ajuste_aleatorios)
-
-# Función para mostrar resultados formateos
-mostrar_resultados_aleatorios <- function(modelos) {
-  for(i in seq_along(modelos)) {
-    cat("\n" , "=== MODELO:", names(modelos)[i], "===\n")
-    print(summary(modelos[[i]]))
-    cat("\n", rep("-", 50), "\n")
-  }
-}
-
-# Si quieres ver todos los resultados (descomenta la siguiente línea)
-mostrar_resultados_aleatorios(modelos_aleatorios)
-```
-
-## Análisis de Modelos de Efectos Aleatorios
-1. Comparación con Efectos Fijos
-
-Diferencias metodológicas clave:
-
-- Efectos aleatorios: Asumen que la heterogeneidad individual no está correlacionada con las variables explicativas
-- Efectos fijos: Controlan por toda la heterogeneidad individual (correlacionada o no)
-
-2. Resultados de Educación del Encuestado
-
-Interpretación: Los coeficientes son prácticamente idénticos, sugiriendo que:
-
-- No hay sesgo significativo por heterogeneidad individual no observada
-- La educación es exógena respecto a características individuales fijas que afectan participación en marchas
-- Robustez de los resultados principales
-
-3. Educación Parental
-
-Efectos aleatorios:
-- Educación padre: 0.018 (t=2.44, significativo)
-- Educación madre: 0.006 (t=0.74, no significativo)
-
-Consistencia: Misma magnitud y significancia que en efectos fijos, confirmando la robustez del hallazgo de que solo la educación paterna tiene efecto residual.
-
-4. Interacción Temporal (Modelo 5)
-Hallazgo clave: educ_encuestado:post_estallido = -0.051 (t=-4.48, p<0.001)
-
-Esto sugeriría que:
-- Antes del estallido: Efecto de educación = 0.066 puntos
-- Después del estallido: Efecto de educación = 0.066 - 0.051 = 0.015 puntos
-
-Implicación: El efecto de la educación sobre participación en marchas disminuyó significativamente después del estallido social
-
-5. Ajuste de Modelos
-Mejor modelo por AIC: Interacción temporal (10,206.2)
-
-Captura heterogeneidad temporal importante
-Consistente entre efectos fijos y aleatorios
-
-6. Modelo Categórico (Gradiente Educacional)
-
-Efectos by nivel educativo:
-
-Media incompleta: +0.052
-Media completa: +0.099
-Técnica superior: +0.210
-Universitaria incompleta: +0.129
-Universitaria completa+: +0.396 (efecto más fuerte)
-
-Patrón: Relación no completamente lineal - hay un salto importante en educación universitaria completa.
-
-# Interacción Temporal (MÁXIMA PRIORIDAD)
-
-- Mejor ajuste estadístico (AIC más bajo)
-- Hallazgo sustantivo clave: Cambio en el efecto de educación post-estallido
-- Implicaciones teóricas importantes sobre democratización de la participación
-
-```{r}
-#| warning: false
-#| message: false
-
-library(marginaleffects)
-
-# 1. Efectos marginales por período
-avg_slopes(modelo5, by = "post_estallido")
-
-# 2. Crear grid completo manualmente
-nuevo_data <- expand.grid(
-  educ_encuestado = c(8, 12, 16),
-  post_estallido = c(0, 1)
-)
-
-# Agregar las otras variables con valores típicos
-nuevo_data$educ_padre <- mean(data_completa$educ_padre, na.rm = TRUE)
-nuevo_data$educ_madre <- mean(data_completa$educ_madre, na.rm = TRUE) 
-nuevo_data$edad <- mean(data_completa$edad, na.rm = TRUE)
-nuevo_data$genero <- data_completa$genero[1]  # primer valor
-
-# Predicciones
-pred_resultado <- predictions(modelo5, data = nuevo_data)
-print(pred_resultado)
-
-ggplot(data_completa, aes(x = educ_encuestado, y = marcha, 
-                         color = factor(post_estallido))) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(method = "lm", se = TRUE) +
-  labs(title = "Cambio en el Efecto de Educación Post-Estallido",
-       x = "Años de educación", 
-       y = "Participación en marchas",
-       color = "Período") +
-  scale_color_discrete(labels = c("Pre-estallido", "Post-estallido")) +
-  theme_minimal()
-```
-
-1. Convergencia de Pendientes
-
-Pre-estallido (rojo): Pendiente más pronunciada - educación tiene mayor efecto
-Post-estallido (azul): Pendiente más suave - educación tiene menor efecto
-Las líneas convergen hacia la derecha, confirmando la interacción negativa
-
-2. Democratización de la Participación
-
-Brecha educacional se reduce: La diferencia entre alta y baja educación es menor post-estallido
-Participación base aumenta: El intercepto post-estallido parece ligeramente más alto
-"Techo" similar: Los más educados participan de forma similar en ambos períodos
-
-3. Magnitud del Cambio
-
-La diferencia entre las pendientes es visualmente clara y estadísticamente significativa (t=-4.48)
-El cambio es más pronunciado en los niveles bajos de educación (lado izquierdo del gráfico)
-
-```{r}
-#| warning: false
-#| message: false
-
-# Modelo con interacción completa
-modelo_cat_temporal <- lmer(marcha ~ educ_cat * post_estallido + 
-                           educ_padres_cat + edad + genero + 
-                           (1 | idencuesta), 
-                           data = data_completa, REML = FALSE)
-
-summary(modelo_cat_temporal)
-
-# Efectos marginales por categoría educativa y período
-library(marginaleffects)
-efectos_cat <- avg_slopes(modelo_cat_temporal, 
-                         variables = "post_estallido", 
-                         by = "educ_cat")
-print(efectos_cat)
 ```
 
 ```{r}
 #| warning: false
 #| message: false
 
+# Tablas de Frecuencias: Educación Encuestado
 
-# Crear tabla para visualización
-resultados_viz <- data.frame(
-  educ_cat = c("Básica o menos", "Media incompleta", "Media completa", 
-               "Técnica superior", "Universitaria incompleta", "Universitaria completa+"),
-  estimate = c(0.028, 0.108, 0.070, -0.081, -0.070, -0.256),
-  se = c(0.0635, 0.0746, 0.0469, 0.1206, 0.0691, 0.0493),
-  significativo = c(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
-)
+table(elsoc_long$educ_encuestado)
+prop.table(table(elsoc_long$educ_encuestado)) * 100
 
-# Gráfico de coeficientes
-ggplot(resultados_viz, aes(x = reorder(educ_cat, estimate), y = estimate,
-                          color = significativo)) +
-  geom_point(size = 4) +
-  geom_errorbar(aes(ymin = estimate - 1.96*se, ymax = estimate + 1.96*se),
-                width = 0.3) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "gray") +
-  coord_flip() +
-  scale_color_manual(values = c("gray60", "red")) +
-  labs(title = "Cambio en Participación Post-Estallido por Nivel Educativo",
-       subtitle = "Efecto de la interacción educación × post-estallido",
-       x = "Nivel educativo", y = "Cambio en participación",
-       color = "Significativo") +
-  theme_minimal()
-```
-Eje X: Cambio en Participación
+table(elsoc_long$movilidad_cat)
+prop.table(table(elsoc_long$movilidad_cat)) * 100
 
-Valores negativos (izquierda): Reducción en participación post-estallido
-Valores positivos (derecha): Aumento en participación post-estallido
-Línea vertical en 0: Sin cambio
+# Tablas de Frecuencias: Movilidad Categóricas
 
-Eje Y: Niveles Educativos (ordenados por cambio)
+table(elsoc_long$movilidad_cat)
+prop.table(table(elsoc_long$movilidad_cat)) * 100
 
-Arriba: Grupos que más aumentaron
-Abajo: Grupos que más disminuyeron
+# Tablas de Frecuencias: Grupo Hipótesis
+table(elsoc_long$grupo_hipotesis)
+prop.table(table(elsoc_long$grupo_hipotesis)) * 100
 
-Colores:
-
-Gris: Cambios no estadísticamente significativos
-Rojo: Cambios estadísticamente significativos (p<0.05)
-
-Patrón Principal Visualizado:
-1. Solo un Grupo Cambia Significativamente
-
-Universitaria completa+: Única categoría en rojo
-Reducción significativa de ~0.25 puntos
-Todos los demás: Cambios no significativos (gris)
-
-2. Gradiente Educacional
-
-Educación baja (arriba): Cambios levemente positivos pero no significativos
-Educación alta (abajo): Cambios negativos, solo universitarios significativo
-
-3. Patrón de "Convergencia Selectiva"
-El gráfico muestra que la democratización proviene exclusivamente de que los universitarios completos redujeron significativamente su participación, mientras todos los demás grupos se mantuvieron relativamente estables.
-Implicaciones del Gráfico:
-Refinamiento de la Interpretación
-
-NO hay movilización masiva de los menos educados
-SÍ hay desmovilización específica de los más educados
-El cambio es SELECTIVO, no general
-
-Robustez Estadística
-
-Solo una de las seis categorías cambia significativamente
-Sugiere que el efecto está altamente concentrado en el grupo más educado
-Todos los otros cambios pueden ser ruido estadístico
-
-Conclusión Principal:
-La democratización de la participación en marchas post-estallido chileno es un fenómeno de "techo", no de "piso" - los universitarios se retiraron parcialmente, reduciendo la desigualdad participativa, pero sin que hubiera una movilización significativa de otros grupos sociales.
-
-La democratización fue por "techo" (ceiling effect) en los más educados, no por "piso" (floor effect) en los menos educados. Esto sugiere dinámicas de diferenciación de clase más que inclusión masiva
-
-```{r}
-#| warning: false
-#| message: false
-#| echo: false
-#| results: false
-
-
-# Verificar distribución de datos
-table(data_completa$educ_cat, data_completa$post_estallido)
-
-# Medias por grupo (método más simple)
-library(dplyr)
-
-medias_por_grupo <- data_completa %>%
-  group_by(educ_cat, post_estallido) %>%
-  summarise(
-    media = mean(marcha, na.rm = TRUE),
-    n = n(),
-    .groups = "drop"
-  )
-
-print(medias_por_grupo)
-
-# Formato wide para ver cambios
-medias_wide <- medias_por_grupo %>%
-  pivot_wider(names_from = post_estallido, 
-              values_from = c(media, n),
-              names_sep = "_periodo_")
-
-print(medias_wide)
 ```
 
-Tentativo: La democratización política en crisis NO proviene principalmente de movilización masiva de los excluidos, sino de "desmovilización selectiva" de las élites educadas.
-
-Categórico (ALTA PRIORIDAD)
-Por qué es valioso:
-
-Revela no-linealidades que el modelo lineal oculta
-Umbral en universitaria completa+ (efecto 4x mayor que media)
-Gradiente educacional más realista
-
-Análisis adicionales recomendados:
-
-```{r}
-#| warning: false
-#| message: false
-
-library(emmeans)
-library(lme4)
-
-# 1. Contrastes específicos entre niveles
-emmeans::contrast(emmeans(modelo3, "educ_cat"), method = "pairwise")
-
-# 2. Tendencia no-lineal
-#  marginaleffects::avg_slopes(modelo3, variables = "educ_cat", 
-#                           hypothesis = "pairwise")
-
-# 3. Interacción categórica × temporal
-modelo_cat_temporal <- lmer(marcha ~ educ_cat * post_estallido + 
-                           educ_padres_cat + edad + genero + 
-                           (1 | idencuesta), data = data_completa)
-```
-
-RECOMENDACIÓN DE SECUENCIA ANALÍTICA
-Fase 1: Profundización de hallazgos clave
-
-Interacción temporal → Paper principal
-Modelo categórico → Análisis complementario
-
-Fase 2: Exploración de mecanismos
-
-Movilidad educacional → Análisis de trayectorias
-Heterogeneidad por grupos → Análisis de moderadores
-
-Fase 3: Robustez y extensiones
-
-Modelos alternativos → Verificación
-Análisis de mediación → Mecanismos causales (si tienes datos)
-
-
-a) Especificaciones alternativas
-```{r}
-# Modelo con controles adicionales
-#modelo_robusto <- lmer(marcha ~ educ_encuestado + edad + I(edad^2) + 
-#                      genero + ingreso + zona_residencia + post_estallido +
-#                      (1 | idencuesta), data = data_completa)
-
-# Modelo con efectos fijos temporales
-modelo_tiempo_fijo <- lmer(marcha ~ educ_encuestado + edad + genero +
-                          factor(ola) + 
-                          (1 | idencuesta), data = data_completa)
-modelo_tiempo_fijo
-```
-
-b) Análisis de sensibilidad
-```{r}
-# Diferentes definiciones de la variable dependiente
-# Si marcha tiene muchos ceros, considerar:
-# - Modelo Tobit/censurado
-# - Modelo de dos partes (participación + intensidad)
-# - Categorización binaria (participó vs no participó)
-
-# modelo_binario <- glmer(marcha_binaria ~ educ_encuestado + edad + genero + 
-#                       post_estallido + (1 | idencuesta),
-#                       family = binomial, data = data)
-```
-
-
-# Efectos de la Educación sobre la Participación en Marchas: Interpretación de Resultados de Efectos Fijos
-
-## 1. Contexto Metodológico
-
-### Especificación del Modelo
-Los modelos de efectos fijos individuales permiten identificar el **efecto causal within** de cambios en educación sobre la participación en marchas, controlando por heterogeneidad individual no observada que permanece constante en el tiempo. Esta especificación es particularmente valiosa para el estudio de educación y participación política porque:
-
-- **Controla por factores individuales fijos**: motivación política, valores familiares, personalidad
-- **Identifica efectos de movilidad educacional**: cambios en educación dentro del mismo individuo
-- **Minimiza sesgo de selección**: características no observadas que afectan tanto educación como participación
-
-### Variable Dependiente
-La participación en marchas se mide en escala ordinal 1-5 (Nunca - Muy Frecuentemente), capturando la **intensidad** de participación en actividades de protesta, una forma específica de participación política no convencional.
-
-## 2. Resultados Principales
-
-### Educación del Encuestado (Efecto Within)
-
-**Magnitud del efecto**: 0.051-0.066 puntos por año adicional de educación
-- **Modelo lineal básico**: 0.051 (SE=0.003, p<0.001)
-- **Modelos con controles familiares**: 0.057-0.066
-- **Robustez**: Efecto consistente y altamente significativo en todas las especificaciones
-
-**Interpretación práctica**:
-- Un año adicional de educación aumenta la frecuencia de participación en marchas en **0.05-0.07 puntos** en la escala 1-5
-- Diferencia **educación universitaria vs. media** (4-5 años): **0.20-0.35 puntos**
-- Diferencia **educación universitaria vs. básica** (8+ años): **0.40-0.56 puntos**
-- En términos porcentuales: **1.25-1.75% de la escala** por año adicional
-
-### Educación Paterna (Efecto Between)
-
-**Magnitud del efecto**: ~0.018 puntos por año de educación del padre
-- **Efecto pequeño pero estadísticamente significativo** (p<0.05)
-- **Consistente** entre modelos que incluyen background familiar
-- Representa aproximadamente **1/3 del efecto** de la educación propia
-
-**Interpretación**:
-- Diferencia padre universitario vs. básico: ~0.14 puntos adicionales en participación
-- Sugiere **transmisión intergeneracional** de capital político, pero con magnitud limitada
-
-### Educación Materna (Sin Efecto)
-
-**Resultado**: Efecto no significativo (~0.006, intervalos de confianza incluyen 0)
-- Contrasta con educación paterna
-- Posible reflejo de **diferencias generacionales** en roles de transmisión política
-- Consistente con literatura sobre predominio paterno en socialización política en contextos tradicionales
-
-## 3. Interpretación Teórica
-
-### Movilidad Educacional vs. Reproducción Social
-
-Los resultados apoyan fuertemente la **hipótesis de empowerment individual** sobre la de **mera reproducción de clase**:
-
-1. **Predominio del efecto individual**: La educación propia tiene efectos 3 veces mayores que el background familiar
-2. **Efectos within robustos**: Cambios en educación dentro del mismo individuo predicen cambios en participación
-3. **Control por heterogeneidad**: Los efectos persisten controlando por características familiares y individuales fijas
-
-### Mecanismos Causales Plausibles
-
-**Recursos cognitivos y políticos**:
-- Mayor **capacidad de procesamiento** de información política
-- Desarrollo de **habilidades cívicas** (organización, comunicación, liderazgo)
-- **Autoeficacia política** incrementada
-
-**Capital social y redes**:
-- Expansión de **redes sociales** con individuos políticamente activos
-- Exposición a **diversidad ideológica** y debates políticos
-- **Identificación con grupos** sociales más participativos
-
-**Valores y actitudes**:
-- **Liberalización de valores** asociada con educación superior
-- Mayor **tolerancia a la diversidad** y apoyo a derechos civiles
-- **Conciencia crítica** sobre desigualdades y problemas sociales
-
-## 4. Magnitud y Significancia Práctica
-
-### Efectos Modestos pero Sistemáticos
-
-Los efectos encontrados son **estadísticamente robustos** pero **sustantivamente moderados**:
-
-- **Realismo**: Coherente con evidencia internacional sobre educación y participación
-- **Acumulación**: Diferencias educacionales importantes (8+ años) generan cambios detectables
-- **Estabilidad temporal**: Efectos consistentes sugieren relación duradera
-
-### Comparación con Literatura
-
-**Consistente con estudios previos** que encuentran:
-- Efectos positivos de educación sobre participación política no convencional
-- Predominio de efectos individuales sobre familiares en comportamiento político
-- Magnitudes modestas pero significativas para variables educacionales
-
-## 5. Limitaciones y Consideraciones
-
-### Direccionalidad Causal
-
-Aunque los efectos fijos controlan por muchas fuentes de endogeneidad, persisten algunas limitaciones:
-- **Eventos vitales**: Cambios simultáneos en educación y motivación política
-- **Selección temporal**: Timing de educación puede estar correlacionado con ciclos políticos
-
-### Generalización
-
-- **Contexto específico**: Resultados corresponden a datos ELSOC Chile
-- **Periodo temporal**: Efectos pueden variar según contexto político nacional
-- **Tipo de participación**: Específico para participación en marchas/protestas
-
-## 6. Implicaciones
-
-### Para Política Pública
-
-1. **Educación como herramienta democrática**: Inversión educacional tiene retornos en participación cívica
-2. **Efectos a largo plazo**: Políticas educacionales impactan la cultura política generacional
-3. **Movilidad social**: Educación puede romper patrones de exclusión política familiar
-
-### Para Investigación Futura
-
-1. **Mecanismos específicos**: Investigar qué aspectos de la educación (contenidos, redes, credenciales) impulsan participación
-2. **Heterogeneidad de efectos**: Explorar variación por género, clase social, o región
-3. **Tipos de participación**: Comparar efectos en participación convencional vs. no convencional
-
-## Conclusión
-
-Los resultados demuestran un **efecto causal robusto** de la educación individual sobre la participación en marchas, con magnitud práctica significativa y evidencia sólida de que la **movilidad educacional** tiene efectos empoderadores más allá de la mera **reproducción del capital cultural familiar**. Este hallazgo contribuye a la comprensión de cómo la educación funciona como mecanismo de inclusión democrática y transformación social.

@@ -11,17 +11,26 @@
 # 1. Packages ---------------------------------------------------------
 if (!require("pacman")) install.packages("pacman")
 
-pacman::p_load(tidyverse,
-               sjlabelled, 
-               sjmisc, 
+pacman::p_load(plm, # Modelos Panel
+               lme4,
+               ggplot2,
+               sjlabelled,
+               interactions, # Gráficos de Interacción
+               marginaleffects, # Effectos Marginales
+               lmtest, # Test de DIagnósticos
+               sandwich, # Errores Robustos
+               multcomp, # Contrastes post-hoc
+               stargazer, # Tablas
+               sjmisc,
+               psych, # Descriptivos
+               texreg, # Tablas de Regresión
                sjPlot,
                here,
                tidyr,
                naniar,
                dplyr,
                broom,
-               broom.mixed,
-               texreg)
+               broom.mixed)
 
 options(scipen=999)
 rm(list = ls())
@@ -37,6 +46,14 @@ rm(elsoc_long_2016_2023)
 
 glimpse(elsoc_long)
 
+# 2.2. Data Structure ---------------------------------------------------
+
+str(elsoc_long)
+
+head(elsoc_long)
+
+names(elsoc_long)
+
 # 3. Processing -----------------------------------------------------------
 
 # mutate ----
@@ -47,7 +64,10 @@ elsoc_long[elsoc_long ==-777] <- NA
 elsoc_long[elsoc_long ==-666] <- NA
 
 elsoc_long <- elsoc_long %>% 
-  mutate(idencuesta, tipo_caso,
+  mutate(idencuesta, 
+         tipo_caso,
+         estrato,
+         segmento,
          ola,
          comuna,
          comuna_cod,
@@ -86,6 +106,166 @@ elsoc_long <- elsoc_long %>%
   as_tibble() %>% 
   sjlabelled::drop_labels(., drop.na = FALSE)
 
+# ============================================
+# IMPUTAR EDUCACIÓN DEL PADRE (CONSTANTE)
+# ============================================
+
+# Nombre de tu variable
+educ_padre_imp <- "educ_padre"  # ajusta según tu variable real
+
+# Método 1: Usar el primer valor disponible por persona
+elsoc_long <- elsoc_long %>%
+  group_by(idencuesta) %>%
+  arrange(ola) %>%
+  fill(!!sym(educ_padre_imp), .direction = "downup") %>%
+  ungroup()
+
+# Verificar resultado
+elsoc_long %>%
+  group_by(ola) %>%
+  summarise(
+    n_total = n(),
+    n_disponible = sum(!is.na(.data[[educ_padre_imp]])),
+    pct_disponible = round(100 * n_disponible / n_total, 1)
+  )
+
+# ============================================
+# IMPUTAR EDUCACIÓN DE LA MADRE (CONSTANTE)
+# ============================================
+
+# Nombre de tu variable
+educ_madre_imp <- "educ_madre"  # ajusta según tu variable real
+
+# Método 1: Usar el primer valor disponible por persona
+elsoc_long <- elsoc_long %>%
+  group_by(idencuesta) %>%
+  arrange(ola) %>%
+  fill(!!sym(educ_madre_imp), .direction = "downup") %>%
+  ungroup()
+
+# Verificar resultado
+elsoc_long %>%
+  group_by(ola) %>%
+  summarise(
+    n_total = n(),
+    n_disponible = sum(!is.na(.data[[educ_madre_imp]])),
+    pct_disponible = round(100 * n_disponible / n_total, 1)
+  )
+
+# ============================================================================
+# RECODIFICACIÓN DE EDUCACIÓN A AÑOS DE ESCOLARIDAD
+# ============================================================================
+
+elsoc_long <- elsoc_long %>%
+  mutate(
+    # Años educación encuestado
+    anos_educ_encuestado = case_when(
+      educ_encuestado == 1 ~ 0,   # Sin estudios
+      educ_encuestado == 2 ~ 4,   # Básica/Preparatoria incompleta
+      educ_encuestado == 3 ~ 8,   # Básica/Preparatoria completa
+      educ_encuestado == 4 ~ 10,  # Media/Humanidades incompleta
+      educ_encuestado == 5 ~ 12,  # Media/Humanidades completa
+      educ_encuestado == 6 ~ 13,  # Técnica Superior incompleta
+      educ_encuestado == 7 ~ 14,  # Técnica Superior completa
+      educ_encuestado == 8 ~ 15,  # Universitaria incompleta
+      educ_encuestado == 9 ~ 17,  # Universitaria completa
+      educ_encuestado == 10 ~ 19, # Posgrado
+      TRUE ~ NA_real_
+    ),
+    
+    # Años educación padre
+    anos_educ_padre = case_when(
+      educ_padre == 1 ~ 0,
+      educ_padre == 2 ~ 4,
+      educ_padre == 3 ~ 8,
+      educ_padre == 4 ~ 10,
+      educ_padre == 5 ~ 12,
+      educ_padre == 6 ~ 13,
+      educ_padre == 7 ~ 14,
+      educ_padre == 8 ~ 15,
+      educ_padre == 9 ~ 17,
+      educ_padre == 10 ~ 19,
+      TRUE ~ NA_real_
+    ),
+    
+    # Años educación madre
+    anos_educ_madre = case_when(
+      educ_madre == 1 ~ 0,
+      educ_madre == 2 ~ 4,
+      educ_madre == 3 ~ 8,
+      educ_madre == 4 ~ 10,
+      educ_madre == 5 ~ 12,
+      educ_madre == 6 ~ 13,
+      educ_madre == 7 ~ 14,
+      educ_madre == 8 ~ 15,
+      educ_madre == 9 ~ 17,
+      educ_madre == 10 ~ 19,
+      TRUE ~ NA_real_
+    )
+  )
+
+# ============================================================================
+# CÁLCULO DE MOVILIDAD EDUCACIONAL
+# ============================================================================
+
+elsoc_long <- elsoc_long %>%
+  mutate(
+    # Máximo educacional parental
+    anos_educ_padres_max = pmax(anos_educ_padre, anos_educ_madre, na.rm = TRUE),
+    
+    # Movilidad absoluta (continua)
+    movilidad = anos_educ_encuestado - anos_educ_padres_max,
+    
+    # Movilidad categórica
+    movilidad_cat = case_when(
+      movilidad < 0 ~ "Descendente",
+      movilidad == 0 ~ "Sin movilidad",
+      movilidad >= 1 & movilidad <= 4 ~ "Baja ascendente",
+      movilidad >= 5 & movilidad <= 8 ~ "Moderada ascendente",
+      movilidad > 8 ~ "Alta ascendente",
+      TRUE ~ NA_character_
+    ),
+    
+    # Convertir a factor ordenado
+    movilidad_cat = factor(movilidad_cat, 
+                           levels = c("Descendente", "Sin movilidad", 
+                                      "Baja ascendente", "Moderada ascendente", 
+                                      "Alta ascendente"),
+                           ordered = TRUE),
+    
+    # Dummy alta educación (universitaria completa o más)
+    alta_educacion = if_else(educ_encuestado >= 9, 1, 0),
+    
+    # Grupos para hipótesis principal
+    grupo_hipotesis = case_when(
+      alta_educacion == 1 & movilidad > 4 ~ "A: Alta educ + Alta movilidad",
+      alta_educacion == 1 & movilidad <= 2 ~ "B: Alta educ + Sin/Baja movilidad",
+      alta_educacion == 0 ~ "C: Baja/Media educación",
+      TRUE ~ "Otro"
+    ),
+    
+    grupo_hipotesis = factor(grupo_hipotesis,
+                             levels = c("C: Baja/Media educación",
+                                        "B: Alta educ + Sin/Baja movilidad",
+                                        "A: Alta educ + Alta movilidad",
+                                        "Otro")),
+    
+    # Educación simplificada (para análisis adicionales)
+    educ_simplificada = case_when(
+      educ_encuestado <= 3 ~ "Básica o menos",
+      educ_encuestado %in% c(4, 5) ~ "Media completa",
+      educ_encuestado %in% c(6, 7) ~ "Técnica/CFT",
+      educ_encuestado == 8 ~ "Universitaria incompleta",
+      educ_encuestado >= 9 ~ "Universitaria completa o más",
+      TRUE ~ NA_character_
+    ),
+    
+    educ_simplificada = factor(educ_simplificada,
+                               levels = c("Básica o menos", "Media completa", 
+                                          "Técnica/CFT", "Universitaria incompleta",
+                                          "Universitaria completa o más"))
+  )
+
 
 # 3. INDEX CREATION AND RECODE
 
@@ -123,265 +303,9 @@ table(elsoc_long$asist_marcha, elsoc_long$protesta_dummy, useNA = "always")
 # Ver frecuencias
 table(elsoc_long$protesta_dummy, useNA = "always")
 
-
-#----Índice de movilidad-----#
-
-elsoc_long <- elsoc_long %>%
-  mutate(
-    educ_padres_max = pmax(educ_padre, educ_madre, na.rm = TRUE),
-    movilidad_educ = educ_encuestado - educ_padres_max,
-    movilidad_cat = case_when(
-      movilidad_educ <= -2 ~ "Movilidad descendente",
-      movilidad_educ %in% c(-1, 0, 1) ~ "Sin movilidad",
-      movilidad_educ >= 2 ~ "Movilidad ascendente"
-    )
-  )
-
 # Guardar
 
 save(elsoc_long, file = here ("input/data/proc/elsoc_long.RData"))
 
-#--------------------------------------------------------------
-# Analysis General
-#--------------------------------------------------------------
-
-# Analisis transversal
-
-# Filtrar solo ola 4 (año 2019)
-elsoc_2019 <- elsoc_long %>%
-  filter(ola == 4)
-
-# Verificar que solo tienes datos de 2019
-table(elsoc_2019$ola)
-nrow(elsoc_2019)
-
-# Explorar variables principales
-summary(elsoc_2019$educ_encuestado)  # Educación (variable independiente)
-frq(elsoc_2019$educ_encuestado)
-
-summary(elsoc_2019$asist_marcha) # Asistencia a marchas
-frq(elsoc_2019$asist_marcha)
-
-summary(elsoc_2019$protesta_dummy) # Asistencia a marchas
-frq(elsoc_2019$protesta_dummy)
-
-frq(elsoc_2019$ideologia)
-
-# Verificar valores perdidos
-elsoc_2019 %>%
-  summarise(across(everything(), ~sum(is.na(.))))
-
-# Crear dataset limpio para regresiones
-datos_2019 <- elsoc_2019 %>%
-  filter(!is.na(educ_encuestado),
-         !is.na(asist_marcha)
-         ) %>%  # Filtrar casos con datos completos
-  mutate(
-    # Convertir a numérico si es necesario
-    educ_encuestado = as.numeric(educ_encuestado),
-    marcha = as.numeric(asist_marcha),
-    just_violencia_carab = as.numeric(just_violencia_carab),
-    just_violencia_trab = as.numeric(just_violencia_trab),
-    just_violencia_est = as.numeric(just_violencia_est),
-    dannio_inmobilia = as.numeric(dannio_inmobilia),
-    dannio_transporte = as.numeric(dannio_transporte),
-    dannio_comercio = as.numeric(dannio_comercio),
-  )
-
-# Verificar casos finales
-nrow(datos_2019)
-
-#------ Modelos Iniciales Transversales ------
-
-# Asiste Marcha/Educación - Continua
-modelo_marcha <- lm(asist_marcha ~ educ_encuestado, data = elsoc_2019)
-screenreg(modelo_marcha)
-
-# Asiste Marcha/Educación - Dummy
-modelo_logit <- glm(protesta_dummy ~ educ_encuestado, 
-                    data = elsoc_long, 
-                    family = binomial(link = "logit"))
-screenreg(modelo_logit)
-
-# Calcular Odds Ratios
-exp(coef(modelo_logit))
-# O con intervalos de confianza
-exp(cbind(OR = coef(modelo_logit), confint(modelo_logit)))
-
-#----- Modelo Comparativo por Educación ------
-elsoc_2019 <- elsoc_2019 %>%
-  mutate(educ_cat = case_when(
-    educ_encuestado <= 3 ~ "Básica o menos",
-    educ_encuestado == 4 ~ "Media incompleta", 
-    educ_encuestado == 5 ~ "Media completa",
-    educ_encuestado == 6 ~ "Técnica incompleta",
-    educ_encuestado == 7 ~ "Técnica completa",
-    educ_encuestado == 8 ~ "Universitaria incompleta",
-    educ_encuestado == 9 ~ "Universitaria completa",
-    educ_encuestado == 10 ~ "Posgrado",
-    TRUE ~ NA_character_
-  ))
-
-# Convertir a factor con Media completa como referencia
-elsoc_2019 <- elsoc_2019 %>%
-  mutate(educ_cat = factor(educ_cat, 
-                           levels = c("Media completa",  # Referencia
-                                      "Básica o menos",
-                                      "Media incompleta",
-                                      "Técnica incompleta",
-                                      "Técnica completa",
-                                      "Universitaria incompleta",
-                                      "Universitaria completa",
-                                      "Posgrado")))
-
-
-# Modelo con variable continua
-# Filtrar solo desde Media completa en adelante
-elsoc_2019_filtrado <- elsoc_2019 %>%
-  filter(educ_encuestado >= 5)
-
-# Modelo sin controles
-modelo_1 <- lm(asist_marcha ~ educ_cat, 
-               data = elsoc_2019_filtrado)
-
-# Crear sexo como factor
-elsoc_2019_filtrado <- elsoc_2019_filtrado %>%
-  mutate(sexo_factor = factor(genero, 
-                              levels = c(1, 2),
-                              labels = c("Hombre", "Mujer")))
-
-# Modelo con controles
-modelo_2 <- lm(asist_marcha ~ educ_cat + sexo_factor + ideologia + interes_politica, 
-               data = elsoc_2019_filtrado)
-
-# Comparar modelos
-screenreg(list(modelo_1, modelo_2),
-          custom.model.names = c("Modelo 1: Solo Educación", 
-                                 "Modelo 2: Con Controles"))
-
-# Modelo 3: Con interacción educación * interés político
-modelo_3 <- lm(asist_marcha ~ educ_cat * interes_politica + sexo_factor + ideologia, 
-               data = elsoc_2019_filtrado)
-
-# Comparar los tres modelos
-screenreg(list(modelo_1, modelo_2, modelo_3),
-          custom.model.names = c("Modelo 1: Solo Educación", 
-                                 "Modelo 2: Con Controles",
-                                 "Modelo 3: Con Interacción"))
-
-# Ver summary detallado del modelo 3
-summary(modelo_3)
-
-# Test de significancia de la interacción
-anova(modelo_2, modelo_3)
-
-# Modelo con Variable Dummy
-
-# Filtrar solo desde Media completa (educacion >= 5)
-elsoc_2019 <- elsoc_2019 %>%
-  filter(educ_encuestado >= 5)
-
-# Verificar
-table(elsoc_2019$educ_cat, useNA = "always")
-
-# Modelo logístico con Media completa como referencia
-modelo_cat_filtrado <- glm(protesta_dummy ~ educ_cat, 
-                           data = elsoc_2019, 
-                           family = binomial(link = "logit"))
-
-summary(modelo_cat_filtrado)
-
-# Odds Ratios con IC
-exp(cbind(OR = coef(modelo_cat_filtrado), confint(modelo_cat_filtrado)))
-
-# Tabla bonita
-screenreg(modelo_cat_filtrado)
-
-#--------------------------------------------------------------------------------------------
-  
-#------ Modelos Iniciales longitudinales ------
-
-######### HIPOTESIS 1 ###########
-
-
-library(plm)
-library(lme4)
-
-# Opción A: Modelo de efectos aleatorios (plm)
-modelo_re <- plm(asist_marcha ~ educ_encuestado + genero + ideologia + interes_politica + factor(ola),
-                 data = elsoc_long,
-                 index = c("idencuesta", "ola"),
-                 model = "random")
-
-# Opción B: Modelo mixto (lme4) - más flexible
-modelo_mixto <- lmer(asist_marcha ~ educ_cat + genero + ideologia + interes_politica + 
-                       (1 | idencuesta) + factor(ola),
-                     data = elsoc_long)
-
-######### HIPOTESIS 2 ###########
-
-# ¿ELSOC tiene datos de educación de los padres?
-# Buscar variables como educ_padre, educ_madre
-
-# Crear variable de movilidad
-elsoc_long <- elsoc_long %>%
-  mutate(
-    educ_padres_max = pmax(educ_padre, educ_madre, na.rm = TRUE),
-    movilidad_educ = educ_encuestado - educ_padres_max,
-    movilidad_cat = case_when(
-      movilidad_educ <= -2 ~ "Movilidad descendente",
-      movilidad_educ %in% c(-1, 0, 1) ~ "Sin movilidad",
-      movilidad_educ >= 2 ~ "Movilidad ascendente"
-    )
-  )
-
-# Modelo con interacción educación × movilidad
-modelo_movilidad <- lmer(asist_marcha ~ educ_cat * movilidad_cat + 
-                           genero + ideologia + interes_politica + 
-                           (1 | idencuesta) + factor(ola),
-                         data = elsoc_long)
-
-screenreg(modelo_movilidad)
-
-
-### Interacciones significativas (LO INTERESANTE):
-
-#Técnica incompleta × Movilidad descendente: +0.46*
-  
-###Personas con técnica incompleta que experimentaron movilidad descendente protestan MÁS
-
-#Universitaria incompleta × Sin movilidad: +0.36*
-  
-###Personas con universitaria incompleta sin movilidad educacional protestan MÁS
-
 
 ############################################################################################################################################################
-
-
-# missings ----
-
-colSums(is.na(db_long))
-
-na.omit(db_long) 
-
-db_long <- naniar::add_n_miss(db_long)
-
-any_na(db_long)
-
-n_miss(db_long)
-
-prop_miss(db_long[c(4:11)])
-
-naniar::gg_miss_var(db_long)
-
-miss_var_summary(db_long)
-
-miss_var_table(db_long)
-
-miss_case_summary(db_long)
-
-miss_case_table(db_long)
-
-vis_miss(db_long) + theme(axis.text.x = element_text(angle=80))
-
-#db_long <- na.omit(db_long)
