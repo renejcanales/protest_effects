@@ -31,7 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="proc_data_elsoc_files/libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="proc_data_elsoc_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="proc_data_elsoc_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="proc_data_elsoc_files/libs/bootstrap/bootstrap-afec8a14bc86c2a30ccee0d5ced85c30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+<link href="proc_data_elsoc_files/libs/bootstrap/bootstrap-9ba86fed9405a46c6ecdb1ea965fb980.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script src="proc_data_elsoc_files/libs/kePrint-0.0.1/kePrint.js"></script><link href="proc_data_elsoc_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
  for (var i = 0; i < mathElements.length; i++) {
@@ -104,53 +105,371 @@ window.Quarto = {
       
     </div>
     
-  <div>
-    <div class="abstract">
-      <div class="block-title">Abstract</div>
-      <p><strong>Keywords</strong>:</p>
-    </div>
-  </div>
   
   </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="proc_data_elsoc.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
-<main class="content quarto-banner-title-block" id="quarto-document-content"><div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  n_obs n_personas protesta_media protesta_sd educ_media educ_padres_media
-  &lt;int&gt;      &lt;int&gt;          &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;             &lt;dbl&gt;
-1 19423       4157           1.28       0.751       11.5              8.59
-# ℹ 2 more variables: movilidad_media &lt;dbl&gt;, movilidad_sd &lt;dbl&gt;</code></pre>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="descriptivos" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Descriptivos</h1>
+<div class="cell" data-tbl-cap-location="top">
+<div id="tbl-caract-muestra" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-caract-muestra-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1
+</figcaption><div aria-describedby="tbl-caract-muestra-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed" style="font-size: 14px; width: auto !important; ">
+<caption style="font-size: initial !important;">
+Tabla 1: Estadísticas descriptivas de la muestra
+</caption>
+<thead><tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+Variable
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+Media/N
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+DE
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: rgba(236, 240, 241, 255) !important;width: 15em; font-weight: bold;">
+N individuos
+</td>
+<td style="text-align:right;background-color: rgba(236, 240, 241, 255) !important;">
+3702.00
+</td>
+<td style="text-align:right;background-color: rgba(236, 240, 241, 255) !important;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: rgba(236, 240, 241, 255) !important;width: 15em; font-weight: bold;">
+N observaciones
+</td>
+<td style="text-align:right;background-color: rgba(236, 240, 241, 255) !important;">
+12402.00
+</td>
+<td style="text-align:right;background-color: rgba(236, 240, 241, 255) !important;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: rgba(236, 240, 241, 255) !important;width: 15em; font-weight: bold;">
+Olas promedio
+</td>
+<td style="text-align:right;background-color: rgba(236, 240, 241, 255) !important;">
+3.35
+</td>
+<td style="text-align:right;background-color: rgba(236, 240, 241, 255) !important;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Protesta (1-5)
+</td>
+<td style="text-align:right;">
+1.95
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Años educación
+</td>
+<td style="text-align:right;">
+12.50
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Movilidad educativa
+</td>
+<td style="text-align:right;">
+1.20
+</td>
+<td style="text-align:right;">
+4.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Edad
+</td>
+<td style="text-align:right;">
+48.30
+</td>
+<td style="text-align:right;">
+16.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Mujeres (%)
+</td>
+<td style="text-align:right;">
+52.10
+</td>
+<td style="text-align:right;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Ideología (0-10)
+</td>
+<td style="text-align:right;">
+5.20
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+</tr>
+</tbody>
+</table>
+<p>Características Descriptivas de la Muestra</p>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 10
-  grupo_hipotesis_amplio      n n_personas protesta_media protesta_sd educ_media
-  &lt;fct&gt;                   &lt;int&gt;      &lt;int&gt;          &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
-1 Baja educación           6431       1742           1.10       0.437       7.27
-2 Media completa           5819       1854           1.23       0.676      12   
-3 Técnicos sin movilidad   1458        586           1.58       1.05       14.1 
-4 Técnicos alta movilidad  2178        834           1.38       0.836      14.2 
-5 Universitarios sin mov…   701        249           1.58       1.05       16.1 
-6 Universitarios alta mo…  1604        517           1.56       1.00       16.2 
-7 Otros                    1232        490           1.44       0.879      14.9 
-# ℹ 4 more variables: educ_padres_media &lt;dbl&gt;, movilidad_media &lt;dbl&gt;,
-#   edad_media &lt;dbl&gt;, prop_genero &lt;dbl&gt;</code></pre>
 </div>
+</figure>
+</div>
+</div>
+<div class="cell" data-tbl-cap-location="top">
+<div id="tbl-dist-grupos" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-dist-grupos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2
+</figcaption><div aria-describedby="tbl-dist-grupos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; ">
+<thead><tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: lightgreen !important;">
+Grupo
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: lightgreen !important;">
+N obs.
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: lightgreen !important;">
+N indiv.
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: lightgreen !important;">
+Protesta Prom.
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: lightgreen !important;">
+% obs.
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: lightgreen !important;">
+% indiv.
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Baja educación
+</td>
+<td style="text-align:right;">
+6431
+</td>
+<td style="text-align:right;">
+1742
+</td>
+<td style="text-align:right;">
+1.097
+</td>
+<td style="text-align:right;">
+33.1
+</td>
+<td style="text-align:right;">
+27.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Media completa
+</td>
+<td style="text-align:right;">
+5819
+</td>
+<td style="text-align:right;">
+1854
+</td>
+<td style="text-align:right;">
+1.230
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+29.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Técnicos alta movilidad
+</td>
+<td style="text-align:right;">
+2178
+</td>
+<td style="text-align:right;">
+834
+</td>
+<td style="text-align:right;">
+1.383
+</td>
+<td style="text-align:right;">
+11.2
+</td>
+<td style="text-align:right;">
+13.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Universitarios alta movilidad
+</td>
+<td style="text-align:right;">
+1604
+</td>
+<td style="text-align:right;">
+517
+</td>
+<td style="text-align:right;">
+1.563
+</td>
+<td style="text-align:right;">
+8.3
+</td>
+<td style="text-align:right;">
+8.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Técnicos sin movilidad
+</td>
+<td style="text-align:right;">
+1458
+</td>
+<td style="text-align:right;">
+586
+</td>
+<td style="text-align:right;">
+1.583
+</td>
+<td style="text-align:right;">
+7.5
+</td>
+<td style="text-align:right;">
+9.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Otros
+</td>
+<td style="text-align:right;">
+1232
+</td>
+<td style="text-align:right;">
+490
+</td>
+<td style="text-align:right;">
+1.444
+</td>
+<td style="text-align:right;">
+6.3
+</td>
+<td style="text-align:right;">
+7.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Universitarios sin movilidad
+</td>
+<td style="text-align:right;">
+701
+</td>
+<td style="text-align:right;">
+249
+</td>
+<td style="text-align:right;">
+1.581
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Distribución de Grupos Educativos-Movilidad</p>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div id="tbl-protesta" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-protesta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3
+</figcaption><div aria-describedby="tbl-protesta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+
+</div>
+</div>
+</figure>
+</div>
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/graph-protesta-1.png" class="img-fluid figure-img" width="720"></p>
+<figcaption>Protesta Por Ola</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell fig-cap-location-top">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/graph-protesta-grupos-1.png" class="img-fluid figure-img" width="720"></p>
+<figcaption>Participación en protestas por grupo educativo-movilidad</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div id="tbl-perfil-grupos" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-perfil-grupos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Características Detalladas por grupo educativo-movilidad
+</figcaption><div aria-describedby="tbl-perfil-grupos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -228,7 +547,7 @@ Num. obs.                                              12402         12402      
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -274,7 +593,7 @@ anos_educ_resp:movilidad_catAlta movilidad ascendente
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure"><p><img src="proc_data_elsoc_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -418,10 +737,10 @@ ola_factor7                                            0.0000000009838955 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<section id="modelo-5-educación-movilidad-social-y-participación-en-protestas" class="level1" data-number="1"><h1 data-number="1">
-<span class="header-section-number">1</span> Modelo 5: Educación, Movilidad Social y Participación en Protestas</h1>
-<section id="especificación-del-modelo" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="especificación-del-modelo">
-<span class="header-section-number">1.1</span> Especificación del Modelo</h2>
+</section><section id="modelo-5-educación-movilidad-social-y-participación-en-protestas" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Modelo 5: Educación, Movilidad Social y Participación en Protestas</h1>
+<section id="especificación-del-modelo" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="especificación-del-modelo">
+<span class="header-section-number">2.1</span> Especificación del Modelo</h2>
 <p>El Modelo 5 representa nuestra especificación más comprehensiva, operacionalizando la intersección entre nivel educativo alcanzado y experiencia de movilidad educativa intergeneracional. Empleamos un modelo de efectos aleatorios con la siguiente estructura:</p>
 <p><span class="math display">
 \text{Protesta}_{it} = \beta_0 + \sum_{j=1}^{6}\beta_j\text{Grupo}_{ij} + \beta_7\text{Edad}_{it} + \beta_8\text{Género}_i + \beta_9\text{Ideología}_{it} + \sum_{k=2}^{7}\gamma_k\text{Ola}_{kt} + \alpha_i + \varepsilon_{it}
@@ -436,18 +755,18 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Universitarios sin movilidad: Educación universitaria sin exceder nivel parental</li>
 <li>Universitarios alta movilidad: Educación universitaria con movilidad ascendente</li>
 <li>Otros: Categorías residuales o trayectorias atípicas</li>
-</ul></section><section id="validación-de-la-especificación" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="validación-de-la-especificación">
-<span class="header-section-number">1.2</span> Validación de la Especificación</h2>
+</ul></section><section id="validación-de-la-especificación" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="validación-de-la-especificación">
+<span class="header-section-number">2.2</span> Validación de la Especificación</h2>
 <p>Antes de interpretar los resultados, es crucial establecer la validez de nuestra especificación mediante tests formales:</p>
 <ol type="1">
 <li><p>Test de Hausman (RE vs FE): El test de Hausman no rechaza la hipótesis nula de ausencia de correlación entre los efectos individuales y los regresores (χ²=19.045, df=14, p=0.163). Esto indica que el modelo de efectos aleatorios es consistente y, además, más eficiente que efectos fijos, justificando nuestra elección de especificación. Este resultado contrasta con el Modelo 3 (interacción continua), que sí rechaza la hipótesis nula, sugiriendo que la especificación por grupos captura mejor la heterogeneidad relevante sin generar correlaciones espurias.</p></li>
 <li><p>Test de Breusch-Pagan (Panel vs Pooled): El test rechaza contundentemente la ausencia de efectos individuales (χ²=3602.3, df=1, p&lt;0.001), confirmando que la estructura de panel es necesaria y que existen diferencias sistemáticas entre individuos que deben ser controladas.</p></li>
 <li><p>Errores estándar robustos: Empleamos errores estándar robustos a heteroscedasticidad (HC1) para todas las inferencias, protegiendo nuestras conclusiones contra violaciones de los supuestos de homocedasticidad.</p></li>
 <li><p>Bondad de ajuste: El modelo explica 12.2% de la varianza en participación en protestas (R²=0.122), un nivel razonable para modelos de comportamiento político. La descomposición de varianza revela que 74% corresponde a variación temporal (dentro de individuos) y 26% a diferencias estables entre personas, indicando tanto cambios intra-individuales como heterogeneidad estructural.</p></li>
-</ol></section><section id="resultados-principales" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="resultados-principales">
-<span class="header-section-number">1.3</span> Resultados Principales</h2>
-<section id="efectos-de-los-grupos-educativos-de-movilidad" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="efectos-de-los-grupos-educativos-de-movilidad">
-<span class="header-section-number">1.3.1</span> Efectos de los Grupos Educativos-de Movilidad</h3>
+</ol></section><section id="resultados-principales" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="resultados-principales">
+<span class="header-section-number">2.3</span> Resultados Principales</h2>
+<section id="efectos-de-los-grupos-educativos-de-movilidad" class="level3" data-number="2.3.1"><h3 data-number="2.3.1" class="anchored" data-anchor-id="efectos-de-los-grupos-educativos-de-movilidad">
+<span class="header-section-number">2.3.1</span> Efectos de los Grupos Educativos-de Movilidad</h3>
 <p>Los resultados revelan patrones complejos y teóricamente significativos en la relación entre educación, movilidad social y protesta política. La Tabla X presenta los coeficientes estimados con errores estándar robustos.</p>
 <p>[INSERTAR TABLA CON COEFICIENTES COMPLETOS]</p>
 <p>Todos los grupos educativos muestran niveles de protesta significativamente mayores que el grupo de referencia (básica completa sin movilidad), pero las magnitudes y patrones varían sistemáticamente:</p>
@@ -456,8 +775,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>Técnicos sin movilidad (β=0.372, p&lt;0.001): Este grupo exhibe el efecto más pronunciado de todas las categorías, con un incremento de 37.2 puntos porcentuales en participación. Este hallazgo es crucial y requiere interpretación cuidadosa. Individuos que obtienen educación técnica pero no logran superar el nivel educativo de sus padres aparentemente experimentan niveles particularmente elevados de activación política hacia la protesta. Interpretamos este patrón como evidencia de privación relativa aguda: estas personas han invertido en educación técnica—frecuentemente asociada con promesas de movilidad económica y estabilidad laboral—pero no han logrado traducir esta inversión en movilidad social efectiva. La brecha entre expectativas generadas por la credencial educativa y realización efectiva de movilidad puede generar frustración y percepción de injusticia especialmente intensa, canalizándose hacia participación en protestas.</p></li>
 <li><p>Técnicos con alta movilidad (β=0.185, p&lt;0.001): En marcado contraste, técnicos que sí experimentan movilidad ascendente significativa muestran niveles de protesta sustancialmente menores (18.5 puntos porcentuales sobre el grupo base), representando menos de la mitad del efecto observado en técnicos sin movilidad. Esta diferencia de 18.7 puntos porcentuales entre técnicos con y sin movilidad (372-185=187) es tanto estadística como sustantivamente significativa. Sugerimos que la movilidad ascendente efectiva actúa como mecanismo moderador en este grupo: al lograr las expectativas asociadas con su educación técnica, estos individuos experimentan menor privación relativa y posiblemente mayor integración en estructuras sociales establecidas, reduciendo tanto la motivación como los incentivos para participar en protestas.</p></li>
 <li><p>Universitarios sin movilidad (β=0.308, p&lt;0.001): Los universitarios que no superan el nivel educativo parental muestran incrementos de 30.8 puntos porcentuales en protesta. Aunque elevado, este efecto es menor que el observado en técnicos sin movilidad, sugiriendo dinámicas distintas entre tipos de educación superior. Universitarios con alta movilidad (β=0.341, p&lt;0.001): Sorprendentemente, universitarios con movilidad ascendente muestran niveles de protesta solo marginalmente superiores (34.1 puntos porcentuales), prácticamente idénticos a aquellos sin movilidad. La diferencia de apenas 3.3 puntos porcentuales entre universitarios con y sin movilidad contrasta dramáticamente con los 18.7 puntos de diferencia observados en técnicos.</p></li>
-</ul></section><section id="divergencia-técnico-universitaria-principal-hallazgo" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="divergencia-técnico-universitaria-principal-hallazgo">
-<span class="header-section-number">1.3.2</span> Divergencia Técnico-Universitaria: Principal Hallazgo</h3>
+</ul></section><section id="divergencia-técnico-universitaria-principal-hallazgo" class="level3" data-number="2.3.2"><h3 data-number="2.3.2" class="anchored" data-anchor-id="divergencia-técnico-universitaria-principal-hallazgo">
+<span class="header-section-number">2.3.2</span> Divergencia Técnico-Universitaria: Principal Hallazgo</h3>
 <p>El contraste entre patrones en educación técnica versus universitaria constituye uno de los hallazgos más importantes de nuestro análisis. Mientras la movilidad social reduce sustancialmente la protesta entre técnicos (−50% relativo), tiene efecto mínimo entre universitarios. Esta divergencia técnico-universitaria requiere interpretación teórica cuidadosa. Proponemos que esta divergencia refleja diferencias fundamentales en las funciones sociales y significados culturales de estos dos tipos de educación superior:</p>
 <ol type="1">
 <li>Educación técnica como inversión instrumental: La educación técnica en Chile se ha estructurado históricamente con una orientación fuertemente instrumental hacia inserción laboral y movilidad económica. Los estudiantes que eligen trayectorias técnicas típicamente lo hacen motivados por expectativas de retorno económico relativamente rápido y estabilidad laboral. En este contexto, la movilidad social exitosa satisface las expectativas centrales que motivaron la inversión educativa, generando sentimientos de logro, integración social y potencialmente gratitud hacia el sistema que permitió esa movilidad. Consecuentemente, individuos técnicos móviles tienen menos incentivos para protestar—y potencialmente más que perder al hacerlo—resultando en menor participación.</li>
@@ -467,37 +786,37 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Educación universitaria como socialización crítica: La educación universitaria, en contraste, incorpora dimensiones que trascienden lo puramente instrumental. Las universidades funcionan como espacios de socialización política, transmisión de capital cultural crítico, y desarrollo de marcos interpretativos que cuestionan desigualdades estructurales. La experiencia universitaria frecuentemente expone a estudiantes a teorías críticas, movimientos sociales, redes activistas y discursos que problematizan el orden social existente. Desde esta perspectiva, los universitarios protestan no (solo) por intereses materiales frustrados, sino por orientaciones valorativas y compromisos normativos desarrollados durante su socialización universitaria. La protesta entre universitarios puede reflejar solidaridad con grupos marginados, compromiso con justicia social, o rechazo a desigualdades percibidas como ilegítimas—motivaciones que persisten independientemente de logros individuales de movilidad. De hecho, universitarios socialmente móviles podrían incluso sentir mayor obligación moral de protestar precisamente porque han “tenido éxito” en un sistema que perciben como fundamentalmente injusto para otros.</li>
 </ol>
 <p>Esta interpretación se alinea con teorías de post-materialismo político (Inglehart, 1977) y conceptos de “nobleza obliga” en acción colectiva (Nepstad, 2004), donde individuos privilegiados participan en movimientos sociales por razones ideológicas más que intereses materiales directos.</p>
-</section><section id="variables-de-control-edad-género-e-ideología" class="level3" data-number="1.3.3"><h3 data-number="1.3.3" class="anchored" data-anchor-id="variables-de-control-edad-género-e-ideología">
-<span class="header-section-number">1.3.3</span> Variables de Control: Edad, Género e Ideología</h3>
+</section><section id="variables-de-control-edad-género-e-ideología" class="level3" data-number="2.3.3"><h3 data-number="2.3.3" class="anchored" data-anchor-id="variables-de-control-edad-género-e-ideología">
+<span class="header-section-number">2.3.3</span> Variables de Control: Edad, Género e Ideología</h3>
 <ul>
 <li><p>Edad (β=-0.008, p&lt;0.001): Observamos un efecto negativo robusto y altamente significativo de la edad. Por cada año adicional, la participación en protestas disminuye en 0.8 puntos porcentuales. Esto implica que, controlando educación, movilidad e ideología, una persona de 60 años protesta aproximadamente 32 puntos porcentuales menos que una de 20 años—una diferencia sustantiva enorme. Este patrón es consistente con teorías del ciclo de vida político, costos de oportunidad crecientes con la edad (responsabilidades familiares, laborales), disminución de energía física para participación demandante, y potencialmente mayor conservadurismo con la edad.</p></li>
 <li><p>Género (β=-0.034, p=0.070): Las mujeres muestran niveles de protesta marginalmente menores (3.4 puntos porcentuales), aunque el efecto solo alcanza significancia al nivel del 10%. Esta diferencia modesta puede reflejar persistentes desigualdades de género en costos y riesgos de participación política, cargas desproporcionadas de trabajo de cuidado que limitan tiempo disponible, o percepciones diferenciadas de seguridad en contextos de protesta. La significancia marginal sugiere cautela interpretativa; futuras investigaciones deberían explorar interacciones entre género y otros predictores.</p></li>
 <li><p>Ideología (β=-0.049, p&lt;0.001): La orientación ideológica emerge como uno de los predictores más potentes en nuestro modelo. Por cada punto de movimiento hacia la derecha en la escala ideológica (0-10), la participación en protestas disminuye 4.9 puntos porcentuales. Individuos de extrema derecha (10) protestan aproximadamente 49 puntos porcentuales menos que aquellos de extrema izquierda (0)—un rango de variación mayor que cualquier otro predictor excepto los efectos temporales del estallido social. Este hallazgo confirma que la protesta en Chile durante el período estudiado se asocia fuertemente con orientaciones de izquierda, consistente con el carácter pro-igualdad y crítico del neoliberalismo de las movilizaciones principales del período.</p></li>
-</ul></section><section id="efectos-temporales-el-estallido-social-como-shock-exógeno" class="level3" data-number="1.3.4"><h3 data-number="1.3.4" class="anchored" data-anchor-id="efectos-temporales-el-estallido-social-como-shock-exógeno">
-<span class="header-section-number">1.3.4</span> Efectos Temporales: El Estallido Social como Shock Exógeno</h3>
+</ul></section><section id="efectos-temporales-el-estallido-social-como-shock-exógeno" class="level3" data-number="2.3.4"><h3 data-number="2.3.4" class="anchored" data-anchor-id="efectos-temporales-el-estallido-social-como-shock-exógeno">
+<span class="header-section-number">2.3.4</span> Efectos Temporales: El Estallido Social como Shock Exógeno</h3>
 <p>Los efectos fijos de ola capturan variación temporal en protesta controlando por todas las características individuales del modelo. Los resultados revelan un patrón dramático centrado en la Ola 4 (octubre 2019):</p>
 <ul>
 <li><p>Olas 2 y 3 (2017-2018): Ambas muestran niveles de protesta significativamente menores que la Ola 1 de referencia (−8.8 y −8.9 puntos porcentuales respectivamente), sugiriendo una fase de relativa desmovilización o normalización post-movimientos estudiantiles de 2011-2013.</p></li>
 <li><p>Ola 4 (octubre 2019): El Estallido Social (β=0.305, p&lt;0.001): Observamos un incremento masivo y altamente significativo de 30.5 puntos porcentuales en participación en protestas. Este efecto captura el impacto del Estallido Social de octubre 2019, el evento de movilización más significativo en la historia democrática reciente de Chile. Iniciado por protestas estudiantiles contra aumentos en tarifas del metro, el estallido rápidamente escaló a movilizaciones masivas y sostenidas demandando transformaciones estructurales en pensiones, salud, educación y la Constitución. Crucialmente, este efecto es transversal a todos los grupos educativos y de movilidad. Interpretamos el estallido social como un shock contextual exógeno que elevó dramáticamente la movilización a través de todos los segmentos sociales, abriendo ventanas de oportunidad política, reduciendo costos individuales de participación (vía masificación), y generando percepción generalizada de momento histórico de cambio posible.</p></li>
 <li><p>Olas 5-7 (2020-2022): Todas las olas posteriores al estallido muestran retornos a niveles inferiores o similares a la baseline, con Ola 5 (−11.0 puntos) y Ola 7 (−14.4 puntos) mostrando las mayores caídas. La Ola 5 coincide con la pandemia de COVID-19 y las restricciones asociadas, explicando plausiblemente la reducción abrupta. Las olas posteriores sugieren que, tras el estallido y durante el proceso constituyente, la protesta callejera disminuyó—posiblemente porque demandas se canalizaron hacia mecanismos institucionales (plebiscito, convención constitucional), o por fatiga de movilización post-período intenso. Este patrón temporal valida nuestro enfoque de panel: sin controlar por estos efectos temporales masivos, atribuiríamos incorrectamente variación contextual a características individuales, sesgando nuestras estimaciones de efectos educativos y de movilidad.</p></li>
-</ul></section><section id="magnitudes-sustantivas-predicciones-ilustrativas" class="level3" data-number="1.3.5"><h3 data-number="1.3.5" class="anchored" data-anchor-id="magnitudes-sustantivas-predicciones-ilustrativas">
-<span class="header-section-number">1.3.5</span> Magnitudes Sustantivas: Predicciones Ilustrativas</h3>
+</ul></section><section id="magnitudes-sustantivas-predicciones-ilustrativas" class="level3" data-number="2.3.5"><h3 data-number="2.3.5" class="anchored" data-anchor-id="magnitudes-sustantivas-predicciones-ilustrativas">
+<span class="header-section-number">2.3.5</span> Magnitudes Sustantivas: Predicciones Ilustrativas</h3>
 <p>Para facilitar interpretación sustantiva, presentamos predicciones de participación en protestas para perfiles ilustrativos, manteniendo variables de control en valores típicos (edad=40, género=hombre, ideología=5-centro, Ola 1):</p>
 <p>[TABLA DE PROTESTA PREDICHA]</p>
 <ul>
 <li><p>Comparación crítica: Un técnico sin movilidad (Caso B: 2.23) protesta más que un universitario con alta movilidad (Caso E: 2.20). Este resultado contraintuitivo subraya que el nivel educativo absoluto no determina linealmente la protesta; la intersección con movilidad social genera patrones complejos donde frustración de expectativas puede generar más activación que logro educativo per se.</p></li>
 <li><p>Efecto del Estallido Social: Durante la Ola 4 (2019), todas estas predicciones aumentan en +0.31 puntos. Un técnico sin movilidad alcanzaría 2.54 en escala 1-5—niveles extraordinariamente altos de participación.</p></li>
 <li><p>Efecto de ideología: Moviendo del centro (5) a izquierda moderada (3), todas las predicciones aumentan en +0.10 puntos. Un universitario de izquierda con alta movilidad (ideología=3) alcanzaría 2.30, mientras uno de derecha moderada (ideología=7) caería a 2.10—una brecha de 10% por posición ideológica.</p></li>
-</ul></section></section><section id="implicaciones-teóricas" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="implicaciones-teóricas">
-<span class="header-section-number">1.4</span> Implicaciones Teóricas</h2>
+</ul></section></section><section id="implicaciones-teóricas" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="implicaciones-teóricas">
+<span class="header-section-number">2.4</span> Implicaciones Teóricas</h2>
 <p>Nuestros hallazgos informan y complejizan múltiples tradiciones teóricas en el estudio de participación política y acción colectiva:</p>
 <ol type="1">
 <li><p>Teorías de privación relativa: Los resultados ofrecen apoyo robusto pero matizado a teorías de privación relativa (Gurr, 1970; Runciman, 1966). La privación relativa predice que individuos que perciben brechas entre expectativas y logros efectivos experimentan frustración que puede canalizarse en protesta. Nuestros datos confirman esta dinámica específicamente entre técnicos: aquellos sin movilidad—presumiblemente experimentando mayor brecha expectativa-realidad—muestran niveles de protesta dramáticamente superiores a técnicos móviles. Sin embargo, el patrón no se replica entre universitarios, donde movilidad tiene efecto mínimo. Esto sugiere que privación relativa opera diferencialmente según tipo de educación y las expectativas asociadas. La privación relativa puede ser particularmente activadora cuando las expectativas frustradas son instrumentales y económicas (como en educación técnica), pero menos determinante cuando la educación socializa en orientaciones valorativas y críticas (como en educación universitaria).</p></li>
 <li><p>Teorías de recursos y movilización: La perspectiva de recursos (McCarthy &amp; Zald, 1977; Edwards &amp; McCarthy, 2004) argumenta que mayor educación proporciona recursos—habilidades organizativas, tiempo, redes, comprensión de procesos políticos—que facilitan participación. Nuestros datos confirman un gradient educativo básico: todos los grupos con mayor educación protestan más que el grupo base. Sin embargo, la magnitud no aumenta linealmente con nivel educativo; técnicos sin movilidad protestan más que universitarios con movilidad, desafiando predicciones simples de “más educación = más protesta.” Esto sugiere que recursos educativos son necesarios pero insuficientes; motivación y orientación normativa median cómo recursos se canalizan en acción. La educación proporciona capacidad, pero privación relativa (técnicos) o socialización crítica (universitarios) proveen la voluntad.</p></li>
 <li><p>Teorías de socialización política: Nuestros hallazgos sobre universitarios resuenan con teorías de socialización política que enfatizan cómo instituciones educativas transmiten valores, identidades y marcos interpretativos que moldean participación política (Flanagan &amp; Sherrod, 1998; Quintelier &amp; Hooghe, 2012). La independencia entre protesta universitaria y movilidad social sugiere que la universidad socializa en orientaciones críticas que trascienden intereses materiales individuales. Esta interpretación se alinea con investigación sobre “radical flank effects” y participación de élites educadas en movimientos sociales (Haines, 1984), donde universitarios participan por solidaridad ideológica más que agravio personal. También conecta con teorías de capital cultural (Bourdieu, 1984) reformuladas en términos de “capital cultural crítico”—disposiciones y conocimientos que facilitan cuestionamiento de desigualdades estructurales.</p></li>
 <li><p>Post-materialismo: La teoría de post-materialismo (Inglehart, 1977, 1990) predice que individuos con seguridad material enfatizan valores de autorrealización, autonomía y calidad democrática sobre seguridad material, y son más propensos a participar en “nuevos movimientos sociales.” Nuestros hallazgos sobre universitarios móviles—quienes presumiblemente gozan de mayor seguridad material pero mantienen alta protesta—pueden interpretarse como evidencia de orientaciones post-materialistas. Su protesta puede reflejar demandas por calidad democrática, derechos humanos, y justicia social más que intereses económicos directos. Conversamente, técnicos sin movilidad pueden representar protestas materialistas—demandas por seguridad económica, movilidad bloqueada, condiciones laborales—más alineadas con el modelo clásico de protesta basada en clase.</p></li>
-</ol></section></section><section id="limitaciones-y-futuras-investigaciones" class="level1" data-number="2"><h1 data-number="2">
-<span class="header-section-number">2</span> Limitaciones y Futuras Investigaciones</h1>
+</ol></section></section><section id="limitaciones-y-futuras-investigaciones" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Limitaciones y Futuras Investigaciones</h1>
 <p>Aunque nuestro análisis ofrece insights significativos, enfrenta limitaciones importantes que deben reconocerse y que abren avenidas para investigación futura: Causalidad y endogeneidad: Aunque el diseño de panel controla heterogeneidad no observada constante en el tiempo, permanecen preocupaciones de endogeneidad. Particularmente, la relación entre ideología y protesta es potencialmente bidireccional: la ideología puede determinar protesta, pero participar en protestas puede también radicalizar ideología. Similarmente, la selección en educación técnica vs.&nbsp;universitaria no es aleatoria; características no observadas que determinan elección educativa pueden también afectar propensión a protestar. Diseños experimentales o cuasi-experimentales—por ejemplo, usando reformas educativas como shocks exógenos—serían valiosos para identificación causal más rigurosa. Mecanismos intermedios: Nuestro análisis documenta patrones asociativos robustos pero no identifica mecanismos causales específicos. ¿Por qué exactamente técnicos sin movilidad protestan más? Potenciales mediadores incluyen: condiciones laborales precarias, desajuste educación-ocupación, exposición a injusticias en el trabajo, redes sindicales, o percepción específica de engaño sistémico. Similarmente, ¿qué aspectos de la experiencia universitaria generan orientaciones críticas? Curriculum específico, exposición a movimientos estudiantiles, redes activistas, o selección en carreras humanísticas vs.&nbsp;técnicas podrían mediar este efecto. Investigación cualitativa en profundidad o análisis de mediación cuantitativa serían valiosos para desempacar estas cajas negras.</p>
 <p>Heterogeneidad dentro de grupos: Nuestras categorías educativas-de movilidad, aunque más finas que especificaciones previas, aún agregan heterogeneidad considerable. “Educación técnica” incluye desde programas cortos de baja calidad hasta títulos técnicos de instituciones prestigiosas. “Educación universitaria” abarca desde humanidades y ciencias sociales hasta ingeniería y negocios, con culturas políticas muy distintas. Investigación futura debería desagregar más finamente, examinando variación por calidad institucional, campo de estudio, y tipo específico de movilidad (ocupacional vs.&nbsp;ingresos vs.&nbsp;status).</p>
 <p>Contexto temporal limitado: Nuestros datos cubren 2016-2022, un período dominado por el estallido social de 2019 y la pandemia COVID-19—eventos extraordinarios. Los patrones observados pueden no generalizarse a períodos de mayor “normalidad” política. Particularmente, el efecto masivo de la Ola 4 podría haber temporalmente alterado dinámicas usuales entre educación y protesta. Extensión de análisis a períodos más largos y diversos contextos políticos fortalecería validez externa.</p>

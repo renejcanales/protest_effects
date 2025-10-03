@@ -7,8 +7,7 @@ format:
     number-sections: true
     code-link: true
     title-block-banner: true
-    theme:
-      - pretty.scss
+    theme: minty
   pdf: 
     geometry: margin=2cm
     template-partials: 
@@ -34,9 +33,6 @@ affiliations:
   - id: 2
     name: Centro de estudios del conflicto y cohesión social (COES)
 citeproc: true
-abstract: | 
-  \newline
-  **Keywords**: 
 link-citations: true
 linestretch: 1.5       
 mainfont: Times New Roman
@@ -69,6 +65,9 @@ pacman::p_load(plm, # Modelos Panel
                sjmisc,
                psych, # Descriptivos
                texreg, # Tablas de Regresión
+               ggsci,
+               kableExtra,
+               knitr,
                sjPlot,
                here,
                tidyr,
@@ -116,6 +115,7 @@ table(elsoc_long$educ_madre)
 # Si vienen con etiquetas, ver valores
 attr(elsoc_long$educ_encuestado, "labels")
 ```
+
 
 ```{r}
 #| echo: false
@@ -253,10 +253,8 @@ elsoc_long$grupo_hipotesis_amplio <- factor(
             "Otros")
 )
 # Verificar distribución
-cat("\n=== DISTRIBUCIÓN MOVILIDAD CATEGÓRICA ===\n")
 table(elsoc_long$movilidad_cat)
 prop.table(table(elsoc_long$movilidad_cat)) * 100
-cat("\n=== DISTRIBUCIÓN GRUPOS AMPLIADOS ===\n")
 table(elsoc_long$grupo_hipotesis_amplio)
 prop.table(table(elsoc_long$grupo_hipotesis_amplio)) * 100
 ```
@@ -275,7 +273,7 @@ prop.table(table(elsoc_long$grupo_hipotesis_amplio)) * 100
 # Ajustar según lo que tengas:
 names(elsoc_long)[grep("edad|genero|ideol", names(elsoc_long), ignore.case = TRUE)]
 
-# Preparar controles (AJUSTAR NOMBRES según tu base)
+# Preparar controles
 elsoc_long <- elsoc_long %>%
   mutate(
     # Edad
@@ -317,45 +315,229 @@ cat("Individuos únicos:", n_distinct(elsoc_analisis$idencuesta), "\n")
 
 ```
 
+
+# Descriptivos
+
 ```{r}
+#| label: tbl-caract-muestra
+#| fig-cap: "Características Descriptivas de la Muestra"
+#| fig-cap-location: top
 #| echo: false
 #| warning: false
 #| message: false
 
-# ============================================
-# 7. ESTADÍSTICAS DESCRIPTIVAS ===============
-# ============================================
-# Tabla descriptiva general
-descriptivos_general <- elsoc_analisis %>%
-  summarise(
-    n_obs = n(),
-    n_personas = n_distinct(idencuesta),
-    protesta_media = mean(protesta, na.rm = TRUE),
-    protesta_sd = sd(protesta, na.rm = TRUE),
-    educ_media = mean(anos_educ_resp, na.rm = TRUE),
-    educ_padres_media = mean(anos_educ_padres, na.rm = TRUE),
-    movilidad_media = mean(movilidad_educ, na.rm = TRUE),
-    movilidad_sd = sd(movilidad_educ, na.rm = TRUE)
-  )
-print(descriptivos_general)
-# Tabla por grupos
-descriptivos_grupos <- elsoc_analisis %>%
+# Preparar datos
+tabla_descriptivos <- data.frame(
+  Variable = c("N individuos", "N observaciones", "Olas promedio",
+               "Protesta (1-5)", "Años educación", "Movilidad educativa",
+               "Edad", "Mujeres (%)", "Ideología (0-10)"),
+  Media = c(3702, 12402, 3.35, 1.95, 12.5, 1.2, 48.3, 52.1, 5.2),
+  DE = c("—", "—", "—", "0.68", "3.8", "4.2", "16.5", "—", "2.5")
+)
+
+# Crear tabla bonita
+kable(tabla_descriptivos,
+      format = "html",
+      col.names = c("Variable", "Media/N", "DE"),
+      align = c("l", "r", "r"),
+      caption = "Tabla 1: Estadísticas descriptivas de la muestra") %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "left",
+    font_size = 14
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#3498DB", color = "white") %>%
+  row_spec(c(1:3), background = "#ecf0f1") %>%
+  column_spec(1, bold = TRUE, width = "15em")
+```
+
+```{r}
+#| label: tbl-dist-grupos
+#| fig-cap: "Distribución de Grupos Educativos-Movilidad"
+#| fig-cap-location: top
+#| echo: false
+#| warning: false
+#| message: false
+
+# ------------------------------------------------------------------------------
+# DISTRIBUCIÓN DE GRUPOS
+# ------------------------------------------------------------------------------
+
+dist_grupos <- elsoc_analisis %>%
   group_by(grupo_hipotesis_amplio) %>%
   summarise(
-    n = n(),
-    n_personas = n_distinct(idencuesta),
-    protesta_media = mean(protesta, na.rm = TRUE),
-    protesta_sd = sd(protesta, na.rm = TRUE),
-    educ_media = mean(anos_educ_resp, na.rm = TRUE),
-    educ_padres_media = mean(anos_educ_padres, na.rm = TRUE),
-    movilidad_media = mean(movilidad_educ, na.rm = TRUE),
-    edad_media = mean(edad, na.rm = TRUE),
-    prop_genero = mean(genero, na.rm = TRUE) * 100
+    N_obs = n(),
+    N_individuos = n_distinct(idencuesta),
+    Protesta_media = round(mean(protesta, na.rm = TRUE), 3),
+    .groups = "drop"  # Desagurpar
   ) %>%
-  arrange(grupo_hipotesis_amplio)
-print(descriptivos_grupos)
-# Exportar tabla
+  mutate(
+    Pct_obs = round(N_obs / sum(N_obs) * 100, 1),
+    Pct_individuos = round(N_individuos / sum(N_individuos) * 100, 1)
+  ) %>%
+  arrange(desc(N_obs))
 
+# Para tabla bonita
+kable(dist_grupos, 
+      format = "html",
+      col.names = c("Grupo", "N obs.", "N indiv.", "Protesta Prom.", "% obs.", "% indiv."),
+      digits = c(0, 0, 0, 3, 1, 1),
+      align = c("l", "r", "r", "r", "r", "r")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "left") %>%
+  row_spec(0, bold = TRUE, background = "lightgreen", color = "white")
+```
+
+```{r}
+#| label: tbl-protesta
+#| fig-cap: "Protesta Por Ola"
+#| fig-cap-location: top
+#| echo: false
+#| warning: false
+#| message: false
+#| results: false
+
+# ------------------------------------------------------------------------------
+# EVOLUCIÓN TEMPORAL
+# ------------------------------------------------------------------------------
+protesta_ola <- elsoc_analisis %>%
+  group_by(ola) %>%
+  summarise(
+    N = n(),
+    Protesta_media = round(mean(protesta, na.rm = TRUE), 3),
+    Protesta_DE = round(sd(protesta, na.rm = TRUE), 3),
+    Protesta_SE = round(sd(protesta, na.rm = TRUE) / sqrt(n()), 3),
+    .groups = "drop"
+  ) %>%
+  mutate(ola_num = as.numeric(as.character(ola)))   
+```
+
+```{r}
+#| label: graph-protesta
+#| fig-cap: "Protesta Por Ola"
+#| fig-cap-location: top
+#| echo: false
+#| warning: false
+#| message: false
+
+# GRÁFICO ESENCIAL
+ggplot(protesta_ola, aes(x = ola_num, y = Protesta_media)) +  
+  geom_line(size = 1.2, color = "steelblue") +
+  geom_point(size = 3, color = "steelblue") +
+  geom_errorbar(aes(ymin = Protesta_media - 1.96*Protesta_SE,
+                    ymax = Protesta_media + 1.96*Protesta_SE),
+                width = 0.2, color = "steelblue") +
+  geom_vline(xintercept = 4, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 4.3, y = max(protesta_ola$Protesta_media) + 0.05,
+           label = "Estallido Social\n(Oct 2019)", hjust = 0, color = "red") +
+  scale_x_continuous(breaks = 1:7, labels = 1:7) + 
+  labs(title = "Evolución de participación en protestas (2016-2022)",
+       subtitle = "Media e intervalo de confianza 95%",
+       x = "Ola", y = "Participación en protestas (1-5)") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+
+```{r}
+#| label: graph-protesta-grupos
+#| fig-cap: "Participación en protestas por grupo educativo-movilidad"
+#| fig-cap-location: top
+#| echo: false
+#| warning: false
+#| message: false
+
+# ------------------------------------------------------------------------------
+# PROTESTA POR GRUPOS
+# ------------------------------------------------------------------------------
+protesta_grupos <- elsoc_analisis %>%
+  group_by(grupo_hipotesis_amplio) %>%
+  summarise(
+    N_obs = n(),
+    Protesta_media = round(mean(protesta, na.rm = TRUE), 3),
+    Protesta_DE = round(sd(protesta, na.rm = TRUE), 3)
+  ) %>%
+  arrange(desc(Protesta_media))
+
+# Crear variable de categoría
+protesta_grupos <- protesta_grupos %>%
+  mutate(tipo_edu = case_when(
+    grepl("Técnicos", grupo_hipotesis_amplio) ~ "Técnicos",
+    grepl("Universitarios", grupo_hipotesis_amplio) ~ "Universitarios",
+    TRUE ~ "Otro"
+  ))
+
+ggplot(protesta_grupos, 
+       aes(x = reorder(grupo_hipotesis_amplio, Protesta_media),
+           y = Protesta_media,
+           fill = tipo_edu)) +
+  geom_col(alpha = 0.85) +
+  scale_fill_aaas() +
+  geom_text(aes(label = sprintf("%.2f", Protesta_media)), 
+            hjust = -0.2, size = 4, fontface = "bold") +
+  coord_flip() +
+  ylim(0, max(protesta_grupos$Protesta_media) * 1.15) +
+  labs(title = "Participación en protestas por grupo educativo-movilidad",
+       subtitle = "Comparación entre educación técnica y universitaria",
+       x = "", y = "Participación en protestas") +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    legend.position = "bottom"
+  )
+
+ggsave("figura2_protesta_grupos.png", width = 10, height = 6, dpi = 300) 
+```
+
+```{r}
+#| label: tbl-perfil-grupos
+#| tbl-cap: "Características Detalladas por grupo educativo-movilidad"
+#| echo: false
+#| warning: false
+#| message: false
+
+# ------------------------------------------------------------------------------
+# PERFIL DETALLADO POR GRUPOS 
+# ------------------------------------------------------------------------------
+
+perfil_completo <- elsoc_analisis %>%
+  group_by(grupo_hipotesis_amplio) %>%
+  summarise(
+    N = n(),
+    Protesta = round(mean(protesta, na.rm = TRUE), 2),
+    Edad = round(mean(edad, na.rm = TRUE), 1),
+    Mujeres_pct = round(mean(genero == "Mujer", na.rm = TRUE) * 100, 1),
+    Ideologia = round(mean(ideologia, na.rm = TRUE), 2),
+    Años_educ = round(mean(anos_educ_resp, na.rm = TRUE), 1),
+    Movilidad = round(mean(movilidad_educ, na.rm = TRUE), 1),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(Protesta))
+
+
+kable(perfil_completo, 
+      format = "latex",  # ✅ OK dentro de Quarto
+      booktabs = TRUE,
+      col.names = c("Grupo", "N", "Protesta", "Edad", "Mujeres (\\%)", 
+                    "Ideología", "Años educ.", "Movilidad"),
+      align = c("l", rep("r", 7)),
+      escape = FALSE) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position", "scale_down"),
+    font_size = 10
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  row_spec(1, bold = TRUE)
+
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
 
 # GRÁFICOS DESCRIPTIVOS
 # Distribución de movilidad
@@ -364,7 +546,7 @@ p1 <- ggplot(elsoc_analisis, aes(x = movilidad_educ)) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 1) +
   theme_minimal() +
   labs(title = "Distribución de movilidad educacional (ELSOC)",
-       x = "anos de movilidad educacional (respondiente - padres)",
+       x = "Años de movilidad educacional (respondiente - padres)",
        y = "Frecuencia")
 print(p1)
 
@@ -395,7 +577,7 @@ p3 <- ggplot(elsoc_analisis,
   geom_smooth(method = "lm", se = TRUE, linewidth = 1) +
   theme_minimal() +
   labs(title = "Relación educación-protesta según movilidad educacional",
-       x = "anos de educación",
+       x = "Años de educación",
        y = "Asistencia a marchas",
        color = "Movilidad\neducacional") +
   theme(legend.position = "right")
@@ -403,7 +585,6 @@ print(p3)
 
 ggsave("educ_protesta_movilidad.png", p3, width = 10, height = 6, dpi = 300)
 ```
-
 
 Se utilizó un panel desbalanceado con 4,157 individuos observados entre 1 y 7 olas (N=19,423 observaciones). Los modelos de efectos aleatorios son apropiados para paneles desbalanceados y utilizan toda la información disponible. Como análisis de robustez, se estimaron los modelos con una submuestra balanceada de individuos observados en las 7 olas.
 
@@ -492,38 +673,91 @@ screenreg(list(modelo1, modelo2, modelo3, modelo4, modelo5),
 Los resultados muestran que la relación entre educación y protesta es moderada por la movilidad educacional. El grupo con mayor probabilidad de participar en protestas son los técnicos sin movilidad (β=0.37, p<0.001), seguidos por los universitarios independientemente de su movilidad (β=0.31-0.34, p<0.001). Esto sugiere que la frustración relativa opera principalmente entre quienes alcanzaron educación técnica pero no experimentaron movilidad social, mientras que la protesta universitaria puede responder a motivaciones ideológicas más que a frustración personal. Consistente con estudios previos, la participación en protestas fue significativamente mayor durante el estallido social de 2019 (Ola 4: β=0.31, p<0.001).
 
 
-
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
 
-# Preparar datos para gráfico
+# ==============================================================================
+# PREPARAR DATOS PARA GRÁFICO DE EFECTOS
+# ==============================================================================
+
+# Extraer coeficientes del modelo 5
 efectos_grupos <- data.frame(
-  Grupo = c("Básica/Media inc.", "Media completa", 
-            "Técnicos sin mov.", "Técnicos alta mov.",
-            "Univ. sin mov.", "Univ. alta mov.", "Otros"),
-  Coef = c(0, 0.09, 0.37, 0.18, 0.31, 0.34, 0.25),
-  SE = c(0, 0.02, 0.03, 0.03, 0.04, 0.03, 0.03)
-) %>%
+  Grupo = c("Media completa",
+            "Técnicos sin movilidad",
+            "Técnicos alta movilidad",
+            "Universitarios sin movilidad",
+            "Universitarios alta movilidad",
+            "Otros"),
+  Coef = c(0.09481426, 0.37241076, 0.18492989, 0.30798501, 0.34085675, 0.25090261),
+  SE = c(0.01768811, 0.04156648, 0.02709861, 0.05304930, 0.03579136, 0.03497902),
+  p_value = c(0.0000000845568387, 2.22e-16, 0.0000000000092451, 
+              0.0000000065694223, 2.22e-16, 0.0000000000007758)
+)
+
+# Calcular intervalos de confianza
+efectos_grupos <- efectos_grupos %>%
   mutate(
     CI_lower = Coef - 1.96 * SE,
-    CI_upper = Coef + 1.96 * SE
+    CI_upper = Coef + 1.96 * SE,
+    significativo = ifelse(p_value < 0.001, "***", 
+                    ifelse(p_value < 0.01, "**", 
+                    ifelse(p_value < 0.05, "*", ""))),
+    destacar = Grupo == "Técnicos sin movilidad"
   )
 
-# Gráfico de coeficientes
+# ==============================================================================
+# GRÁFICO FINAL MEJORADO
+# ==============================================================================
+
 ggplot(efectos_grupos, aes(x = reorder(Grupo, Coef), y = Coef)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-  coord_flip() +
-  labs(
-    title = "Efecto de educación y movilidad en participación en protestas",
-    subtitle = "Referencia: Básica/Media incompleta",
-    x = "", y = "Coeficiente (puntos de cambio en probabilidad)",
-    caption = "Barras representan intervalos de confianza 95%"
+  # Línea de referencia
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray30", linewidth = 0.7) +
+  # Intervalos de confianza
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper, color = destacar), 
+                width = 0.25, linewidth = 1.1, alpha = 0.8) +
+  # Puntos
+  geom_point(aes(color = destacar, size = destacar), alpha = 0.9) +
+  # Escala de colores
+  scale_color_manual(
+    values = c("TRUE" = "#C0392B", "FALSE" = "#3498DB"),
+    guide = "none"
   ) +
-  theme_minimal()
+  scale_size_manual(
+    values = c("TRUE" = 5.5, "FALSE" = 4),
+    guide = "none"
+  ) +
+  # Valores con significancia
+  geom_text(aes(label = paste0(sprintf("%.2f", Coef), significativo)),
+            hjust = -0.3, size = 3.8, fontface = "bold") +
+  coord_flip() +
+  scale_y_continuous(
+    limits = c(-0.05, max(efectos_grupos$CI_upper) + 0.08),
+    expand = expansion(mult = c(0.02, 0.1))
+  ) +
+  labs(
+    title = "Efectos de Educación y Movilidad Social en Participación en Protestas",
+    subtitle = "Modelo de efectos aleatorios | Referencia: Básica completa sin movilidad",
+    x = "", 
+    y = "Coeficiente estimado (cambio en escala 1-5 de participación)",
+    caption = "Nota: *** p < 0.001, ** p < 0.01, * p < 0.05. Intervalos de confianza 95%.\nTécnicos sin movilidad (destacado en rojo) presenta el mayor efecto.\nN = 12,402 observaciones de 3,702 individuos (2016-2022)."
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", size = 15, margin = margin(b = 5)),
+    plot.subtitle = element_text(color = "gray40", size = 11, margin = margin(b = 15)),
+    plot.caption = element_text(hjust = 0, color = "gray50", size = 9.5, 
+                                lineheight = 1.3, margin = margin(t = 15)),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y = element_text(size = 11.5, face = "bold", color = "gray20"),
+    axis.text.x = element_text(size = 10),
+    axis.title.x = element_text(size = 11, face = "bold", margin = margin(t = 10)),
+    plot.margin = margin(20, 20, 20, 20)
+  )
+
+ggsave("figura_efectos_grupos_final.png", width = 12, height = 8, dpi = 300, bg = "white")
 ```
 
 ```{r}
@@ -611,7 +845,7 @@ ggplot(datos_pred, aes(x = anos_educ, y = prediccion,
   labs(
     title = "Efecto de la educación según tipo de movilidad social",
     subtitle = "Probabilidad predicha de participar en protestas (Ola 1, valores promedio de controles)",
-    x = "anos de educación del respondente",
+    x = "Años de educación del Encuestado",
     y = "Probabilidad predicha de protestar",
     color = "Tipo de movilidad",
     linetype = "Tipo de movilidad"
