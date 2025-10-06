@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.23">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="René Canales">
+
 <title>Modelo de efectos aleatorios: Tesis de Magister</title>
 <style>
 code{white-space: pre-wrap;}
@@ -20,6 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 
+
 <script src="02-modelos_files/libs/clipboard/clipboard.min.js"></script>
 <script src="02-modelos_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="02-modelos_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -32,10 +36,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="02-modelos_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="02-modelos_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="02-modelos_files/libs/bootstrap/bootstrap-07b601b323af04afb06bdce9dd9a3af2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
 </head>
+
 <body class="quarto-light">
 
-<header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Modelo de efectos aleatorios: Tesis de Magister</h1>
                       </div>
@@ -74,39 +82,37 @@ ul.task-list li input[type="checkbox"] {
   
   </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="02-modelos.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
-<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="modelos-exploratorios" class="level2" data-number="0.1"><h2 data-number="0.1" class="anchored" data-anchor-id="modelos-exploratorios">
-<span class="header-section-number">0.1</span> Modelos Exploratorios</h2>
-</section><section id="modelos-descriptivos" class="level1" data-number="1"><h1 data-number="1">
-<span class="header-section-number">1</span> Modelos Descriptivos</h1>
-<section id="modelo-nulo-base-de-comparación" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="modelo-nulo-base-de-comparación">
-<span class="header-section-number">1.1</span> Modelo Nulo (Base de comparación)</h2>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\02-modelos.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="modelos-exploratorios" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="modelos-exploratorios"><span class="header-section-number">0.1</span> Modelos Exploratorios</h2>
+</section>
+<section id="modelos-descriptivos" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Modelos Descriptivos</h1>
+<section id="modelo-nulo-base-de-comparación" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="modelo-nulo-base-de-comparación"><span class="header-section-number">1.1</span> Modelo Nulo (Base de comparación)</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
-  Approximation) [glmerMod]
- Family: binomial  ( logit )
-Formula: protesta_dummy ~ 1 + (1 | idencuesta)
-   Data: elsoc_final
-Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000))
-
-     AIC      BIC   logLik deviance df.resid 
- 16722.1  16737.9  -8359.0  16718.1    20050 
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--1.5401 -0.3769 -0.2204 -0.2046  2.6532 
-
-Random effects:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 2.974    1.724   
-Number of obs: 20052, groups:  idencuesta, 4429
-
-Fixed effects:
-            Estimate Std. Error z value            Pr(&gt;|z|)    
-(Intercept) -2.33606    0.04895  -47.72 &lt;0.0000000000000002 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+=========================================
+                             Model 1     
+-----------------------------------------
+(Intercept)                     -2.34 ***
+                                (0.05)   
+-----------------------------------------
+AIC                          16722.07    
+BIC                          16737.88    
+Log Likelihood               -8359.04    
+Num. obs.                    20052       
+Num. groups: idencuesta       4429       
+Var: idencuesta (Intercept)      2.97    
+=========================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
@@ -115,8 +121,57 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   Unadjusted ICC: 0.475</code></pre>
 </div>
 </div>
-<p>El coeficiente de correlación intraclase (ICC) del modelo nulo es 0.475, indicando que aproximadamente la mitad de la varianza en participación en protesta se debe a diferencias entre individuos, mientras que la otra mitad corresponde a variación dentro de individuos a través del tiempo. Este ICC sustancial (&gt;0.4) justifica el uso de modelos de efectos aleatorios que ajusten por la correlación intra-individual y eviten la subestimación de errores estándar inherente a modelos pooled (Hox, 2010).</p>
+<p>Antes de estimar modelos con predictores, se ajustó un modelo nulo (solo intercepto y efectos aleatorios por individuo) para evaluar la estructura de dependencia de los datos. El modelo nulo reveló un coeficiente de correlación intraclase (ICC) de 0.475, indicando que 47.5% de la varianza en participación en protestas se debe a diferencias estables entre individuos. Este ICC sustancial justifica plenamente el uso de modelos multinivel con efectos aleatorios por individuo.</p>
+<p>Lo anterior indica que aproximadamente la mitad de la varianza en participación en protesta se debe a diferencias entre individuos, mientras que la otra mitad corresponde a variación dentro de individuos a través del tiempo. Este ICC sustancial (&gt;0.1) justifica el uso de modelos de efectos aleatorios que ajusten por la correlación intra-individual y eviten la subestimación de errores estándar inherente a modelos pooled (Hox, 2010).</p>
 <div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+============================================================
+                                                Model 1     
+------------------------------------------------------------
+(Intercept)                                         0.60 ***
+                                                   (0.04)   
+educ_cat_factor_refMedia incompleta o menos        -0.04 ***
+                                                   (0.01)   
+educ_cat_factor_refTécnica superior incompleta      0.04 *  
+                                                   (0.02)   
+educ_cat_factor_refTécnica superior completa        0.04 ***
+                                                   (0.01)   
+educ_cat_factor_refUniversitaria incompleta         0.11 ***
+                                                   (0.01)   
+educ_cat_factor_refUniversitaria completa           0.08 ***
+                                                   (0.01)   
+educ_cat_factor_refPostgrado                        0.16 ***
+                                                   (0.02)   
+edad                                               -0.01 ***
+                                                   (0.00)   
+edad_cuadratica                                     0.00 ***
+                                                   (0.00)   
+mujer                                              -0.01 *  
+                                                   (0.01)   
+ideologia_std                                      -0.03 ***
+                                                   (0.00)   
+interes_politica                                    0.06 ***
+                                                   (0.00)   
+factor(year)2017                                   -0.08 ***
+                                                   (0.01)   
+factor(year)2018                                   -0.05 ***
+                                                   (0.01)   
+factor(year)2019                                    0.07 ***
+                                                   (0.01)   
+factor(year)2021                                   -0.12 ***
+                                                   (0.01)   
+factor(year)2022                                   -0.07 ***
+                                                   (0.01)   
+factor(year)2023                                   -0.10 ***
+                                                   (0.01)   
+------------------------------------------------------------
+R^2                                                 0.18    
+Adj. R^2                                            0.18    
+Num. obs.                                       12654       
+============================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -182,218 +237,189 @@ factor(year)2023                               ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-</section><section id="modelos-para-h1-no-linealidad" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="modelos-para-h1-no-linealidad">
-<span class="header-section-number">1.2</span> Modelos para H1 (No linealidad)</h2>
-<section id="modelo-básico-de-educación-categórica" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="modelo-básico-de-educación-categórica">
-<span class="header-section-number">1.2.1</span> Modelo básico de educación categórica</h3>
+<p>Dado que la estructura de datos es longitudinal con mediciones repetidas por individuo (ICC = 0.475), todos los modelos reportados son regresiones logísticas multinivel con efectos aleatorios por individuo. Estimaciones alternativas con modelos pooled confirmaron la dirección y significancia de los efectos principales.</p>
+</section>
+<section id="modelos-para-h1-no-linealidad" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="modelos-para-h1-no-linealidad"><span class="header-section-number">1.2</span> Modelos para H1 (No linealidad)</h2>
+<section id="modelo-básico-de-educación-categórica" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="modelo-básico-de-educación-categórica"><span class="header-section-number">1.2.1</span> Modelo básico de educación categórica</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          protesta_dummy ~ educ_cat_factor_ref + (1 | idencuesta)
-Data: elsoc_final
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-  16111.9   16175.2   -8048.0   16095.9     20044 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 2.044    1.43    
-Number of obs: 20052, groups:  idencuesta, 4429
-
-Conditional model:
-                                               Estimate Std. Error z value
-(Intercept)                                    -2.31477    0.06157  -37.60
-educ_cat_factor_refMedia incompleta o menos    -0.86906    0.08072  -10.77
-educ_cat_factor_refTécnica superior incompleta  0.83391    0.12305    6.78
-educ_cat_factor_refTécnica superior completa    0.49755    0.08693    5.72
-educ_cat_factor_refUniversitaria incompleta     1.43233    0.10556   13.57
-educ_cat_factor_refUniversitaria completa       1.06949    0.09229   11.59
-educ_cat_factor_refPostgrado                    1.62989    0.18405    8.86
-                                                           Pr(&gt;|z|)    
-(Intercept)                                    &lt; 0.0000000000000002 ***
-educ_cat_factor_refMedia incompleta o menos    &lt; 0.0000000000000002 ***
-educ_cat_factor_refTécnica superior incompleta      0.0000000000123 ***
-educ_cat_factor_refTécnica superior completa        0.0000000104239 ***
-educ_cat_factor_refUniversitaria incompleta    &lt; 0.0000000000000002 ***
-educ_cat_factor_refUniversitaria completa      &lt; 0.0000000000000002 ***
-educ_cat_factor_refPostgrado                   &lt; 0.0000000000000002 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+============================================================
+                                                Model 1     
+------------------------------------------------------------
+(Intercept)                                        -2.31 ***
+                                                   (0.06)   
+educ_cat_factor_refMedia incompleta o menos        -0.87 ***
+                                                   (0.08)   
+educ_cat_factor_refTécnica superior incompleta      0.83 ***
+                                                   (0.12)   
+educ_cat_factor_refTécnica superior completa        0.50 ***
+                                                   (0.09)   
+educ_cat_factor_refUniversitaria incompleta         1.43 ***
+                                                   (0.11)   
+educ_cat_factor_refUniversitaria completa           1.07 ***
+                                                   (0.09)   
+educ_cat_factor_refPostgrado                        1.63 ***
+                                                   (0.18)   
+------------------------------------------------------------
+AIC                                             16111.93    
+Log Likelihood                                  -8047.96    
+Num. obs.                                       20052       
+Num. groups: idencuesta                          4429       
+Var: idencuesta (Intercept)                         2.04    
+============================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-</section><section id="modelo-con-controles-demográficos" class="level3" data-number="1.2.2"><h3 data-number="1.2.2" class="anchored" data-anchor-id="modelo-con-controles-demográficos">
-<span class="header-section-number">1.2.2</span> Modelo con controles demográficos</h3>
+</section>
+<section id="modelo-con-controles-demográficos" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="modelo-con-controles-demográficos"><span class="header-section-number">1.2.2</span> Modelo con controles demográficos</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          
-protesta_dummy ~ educ_cat_factor_ref + edad + mujer + (1 | idencuesta)
-Data: elsoc_final
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-  15697.8   15776.9   -7838.9   15677.8     20042 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 1.92     1.386   
-Number of obs: 20052, groups:  idencuesta, 4429
-
-Conditional model:
-                                                Estimate Std. Error z value
-(Intercept)                                     0.013714   0.125760   0.109
-educ_cat_factor_refMedia incompleta o menos    -0.533609   0.081945  -6.512
-educ_cat_factor_refTécnica superior incompleta  0.546635   0.123303   4.433
-educ_cat_factor_refTécnica superior completa    0.440899   0.086891   5.074
-educ_cat_factor_refUniversitaria incompleta     0.984027   0.107080   9.190
-educ_cat_factor_refUniversitaria completa       0.889770   0.092018   9.669
-educ_cat_factor_refPostgrado                    1.543652   0.183342   8.420
-edad                                           -0.047184   0.002516 -18.756
-mujer                                          -0.299997   0.067486  -4.445
-                                                           Pr(&gt;|z|)    
-(Intercept)                                                   0.913    
-educ_cat_factor_refMedia incompleta o menos         0.0000000000743 ***
-educ_cat_factor_refTécnica superior incompleta      0.0000092809972 ***
-educ_cat_factor_refTécnica superior completa        0.0000003892656 ***
-educ_cat_factor_refUniversitaria incompleta    &lt; 0.0000000000000002 ***
-educ_cat_factor_refUniversitaria completa      &lt; 0.0000000000000002 ***
-educ_cat_factor_refPostgrado                   &lt; 0.0000000000000002 ***
-edad                                           &lt; 0.0000000000000002 ***
-mujer                                               0.0000087772282 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+============================================================
+                                                Model 1     
+------------------------------------------------------------
+(Intercept)                                         0.01    
+                                                   (0.13)   
+educ_cat_factor_refMedia incompleta o menos        -0.53 ***
+                                                   (0.08)   
+educ_cat_factor_refTécnica superior incompleta      0.55 ***
+                                                   (0.12)   
+educ_cat_factor_refTécnica superior completa        0.44 ***
+                                                   (0.09)   
+educ_cat_factor_refUniversitaria incompleta         0.98 ***
+                                                   (0.11)   
+educ_cat_factor_refUniversitaria completa           0.89 ***
+                                                   (0.09)   
+educ_cat_factor_refPostgrado                        1.54 ***
+                                                   (0.18)   
+edad                                               -0.05 ***
+                                                   (0.00)   
+mujer                                              -0.30 ***
+                                                   (0.07)   
+------------------------------------------------------------
+AIC                                             15697.80    
+Log Likelihood                                  -7838.90    
+Num. obs.                                       20052       
+Num. groups: idencuesta                          4429       
+Var: idencuesta (Intercept)                         1.92    
+============================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          
-protesta_dummy ~ educ_cat_factor_ref + edad + mujer + ideologia_std +  
-    interes_politica + factor(year) + (1 | idencuesta)
-Data: elsoc_final
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-  10015.5   10149.5   -4989.7    9979.5     12636 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 1.889    1.375   
-Number of obs: 12654, groups:  idencuesta, 3888
-
-Conditional model:
-                                                Estimate Std. Error z value
-(Intercept)                                     0.474885   0.183741   2.585
-educ_cat_factor_refMedia incompleta o menos    -0.603319   0.105834  -5.701
-educ_cat_factor_refTécnica superior incompleta  0.397300   0.154216   2.576
-educ_cat_factor_refTécnica superior completa    0.325762   0.107447   3.032
-educ_cat_factor_refUniversitaria incompleta     0.680714   0.131132   5.191
-educ_cat_factor_refUniversitaria completa       0.575515   0.111333   5.169
-educ_cat_factor_refPostgrado                    0.966296   0.206956   4.669
-edad                                           -0.044204   0.002975 -14.860
-mujer                                          -0.197409   0.079143  -2.494
-ideologia_std                                  -0.216332   0.014402 -15.021
-interes_politica                                0.442847   0.028719  15.420
-factor(year)2017                               -0.692822   0.118140  -5.864
-factor(year)2018                               -0.478586   0.101863  -4.698
-factor(year)2019                                0.540751   0.101281   5.339
-factor(year)2021                               -1.218731   0.115029 -10.595
-factor(year)2022                               -0.734900   0.115631  -6.356
-factor(year)2023                               -1.081569   0.121722  -8.886
-                                                           Pr(&gt;|z|)    
-(Intercept)                                                 0.00975 ** 
-educ_cat_factor_refMedia incompleta o menos          0.000000011937 ***
-educ_cat_factor_refTécnica superior incompleta              0.00999 ** 
-educ_cat_factor_refTécnica superior completa                0.00243 ** 
-educ_cat_factor_refUniversitaria incompleta          0.000000209090 ***
-educ_cat_factor_refUniversitaria completa            0.000000234973 ***
-educ_cat_factor_refPostgrado                         0.000003025345 ***
-edad                                           &lt; 0.0000000000000002 ***
-mujer                                                       0.01262 *  
-ideologia_std                                  &lt; 0.0000000000000002 ***
-interes_politica                               &lt; 0.0000000000000002 ***
-factor(year)2017                                     0.000000004507 ***
-factor(year)2018                                     0.000002622868 ***
-factor(year)2019                                     0.000000093399 ***
-factor(year)2021                               &lt; 0.0000000000000002 ***
-factor(year)2022                                     0.000000000208 ***
-factor(year)2023                               &lt; 0.0000000000000002 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+============================================================
+                                                Model 1     
+------------------------------------------------------------
+(Intercept)                                         0.47 ** 
+                                                   (0.18)   
+educ_cat_factor_refMedia incompleta o menos        -0.60 ***
+                                                   (0.11)   
+educ_cat_factor_refTécnica superior incompleta      0.40 ** 
+                                                   (0.15)   
+educ_cat_factor_refTécnica superior completa        0.33 ** 
+                                                   (0.11)   
+educ_cat_factor_refUniversitaria incompleta         0.68 ***
+                                                   (0.13)   
+educ_cat_factor_refUniversitaria completa           0.58 ***
+                                                   (0.11)   
+educ_cat_factor_refPostgrado                        0.97 ***
+                                                   (0.21)   
+edad                                               -0.04 ***
+                                                   (0.00)   
+mujer                                              -0.20 *  
+                                                   (0.08)   
+ideologia_std                                      -0.22 ***
+                                                   (0.01)   
+interes_politica                                    0.44 ***
+                                                   (0.03)   
+factor(year)2017                                   -0.69 ***
+                                                   (0.12)   
+factor(year)2018                                   -0.48 ***
+                                                   (0.10)   
+factor(year)2019                                    0.54 ***
+                                                   (0.10)   
+factor(year)2021                                   -1.22 ***
+                                                   (0.12)   
+factor(year)2022                                   -0.73 ***
+                                                   (0.12)   
+factor(year)2023                                   -1.08 ***
+                                                   (0.12)   
+------------------------------------------------------------
+AIC                                             10015.48    
+Log Likelihood                                  -4989.74    
+Num. obs.                                       12654       
+Num. groups: idencuesta                          3888       
+Var: idencuesta (Intercept)                         1.89    
+============================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-</section><section id="modelo-completo-h1" class="level3" data-number="1.2.3"><h3 data-number="1.2.3" class="anchored" data-anchor-id="modelo-completo-h1">
-<span class="header-section-number">1.2.3</span> Modelo Completo H1</h3>
+</section>
+<section id="modelo-completo-h1" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="modelo-completo-h1"><span class="header-section-number">1.2.3</span> Modelo Completo H1</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          
-protesta_dummy ~ educ_cat_factor_ref + edad + mujer + ideologia_std +  
-    interes_politica + conf_instituciones + eficacia_politica +  
-    factor(year) + (1 | idencuesta)
-Data: elsoc_final
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-  10009.6   10158.5   -4984.8    9969.6     12628 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 1.876    1.37    
-Number of obs: 12648, groups:  idencuesta, 3887
-
-Conditional model:
-                                                Estimate Std. Error z value
-(Intercept)                                     0.578173   0.233292   2.478
-educ_cat_factor_refMedia incompleta o menos    -0.598367   0.105838  -5.654
-educ_cat_factor_refTécnica superior incompleta  0.396840   0.154275   2.572
-educ_cat_factor_refTécnica superior completa    0.327939   0.107394   3.054
-educ_cat_factor_refUniversitaria incompleta     0.685873   0.131167   5.229
-educ_cat_factor_refUniversitaria completa       0.585772   0.111331   5.262
-educ_cat_factor_refPostgrado                    0.986335   0.206768   4.770
-edad                                           -0.043838   0.002991 -14.657
-mujer                                          -0.205411   0.079270  -2.591
-ideologia_std                                  -0.214306   0.014414 -14.868
-interes_politica                                0.455905   0.029800  15.299
-conf_instituciones                             -0.132805   0.047580  -2.791
-eficacia_politica                               0.020861   0.044143   0.473
-factor(year)2017                               -0.688940   0.118220  -5.828
-factor(year)2018                               -0.462935   0.102970  -4.496
-factor(year)2019                                0.489952   0.104105   4.706
-factor(year)2021                               -1.234976   0.116140 -10.633
-factor(year)2022                               -0.716957   0.116775  -6.140
-factor(year)2023                               -1.061177   0.122530  -8.661
-                                                           Pr(&gt;|z|)    
-(Intercept)                                                 0.01320 *  
-educ_cat_factor_refMedia incompleta o menos          0.000000015713 ***
-educ_cat_factor_refTécnica superior incompleta              0.01010 *  
-educ_cat_factor_refTécnica superior completa                0.00226 ** 
-educ_cat_factor_refUniversitaria incompleta          0.000000170406 ***
-educ_cat_factor_refUniversitaria completa            0.000000142850 ***
-educ_cat_factor_refPostgrado                         0.000001840076 ***
-edad                                           &lt; 0.0000000000000002 ***
-mujer                                                       0.00956 ** 
-ideologia_std                                  &lt; 0.0000000000000002 ***
-interes_politica                               &lt; 0.0000000000000002 ***
-conf_instituciones                                          0.00525 ** 
-eficacia_politica                                           0.63651    
-factor(year)2017                                     0.000000005622 ***
-factor(year)2018                                     0.000006929681 ***
-factor(year)2019                                     0.000002522328 ***
-factor(year)2021                               &lt; 0.0000000000000002 ***
-factor(year)2022                                     0.000000000827 ***
-factor(year)2023                               &lt; 0.0000000000000002 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+============================================================
+                                                Model 1     
+------------------------------------------------------------
+(Intercept)                                         0.58 *  
+                                                   (0.23)   
+educ_cat_factor_refMedia incompleta o menos        -0.60 ***
+                                                   (0.11)   
+educ_cat_factor_refTécnica superior incompleta      0.40 *  
+                                                   (0.15)   
+educ_cat_factor_refTécnica superior completa        0.33 ** 
+                                                   (0.11)   
+educ_cat_factor_refUniversitaria incompleta         0.69 ***
+                                                   (0.13)   
+educ_cat_factor_refUniversitaria completa           0.59 ***
+                                                   (0.11)   
+educ_cat_factor_refPostgrado                        0.99 ***
+                                                   (0.21)   
+edad                                               -0.04 ***
+                                                   (0.00)   
+mujer                                              -0.21 ** 
+                                                   (0.08)   
+ideologia_std                                      -0.21 ***
+                                                   (0.01)   
+interes_politica                                    0.46 ***
+                                                   (0.03)   
+conf_instituciones                                 -0.13 ** 
+                                                   (0.05)   
+eficacia_politica                                   0.02    
+                                                   (0.04)   
+factor(year)2017                                   -0.69 ***
+                                                   (0.12)   
+factor(year)2018                                   -0.46 ***
+                                                   (0.10)   
+factor(year)2019                                    0.49 ***
+                                                   (0.10)   
+factor(year)2021                                   -1.23 ***
+                                                   (0.12)   
+factor(year)2022                                   -0.72 ***
+                                                   (0.12)   
+factor(year)2023                                   -1.06 ***
+                                                   (0.12)   
+------------------------------------------------------------
+AIC                                             10009.57    
+Log Likelihood                                  -4984.79    
+Num. obs.                                       12648       
+Num. groups: idencuesta                          3887       
+Var: idencuesta (Intercept)                         1.88    
+============================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-</section><section id="test-específico-para-h1" class="level3" data-number="1.2.4"><h3 data-number="1.2.4" class="anchored" data-anchor-id="test-específico-para-h1">
-<span class="header-section-number">1.2.4</span> Test específico para H1</h3>
+</section>
+<section id="test-específico-para-h1" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="test-específico-para-h1"><span class="header-section-number">1.2.4</span> Test específico para H1</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
@@ -417,339 +443,213 @@ Results are averaged over the levels of: mujer, year
 Tests are performed on the log odds ratio scale </code></pre>
 </div>
 </div>
-</section></section><section id="modelos-para-h2-movilidad-educacional" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="modelos-para-h2-movilidad-educacional">
-<span class="header-section-number">1.3</span> Modelos para H2 (Movilidad Educacional)</h2>
-<section id="efecto-principal-de-movilidad" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="efecto-principal-de-movilidad">
-<span class="header-section-number">1.3.1</span> Efecto principal de Movilidad</h3>
+</section>
+</section>
+<section id="modelos-para-h2-movilidad-educacional" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="modelos-para-h2-movilidad-educacional"><span class="header-section-number">1.3</span> Modelos para H2 (Movilidad Educacional)</h2>
+<section id="efecto-principal-de-movilidad" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="efecto-principal-de-movilidad"><span class="header-section-number">1.3.1</span> Efecto principal de Movilidad</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          
-protesta_dummy ~ movilidad_cat_factor + edad + mujer + ideologia_std +  
-    interes_politica + factor(year) + (1 | idencuesta)
-Data: elsoc_final %&gt;% filter(!is.na(movilidad_cat))
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-   9807.8    9918.7   -4888.9    9777.8     12003 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 1.955    1.398   
-Number of obs: 12018, groups:  idencuesta, 3664
-
-Conditional model:
-                        Estimate Std. Error z value             Pr(&gt;|z|)    
-(Intercept)             0.887960   0.179167   4.956 0.000000719392673970 ***
-movilidad_cat_factor.L -0.062732   0.102689  -0.611              0.54127    
-movilidad_cat_factor.Q  0.128707   0.086108   1.495              0.13499    
-movilidad_cat_factor.C -0.111436   0.068203  -1.634              0.10228    
-edad                   -0.054153   0.002974 -18.207 &lt; 0.0000000000000002 ***
-mujer                  -0.255461   0.080769  -3.163              0.00156 ** 
-ideologia_std          -0.208823   0.014593 -14.309 &lt; 0.0000000000000002 ***
-interes_politica        0.510981   0.028208  18.115 &lt; 0.0000000000000002 ***
-factor(year)2017       -0.713485   0.119943  -5.949 0.000000002705868879 ***
-factor(year)2018       -0.466556   0.103197  -4.521 0.000006154196461797 ***
-factor(year)2019        0.554448   0.102692   5.399 0.000000066971976093 ***
-factor(year)2021       -1.200515   0.116402 -10.314 &lt; 0.0000000000000002 ***
-factor(year)2022       -0.689592   0.116771  -5.905 0.000000003516157038 ***
-factor(year)2023       -0.982846   0.122377  -8.031 0.000000000000000965 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+=========================================
+                             Model 1     
+-----------------------------------------
+(Intercept)                      0.89 ***
+                                (0.18)   
+movilidad_cat_factor.L          -0.06    
+                                (0.10)   
+movilidad_cat_factor.Q           0.13    
+                                (0.09)   
+movilidad_cat_factor.C          -0.11    
+                                (0.07)   
+edad                            -0.05 ***
+                                (0.00)   
+mujer                           -0.26 ** 
+                                (0.08)   
+ideologia_std                   -0.21 ***
+                                (0.01)   
+interes_politica                 0.51 ***
+                                (0.03)   
+factor(year)2017                -0.71 ***
+                                (0.12)   
+factor(year)2018                -0.47 ***
+                                (0.10)   
+factor(year)2019                 0.55 ***
+                                (0.10)   
+factor(year)2021                -1.20 ***
+                                (0.12)   
+factor(year)2022                -0.69 ***
+                                (0.12)   
+factor(year)2023                -0.98 ***
+                                (0.12)   
+-----------------------------------------
+AIC                           9807.79    
+Log Likelihood               -4888.90    
+Num. obs.                    12018       
+Num. groups: idencuesta       3664       
+Var: idencuesta (Intercept)      1.95    
+=========================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-</section><section id="modelo-aditivo-educación-movilidad-sin-interacción" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="modelo-aditivo-educación-movilidad-sin-interacción">
-<span class="header-section-number">1.3.2</span> Modelo Aditivo (educación + movilidad sin interacción)</h3>
+</section>
+<section id="modelo-aditivo-educación-movilidad-sin-interacción" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="modelo-aditivo-educación-movilidad-sin-interacción"><span class="header-section-number">1.3.2</span> Modelo Aditivo (educación + movilidad sin interacción)</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          
-protesta_dummy ~ educ_cat_factor_ref + movilidad_cat_factor +  
-    edad + mujer + ideologia_std + interes_politica + factor(year) +  
-    (1 | idencuesta)
-Data: elsoc_final %&gt;% filter(!is.na(movilidad_cat))
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-   9697.8    9853.0   -4827.9    9655.8     11997 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 1.849    1.36    
-Number of obs: 12018, groups:  idencuesta, 3664
-
-Conditional model:
-                                                Estimate Std. Error z value
-(Intercept)                                     0.556894   0.189854   2.933
-educ_cat_factor_refMedia incompleta o menos    -0.610431   0.110453  -5.527
-educ_cat_factor_refTécnica superior incompleta  0.406212   0.155583   2.611
-educ_cat_factor_refTécnica superior completa    0.319953   0.109107   2.932
-educ_cat_factor_refUniversitaria incompleta     0.626765   0.134354   4.665
-educ_cat_factor_refUniversitaria completa       0.608675   0.116718   5.215
-educ_cat_factor_refPostgrado                    0.993848   0.208479   4.767
-movilidad_cat_factor.L                         -0.260050   0.109034  -2.385
-movilidad_cat_factor.Q                          0.172784   0.089630   1.928
-movilidad_cat_factor.C                         -0.069006   0.070297  -0.982
-edad                                           -0.043135   0.003068 -14.059
-mujer                                          -0.222000   0.080191  -2.768
-ideologia_std                                  -0.216647   0.014667 -14.772
-interes_politica                                0.426220   0.029080  14.657
-factor(year)2017                               -0.709034   0.120008  -5.908
-factor(year)2018                               -0.495869   0.103366  -4.797
-factor(year)2019                                0.553931   0.102633   5.397
-factor(year)2021                               -1.231685   0.116591 -10.564
-factor(year)2022                               -0.747865   0.117124  -6.385
-factor(year)2023                               -1.083315   0.123058  -8.803
-                                                           Pr(&gt;|z|)    
-(Intercept)                                                 0.00335 ** 
-educ_cat_factor_refMedia incompleta o menos          0.000000032644 ***
-educ_cat_factor_refTécnica superior incompleta              0.00903 ** 
-educ_cat_factor_refTécnica superior completa                0.00336 ** 
-educ_cat_factor_refUniversitaria incompleta          0.000003085761 ***
-educ_cat_factor_refUniversitaria completa            0.000000183913 ***
-educ_cat_factor_refPostgrado                         0.000001868558 ***
-movilidad_cat_factor.L                                      0.01708 *  
-movilidad_cat_factor.Q                                      0.05389 .  
-movilidad_cat_factor.C                                      0.32628    
-edad                                           &lt; 0.0000000000000002 ***
-mujer                                                       0.00563 ** 
-ideologia_std                                  &lt; 0.0000000000000002 ***
-interes_politica                               &lt; 0.0000000000000002 ***
-factor(year)2017                                     0.000000003459 ***
-factor(year)2018                                     0.000001608844 ***
-factor(year)2019                                     0.000000067680 ***
-factor(year)2021                               &lt; 0.0000000000000002 ***
-factor(year)2022                                     0.000000000171 ***
-factor(year)2023                               &lt; 0.0000000000000002 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+============================================================
+                                                Model 1     
+------------------------------------------------------------
+(Intercept)                                         0.56 ** 
+                                                   (0.19)   
+educ_cat_factor_refMedia incompleta o menos        -0.61 ***
+                                                   (0.11)   
+educ_cat_factor_refTécnica superior incompleta      0.41 ** 
+                                                   (0.16)   
+educ_cat_factor_refTécnica superior completa        0.32 ** 
+                                                   (0.11)   
+educ_cat_factor_refUniversitaria incompleta         0.63 ***
+                                                   (0.13)   
+educ_cat_factor_refUniversitaria completa           0.61 ***
+                                                   (0.12)   
+educ_cat_factor_refPostgrado                        0.99 ***
+                                                   (0.21)   
+movilidad_cat_factor.L                             -0.26 *  
+                                                   (0.11)   
+movilidad_cat_factor.Q                              0.17    
+                                                   (0.09)   
+movilidad_cat_factor.C                             -0.07    
+                                                   (0.07)   
+edad                                               -0.04 ***
+                                                   (0.00)   
+mujer                                              -0.22 ** 
+                                                   (0.08)   
+ideologia_std                                      -0.22 ***
+                                                   (0.01)   
+interes_politica                                    0.43 ***
+                                                   (0.03)   
+factor(year)2017                                   -0.71 ***
+                                                   (0.12)   
+factor(year)2018                                   -0.50 ***
+                                                   (0.10)   
+factor(year)2019                                    0.55 ***
+                                                   (0.10)   
+factor(year)2021                                   -1.23 ***
+                                                   (0.12)   
+factor(year)2022                                   -0.75 ***
+                                                   (0.12)   
+factor(year)2023                                   -1.08 ***
+                                                   (0.12)   
+------------------------------------------------------------
+AIC                                              9697.77    
+Log Likelihood                                  -4827.88    
+Num. obs.                                       12018       
+Num. groups: idencuesta                          3664       
+Var: idencuesta (Intercept)                         1.85    
+============================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-</section><section id="modelo-con-interacción" class="level3" data-number="1.3.3"><h3 data-number="1.3.3" class="anchored" data-anchor-id="modelo-con-interacción">
-<span class="header-section-number">1.3.3</span> Modelo con interacción</h3>
+</section>
+<section id="modelo-con-interacción" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="modelo-con-interacción"><span class="header-section-number">1.3.3</span> Modelo con interacción</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          
-protesta_dummy ~ educ_cat_factor_ref * movilidad_cat_factor +  
-    edad + mujer + ideologia_std + interes_politica + factor(year) +  
-    (1 | idencuesta)
-Data: elsoc_final %&gt;% filter(!is.na(movilidad_cat))
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-   9712.4    9986.0   -4819.2    9638.4     11981 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 1.831    1.353   
-Number of obs: 12018, groups:  idencuesta, 3664
-
-Conditional model:
-                                                                      Estimate
-(Intercept)                                                            0.53527
-educ_cat_factor_refMedia incompleta o menos                           -0.63708
-educ_cat_factor_refTécnica superior incompleta                         0.31894
-educ_cat_factor_refTécnica superior completa                           0.27124
-educ_cat_factor_refUniversitaria incompleta                            0.55281
-educ_cat_factor_refUniversitaria completa                              0.13493
-educ_cat_factor_refPostgrado                                           0.50886
-movilidad_cat_factor.L                                                -0.31281
-movilidad_cat_factor.Q                                                 0.24758
-movilidad_cat_factor.C                                                 0.01057
-edad                                                                  -0.04252
-mujer                                                                 -0.22228
-ideologia_std                                                         -0.21752
-interes_politica                                                       0.42677
-factor(year)2017                                                      -0.71229
-factor(year)2018                                                      -0.49209
-factor(year)2019                                                       0.55558
-factor(year)2021                                                      -1.23599
-factor(year)2022                                                      -0.74889
-factor(year)2023                                                      -1.07782
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L     0.20184
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L -0.11787
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L    0.02304
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L    -0.40393
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L       1.17677
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                    1.64111
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q    -0.05147
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q -0.27594
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q    0.19906
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q    -0.37466
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q      -0.97835
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                   -0.93860
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C     0.06712
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C  0.12413
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C    0.15086
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C    -0.13023
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C            NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                         NA
-                                                                      Std. Error
-(Intercept)                                                              0.20275
-educ_cat_factor_refMedia incompleta o menos                              0.13735
-educ_cat_factor_refTécnica superior incompleta                           0.19108
-educ_cat_factor_refTécnica superior completa                             0.14947
-educ_cat_factor_refUniversitaria incompleta                              0.16640
-educ_cat_factor_refUniversitaria completa                                0.24721
-educ_cat_factor_refPostgrado                                             0.42515
-movilidad_cat_factor.L                                                   0.24679
-movilidad_cat_factor.Q                                                   0.20248
-movilidad_cat_factor.C                                                   0.14753
-edad                                                                     0.00308
-mujer                                                                    0.08016
-ideologia_std                                                            0.01468
-interes_politica                                                         0.02907
-factor(year)2017                                                         0.12023
-factor(year)2018                                                         0.10353
-factor(year)2019                                                         0.10279
-factor(year)2021                                                         0.11679
-factor(year)2022                                                         0.11723
-factor(year)2023                                                         0.12314
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L       0.30949
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L    0.44627
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L      0.33430
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L       0.34394
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L         0.62263
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                      1.19678
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q       0.26680
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q    0.37835
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q      0.29810
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q       0.32485
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q         0.48651
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                      0.96023
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C       0.22013
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C    0.29702
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C      0.25717
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C       0.30613
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C              NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                           NA
-                                                                      z value
-(Intercept)                                                             2.640
-educ_cat_factor_refMedia incompleta o menos                            -4.638
-educ_cat_factor_refTécnica superior incompleta                          1.669
-educ_cat_factor_refTécnica superior completa                            1.815
-educ_cat_factor_refUniversitaria incompleta                             3.322
-educ_cat_factor_refUniversitaria completa                               0.546
-educ_cat_factor_refPostgrado                                            1.197
-movilidad_cat_factor.L                                                 -1.268
-movilidad_cat_factor.Q                                                  1.223
-movilidad_cat_factor.C                                                  0.072
-edad                                                                  -13.807
-mujer                                                                  -2.773
-ideologia_std                                                         -14.820
-interes_politica                                                       14.684
-factor(year)2017                                                       -5.924
-factor(year)2018                                                       -4.753
-factor(year)2019                                                        5.405
-factor(year)2021                                                      -10.583
-factor(year)2022                                                       -6.388
-factor(year)2023                                                       -8.753
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L      0.652
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L  -0.264
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L     0.069
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L     -1.174
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L        1.890
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                     1.371
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q     -0.193
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q  -0.729
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q     0.668
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q     -1.153
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q       -2.011
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                    -0.977
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C      0.305
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C   0.418
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C     0.587
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C     -0.425
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C           NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                        NA
-                                                                                  Pr(&gt;|z|)
-(Intercept)                                                                       0.008288
-educ_cat_factor_refMedia incompleta o menos                                 0.000003511092
-educ_cat_factor_refTécnica superior incompleta                                    0.095089
-educ_cat_factor_refTécnica superior completa                                      0.069574
-educ_cat_factor_refUniversitaria incompleta                                       0.000894
-educ_cat_factor_refUniversitaria completa                                         0.585184
-educ_cat_factor_refPostgrado                                                      0.231353
-movilidad_cat_factor.L                                                            0.204973
-movilidad_cat_factor.Q                                                            0.221409
-movilidad_cat_factor.C                                                            0.942894
-edad                                                                  &lt; 0.0000000000000002
-mujer                                                                             0.005555
-ideologia_std                                                         &lt; 0.0000000000000002
-interes_politica                                                      &lt; 0.0000000000000002
-factor(year)2017                                                            0.000000003133
-factor(year)2018                                                            0.000002001313
-factor(year)2019                                                            0.000000064724
-factor(year)2021                                                      &lt; 0.0000000000000002
-factor(year)2022                                                            0.000000000168
-factor(year)2023                                                      &lt; 0.0000000000000002
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L                0.514284
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L             0.791682
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L               0.945048
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L                0.240225
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L                  0.058760
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                               0.170289
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q                0.847027
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q             0.465808
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q               0.504287
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q                0.248773
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q                  0.044328
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                               0.328335
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C                0.760451
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C             0.676001
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C               0.557478
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C                0.670533
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C                        NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                                     NA
-                                                                         
-(Intercept)                                                           ** 
-educ_cat_factor_refMedia incompleta o menos                           ***
-educ_cat_factor_refTécnica superior incompleta                        .  
-educ_cat_factor_refTécnica superior completa                          .  
-educ_cat_factor_refUniversitaria incompleta                           ***
-educ_cat_factor_refUniversitaria completa                                
-educ_cat_factor_refPostgrado                                             
-movilidad_cat_factor.L                                                   
-movilidad_cat_factor.Q                                                   
-movilidad_cat_factor.C                                                   
-edad                                                                  ***
-mujer                                                                 ** 
-ideologia_std                                                         ***
-interes_politica                                                      ***
-factor(year)2017                                                      ***
-factor(year)2018                                                      ***
-factor(year)2019                                                      ***
-factor(year)2021                                                      ***
-factor(year)2022                                                      ***
-factor(year)2023                                                      ***
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L       
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L    
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L      
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L       
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L      .  
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                      
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q       
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q    
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q      
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q       
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q      *  
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                      
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C       
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C    
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C      
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C       
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C         
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                      
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+===================================================================================
+                                                                       Model 1     
+-----------------------------------------------------------------------------------
+(Intercept)                                                                0.54 ** 
+                                                                          (0.20)   
+educ_cat_factor_refMedia incompleta o menos                               -0.64 ***
+                                                                          (0.14)   
+educ_cat_factor_refTécnica superior incompleta                             0.32    
+                                                                          (0.19)   
+educ_cat_factor_refTécnica superior completa                               0.27    
+                                                                          (0.15)   
+educ_cat_factor_refUniversitaria incompleta                                0.55 ***
+                                                                          (0.17)   
+educ_cat_factor_refUniversitaria completa                                  0.13    
+                                                                          (0.25)   
+educ_cat_factor_refPostgrado                                               0.51    
+                                                                          (0.43)   
+movilidad_cat_factor.L                                                    -0.31    
+                                                                          (0.25)   
+movilidad_cat_factor.Q                                                     0.25    
+                                                                          (0.20)   
+movilidad_cat_factor.C                                                     0.01    
+                                                                          (0.15)   
+edad                                                                      -0.04 ***
+                                                                          (0.00)   
+mujer                                                                     -0.22 ** 
+                                                                          (0.08)   
+ideologia_std                                                             -0.22 ***
+                                                                          (0.01)   
+interes_politica                                                           0.43 ***
+                                                                          (0.03)   
+factor(year)2017                                                          -0.71 ***
+                                                                          (0.12)   
+factor(year)2018                                                          -0.49 ***
+                                                                          (0.10)   
+factor(year)2019                                                           0.56 ***
+                                                                          (0.10)   
+factor(year)2021                                                          -1.24 ***
+                                                                          (0.12)   
+factor(year)2022                                                          -0.75 ***
+                                                                          (0.12)   
+factor(year)2023                                                          -1.08 ***
+                                                                          (0.12)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L         0.20    
+                                                                          (0.31)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L     -0.12    
+                                                                          (0.45)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L        0.02    
+                                                                          (0.33)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L        -0.40    
+                                                                          (0.34)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L           1.18    
+                                                                          (0.62)   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.L                        1.64    
+                                                                          (1.20)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q        -0.05    
+                                                                          (0.27)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q     -0.28    
+                                                                          (0.38)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q        0.20    
+                                                                          (0.30)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q        -0.37    
+                                                                          (0.32)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q          -0.98 *  
+                                                                          (0.49)   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                       -0.94    
+                                                                          (0.96)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C         0.07    
+                                                                          (0.22)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C      0.12    
+                                                                          (0.30)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C        0.15    
+                                                                          (0.26)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C        -0.13    
+                                                                          (0.31)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C                   
+                                                                                   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.C                                
+                                                                                   
+-----------------------------------------------------------------------------------
+AIC                                                                     9712.45    
+Log Likelihood                                                         -4819.22    
+Num. obs.                                                              12018       
+Num. groups: idencuesta                                                 3664       
+Var: idencuesta (Intercept)                                                1.83    
+===================================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-</section><section id="test-de-interacción-lrt" class="level3" data-number="1.3.4"><h3 data-number="1.3.4" class="anchored" data-anchor-id="test-de-interacción-lrt">
-<span class="header-section-number">1.3.4</span> Test de interacción (LRT)</h3>
+</section>
+<section id="test-de-interacción-lrt" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="test-de-interacción-lrt"><span class="header-section-number">1.3.4</span> Test de interacción (LRT)</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Data: elsoc_final %&gt;% filter(!is.na(movilidad_cat))
@@ -768,247 +668,117 @@ mod6_h2_interaccion 37 9712.4 9986 -4819.2   9638.4 17.317     16     0.3653</co
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section><section id="análisis-de-mediación" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="análisis-de-mediación">
-<span class="header-section-number">1.4</span> Análisis de Mediación</h2>
-<section id="modelo-con-mediaciones" class="level3" data-number="1.4.1"><h3 data-number="1.4.1" class="anchored" data-anchor-id="modelo-con-mediaciones">
-<span class="header-section-number">1.4.1</span> Modelo con mediaciones</h3>
+</section>
+</section>
+<section id="análisis-de-mediación" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="análisis-de-mediación"><span class="header-section-number">1.4</span> Análisis de Mediación</h2>
+<section id="modelo-con-mediaciones" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="modelo-con-mediaciones"><span class="header-section-number">1.4.1</span> Modelo con mediaciones</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: binomial  ( logit )
-Formula:          
-protesta_dummy ~ educ_cat_factor_ref * movilidad_cat_factor +  
-    justicia_distributiva + meritocracia + clase_subjetiva +  
-    satis_ingreso_std + edad + mujer + ideologia_std + interes_politica +  
-    factor(year) + (1 | idencuesta)
-Data: elsoc_final %&gt;% filter(!is.na(movilidad_cat))
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-   3626.0    3868.7   -1774.0    3548.0      3684 
-
-Random effects:
-
-Conditional model:
- Groups     Name        Variance Std.Dev.
- idencuesta (Intercept) 1.637    1.279   
-Number of obs: 3723, groups:  idencuesta, 2252
-
-Conditional model:
-                                                                      Estimate
-(Intercept)                                                            0.25633
-educ_cat_factor_refMedia incompleta o menos                           -0.41875
-educ_cat_factor_refTécnica superior incompleta                         0.35246
-educ_cat_factor_refTécnica superior completa                           0.57815
-educ_cat_factor_refUniversitaria incompleta                            1.10580
-educ_cat_factor_refUniversitaria completa                              0.36994
-educ_cat_factor_refPostgrado                                           1.11925
-movilidad_cat_factor.L                                                -0.43384
-movilidad_cat_factor.Q                                                -0.11231
-movilidad_cat_factor.C                                                 0.06083
-justicia_distributiva                                                 -0.13575
-meritocracia                                                           0.05327
-clase_subjetiva                                                       -0.15077
-satis_ingreso_std                                                     -0.05769
-edad                                                                  -0.02791
-mujer                                                                 -0.09699
-ideologia_std                                                         -0.21997
-interes_politica                                                       0.48779
-factor(year)2018                                                      -0.47477
-factor(year)2019                                                       0.49088
-factor(year)2022                                                      -0.86577
-factor(year)2023                                                      -0.93924
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L     0.42929
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L  0.36371
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L    0.19198
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L     0.03729
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L       1.50883
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                    1.27895
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q     0.53052
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q -0.14304
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q    0.34757
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q    -0.03500
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q      -1.07697
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                   -0.38267
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C     0.15109
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C  0.55525
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C    0.03729
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C    -0.05978
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C            NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                         NA
-                                                                      Std. Error
-(Intercept)                                                              0.39764
-educ_cat_factor_refMedia incompleta o menos                              0.22805
-educ_cat_factor_refTécnica superior incompleta                           0.39306
-educ_cat_factor_refTécnica superior completa                             0.23117
-educ_cat_factor_refUniversitaria incompleta                              0.28169
-educ_cat_factor_refUniversitaria completa                                0.35588
-educ_cat_factor_refPostgrado                                             0.58918
-movilidad_cat_factor.L                                                   0.40817
-movilidad_cat_factor.Q                                                   0.32973
-movilidad_cat_factor.C                                                   0.22900
-justicia_distributiva                                                    0.06768
-meritocracia                                                             0.05867
-clase_subjetiva                                                          0.07674
-satis_ingreso_std                                                        0.05336
-edad                                                                     0.00495
-mujer                                                                    0.11479
-ideologia_std                                                            0.02436
-interes_politica                                                         0.04890
-factor(year)2018                                                         0.12727
-factor(year)2019                                                         0.16737
-factor(year)2022                                                         0.19638
-factor(year)2023                                                         0.19961
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L       0.52127
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L    0.96899
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L      0.52657
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L       0.58091
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L         0.89391
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                      1.62204
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q       0.44476
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q    0.77504
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q      0.45803
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q       0.53727
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q         0.71398
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                      1.33611
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C       0.35602
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C    0.52544
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C      0.37685
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C       0.49063
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C              NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                           NA
-                                                                      z value
-(Intercept)                                                             0.645
-educ_cat_factor_refMedia incompleta o menos                            -1.836
-educ_cat_factor_refTécnica superior incompleta                          0.897
-educ_cat_factor_refTécnica superior completa                            2.501
-educ_cat_factor_refUniversitaria incompleta                             3.926
-educ_cat_factor_refUniversitaria completa                               1.040
-educ_cat_factor_refPostgrado                                            1.900
-movilidad_cat_factor.L                                                 -1.063
-movilidad_cat_factor.Q                                                 -0.341
-movilidad_cat_factor.C                                                  0.266
-justicia_distributiva                                                  -2.006
-meritocracia                                                            0.908
-clase_subjetiva                                                        -1.965
-satis_ingreso_std                                                      -1.081
-edad                                                                   -5.639
-mujer                                                                  -0.845
-ideologia_std                                                          -9.032
-interes_politica                                                        9.976
-factor(year)2018                                                       -3.730
-factor(year)2019                                                        2.933
-factor(year)2022                                                       -4.409
-factor(year)2023                                                       -4.705
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L      0.824
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L   0.375
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L     0.365
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L      0.064
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L        1.688
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                     0.788
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q      1.193
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q  -0.185
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q     0.759
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q     -0.065
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q       -1.508
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                    -0.286
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C      0.424
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C   1.057
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C     0.099
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C     -0.122
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C           NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                        NA
-                                                                                  Pr(&gt;|z|)
-(Intercept)                                                                       0.519174
-educ_cat_factor_refMedia incompleta o menos                                       0.066328
-educ_cat_factor_refTécnica superior incompleta                                    0.369878
-educ_cat_factor_refTécnica superior completa                                      0.012386
-educ_cat_factor_refUniversitaria incompleta                                   0.0000865105
-educ_cat_factor_refUniversitaria completa                                         0.298561
-educ_cat_factor_refPostgrado                                                      0.057475
-movilidad_cat_factor.L                                                            0.287828
-movilidad_cat_factor.Q                                                            0.733401
-movilidad_cat_factor.C                                                            0.790533
-justicia_distributiva                                                             0.044872
-meritocracia                                                                      0.363944
-clase_subjetiva                                                                   0.049434
-satis_ingreso_std                                                                 0.279651
-edad                                                                          0.0000000171
-mujer                                                                             0.398146
-ideologia_std                                                         &lt; 0.0000000000000002
-interes_politica                                                      &lt; 0.0000000000000002
-factor(year)2018                                                                  0.000191
-factor(year)2019                                                                  0.003358
-factor(year)2022                                                              0.0000103996
-factor(year)2023                                                              0.0000025340
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L                0.410190
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L             0.707404
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L               0.715425
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L                0.948823
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L                  0.091431
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                               0.430415
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q                0.232942
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q             0.853578
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q               0.447952
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q                0.948057
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q                  0.131452
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                               0.774565
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C                0.671277
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C             0.290628
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C               0.921169
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C                0.903023
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C                        NA
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                                     NA
-                                                                         
-(Intercept)                                                              
-educ_cat_factor_refMedia incompleta o menos                           .  
-educ_cat_factor_refTécnica superior incompleta                           
-educ_cat_factor_refTécnica superior completa                          *  
-educ_cat_factor_refUniversitaria incompleta                           ***
-educ_cat_factor_refUniversitaria completa                                
-educ_cat_factor_refPostgrado                                          .  
-movilidad_cat_factor.L                                                   
-movilidad_cat_factor.Q                                                   
-movilidad_cat_factor.C                                                   
-justicia_distributiva                                                 *  
-meritocracia                                                             
-clase_subjetiva                                                       *  
-satis_ingreso_std                                                        
-edad                                                                  ***
-mujer                                                                    
-ideologia_std                                                         ***
-interes_politica                                                      ***
-factor(year)2018                                                      ***
-factor(year)2019                                                      ** 
-factor(year)2022                                                      ***
-factor(year)2023                                                      ***
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L       
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L    
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L      
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L       
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L      .  
-educ_cat_factor_refPostgrado:movilidad_cat_factor.L                      
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q       
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q    
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q      
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q       
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q         
-educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                      
-educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C       
-educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C    
-educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C      
-educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C       
-educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C         
-educ_cat_factor_refPostgrado:movilidad_cat_factor.C                      
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>
+===================================================================================
+                                                                       Model 1     
+-----------------------------------------------------------------------------------
+(Intercept)                                                                0.26    
+                                                                          (0.40)   
+educ_cat_factor_refMedia incompleta o menos                               -0.42    
+                                                                          (0.23)   
+educ_cat_factor_refTécnica superior incompleta                             0.35    
+                                                                          (0.39)   
+educ_cat_factor_refTécnica superior completa                               0.58 *  
+                                                                          (0.23)   
+educ_cat_factor_refUniversitaria incompleta                                1.11 ***
+                                                                          (0.28)   
+educ_cat_factor_refUniversitaria completa                                  0.37    
+                                                                          (0.36)   
+educ_cat_factor_refPostgrado                                               1.12    
+                                                                          (0.59)   
+movilidad_cat_factor.L                                                    -0.43    
+                                                                          (0.41)   
+movilidad_cat_factor.Q                                                    -0.11    
+                                                                          (0.33)   
+movilidad_cat_factor.C                                                     0.06    
+                                                                          (0.23)   
+justicia_distributiva                                                     -0.14 *  
+                                                                          (0.07)   
+meritocracia                                                               0.05    
+                                                                          (0.06)   
+clase_subjetiva                                                           -0.15 *  
+                                                                          (0.08)   
+satis_ingreso_std                                                         -0.06    
+                                                                          (0.05)   
+edad                                                                      -0.03 ***
+                                                                          (0.00)   
+mujer                                                                     -0.10    
+                                                                          (0.11)   
+ideologia_std                                                             -0.22 ***
+                                                                          (0.02)   
+interes_politica                                                           0.49 ***
+                                                                          (0.05)   
+factor(year)2018                                                          -0.47 ***
+                                                                          (0.13)   
+factor(year)2019                                                           0.49 ** 
+                                                                          (0.17)   
+factor(year)2022                                                          -0.87 ***
+                                                                          (0.20)   
+factor(year)2023                                                          -0.94 ***
+                                                                          (0.20)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L         0.43    
+                                                                          (0.52)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L      0.36    
+                                                                          (0.97)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L        0.19    
+                                                                          (0.53)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L         0.04    
+                                                                          (0.58)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L           1.51    
+                                                                          (0.89)   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.L                        1.28    
+                                                                          (1.62)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q         0.53    
+                                                                          (0.44)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q     -0.14    
+                                                                          (0.78)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q        0.35    
+                                                                          (0.46)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q        -0.04    
+                                                                          (0.54)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q          -1.08    
+                                                                          (0.71)   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                       -0.38    
+                                                                          (1.34)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C         0.15    
+                                                                          (0.36)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C      0.56    
+                                                                          (0.53)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C        0.04    
+                                                                          (0.38)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C        -0.06    
+                                                                          (0.49)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C                   
+                                                                                   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.C                                
+                                                                                   
+-----------------------------------------------------------------------------------
+AIC                                                                     3626.00    
+Log Likelihood                                                         -1774.00    
+Num. obs.                                                               3723       
+Num. groups: idencuesta                                                 2252       
+Var: idencuesta (Intercept)                                                1.64    
+===================================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-</section><section id="comparar-efecto-total-vs-directo" class="level3" data-number="1.4.2"><h3 data-number="1.4.2" class="anchored" data-anchor-id="comparar-efecto-total-vs-directo">
-<span class="header-section-number">1.4.2</span> Comparar efecto total vs directo</h3>
+</section>
+<section id="comparar-efecto-total-vs-directo" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="comparar-efecto-total-vs-directo"><span class="header-section-number">1.4.2</span> Comparar efecto total vs directo</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 21 × 10
@@ -1086,36 +856,38 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="eymxeanpwz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#eymxeanpwz table {
+<div id="kwosgnzxzr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kwosgnzxzr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eymxeanpwz thead, #eymxeanpwz tbody, #eymxeanpwz tfoot, #eymxeanpwz tr, #eymxeanpwz td, #eymxeanpwz th {
+#kwosgnzxzr thead, #kwosgnzxzr tbody, #kwosgnzxzr tfoot, #kwosgnzxzr tr, #kwosgnzxzr td, #kwosgnzxzr th {
   border-style: none;
 }
 
-#eymxeanpwz p {
+#kwosgnzxzr p {
   margin: 0;
   padding: 0;
 }
 
-#eymxeanpwz .gt_table {
+#kwosgnzxzr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1141,12 +913,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_caption {
+#kwosgnzxzr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eymxeanpwz .gt_title {
+#kwosgnzxzr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1158,7 +930,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-width: 0;
 }
 
-#eymxeanpwz .gt_subtitle {
+#kwosgnzxzr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1170,7 +942,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-width: 0;
 }
 
-#eymxeanpwz .gt_heading {
+#kwosgnzxzr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1182,13 +954,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_bottom_border {
+#kwosgnzxzr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_col_headings {
+#kwosgnzxzr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1203,7 +975,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_col_heading {
+#kwosgnzxzr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1223,7 +995,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#eymxeanpwz .gt_column_spanner_outer {
+#kwosgnzxzr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1235,15 +1007,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 4px;
 }
 
-#eymxeanpwz .gt_column_spanner_outer:first-child {
+#kwosgnzxzr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eymxeanpwz .gt_column_spanner_outer:last-child {
+#kwosgnzxzr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eymxeanpwz .gt_column_spanner {
+#kwosgnzxzr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1255,11 +1027,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   width: 100%;
 }
 
-#eymxeanpwz .gt_spanner_row {
+#kwosgnzxzr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eymxeanpwz .gt_group_heading {
+#kwosgnzxzr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1285,7 +1057,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   text-align: left;
 }
 
-#eymxeanpwz .gt_empty_group_heading {
+#kwosgnzxzr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1300,15 +1072,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: middle;
 }
 
-#eymxeanpwz .gt_from_md > :first-child {
+#kwosgnzxzr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eymxeanpwz .gt_from_md > :last-child {
+#kwosgnzxzr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eymxeanpwz .gt_row {
+#kwosgnzxzr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1327,7 +1099,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   overflow-x: hidden;
 }
 
-#eymxeanpwz .gt_stub {
+#kwosgnzxzr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1340,7 +1112,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eymxeanpwz .gt_stub_row_group {
+#kwosgnzxzr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1354,15 +1126,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   vertical-align: top;
 }
 
-#eymxeanpwz .gt_row_group_first td {
+#kwosgnzxzr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#eymxeanpwz .gt_row_group_first th {
+#kwosgnzxzr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#eymxeanpwz .gt_summary_row {
+#kwosgnzxzr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1372,16 +1144,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eymxeanpwz .gt_first_summary_row {
+#kwosgnzxzr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_first_summary_row.thick {
+#kwosgnzxzr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eymxeanpwz .gt_last_summary_row {
+#kwosgnzxzr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1391,7 +1163,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_grand_summary_row {
+#kwosgnzxzr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1401,7 +1173,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eymxeanpwz .gt_first_grand_summary_row {
+#kwosgnzxzr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1411,7 +1183,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_last_grand_summary_row_top {
+#kwosgnzxzr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1421,11 +1193,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_striped {
+#kwosgnzxzr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eymxeanpwz .gt_table_body {
+#kwosgnzxzr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1434,7 +1206,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_footnotes {
+#kwosgnzxzr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1448,7 +1220,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_footnote {
+#kwosgnzxzr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1457,7 +1229,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eymxeanpwz .gt_sourcenotes {
+#kwosgnzxzr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1471,7 +1243,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#eymxeanpwz .gt_sourcenote {
+#kwosgnzxzr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1479,75 +1251,76 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   padding-right: 5px;
 }
 
-#eymxeanpwz .gt_left {
+#kwosgnzxzr .gt_left {
   text-align: left;
 }
 
-#eymxeanpwz .gt_center {
+#kwosgnzxzr .gt_center {
   text-align: center;
 }
 
-#eymxeanpwz .gt_right {
+#kwosgnzxzr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eymxeanpwz .gt_font_normal {
+#kwosgnzxzr .gt_font_normal {
   font-weight: normal;
 }
 
-#eymxeanpwz .gt_font_bold {
+#kwosgnzxzr .gt_font_bold {
   font-weight: bold;
 }
 
-#eymxeanpwz .gt_font_italic {
+#kwosgnzxzr .gt_font_italic {
   font-style: italic;
 }
 
-#eymxeanpwz .gt_super {
+#kwosgnzxzr .gt_super {
   font-size: 65%;
 }
 
-#eymxeanpwz .gt_footnote_marks {
+#kwosgnzxzr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eymxeanpwz .gt_asterisk {
+#kwosgnzxzr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eymxeanpwz .gt_indent_1 {
+#kwosgnzxzr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eymxeanpwz .gt_indent_2 {
+#kwosgnzxzr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eymxeanpwz .gt_indent_3 {
+#kwosgnzxzr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eymxeanpwz .gt_indent_4 {
+#kwosgnzxzr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eymxeanpwz .gt_indent_5 {
+#kwosgnzxzr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eymxeanpwz .katex-display {
+#kwosgnzxzr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eymxeanpwz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kwosgnzxzr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
+
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
@@ -1785,13 +1558,134 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
 </div>
-</section></section><section id="robutez-y-diagnósticos" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="robutez-y-diagnósticos">
-<span class="header-section-number">1.5</span> Robutez y Diagnósticos</h2>
-<section id="modelos-alternativos" class="level3" data-number="1.5.1"><h3 data-number="1.5.1" class="anchored" data-anchor-id="modelos-alternativos">
-<span class="header-section-number">1.5.1</span> Modelos Alternativos</h3>
+</section>
+</section>
+<section id="robutez-y-diagnósticos" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="robutez-y-diagnósticos"><span class="header-section-number">1.5</span> Robutez y Diagnósticos</h2>
+<section id="modelos-alternativos" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="modelos-alternativos"><span class="header-section-number">1.5.1</span> Modelos Alternativos</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=========================================
+                             Model 1     
+-----------------------------------------
+(Intercept)                     -0.48    
+                                (0.26)   
+educ_years                       0.17 ***
+                                (0.01)   
+movilidad_years                 -0.10 ** 
+                                (0.03)   
+edad                            -0.04 ***
+                                (0.00)   
+mujer                           -0.28 ***
+                                (0.08)   
+ideologia_std                   -0.22 ***
+                                (0.01)   
+factor(year)2017                -0.56 ***
+                                (0.12)   
+factor(year)2018                -0.45 ***
+                                (0.10)   
+factor(year)2019                 0.75 ***
+                                (0.10)   
+factor(year)2021                -1.08 ***
+                                (0.11)   
+factor(year)2022                -0.63 ***
+                                (0.12)   
+factor(year)2023                -1.04 ***
+                                (0.12)   
+educ_years:movilidad_years       0.01 *  
+                                (0.00)   
+-----------------------------------------
+AIC                           9945.99    
+Log Likelihood               -4958.99    
+Num. obs.                    12026       
+Num. groups: idencuesta       3664       
+Var: idencuesta (Intercept)      2.03    
+=========================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===================================================================================
+                                                                       Model 1     
+-----------------------------------------------------------------------------------
+(Intercept)                                                                1.76 ***
+                                                                          (0.23)   
+educ_cat_factor_refMedia incompleta o menos                               -0.50 ** 
+                                                                          (0.16)   
+educ_cat_factor_refTécnica superior incompleta                             0.63 ** 
+                                                                          (0.24)   
+educ_cat_factor_refTécnica superior completa                               0.36 *  
+                                                                          (0.18)   
+educ_cat_factor_refUniversitaria incompleta                                0.57 ** 
+                                                                          (0.21)   
+educ_cat_factor_refUniversitaria completa                                  0.42    
+                                                                          (0.29)   
+educ_cat_factor_refPostgrado                                               0.91    
+                                                                          (0.48)   
+movilidad_cat_factor.L                                                    -0.70 *  
+                                                                          (0.30)   
+movilidad_cat_factor.Q                                                     0.27    
+                                                                          (0.24)   
+movilidad_cat_factor.C                                                    -0.22    
+                                                                          (0.18)   
+edad                                                                      -0.05 ***
+                                                                          (0.00)   
+mujer                                                                     -0.17    
+                                                                          (0.09)   
+ideologia_std                                                             -0.28 ***
+                                                                          (0.02)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L         0.53    
+                                                                          (0.37)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L      0.38    
+                                                                          (0.56)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L        0.28    
+                                                                          (0.41)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L        -0.02    
+                                                                          (0.44)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L           0.81    
+                                                                          (0.73)   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.L                        1.38    
+                                                                          (1.34)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q        -0.29    
+                                                                          (0.32)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q     -0.12    
+                                                                          (0.47)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q        0.12    
+                                                                          (0.36)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q        -0.08    
+                                                                          (0.41)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q          -0.21    
+                                                                          (0.57)   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.Q                       -0.28    
+                                                                          (1.09)   
+educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C         0.14    
+                                                                          (0.26)   
+educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C      0.13    
+                                                                          (0.37)   
+educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C        0.12    
+                                                                          (0.30)   
+educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C         0.30    
+                                                                          (0.39)   
+educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.C                   
+                                                                                   
+educ_cat_factor_refPostgrado:movilidad_cat_factor.C                                
+                                                                                   
+-----------------------------------------------------------------------------------
+AIC                                                                     6039.87    
+Log Likelihood                                                         -2989.94    
+Num. obs.                                                               6952       
+Num. groups: idencuesta                                                 2846       
+Var: idencuesta (Intercept)                                                1.55    
+===================================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+</div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
@@ -2033,13 +1927,15 @@ factor(year)          1.041250  6        1.003374</code></pre>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -2053,7 +1949,8 @@ alternative hypothesis: two-sided</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -2068,7 +1965,8 @@ alternative hypothesis: two.sided</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-25-4.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-25-4.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -2088,7 +1986,8 @@ frequency of outliers (expected: 0.001998001998002 )
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-25-5.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-25-5.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -2103,46 +2002,51 @@ alternative hypothesis: two.sided</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-25-6.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-25-6.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-25-7.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-25-7.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section><section id="tablas-de-resultados" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="tablas-de-resultados">
-<span class="header-section-number">1.6</span> Tablas de Resultados</h2>
+</section>
+</section>
+<section id="tablas-de-resultados" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="tablas-de-resultados"><span class="header-section-number">1.6</span> Tablas de Resultados</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="drebbqpvkg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#drebbqpvkg table {
+<div id="viitxwcqro" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#viitxwcqro table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#drebbqpvkg thead, #drebbqpvkg tbody, #drebbqpvkg tfoot, #drebbqpvkg tr, #drebbqpvkg td, #drebbqpvkg th {
+#viitxwcqro thead, #viitxwcqro tbody, #viitxwcqro tfoot, #viitxwcqro tr, #viitxwcqro td, #viitxwcqro th {
   border-style: none;
 }
 
-#drebbqpvkg p {
+#viitxwcqro p {
   margin: 0;
   padding: 0;
 }
 
-#drebbqpvkg .gt_table {
+#viitxwcqro .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2168,12 +2072,12 @@ alternative hypothesis: two.sided</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_caption {
+#viitxwcqro .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#drebbqpvkg .gt_title {
+#viitxwcqro .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2185,7 +2089,7 @@ alternative hypothesis: two.sided</code></pre>
   border-bottom-width: 0;
 }
 
-#drebbqpvkg .gt_subtitle {
+#viitxwcqro .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2197,7 +2101,7 @@ alternative hypothesis: two.sided</code></pre>
   border-top-width: 0;
 }
 
-#drebbqpvkg .gt_heading {
+#viitxwcqro .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2209,13 +2113,13 @@ alternative hypothesis: two.sided</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_bottom_border {
+#viitxwcqro .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_col_headings {
+#viitxwcqro .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2230,7 +2134,7 @@ alternative hypothesis: two.sided</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_col_heading {
+#viitxwcqro .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2250,7 +2154,7 @@ alternative hypothesis: two.sided</code></pre>
   overflow-x: hidden;
 }
 
-#drebbqpvkg .gt_column_spanner_outer {
+#viitxwcqro .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2262,15 +2166,15 @@ alternative hypothesis: two.sided</code></pre>
   padding-right: 4px;
 }
 
-#drebbqpvkg .gt_column_spanner_outer:first-child {
+#viitxwcqro .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#drebbqpvkg .gt_column_spanner_outer:last-child {
+#viitxwcqro .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#drebbqpvkg .gt_column_spanner {
+#viitxwcqro .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2282,11 +2186,11 @@ alternative hypothesis: two.sided</code></pre>
   width: 100%;
 }
 
-#drebbqpvkg .gt_spanner_row {
+#viitxwcqro .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#drebbqpvkg .gt_group_heading {
+#viitxwcqro .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2312,7 +2216,7 @@ alternative hypothesis: two.sided</code></pre>
   text-align: left;
 }
 
-#drebbqpvkg .gt_empty_group_heading {
+#viitxwcqro .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2327,15 +2231,15 @@ alternative hypothesis: two.sided</code></pre>
   vertical-align: middle;
 }
 
-#drebbqpvkg .gt_from_md > :first-child {
+#viitxwcqro .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#drebbqpvkg .gt_from_md > :last-child {
+#viitxwcqro .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#drebbqpvkg .gt_row {
+#viitxwcqro .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2354,7 +2258,7 @@ alternative hypothesis: two.sided</code></pre>
   overflow-x: hidden;
 }
 
-#drebbqpvkg .gt_stub {
+#viitxwcqro .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2367,7 +2271,7 @@ alternative hypothesis: two.sided</code></pre>
   padding-right: 5px;
 }
 
-#drebbqpvkg .gt_stub_row_group {
+#viitxwcqro .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2381,15 +2285,15 @@ alternative hypothesis: two.sided</code></pre>
   vertical-align: top;
 }
 
-#drebbqpvkg .gt_row_group_first td {
+#viitxwcqro .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#drebbqpvkg .gt_row_group_first th {
+#viitxwcqro .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#drebbqpvkg .gt_summary_row {
+#viitxwcqro .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2399,16 +2303,16 @@ alternative hypothesis: two.sided</code></pre>
   padding-right: 5px;
 }
 
-#drebbqpvkg .gt_first_summary_row {
+#viitxwcqro .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_first_summary_row.thick {
+#viitxwcqro .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#drebbqpvkg .gt_last_summary_row {
+#viitxwcqro .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2418,7 +2322,7 @@ alternative hypothesis: two.sided</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_grand_summary_row {
+#viitxwcqro .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2428,7 +2332,7 @@ alternative hypothesis: two.sided</code></pre>
   padding-right: 5px;
 }
 
-#drebbqpvkg .gt_first_grand_summary_row {
+#viitxwcqro .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2438,7 +2342,7 @@ alternative hypothesis: two.sided</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_last_grand_summary_row_top {
+#viitxwcqro .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2448,11 +2352,11 @@ alternative hypothesis: two.sided</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_striped {
+#viitxwcqro .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#drebbqpvkg .gt_table_body {
+#viitxwcqro .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2461,7 +2365,7 @@ alternative hypothesis: two.sided</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_footnotes {
+#viitxwcqro .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2475,7 +2379,7 @@ alternative hypothesis: two.sided</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_footnote {
+#viitxwcqro .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2484,7 +2388,7 @@ alternative hypothesis: two.sided</code></pre>
   padding-right: 5px;
 }
 
-#drebbqpvkg .gt_sourcenotes {
+#viitxwcqro .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2498,7 +2402,7 @@ alternative hypothesis: two.sided</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#drebbqpvkg .gt_sourcenote {
+#viitxwcqro .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2506,75 +2410,76 @@ alternative hypothesis: two.sided</code></pre>
   padding-right: 5px;
 }
 
-#drebbqpvkg .gt_left {
+#viitxwcqro .gt_left {
   text-align: left;
 }
 
-#drebbqpvkg .gt_center {
+#viitxwcqro .gt_center {
   text-align: center;
 }
 
-#drebbqpvkg .gt_right {
+#viitxwcqro .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#drebbqpvkg .gt_font_normal {
+#viitxwcqro .gt_font_normal {
   font-weight: normal;
 }
 
-#drebbqpvkg .gt_font_bold {
+#viitxwcqro .gt_font_bold {
   font-weight: bold;
 }
 
-#drebbqpvkg .gt_font_italic {
+#viitxwcqro .gt_font_italic {
   font-style: italic;
 }
 
-#drebbqpvkg .gt_super {
+#viitxwcqro .gt_super {
   font-size: 65%;
 }
 
-#drebbqpvkg .gt_footnote_marks {
+#viitxwcqro .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#drebbqpvkg .gt_asterisk {
+#viitxwcqro .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#drebbqpvkg .gt_indent_1 {
+#viitxwcqro .gt_indent_1 {
   text-indent: 5px;
 }
 
-#drebbqpvkg .gt_indent_2 {
+#viitxwcqro .gt_indent_2 {
   text-indent: 10px;
 }
 
-#drebbqpvkg .gt_indent_3 {
+#viitxwcqro .gt_indent_3 {
   text-indent: 15px;
 }
 
-#drebbqpvkg .gt_indent_4 {
+#viitxwcqro .gt_indent_4 {
   text-indent: 20px;
 }
 
-#drebbqpvkg .gt_indent_5 {
+#viitxwcqro .gt_indent_5 {
   text-indent: 25px;
 }
 
-#drebbqpvkg .katex-display {
+#viitxwcqro .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#drebbqpvkg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#viitxwcqro div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
+
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
@@ -2697,8 +2602,7 @@ alternative hypothesis: two.sided</code></pre>
 <td class="gt_row gt_center" headers="RE Aditivo">1.360</td>
 <td class="gt_row gt_center" headers="RE Interacción (H2)">1.353</td>
 </tr>
-</tbody>
-<tfoot>
+</tbody><tfoot>
 <tr class="gt_footnotes odd">
 <td colspan="5" class="gt_footnote">* p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td>
 </tr>
@@ -2706,7 +2610,9 @@ alternative hypothesis: two.sided</code></pre>
 <td colspan="5" class="gt_sourcenote">Fuente: Elaboración propia con datos ELSOC (2016-2023)</td>
 </tr>
 </tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
@@ -2726,18 +2632,25 @@ alternative hypothesis: two.sided</code></pre>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="02-modelos_files/figure-html/unnamed-chunk-29-2.png" class="img-fluid figure-img" width="720"></p>
+<figure class="figure">
+<p><img src="02-modelos_files/figure-html/unnamed-chunk-29-2.png" class="img-fluid figure-img" width="720"></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -3138,6 +3051,7 @@ alternative hypothesis: two.sided</code></pre>
   });
   </script>
 </div> <!-- /content -->
+
 
 
 

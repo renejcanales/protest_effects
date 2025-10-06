@@ -171,13 +171,16 @@ mod0_null <- glmer(
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000))
 )
 
-summary(mod0_null)
+screenreg(mod0_null)
 
 # Calcular ICC (Intraclass Correlation)
 # ¿Cuánta varianza es between-individuals vs within?
 performance::icc(mod0_null)
 ```
-El coeficiente de correlación intraclase (ICC) del modelo nulo es 0.475, indicando que aproximadamente la mitad de la varianza en participación en protesta se debe a diferencias entre individuos, mientras que la otra mitad corresponde a variación dentro de individuos a través del tiempo. Este ICC sustancial (>0.4) justifica el uso de modelos de efectos aleatorios que ajusten por la correlación intra-individual y eviten la subestimación de errores estándar inherente a modelos pooled (Hox, 2010).
+
+Antes de estimar modelos con predictores, se ajustó un modelo nulo (solo intercepto y efectos aleatorios por individuo) para evaluar la estructura de dependencia de los datos. El modelo nulo reveló un coeficiente de correlación intraclase (ICC) de 0.475, indicando que 47.5% de la varianza en participación en protestas se debe a diferencias estables entre individuos. Este ICC sustancial justifica plenamente el uso de modelos multinivel con efectos aleatorios por individuo.
+
+Lo anterior indica que aproximadamente la mitad de la varianza en participación en protesta se debe a diferencias entre individuos, mientras que la otra mitad corresponde a variación dentro de individuos a través del tiempo. Este ICC sustancial (>0.1) justifica el uso de modelos de efectos aleatorios que ajusten por la correlación intra-individual y eviten la subestimación de errores estándar inherente a modelos pooled (Hox, 2010).
 
 ```{r}
 #| warning: false
@@ -193,6 +196,8 @@ mod_pooled <- lm(
   data = elsoc_final
 )
 
+screenreg(mod_pooled)
+
 # SEs robustos por cluster
 library(sandwich)
 library(lmtest)
@@ -200,6 +205,8 @@ library(lmtest)
 # Tabla con SEs ajustados
 coeftest(mod_pooled, vcov = vcovCL(mod_pooled, cluster = ~ idencuesta))
 ```
+
+Dado que la estructura de datos es longitudinal con mediciones repetidas por individuo (ICC = 0.475), todos los modelos reportados son regresiones logísticas multinivel con efectos aleatorios por individuo. Estimaciones alternativas con modelos pooled confirmaron la dirección y significancia de los efectos principales.
 
 ## Modelos para H1 (No linealidad)
 
@@ -217,7 +224,7 @@ mod1_educ_simple <- glmmTMB(
   data = elsoc_final,
   family = binomial(link = "logit"))
 
-summary(mod1_educ_simple)
+screenreg(mod1_educ_simple)
 ```
 
 ### Modelo con controles demográficos
@@ -235,7 +242,7 @@ mod2_educ_demo <- glmmTMB(
   data = elsoc_final,
   family = binomial(link = "logit"))
 
-summary(mod2_educ_demo)
+screenreg(mod2_educ_demo)
 ```
 
 ```{r}
@@ -253,7 +260,7 @@ mod3_h1_tmb <- glmmTMB(
   family = binomial(link = "logit")
 )
 
-summary(mod3_h1_tmb)
+screenreg(mod3_h1_tmb)
 
 # glmmTMB usa Template Model Builder (C++), mucho más rápido
 ```
@@ -276,7 +283,7 @@ mod3_h1_full <- glmmTMB(
   data = elsoc_final,
   family = binomial(link = "logit"))
 
-summary(mod3_h1_full)
+screenreg(mod3_h1_full)
 ```
 
 ### Test específico para H1
@@ -330,7 +337,7 @@ mod4_movilidad <- glmmTMB(
   data = elsoc_final %>% filter(!is.na(movilidad_cat)),
   family = binomial(link = "logit"))
 
-summary(mod4_movilidad)
+screenreg(mod4_movilidad)
 ```
 
 ### Modelo Aditivo (educación + movilidad sin interacción)
@@ -350,7 +357,7 @@ mod5_aditivo <- glmmTMB(
   data = elsoc_final %>% filter(!is.na(movilidad_cat)),
   family = binomial(link = "logit"))
 
-summary(mod5_aditivo)
+screenreg(mod5_aditivo)
 ```
 
 ### Modelo con interacción
@@ -370,7 +377,7 @@ mod6_h2_interaccion <- glmmTMB(
   data = elsoc_final %>% filter(!is.na(movilidad_cat)),
   family = binomial(link = "logit"))
 
-summary(mod6_h2_interaccion)
+screenreg(mod6_h2_interaccion)
 ```
 
 ### Test de interacción (LRT)
@@ -454,7 +461,7 @@ mod7_mediacion <- glmmTMB(
   family = binomial(link = "logit"))
 
 
-summary(mod7_mediacion)
+screenreg(mod7_mediacion)
 ```
 
 ### Comparar efecto total vs directo
@@ -670,6 +677,7 @@ mod_alt1_continua <- glmmTMB(
   data = elsoc_final,
   family = binomial(link = "logit"))
 
+screenreg(mod_alt1_continua)
 
 # B) Solo post-estallido (2019+)
 mod_alt3_postestallido <- glmmTMB(
@@ -680,6 +688,7 @@ mod_alt3_postestallido <- glmmTMB(
   family = binomial(link = "logit")
 )
 
+screenreg(mod_alt3_postestallido)
 ```
 
 ```{r}
