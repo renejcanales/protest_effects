@@ -61,6 +61,8 @@ pacman::p_load(tidyverse,
                gt,
                xfun,
                lme4,
+               glmmTMB,
+               sjstats,
                here,
                tidyr,
                naniar,
@@ -209,16 +211,13 @@ coeftest(mod_pooled, vcov = vcovCL(mod_pooled, cluster = ~ idencuesta))
 #| echo: false
 
 # Modelo 1: Solo educación (sin controles)
-mod1_educ_simple <- glmer(
+mod1_educ_simple <- glmmTMB(
   protesta_dummy ~ educ_cat_factor_ref + 
     (1 | idencuesta),
   data = elsoc_final,
-  family = binomial(link = "logit"),
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000))
-)
+  family = binomial(link = "logit"))
 
 summary(mod1_educ_simple)
-
 ```
 
 ### Modelo con controles demográficos
@@ -229,16 +228,36 @@ summary(mod1_educ_simple)
 #| echo: false
 
 # Modelo 2: Educación + demográficos
-mod2_educ_demo <- glmer(
+mod2_educ_demo <- glmmTMB(
   protesta_dummy ~ educ_cat_factor_ref + 
-    edad + edad_cuadratica + mujer +
+    edad + mujer +
     (1 | idencuesta),
   data = elsoc_final,
-  family = binomial(link = "logit"),
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)))
+  family = binomial(link = "logit"))
 
 summary(mod2_educ_demo)
 ```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+mod3_h1_tmb <- glmmTMB(
+  protesta_dummy ~ educ_cat_factor_ref + 
+    edad + mujer +
+    ideologia_std + interes_politica +
+    factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final,
+  family = binomial(link = "logit")
+)
+
+summary(mod3_h1_tmb)
+
+# glmmTMB usa Template Model Builder (C++), mucho más rápido
+```
+
 ### Modelo Completo H1 
 
 ```{r}
@@ -247,18 +266,684 @@ summary(mod2_educ_demo)
 #| echo: false
 
 # Modelo 3: Full model para H1
-mod3_h1_full <- glmer(
+mod3_h1_full <- glmmTMB(
   protesta_dummy ~ educ_cat_factor_ref + 
-    edad + edad_cuadratica + mujer +
+    edad + mujer +
     ideologia_std + interes_politica +
     conf_instituciones + eficacia_politica +
     factor(year) +
     (1 | idencuesta),
   data = elsoc_final,
-  family = binomial(link = "logit"),
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000))
-)
+  family = binomial(link = "logit"))
 
 summary(mod3_h1_full)
+```
+
+### Test específico para H1
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Extraer coeficientes
+coef_h1 <- broom.mixed::tidy(mod3_h1_full, conf.int = TRUE, exponentiate = TRUE)
+
+# H1a: Técnica completa vs Media completa
+# Buscar el coef de "Técnica superior completa" (ref = Media completa)
+coef_h1 %>% 
+  filter(grepl("Técnica superior completa", term))
+
+# H1b: Universitaria completa vs Técnica completa
+# Necesitas comparación custom con emmeans
+emm_h1 <- emmeans(mod3_h1_full, ~ educ_cat_factor_ref, type = "response")
+
+# Contraste específico H1a
+contrast_h1a <- contrast(emm_h1, 
+  method = list("Técnica vs Media" = c(0, 0, 0, 1, 0, -1, 0))  # Ajustar según orden
+)
+
+# Contraste específico H1b
+contrast_h1b <- contrast(emm_h1,
+  method = list("Univ vs Técnica" = c(0, 0, 0, -1, 0, 1, 0))
+)
+
+print(contrast_h1a, adjust = "none")
+print(contrast_h1b, adjust = "none")
+```
+## Modelos para H2 (Movilidad Educacional)
+
+### Efecto principal de Movilidad
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Modelo 4: Solo movilidad
+mod4_movilidad <- glmmTMB(
+  protesta_dummy ~ movilidad_cat_factor + 
+    edad + mujer +
+    ideologia_std + interes_politica +
+    factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final %>% filter(!is.na(movilidad_cat)),
+  family = binomial(link = "logit"))
+
+summary(mod4_movilidad)
+```
+
+### Modelo Aditivo (educación + movilidad sin interacción)
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Modelo 5: Educación + Movilidad (aditivo)
+mod5_aditivo <- glmmTMB(
+  protesta_dummy ~ educ_cat_factor_ref + movilidad_cat_factor + 
+    edad + mujer +
+    ideologia_std + interes_politica +
+    factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final %>% filter(!is.na(movilidad_cat)),
+  family = binomial(link = "logit"))
+
+summary(mod5_aditivo)
+```
+
+### Modelo con interacción
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Modelo 6: Interacción Educación × Movilidad
+mod6_h2_interaccion <- glmmTMB(
+  protesta_dummy ~ educ_cat_factor_ref * movilidad_cat_factor + 
+    edad + mujer +
+    ideologia_std + interes_politica +
+    factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final %>% filter(!is.na(movilidad_cat)),
+  family = binomial(link = "logit"))
+
+summary(mod6_h2_interaccion)
+```
+
+### Test de interacción (LRT)
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Likelihood Ratio Test: ¿La interacción mejora el modelo?
+anova(mod5_aditivo, mod6_h2_interaccion)
+
+# Si p < 0.05 → La interacción es significativa → H2 confirmada
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+
+# 1. Crear grid de predicción con TODOS los predictores
+grid_pred <- expand.grid(
+  educ_cat_factor_ref = levels(elsoc_final$educ_cat_factor_ref),
+  movilidad_cat_factor = levels(na.omit(elsoc_final$movilidad_cat_factor)),
+  edad = mean(elsoc_final$edad, na.rm = TRUE),
+  mujer = 0,
+  ideologia_std = 0,
+  interes_politica = mean(elsoc_final$interes_politica, na.rm = TRUE),
+  year = factor("2019", levels = levels(factor(elsoc_final$year)))
+)
+
+# 2. Hacer predicciones (sin efectos aleatorios para población promedio)
+grid_pred$prob <- predict(
+  mod6_h2_interaccion, 
+  newdata = grid_pred, 
+  type = "response",
+  re.form = NA,  # Ignorar efectos aleatorios
+  allow.new.levels = TRUE
+)
+
+# 3. Gráfico de interacción
+ggplot(grid_pred, 
+       aes(x = educ_cat_factor_ref, 
+           y = prob, 
+           color = movilidad_cat_factor, 
+           group = movilidad_cat_factor)) +
+  geom_point(size = 3, position = position_dodge(width = 0.3)) +
+  geom_line(position = position_dodge(width = 0.3)) +
+  scale_y_continuous(limits = c(0, 1)) +  # Probabilidades de 0 a 1
+  labs(title = "Interacción: Educación × Movilidad sobre Protesta",
+       x = "Nivel Educativo",
+       y = "Probabilidad Predicha de Protesta",
+       color = "Movilidad\nEducacional",
+       caption = "Fuente: Elaboración propia con ELSOC 2016-2023") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Análisis de Mediación
+
+### Modelo con mediaciones
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Modelo 7: Agregar variables mediadoras
+mod7_mediacion <- glmmTMB(
+  protesta_dummy ~ educ_cat_factor_ref * movilidad_cat_factor + 
+    # Mediadores
+    justicia_distributiva + meritocracia + 
+    clase_subjetiva + satis_ingreso_std +
+    # Controles
+    edad + mujer +
+    ideologia_std + interes_politica +
+    factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final %>% filter(!is.na(movilidad_cat)),
+  family = binomial(link = "logit"))
+
+
+summary(mod7_mediacion)
+```
+
+### Comparar efecto total vs directo
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+
+library(broom.mixed)
+library(dplyr)
+
+# 1. Extraer efectos de movilidad (términos polinómicos)
+coefs_mod6 <- tidy(mod6_h2_interaccion, effects = "fixed") %>%
+  filter(grepl("movilidad_cat_factor", term)) %>%
+  select(term, estimate_total = estimate, se_total = std.error, p_total = p.value)
+
+coefs_mod7 <- tidy(mod7_mediacion, effects = "fixed") %>%
+  filter(grepl("movilidad_cat_factor", term)) %>%
+  select(term, estimate_directo = estimate, se_directo = std.error, p_directo = p.value)
+
+# 2. Comparar efectos
+comparacion_movilidad <- coefs_mod6 %>%
+  inner_join(coefs_mod7, by = "term") %>%
+  mutate(
+    efecto_indirecto = estimate_total - estimate_directo,
+    cambio_pct = ((estimate_directo - estimate_total) / abs(estimate_total)) * 100,
+    reduccion = abs(estimate_directo) < abs(estimate_total)
+  )
+
+print(comparacion_movilidad)
+
+# 3. También para educación (efectos principales)
+coefs_educ_mod6 <- tidy(mod6_h2_interaccion, effects = "fixed") %>%
+  filter(grepl("^educ_cat_factor_ref[^:]", term)) %>%  # Sin interacciones
+  select(term, estimate_total = estimate, se_total = std.error, p_total = p.value)
+
+coefs_educ_mod7 <- tidy(mod7_mediacion, effects = "fixed") %>%
+  filter(grepl("^educ_cat_factor_ref[^:]", term)) %>%
+  select(term, estimate_directo = estimate, se_directo = std.error, p_directo = p.value)
+
+comparacion_educacion <- coefs_educ_mod6 %>%
+  inner_join(coefs_educ_mod7, by = "term") %>%
+  mutate(
+    efecto_indirecto = estimate_total - estimate_directo,
+    prop_mediada = (efecto_indirecto / estimate_total) * 100,
+    reduccion = abs(estimate_directo) < abs(estimate_total)
+  )
+
+print(comparacion_educacion)
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(broom.mixed)
+library(dplyr)
+
+# 1. Extraer efectos de movilidad (términos polinómicos)
+coefs_mod6 <- tidy(mod6_h2_interaccion, effects = "fixed") %>%
+  filter(grepl("movilidad_cat_factor", term)) %>%
+  select(term, estimate_total = estimate, se_total = std.error, p_total = p.value)
+
+coefs_mod7 <- tidy(mod7_mediacion, effects = "fixed") %>%
+  filter(grepl("movilidad_cat_factor", term)) %>%
+  select(term, estimate_directo = estimate, se_directo = std.error, p_directo = p.value)
+
+# 2. Comparar efectos
+comparacion_movilidad <- coefs_mod6 %>%
+  inner_join(coefs_mod7, by = "term") %>%
+  mutate(
+    efecto_indirecto = estimate_total - estimate_directo,
+    cambio_pct = ((estimate_directo - estimate_total) / abs(estimate_total)) * 100,
+    reduccion = abs(estimate_directo) < abs(estimate_total)
+  )
+
+print(comparacion_movilidad)
+
+# 3. También para educación (efectos principales)
+coefs_educ_mod6 <- tidy(mod6_h2_interaccion, effects = "fixed") %>%
+  filter(grepl("^educ_cat_factor_ref[^:]", term)) %>%  # Sin interacciones
+  select(term, estimate_total = estimate, se_total = std.error, p_total = p.value)
+
+coefs_educ_mod7 <- tidy(mod7_mediacion, effects = "fixed") %>%
+  filter(grepl("^educ_cat_factor_ref[^:]", term)) %>%
+  select(term, estimate_directo = estimate, se_directo = std.error, p_directo = p.value)
+
+comparacion_educacion <- coefs_educ_mod6 %>%
+  inner_join(coefs_educ_mod7, by = "term") %>%
+  mutate(
+    efecto_indirecto = estimate_total - estimate_directo,
+    prop_mediada = (efecto_indirecto / estimate_total) * 100,
+    reduccion = abs(estimate_directo) < abs(estimate_total)
+  )
+
+print(comparacion_educacion)
+```
+
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(ggplot2)
+library(tidyr)
+
+# Gráfico para educación
+comparacion_educacion %>%
+  mutate(term = gsub("educ_cat_factor_ref", "", term)) %>%
+  pivot_longer(
+    cols = c(estimate_total, estimate_directo),
+    names_to = "modelo",
+    values_to = "estimate"
+  ) %>%
+  mutate(
+    modelo = ifelse(modelo == "estimate_total", 
+                    "Efecto Total\n(sin mediadores)", 
+                    "Efecto Directo\n(con mediadores)")
+  ) %>%
+  ggplot(aes(x = term, y = estimate, fill = modelo)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  coord_flip() +
+  labs(
+    title = "Análisis de Mediación: Efectos de Educación sobre Protesta",
+    subtitle = "La reducción indica mediación por variables actitudinales",
+    x = "Nivel Educativo",
+    y = "Coeficiente (log-odds)",
+    fill = "Tipo de Efecto"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+# Resumen de proporción mediada
+comparacion_educacion %>%
+  mutate(term = gsub("educ_cat_factor_ref", "", term)) %>%
+  ggplot(aes(x = reorder(term, prop_mediada), y = prop_mediada)) +
+  geom_col(fill = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  coord_flip() +
+  labs(
+    title = "Proporción del Efecto Educativo Mediada",
+    subtitle = "% del efecto que opera a través de actitudes (justicia, meritocracia, clase, etc.)",
+    x = "Nivel Educativo",
+    y = "% del Efecto Mediado"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(gt)
+
+comparacion_educacion %>%
+  mutate(
+    term = gsub("educ_cat_factor_ref", "", term),
+    sig_total = ifelse(p_total < 0.05, "***", ""),
+    sig_directo = ifelse(p_directo < 0.05, "***", "")
+  ) %>%
+  select(
+    `Nivel Educativo` = term,
+    `Efecto Total` = estimate_total,
+    `Sig.` = sig_total,
+    `Efecto Directo` = estimate_directo,
+    `Sig. ` = sig_directo,
+    `Efecto Indirecto` = efecto_indirecto,
+    `% Mediado` = prop_mediada
+  ) %>%
+  gt() %>%
+  tab_header(
+    title = "Análisis de Mediación: Educación → Protesta",
+    subtitle = "Comparación de efectos totales vs. directos"
+  ) %>%
+  fmt_number(
+    columns = c(`Efecto Total`, `Efecto Directo`, `Efecto Indirecto`),
+    decimals = 3
+  ) %>%
+  fmt_number(
+    columns = `% Mediado`,
+    decimals = 1
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = everything()
+  ) %>%
+  cols_align(
+    align = "left",
+    columns = `Nivel Educativo`
+  )
+```
+
+## Robutez y Diagnósticos
+
+### Modelos Alternativos
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+
+# A) Variable continua (años de educación)
+mod_alt1_continua <- glmmTMB(
+  protesta_dummy ~ educ_years * movilidad_years + 
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final,
+  family = binomial(link = "logit"))
+
+
+# B) Solo post-estallido (2019+)
+mod_alt3_postestallido <- glmmTMB(
+  protesta_dummy ~ educ_cat_factor_ref * movilidad_cat_factor +
+    edad + mujer + ideologia_std +
+    (1 | idencuesta),
+  data = elsoc_final %>% filter(year >= 2019),
+  family = binomial(link = "logit")
+)
+
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+
+# Para glmmTMB el diagnóstico es diferente
+library(glmmTMB)
+
+# Ver si convergió
+mod6_h2_interaccion$sdr$pdHess  # Debe ser TRUE
+
+# Mensajes de convergencia
+mod6_h2_interaccion$fit$convergence  # Debe ser 0
+
+# Ver warnings completos
+summary(mod6_h2_interaccion)
+```
+
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(car)
+
+# Extraer solo efectos fijos
+fixed_formula <- formula(mod6_h2_interaccion, fixed.only = TRUE)
+
+# O manualmente crear modelo lineal temporal
+data_vif <- elsoc_final %>% 
+  filter(!is.na(movilidad_cat_factor))
+
+# Modelo lineal simple para VIF (solo efectos fijos)
+mod_temp <- lm(
+  protesta_dummy ~ educ_cat_factor_ref + movilidad_cat_factor +
+    edad + edad_cuadratica + mujer + ideologia_std + interes_politica + 
+    factor(year),
+  data = data_vif
+)
+
+# Calcular VIF
+vif_vals <- vif(mod_temp)
+print(vif_vals)
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(DHARMa)  # Mejor paquete para modelos mixtos
+
+# Crear residuos simulados
+sim_residuals <- simulateResiduals(
+  fittedModel = mod6_h2_interaccion, 
+  n = 1000,  # Número de simulaciones
+  plot = FALSE
+)
+
+# Diagnósticos visuales completos
+plot(sim_residuals)
+
+# Tests específicos
+testUniformity(sim_residuals)  # Test de uniformidad
+testDispersion(sim_residuals)   # Test de sobredispersión
+testOutliers(sim_residuals)     # Test de outliers
+testZeroInflation(sim_residuals) # Test de zero-inflation
+
+# Gráficos individuales
+plotQQunif(sim_residuals)       # QQ plot
+plotResiduals(sim_residuals)    # Residuos vs predichos
+```
+
+## Tablas de Resultados
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(modelsummary)
+
+# Crear tabla comparativa
+modelsummary(
+  list(
+    "Pooled" = mod_pooled,
+    "RE Simple" = mod1_educ_simple,
+    "RE Demo" = mod2_educ_demo,
+    "RE Full (H1)" = mod3_h1_full,
+    "RE Aditivo" = mod5_aditivo,
+    "RE Interacción (H2)" = mod6_h2_interaccion
+  ),
+  output = "tabla_modelos_principales.html",
+  stars = c('*' = .05, '**' = .01, '***' = .001),
+  coef_rename = c(
+    "(Intercept)" = "Intercepto",
+    "edad" = "Edad",
+    "mujer" = "Mujer",
+    "ideologia_std" = "Ideología (izq-der)"
+  ),
+  gof_map = c("nobs", "aic", "bic"),
+  notes = "Fuente: Elaboración propia con datos ELSOC (2016-2023). Errores estándar robustos por cluster en paréntesis."
+)
+
+```
+
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Coeficientes de educación
+educ_coefs <- tibble(
+  Nivel = rep(c("Media incomp-", "Téc sup incomp", "Téc sup comp", 
+                "Univ incomp", "Univ comp", "Postgrado"), 6),
+  Modelo = rep(c("Pooled", "RE Simple", "RE Demo", "RE Full", "RE Aditivo", "RE Interacción"), each = 6),
+  Coef = c(
+    # Pooled
+    -0.036, 0.042, 0.038, 0.107, 0.076, 0.160,
+    # RE Simple
+    -0.869, 0.834, 0.498, 1.432, 1.069, 1.630,
+    # RE Demo
+    -0.534, 0.547, 0.441, 0.984, 0.890, 1.544,
+    # RE Full
+    -0.598, 0.397, 0.328, 0.686, 0.586, 0.986,
+    # RE Aditivo
+    -0.610, 0.406, 0.320, 0.627, 0.609, 0.994,
+    # RE Interacción
+    -0.637, 0.319, 0.271, 0.553, 0.135, 0.509
+  ),
+  Sig = c(
+    # Pooled
+    "***", "*", "***", "***", "***", "***",
+    # RE Simple
+    "***", "***", "***", "***", "***", "***",
+    # RE Demo
+    "***", "***", "***", "***", "***", "***",
+    # RE Full
+    "***", "*", "**", "***", "***", "***",
+    # RE Aditivo
+    "***", "**", "**", "***", "***", "***",
+    # RE Interacción
+    "***", "", "", "***", "", ""
+  )
+)
+
+# Gráfico de evolución de coeficientes
+ggplot(educ_coefs, aes(x = Modelo, y = Coef, 
+                        group = Nivel, color = Nivel)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(
+    title = "Evolución de Coeficientes Educativos por Modelo",
+    subtitle = "Los coeficientes se reducen al agregar controles",
+    y = "Coeficiente (log-odds)",
+    x = NULL,
+    color = "Nivel Educativo"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(gt)
+
+# Tabla comparativa de modelos clave
+tabla_final <- tibble(
+  Variable = c(
+    "Educación", "  Media incompleta o menos", "  Universitaria incompleta", 
+    "  Universitaria completa", "  Postgrado",
+    "Movilidad (lineal)", "Edad", "Mujer", 
+    "Ideología (izq-der)", "Interés político",
+    "", "N observaciones", "AIC", "BIC", "SD efectos aleatorios"
+  ),
+  `RE Simple` = c(
+    "", "-0.869***", "1.432***", "1.069***", "1.630***",
+    "", "", "", "", "",
+    "", "20,052", "16,111.9", "16,175.2", "1.430"
+  ),
+  `RE Full (H1)` = c(
+    "", "-0.598***", "0.686***", "0.586***", "0.986***",
+    "", "-0.044***", "-0.205**", "-0.214***", "0.456***",
+    "", "12,648", "10,009.6", "10,158.5", "1.370"
+  ),
+  `RE Aditivo` = c(
+    "", "-0.610***", "0.627***", "0.609***", "0.994***",
+    "-0.260*", "-0.043***", "-0.222**", "-0.217***", "0.426***",
+    "", "12,018", "9,697.8", "9,853.0", "1.360"
+  ),
+  `RE Interacción (H2)` = c(
+    "", "-0.637***", "0.553***", "0.135", "0.509",
+    "-0.313", "-0.043***", "-0.222**", "-0.218***", "0.427***",
+    "", "12,018", "9,712.4", "9,986.0", "1.353"
+  )
+)
+
+tabla_final %>%
+  gt() %>%
+  tab_header(
+    title = "Modelos de Regresión Logística Multinivel",
+    subtitle = "Variable dependiente: Participación en protestas (dummy)"
+  ) %>%
+  tab_footnote(
+    footnote = "* p < 0.05, ** p < 0.01, *** p < 0.001"
+  ) %>%
+  tab_source_note(
+    source_note = "Fuente: Elaboración propia con datos ELSOC (2016-2023)"
+  ) %>%
+  cols_align(
+    align = "left",
+    columns = Variable
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = 2:5
+  )
+```
+
+Conclusiones principales:
+
+- Modelo óptimo: RE Aditivo (menor AIC)
+- Hipótesis H2 rechazada: La interacción NO mejora el modelo
+- Efectos robustos: Educación, ideología e interés político son predictores consistentes
+- Movilidad social: Efecto lineal negativo en modelo aditivo
+- Mediación: Variables actitudinales median ~40-50% del efecto educativo
+
+Para evaluar la hipótesis H1 sobre el efecto de la educación, se estimó una serie de modelos logísticos multinivel. El Modelo 2 (RE Full) muestra que, controlando variables demográficas, actitudinales y temporales, la educación mantiene un efecto positivo robusto sobre la participación en protestas. El gradiente educativo es claro: desde un efecto negativo en educación media incompleta o menos (β = -0.598, p < 0.001) hasta un efecto positivo máximo en postgrado (β = 0.986, p < 0.001), pasando por niveles intermedios significativos en educación universitaria.
+La inclusión de ideología política e interés político (Modelo 3) reduce los coeficientes educativos aproximadamente 40-50% respecto al modelo demográfico básico (Modelo 2), sugiriendo mediación parcial por variables actitudinales. Sin embargo, los efectos educativos se mantienen significativos, indicando que la educación opera tanto directamente como a través de actitudes políticas.
+
+Para evaluar la hipótesis H2 sobre movilidad social, se estimaron dos modelos adicionales: uno con efectos aditivos de educación y movilidad (Modelo 4) y otro con interacciones entre ambas (Modelo 5). El Modelo 4 muestra un efecto lineal negativo de la movilidad social (β = -0.260, p < 0.05), consistente con la hipótesis de integración: mayor movilidad ascendente se asocia con menor participación en protestas, controlando nivel educativo alcanzado.
+El modelo con interacciones (Modelo 5) no mejora el ajuste respecto al modelo aditivo (ΔAIC = +14.6; ΔBIC = +133.0), y solo una de las 18 interacciones resulta significativa. Por tanto, se rechaza la hipótesis H2 de que el efecto de la educación varía según la trayectoria de movilidad social. Los datos apoyan un modelo donde educación y movilidad tienen efectos independientes y aditivos sobre la protesta.
+
+En conclusión, el Modelo 4 (RE Aditivo) se adopta como modelo final por su balance óptimo entre ajuste estadístico, parsimonia y claridad interpretativa. Modelo final: RE Aditivo (Modelo 4/5 sin interacciones)
+
+El rechazo de la hipótesis de interacción (H2) tiene implicaciones teóricas importantes. Sugiere que los efectos de la educación sobre la participación política son relativamente universales y no dependen críticamente de la trayectoria de movilidad social experimentada. Esto es consistente con teorías que enfatizan la educación como proveedora de recursos cívicos generales (Brady et al., 1995) más que como marcador de posiciones sociales particulares.
+
+No obstante, el efecto independiente de la movilidad social (controlando educación alcanzada) indica que las trayectorias de ascenso o descenso tienen consecuencias propias. El efecto negativo de la movilidad ascendente sobre la protesta puede interpretarse desde teorías de integración social: quienes experimentan ascenso pueden desarrollar mayor identificación con el sistema, independientemente de su nivel educativo final.
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+
+# Gráfico 2: Probabilidades predichas H2
+plot_model(mod6_h2_interaccion,
+           type = "pred",
+           terms = c("educ_cat_factor_ref", "movilidad_cat_factor"),
+           title = "Interacción: Educación × Movilidad")
+
+# Gráfico 3: Efectos marginales
+plot_model(mod6_h2_interaccion,
+           type = "int",
+           title = "Efecto marginal de educación según movilidad")
 ```
 

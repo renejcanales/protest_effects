@@ -1,0 +1,843 @@
+<!-- preamble start -->
+
+    <script>
+
+      function styleCell_h6xsjjhek20r2xuju7h7(i, j, css_id) {
+          var table = document.getElementById("tinytable_h6xsjjhek20r2xuju7h7");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_h6xsjjhek20r2xuju7h7');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_h6xsjjhek20r2xuju7h7(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_h6xsjjhek20r2xuju7h7");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 82, j: 3 }, { i: 82, j: 1 }, { i: 82, j: 5 }, { i: 82, j: 2 }, { i: 82, j: 4 }, { i: 82, j: 6 },  ], css_id: 'tinytable_css_lbog6bguv484l2yvvpwu',}, 
+          { positions: [ { i: 79, j: 4 }, { i: 79, j: 3 }, { i: 79, j: 5 }, { i: 79, j: 6 }, { i: 79, j: 1 }, { i: 79, j: 2 },  ], css_id: 'tinytable_css_fqw6nhkh85kllf7nk3cq',}, 
+          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 4, j: 1 }, { i: 9, j: 1 }, { i: 6, j: 1 }, { i: 11, j: 1 }, { i: 8, j: 1 }, { i: 13, j: 1 }, { i: 14, j: 1 }, { i: 15, j: 1 }, { i: 16, j: 1 }, { i: 17, j: 1 }, { i: 18, j: 1 }, { i: 19, j: 1 }, { i: 20, j: 1 }, { i: 21, j: 1 }, { i: 22, j: 1 }, { i: 23, j: 1 }, { i: 24, j: 1 }, { i: 25, j: 1 }, { i: 26, j: 1 }, { i: 27, j: 1 }, { i: 28, j: 1 }, { i: 29, j: 1 }, { i: 30, j: 1 }, { i: 31, j: 1 }, { i: 32, j: 1 }, { i: 33, j: 1 }, { i: 34, j: 1 }, { i: 35, j: 1 }, { i: 36, j: 1 }, { i: 37, j: 1 }, { i: 38, j: 1 }, { i: 39, j: 1 }, { i: 40, j: 1 }, { i: 41, j: 1 }, { i: 42, j: 1 }, { i: 3, j: 1 }, { i: 44, j: 1 }, { i: 5, j: 1 }, { i: 46, j: 1 }, { i: 47, j: 1 }, { i: 48, j: 1 }, { i: 49, j: 1 }, { i: 10, j: 1 }, { i: 51, j: 1 }, { i: 12, j: 1 }, { i: 53, j: 1 }, { i: 54, j: 1 }, { i: 55, j: 1 }, { i: 56, j: 1 }, { i: 57, j: 1 }, { i: 58, j: 1 }, { i: 59, j: 1 }, { i: 60, j: 1 }, { i: 61, j: 1 }, { i: 62, j: 1 }, { i: 63, j: 1 }, { i: 64, j: 1 }, { i: 65, j: 1 }, { i: 66, j: 1 }, { i: 67, j: 1 }, { i: 68, j: 1 }, { i: 69, j: 1 }, { i: 70, j: 1 }, { i: 71, j: 1 }, { i: 72, j: 1 }, { i: 73, j: 1 }, { i: 74, j: 1 }, { i: 75, j: 1 }, { i: 76, j: 1 }, { i: 77, j: 1 }, { i: 78, j: 1 }, { i: 34, j: 3 }, { i: 80, j: 1 }, { i: 81, j: 1 }, { i: 37, j: 3 }, { i: 43, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 50, j: 1 }, { i: 8, j: 2 }, { i: 9, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 12, j: 2 }, { i: 13, j: 2 }, { i: 14, j: 2 }, { i: 15, j: 2 }, { i: 16, j: 2 }, { i: 17, j: 2 }, { i: 18, j: 2 }, { i: 19, j: 2 }, { i: 20, j: 2 }, { i: 21, j: 2 }, { i: 22, j: 2 }, { i: 23, j: 2 }, { i: 24, j: 2 }, { i: 25, j: 2 }, { i: 26, j: 2 }, { i: 27, j: 2 }, { i: 28, j: 2 }, { i: 29, j: 2 }, { i: 30, j: 2 }, { i: 31, j: 2 }, { i: 32, j: 2 }, { i: 33, j: 2 }, { i: 34, j: 2 }, { i: 35, j: 2 }, { i: 36, j: 2 }, { i: 37, j: 2 }, { i: 38, j: 2 }, { i: 39, j: 2 }, { i: 40, j: 2 }, { i: 41, j: 2 }, { i: 42, j: 2 }, { i: 43, j: 2 }, { i: 44, j: 2 }, { i: 7, j: 1 }, { i: 46, j: 2 }, { i: 47, j: 2 }, { i: 48, j: 2 }, { i: 49, j: 2 }, { i: 50, j: 2 }, { i: 51, j: 2 }, { i: 52, j: 2 }, { i: 53, j: 2 }, { i: 54, j: 2 }, { i: 55, j: 2 }, { i: 56, j: 2 }, { i: 57, j: 2 }, { i: 58, j: 2 }, { i: 59, j: 2 }, { i: 60, j: 2 }, { i: 61, j: 2 }, { i: 62, j: 2 }, { i: 63, j: 2 }, { i: 64, j: 2 }, { i: 65, j: 2 }, { i: 66, j: 2 }, { i: 67, j: 2 }, { i: 68, j: 2 }, { i: 69, j: 2 }, { i: 70, j: 2 }, { i: 71, j: 2 }, { i: 72, j: 2 }, { i: 73, j: 2 }, { i: 74, j: 2 }, { i: 75, j: 2 }, { i: 76, j: 2 }, { i: 77, j: 2 }, { i: 78, j: 2 }, { i: 34, j: 4 }, { i: 80, j: 2 }, { i: 81, j: 2 }, { i: 37, j: 4 }, { i: 45, j: 1 }, { i: 1, j: 3 }, { i: 2, j: 3 }, { i: 3, j: 3 }, { i: 4, j: 3 }, { i: 5, j: 3 }, { i: 6, j: 3 }, { i: 52, j: 1 }, { i: 8, j: 3 }, { i: 9, j: 3 }, { i: 10, j: 3 }, { i: 11, j: 3 }, { i: 12, j: 3 }, { i: 13, j: 3 }, { i: 14, j: 3 }, { i: 15, j: 3 }, { i: 16, j: 3 }, { i: 17, j: 3 }, { i: 18, j: 3 }, { i: 19, j: 3 }, { i: 20, j: 3 }, { i: 21, j: 3 }, { i: 22, j: 3 }, { i: 23, j: 3 }, { i: 24, j: 3 }, { i: 25, j: 3 }, { i: 26, j: 3 }, { i: 27, j: 3 }, { i: 28, j: 3 }, { i: 29, j: 3 }, { i: 30, j: 3 }, { i: 31, j: 3 }, { i: 32, j: 3 }, { i: 33, j: 3 }, { i: 72, j: 4 }, { i: 35, j: 3 }, { i: 36, j: 3 }, { i: 75, j: 4 }, { i: 38, j: 3 }, { i: 39, j: 3 }, { i: 40, j: 3 }, { i: 41, j: 3 }, { i: 42, j: 3 }, { i: 43, j: 3 }, { i: 44, j: 3 }, { i: 7, j: 2 }, { i: 46, j: 3 }, { i: 47, j: 3 }, { i: 48, j: 3 }, { i: 49, j: 3 }, { i: 50, j: 3 }, { i: 51, j: 3 }, { i: 52, j: 3 }, { i: 53, j: 3 }, { i: 54, j: 3 }, { i: 55, j: 3 }, { i: 56, j: 3 }, { i: 57, j: 3 }, { i: 58, j: 3 }, { i: 59, j: 3 }, { i: 60, j: 3 }, { i: 61, j: 3 }, { i: 62, j: 3 }, { i: 63, j: 3 }, { i: 64, j: 3 }, { i: 65, j: 3 }, { i: 66, j: 3 }, { i: 67, j: 3 }, { i: 68, j: 3 }, { i: 69, j: 3 }, { i: 70, j: 3 }, { i: 71, j: 3 }, { i: 72, j: 3 }, { i: 73, j: 3 }, { i: 74, j: 3 }, { i: 75, j: 3 }, { i: 76, j: 3 }, { i: 77, j: 3 }, { i: 78, j: 3 }, { i: 34, j: 5 }, { i: 80, j: 3 }, { i: 81, j: 3 }, { i: 37, j: 5 }, { i: 45, j: 2 }, { i: 1, j: 4 }, { i: 2, j: 4 }, { i: 3, j: 4 }, { i: 4, j: 4 }, { i: 5, j: 4 }, { i: 6, j: 4 }, { i: 7, j: 4 }, { i: 8, j: 4 }, { i: 9, j: 4 }, { i: 10, j: 4 }, { i: 11, j: 4 }, { i: 12, j: 4 }, { i: 13, j: 4 }, { i: 14, j: 4 }, { i: 15, j: 4 }, { i: 16, j: 4 }, { i: 17, j: 4 }, { i: 18, j: 4 }, { i: 19, j: 4 }, { i: 20, j: 4 }, { i: 21, j: 4 }, { i: 22, j: 4 }, { i: 23, j: 4 }, { i: 24, j: 4 }, { i: 25, j: 4 }, { i: 26, j: 4 }, { i: 27, j: 4 }, { i: 28, j: 4 }, { i: 29, j: 4 }, { i: 30, j: 4 }, { i: 31, j: 4 }, { i: 32, j: 4 }, { i: 33, j: 4 }, { i: 72, j: 5 }, { i: 35, j: 4 }, { i: 36, j: 4 }, { i: 75, j: 5 }, { i: 38, j: 4 }, { i: 39, j: 4 }, { i: 40, j: 4 }, { i: 41, j: 4 }, { i: 42, j: 4 }, { i: 43, j: 4 }, { i: 44, j: 4 }, { i: 7, j: 3 }, { i: 46, j: 4 }, { i: 47, j: 4 }, { i: 48, j: 4 }, { i: 49, j: 4 }, { i: 50, j: 4 }, { i: 51, j: 4 }, { i: 52, j: 4 }, { i: 53, j: 4 }, { i: 54, j: 4 }, { i: 55, j: 4 }, { i: 56, j: 4 }, { i: 57, j: 4 }, { i: 58, j: 4 }, { i: 59, j: 4 }, { i: 60, j: 4 }, { i: 61, j: 4 }, { i: 62, j: 4 }, { i: 63, j: 4 }, { i: 64, j: 4 }, { i: 65, j: 4 }, { i: 66, j: 4 }, { i: 67, j: 4 }, { i: 68, j: 4 }, { i: 69, j: 4 }, { i: 70, j: 4 }, { i: 71, j: 4 }, { i: 27, j: 6 }, { i: 73, j: 4 }, { i: 74, j: 4 }, { i: 30, j: 6 }, { i: 76, j: 4 }, { i: 77, j: 4 }, { i: 78, j: 4 }, { i: 34, j: 6 }, { i: 80, j: 4 }, { i: 81, j: 4 }, { i: 37, j: 6 }, { i: 45, j: 3 }, { i: 1, j: 5 }, { i: 2, j: 5 }, { i: 3, j: 5 }, { i: 4, j: 5 }, { i: 5, j: 5 }, { i: 6, j: 5 }, { i: 7, j: 5 }, { i: 8, j: 5 }, { i: 9, j: 5 }, { i: 10, j: 5 }, { i: 11, j: 5 }, { i: 12, j: 5 }, { i: 13, j: 5 }, { i: 14, j: 5 }, { i: 15, j: 5 }, { i: 16, j: 5 }, { i: 17, j: 5 }, { i: 18, j: 5 }, { i: 19, j: 5 }, { i: 20, j: 5 }, { i: 21, j: 5 }, { i: 22, j: 5 }, { i: 23, j: 5 }, { i: 24, j: 5 }, { i: 25, j: 5 }, { i: 26, j: 5 }, { i: 27, j: 5 }, { i: 28, j: 5 }, { i: 29, j: 5 }, { i: 30, j: 5 }, { i: 31, j: 5 }, { i: 32, j: 5 }, { i: 33, j: 5 }, { i: 72, j: 6 }, { i: 35, j: 5 }, { i: 36, j: 5 }, { i: 75, j: 6 }, { i: 38, j: 5 }, { i: 39, j: 5 }, { i: 40, j: 5 }, { i: 41, j: 5 }, { i: 42, j: 5 }, { i: 43, j: 5 }, { i: 44, j: 5 }, { i: 45, j: 5 }, { i: 46, j: 5 }, { i: 47, j: 5 }, { i: 48, j: 5 }, { i: 49, j: 5 }, { i: 50, j: 5 }, { i: 51, j: 5 }, { i: 52, j: 5 }, { i: 53, j: 5 }, { i: 54, j: 5 }, { i: 55, j: 5 }, { i: 56, j: 5 }, { i: 57, j: 5 }, { i: 58, j: 5 }, { i: 59, j: 5 }, { i: 60, j: 5 }, { i: 61, j: 5 }, { i: 62, j: 5 }, { i: 63, j: 5 }, { i: 64, j: 5 }, { i: 65, j: 5 }, { i: 66, j: 5 }, { i: 67, j: 5 }, { i: 68, j: 5 }, { i: 69, j: 5 }, { i: 70, j: 5 }, { i: 71, j: 5 }, { i: 29, j: 6 }, { i: 73, j: 5 }, { i: 74, j: 5 }, { i: 32, j: 6 }, { i: 76, j: 5 }, { i: 77, j: 5 }, { i: 78, j: 5 }, { i: 36, j: 6 }, { i: 80, j: 5 }, { i: 81, j: 5 }, { i: 39, j: 6 }, { i: 45, j: 4 }, { i: 1, j: 6 }, { i: 2, j: 6 }, { i: 3, j: 6 }, { i: 4, j: 6 }, { i: 5, j: 6 }, { i: 6, j: 6 }, { i: 7, j: 6 }, { i: 8, j: 6 }, { i: 9, j: 6 }, { i: 10, j: 6 }, { i: 11, j: 6 }, { i: 12, j: 6 }, { i: 13, j: 6 }, { i: 14, j: 6 }, { i: 15, j: 6 }, { i: 16, j: 6 }, { i: 17, j: 6 }, { i: 18, j: 6 }, { i: 19, j: 6 }, { i: 20, j: 6 }, { i: 21, j: 6 }, { i: 22, j: 6 }, { i: 23, j: 6 }, { i: 24, j: 6 }, { i: 25, j: 6 }, { i: 26, j: 6 }, { i: 67, j: 6 }, { i: 28, j: 6 }, { i: 69, j: 6 }, { i: 70, j: 6 }, { i: 31, j: 6 }, { i: 45, j: 6 }, { i: 33, j: 6 }, { i: 74, j: 6 }, { i: 35, j: 6 }, { i: 76, j: 6 }, { i: 77, j: 6 }, { i: 38, j: 6 }, { i: 52, j: 6 }, { i: 40, j: 6 }, { i: 41, j: 6 }, { i: 42, j: 6 }, { i: 43, j: 6 }, { i: 44, j: 6 }, { i: 58, j: 6 }, { i: 46, j: 6 }, { i: 47, j: 6 }, { i: 48, j: 6 }, { i: 49, j: 6 }, { i: 50, j: 6 }, { i: 51, j: 6 }, { i: 65, j: 6 }, { i: 53, j: 6 }, { i: 54, j: 6 }, { i: 55, j: 6 }, { i: 56, j: 6 }, { i: 57, j: 6 }, { i: 71, j: 6 }, { i: 59, j: 6 }, { i: 60, j: 6 }, { i: 61, j: 6 }, { i: 62, j: 6 }, { i: 63, j: 6 }, { i: 64, j: 6 }, { i: 78, j: 6 }, { i: 66, j: 6 }, { i: 80, j: 6 }, { i: 68, j: 6 }, { i: 73, j: 6 }, { i: 81, j: 6 },  ], css_id: 'tinytable_css_6u45c1ssz8y043bp6hz5',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 3 }, { i: 0, j: 5 }, { i: 0, j: 2 }, { i: 0, j: 6 }, { i: 0, j: 4 },  ], css_id: 'tinytable_css_pb2gy6kxfzjrb1sjfrs1',}, 
+          { positions: [ { i: 82, j: 0 },  ], css_id: 'tinytable_css_bnnq3d6j0q5022chcax6',}, 
+          { positions: [ { i: 79, j: 0 },  ], css_id: 'tinytable_css_cevzp0g21nvbc35pcmab',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 }, { i: 14, j: 0 }, { i: 15, j: 0 }, { i: 16, j: 0 }, { i: 17, j: 0 }, { i: 18, j: 0 }, { i: 19, j: 0 }, { i: 20, j: 0 }, { i: 21, j: 0 }, { i: 22, j: 0 }, { i: 23, j: 0 }, { i: 24, j: 0 }, { i: 25, j: 0 }, { i: 26, j: 0 }, { i: 27, j: 0 }, { i: 28, j: 0 }, { i: 29, j: 0 }, { i: 30, j: 0 }, { i: 31, j: 0 }, { i: 32, j: 0 }, { i: 33, j: 0 }, { i: 34, j: 0 }, { i: 35, j: 0 }, { i: 36, j: 0 }, { i: 37, j: 0 }, { i: 38, j: 0 }, { i: 39, j: 0 }, { i: 40, j: 0 }, { i: 41, j: 0 }, { i: 42, j: 0 }, { i: 43, j: 0 }, { i: 44, j: 0 }, { i: 45, j: 0 }, { i: 46, j: 0 }, { i: 47, j: 0 }, { i: 48, j: 0 }, { i: 49, j: 0 }, { i: 50, j: 0 }, { i: 51, j: 0 }, { i: 52, j: 0 }, { i: 53, j: 0 }, { i: 54, j: 0 }, { i: 55, j: 0 }, { i: 56, j: 0 }, { i: 57, j: 0 }, { i: 58, j: 0 }, { i: 59, j: 0 }, { i: 60, j: 0 }, { i: 61, j: 0 }, { i: 62, j: 0 }, { i: 63, j: 0 }, { i: 64, j: 0 }, { i: 65, j: 0 }, { i: 66, j: 0 }, { i: 67, j: 0 }, { i: 68, j: 0 }, { i: 69, j: 0 }, { i: 70, j: 0 }, { i: 71, j: 0 }, { i: 72, j: 0 }, { i: 73, j: 0 }, { i: 74, j: 0 }, { i: 75, j: 0 }, { i: 76, j: 0 }, { i: 77, j: 0 }, { i: 78, j: 0 }, { i: 80, j: 0 }, { i: 81, j: 0 },  ], css_id: 'tinytable_css_fqh13wbou2ick1yrb1zv',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_g699hxq0srw2rkq0isc3',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_h6xsjjhek20r2xuju7h7(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_lbog6bguv484l2yvvpwu, .table th.tinytable_css_lbog6bguv484l2yvvpwu { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_fqw6nhkh85kllf7nk3cq, .table th.tinytable_css_fqw6nhkh85kllf7nk3cq { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_6u45c1ssz8y043bp6hz5, .table th.tinytable_css_6u45c1ssz8y043bp6hz5 { text-align: center; }
+      .table td.tinytable_css_pb2gy6kxfzjrb1sjfrs1, .table th.tinytable_css_pb2gy6kxfzjrb1sjfrs1 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_bnnq3d6j0q5022chcax6, .table th.tinytable_css_bnnq3d6j0q5022chcax6 { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_cevzp0g21nvbc35pcmab, .table th.tinytable_css_cevzp0g21nvbc35pcmab { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_fqh13wbou2ick1yrb1zv, .table th.tinytable_css_fqh13wbou2ick1yrb1zv { text-align: left; }
+      .table td.tinytable_css_g699hxq0srw2rkq0isc3, .table th.tinytable_css_g699hxq0srw2rkq0isc3 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_h6xsjjhek20r2xuju7h7" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">Pooled</th>
+                <th scope="col">RE Simple</th>
+                <th scope="col">RE Demo</th>
+                <th scope="col">RE Full (H1)</th>
+                <th scope="col">RE Aditivo</th>
+                <th scope="col">RE Interacción (H2)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan='7'>* p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan='7'>Fuente: Elaboración propia con datos ELSOC (2016-2023). Errores estándar robustos por cluster en paréntesis.</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>Intercepto</td>
+                  <td>0.596***</td>
+                  <td>-2.315***</td>
+                  <td>0.014</td>
+                  <td>0.578*</td>
+                  <td>0.557**</td>
+                  <td>0.535**</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.037)</td>
+                  <td>(0.062)</td>
+                  <td>(0.126)</td>
+                  <td>(0.233)</td>
+                  <td>(0.190)</td>
+                  <td>(0.203)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refMedia incompleta o menos</td>
+                  <td>-0.036***</td>
+                  <td>-0.869***</td>
+                  <td>-0.534***</td>
+                  <td>-0.598***</td>
+                  <td>-0.610***</td>
+                  <td>-0.637***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.009)</td>
+                  <td>(0.081)</td>
+                  <td>(0.082)</td>
+                  <td>(0.106)</td>
+                  <td>(0.110)</td>
+                  <td>(0.137)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior incompleta</td>
+                  <td>0.042*</td>
+                  <td>0.834***</td>
+                  <td>0.547***</td>
+                  <td>0.397*</td>
+                  <td>0.406**</td>
+                  <td>0.319</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.017)</td>
+                  <td>(0.123)</td>
+                  <td>(0.123)</td>
+                  <td>(0.154)</td>
+                  <td>(0.156)</td>
+                  <td>(0.191)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior completa</td>
+                  <td>0.038***</td>
+                  <td>0.498***</td>
+                  <td>0.441***</td>
+                  <td>0.328**</td>
+                  <td>0.320**</td>
+                  <td>0.271</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.011)</td>
+                  <td>(0.087)</td>
+                  <td>(0.087)</td>
+                  <td>(0.107)</td>
+                  <td>(0.109)</td>
+                  <td>(0.149)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refUniversitaria incompleta</td>
+                  <td>0.107***</td>
+                  <td>1.432***</td>
+                  <td>0.984***</td>
+                  <td>0.686***</td>
+                  <td>0.627***</td>
+                  <td>0.553***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.015)</td>
+                  <td>(0.106)</td>
+                  <td>(0.107)</td>
+                  <td>(0.131)</td>
+                  <td>(0.134)</td>
+                  <td>(0.166)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refUniversitaria completa</td>
+                  <td>0.076***</td>
+                  <td>1.069***</td>
+                  <td>0.890***</td>
+                  <td>0.586***</td>
+                  <td>0.609***</td>
+                  <td>0.135</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.011)</td>
+                  <td>(0.092)</td>
+                  <td>(0.092)</td>
+                  <td>(0.111)</td>
+                  <td>(0.117)</td>
+                  <td>(0.247)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refPostgrado</td>
+                  <td>0.160***</td>
+                  <td>1.630***</td>
+                  <td>1.544***</td>
+                  <td>0.986***</td>
+                  <td>0.994***</td>
+                  <td>0.509</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.022)</td>
+                  <td>(0.184)</td>
+                  <td>(0.183)</td>
+                  <td>(0.207)</td>
+                  <td>(0.208)</td>
+                  <td>(0.425)</td>
+                </tr>
+                <tr>
+                  <td>Edad</td>
+                  <td>-0.011***</td>
+                  <td></td>
+                  <td>-0.047***</td>
+                  <td>-0.044***</td>
+                  <td>-0.043***</td>
+                  <td>-0.043***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.002)</td>
+                  <td></td>
+                  <td>(0.003)</td>
+                  <td>(0.003)</td>
+                  <td>(0.003)</td>
+                  <td>(0.003)</td>
+                </tr>
+                <tr>
+                  <td>edad_cuadratica</td>
+                  <td>0.000***</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.000)</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Mujer</td>
+                  <td>-0.014*</td>
+                  <td></td>
+                  <td>-0.300***</td>
+                  <td>-0.205**</td>
+                  <td>-0.222**</td>
+                  <td>-0.222**</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.007)</td>
+                  <td></td>
+                  <td>(0.067)</td>
+                  <td>(0.079)</td>
+                  <td>(0.080)</td>
+                  <td>(0.080)</td>
+                </tr>
+                <tr>
+                  <td>Ideología (izq-der)</td>
+                  <td>-0.027***</td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.214***</td>
+                  <td>-0.217***</td>
+                  <td>-0.218***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.001)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.014)</td>
+                  <td>(0.015)</td>
+                  <td>(0.015)</td>
+                </tr>
+                <tr>
+                  <td>interes_politica</td>
+                  <td>0.057***</td>
+                  <td></td>
+                  <td></td>
+                  <td>0.456***</td>
+                  <td>0.426***</td>
+                  <td>0.427***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.003)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.030)</td>
+                  <td>(0.029)</td>
+                  <td>(0.029)</td>
+                </tr>
+                <tr>
+                  <td>factor(year)2017</td>
+                  <td>-0.076***</td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.689***</td>
+                  <td>-0.709***</td>
+                  <td>-0.712***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.014)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.118)</td>
+                  <td>(0.120)</td>
+                  <td>(0.120)</td>
+                </tr>
+                <tr>
+                  <td>factor(year)2018</td>
+                  <td>-0.051***</td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.463***</td>
+                  <td>-0.496***</td>
+                  <td>-0.492***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.012)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.103)</td>
+                  <td>(0.103)</td>
+                  <td>(0.104)</td>
+                </tr>
+                <tr>
+                  <td>factor(year)2019</td>
+                  <td>0.072***</td>
+                  <td></td>
+                  <td></td>
+                  <td>0.490***</td>
+                  <td>0.554***</td>
+                  <td>0.556***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.012)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.104)</td>
+                  <td>(0.103)</td>
+                  <td>(0.103)</td>
+                </tr>
+                <tr>
+                  <td>factor(year)2021</td>
+                  <td>-0.121***</td>
+                  <td></td>
+                  <td></td>
+                  <td>-1.235***</td>
+                  <td>-1.232***</td>
+                  <td>-1.236***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.012)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.116)</td>
+                  <td>(0.117)</td>
+                  <td>(0.117)</td>
+                </tr>
+                <tr>
+                  <td>factor(year)2022</td>
+                  <td>-0.074***</td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.717***</td>
+                  <td>-0.748***</td>
+                  <td>-0.749***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.013)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.117)</td>
+                  <td>(0.117)</td>
+                  <td>(0.117)</td>
+                </tr>
+                <tr>
+                  <td>factor(year)2023</td>
+                  <td>-0.102***</td>
+                  <td></td>
+                  <td></td>
+                  <td>-1.061***</td>
+                  <td>-1.083***</td>
+                  <td>-1.078***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.013)</td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.123)</td>
+                  <td>(0.123)</td>
+                  <td>(0.123)</td>
+                </tr>
+                <tr>
+                  <td>conf_instituciones</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.133**</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.048)</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>eficacia_politica</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.021</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.044)</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>movilidad_cat_factor.L</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.260*</td>
+                  <td>-0.313</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.109)</td>
+                  <td>(0.247)</td>
+                </tr>
+                <tr>
+                  <td>movilidad_cat_factor.Q</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.173</td>
+                  <td>0.248</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.090)</td>
+                  <td>(0.202)</td>
+                </tr>
+                <tr>
+                  <td>movilidad_cat_factor.C</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.069</td>
+                  <td>0.011</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.070)</td>
+                  <td>(0.148)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.L</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.202</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.309)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.L</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.118</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.446)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.L</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.023</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.334)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.L</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.404</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.344)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.L</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>1.177</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.623)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refPostgrado:movilidad_cat_factor.L</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>1.641</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(1.197)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.Q</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.051</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.267)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.Q</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.276</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.378)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.Q</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.199</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.298)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.Q</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.375</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.325)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refUniversitaria completa:movilidad_cat_factor.Q</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.978*</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.487)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refPostgrado:movilidad_cat_factor.Q</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.939</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.960)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refMedia incompleta o menos:movilidad_cat_factor.C</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.067</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.220)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior incompleta:movilidad_cat_factor.C</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.124</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.297)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refTécnica superior completa:movilidad_cat_factor.C</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>0.151</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.257)</td>
+                </tr>
+                <tr>
+                  <td>educ_cat_factor_refUniversitaria incompleta:movilidad_cat_factor.C</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>-0.130</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>(0.306)</td>
+                </tr>
+                <tr>
+                  <td>SD (Intercept idencuesta)</td>
+                  <td></td>
+                  <td>1.430</td>
+                  <td>1.386</td>
+                  <td>1.370</td>
+                  <td>1.360</td>
+                  <td>1.353</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>12654</td>
+                  <td>20052</td>
+                  <td>20052</td>
+                  <td>12648</td>
+                  <td>12018</td>
+                  <td>12018</td>
+                </tr>
+                <tr>
+                  <td>AIC</td>
+                  <td>10570.4</td>
+                  <td>16111.9</td>
+                  <td>15697.8</td>
+                  <td>10009.6</td>
+                  <td>9697.8</td>
+                  <td>9712.4</td>
+                </tr>
+                <tr>
+                  <td>BIC</td>
+                  <td>10711.8</td>
+                  <td>16175.2</td>
+                  <td>15776.9</td>
+                  <td>10158.5</td>
+                  <td>9853.0</td>
+                  <td>9986.0</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
