@@ -2,16 +2,317 @@
 
 ## Métodos
 
-Uno de los primeros estudios de gran escala sobre participación política en Estados Unidos, desarrollado por Verba y Nie (1972), advertía la importancia de estudiar el tema a partir de la identificación de tipos de participantes. Sin embargo, también señalaban que las limitaciones técnicas de la época impedían seleccionar de forma objetiva los modelos óptimos para esa tarea. Décadas más tarde, el Análisis de Clases Latentes (LCA) ha emergido como una herramienta robusta y ampliamente utilizada para clasificar individuos en las ciencias sociales a partir de patrones compartidos en múltiples indicadores (Ahlquist & Breunig, 2012). Esta técnica permite identificar empíricamente grupos que comparten combinaciones similares de comportamientos, actitudes u opiniones, siendo especialmente útil cuando se busca comprender fenómenos complejos que no pueden reducirse a categorías únicas o dicotómicas.
+**METODOLOGÍA**
 
-En investigaciones recientes, el LCA –como bien se señaló anteriormente– ha sido aplicado con éxito en temas como tolerancia, normas de ciudadanía, actitudes tecnocráticas, sentimiento nacionalista, ideales democráticos y patrones de apoyo partidario (McCutcheon, 1985; Breen, 2000; Hooghe & Oser, 2015; Bonikowski & DiMaggio, 2016; Bertsou & Caramani, 2020). A pesar de su potencial, su uso para el estudio de la participación política y, en particular, de los repertorios de acción colectiva sigue siendo relativamente incipiente. No obstante, estudios previamente revisados como los de Álvarez et al. (2017) y Oser (2017) han comenzado a demostrar cómo esta técnica permite diferenciar con precisión distintos tipos de participantes, según las combinaciones de actos políticos que realizan. Esta aproximación es especialmente relevante para investigaciones que no sólo se interesan en si las personas participan o no, sino en cómo lo hacen, a través de qué repertorios, y en qué trayectorias se insertan esas prácticas.
+- Pregunta de Investigación: ¿Cómo afecta la educación a la participación en protesta social en Chile, considerando tanto efectos no lineales del nivel educativo como la moderación del origen socioeconómico familiar?
+Preguntas específicas:
 
-A esta perspectiva se suma, en el presente estudio, el uso del Latent Class Growth Analysis (LCGA), una variante del LCA diseñada específicamente para contextos longitudinales. Esta técnica permite identificar trayectorias diferenciadas de cambio o persistencia en la participación política a lo largo del tiempo, modelando el comportamiento individual como parte de subpoblaciones latentes con dinámicas comunes (Jung & Wickrama, 2008). A diferencia de los modelos de crecimiento convencionales, que asumen una trayectoria promedio para toda la población, el LCGA relaja esta suposición y permite capturar heterogeneidad no observada, es decir, que distintos grupos sociales pueden seguir trayectorias distintas de involucramiento político, como participar de forma persistente, intermitente u ocasional.
+PE1: ¿Existe una relación no lineal entre nivel educativo y participación en protesta?
+PE2: ¿La movilidad educacional ascendente modera la relación entre educación y protesta?
+PE3: ¿Los mecanismos de esta moderación operan a través de deprivación relativa, orientación ideológica, o elección de campo disciplinario?
 
-Una de las ventajas clave del LCA y el LCGA frente a otras técnicas de clasificación reside en su capacidad de estimar de forma probabilística la pertenencia de cada individuo a las clases latentes. Esto no sólo permite evaluar el ajuste del modelo mediante indicadores objetivos como el Criterio de Información Bayesiano (BIC), donde valores más bajos indican mejor ajuste (Raftery, 1995; Nylund et al., 2007), sino también interpretar los resultados con base en dos dimensiones fundamentales: por un lado, las probabilidades condicionales permiten conocer la probabilidad de que una persona, dado que pertenece a una clase específica, participe en cada uno de los actos políticos considerados; por otro, las probabilidades individuales de pertenencia a cada clase permiten analizar cómo factores sociodemográficos o actitudinales se relacionan con las trayectorias específicas de participación.
+**Hipótesis**
 
-El enfoque LCGA resulta particularmente útil en contextos de alta intensidad participativa y transformación política, como el caso chileno entre 2016 y 2020. En este periodo, marcado por una creciente normalización de la protesta y una desafección institucional generalizada, se vuelve crucial entender cómo distintas formas de participación se combinan, se acumulan o se sustituyen a lo largo del tiempo. El uso de datos longitudinales permite precisamente modelar estos cambios, detectando no solo patrones estáticos, sino transiciones intertemporales entre perfiles como los “neutrales”, “oportunistas” y “críticos”. Esto ofrece una comprensión más rica de la participación política, no como una condición binaria o estable, sino como una trayectoria dinámica influida por factores contextuales, disposicionales y estructurales.
+**Hipótesis 1** (No linealidad): La relación entre educación y protesta sigue una curva en forma de U, donde:
 
-Sin embargo, es importante reconocer las limitaciones inherentes a estas técnicas. Tanto el LCA como el LCGA dependen críticamente de las decisiones del investigador respecto a la selección de los indicadores y el número de clases latentes, lo que puede introducir sesgos teóricos o empíricos si no se realiza una evaluación cuidadosa del modelo. Además, los resultados pueden ser sensibles a pequeñas variaciones en los datos, especialmente en muestras con tamaños reducidos o en presencia de baja prevalencia de ciertas conductas (Vermunt, 2010). Asimismo, si bien la técnica asume independencia condicional entre los indicadores dentro de cada clase, esta suposición puede no cumplirse en contextos donde las prácticas participativas están fuertemente interrelacionadas, lo que podría distorsionar la identificación de los perfiles.
+- H1a: Individuos con educación técnica superior participan menos en protestas que aquellos con educación media completa.
 
-A pesar de estas limitaciones, el LCA y su extensión longitudinal, el LCGA, representan herramientas valiosas para la investigación de repertorios y trayectorias de participación política, en la medida en que se apliquen con criterios teóricos sólidos y se complementen con modelos de regresión logística, que permitan robustecer la interpretación sustantiva de los resultados.
+- H1b: Individuos con educación universitaria participan más en protestas que todos los demás grupos.
+
+- H1c: La participación en protesta es menor en los niveles intermedios de educación técnica.
+
+**Hipótesis 2** (Movilidad educacional): La movilidad educacional ascendente incrementa la participación en protesta:
+
+- H2a: Entre individuos con educación universitaria, aquellos con padres de menor educación protestan más que aquellos cuyos padres tienen educación universitaria.
+
+- H2b: El efecto de la movilidad ascendente es más fuerte que el efecto directo del nivel educativo propio.
+
+**Hipótesis 3** (Mecanismos mediadores):
+
+- H3a (Deprivación relativa): La movilidad ascendente se asocia con menores ingresos relativos a nivel educativo, lo que incrementa la protesta.
+
+- H3b (Orientación ideológica): La movilidad ascendente se asocia con posiciones políticas más de izquierda, mediando el efecto sobre protesta.
+
+- H3c (Campo disciplinario): Los móviles ascendentes se concentran en carreras con menor retorno económico y mayor orientación crítica.
+
+
+## Datos
+
+**Fuente de Datos**: ELSOC (Estudio Longitudinal Social de Chile):
+
+- Panel longitudinal 2016-2023 (7 olas)
+
+- Variables sobre educación propia, parental, participación política, ocupación, ideología
+
+**Variables**
+
+- Variable Dependiente: Participación en Protesta (múltiples operacionalizaciones):
+
+Variable principal: Índice aditivo de participación en actividades de protesta en últimos 12 meses:
+
+- Marcha o manifestación autorizada
+
+- Huelga (?)
+
+- Rango: 1-5.
+
+**Alternativas**
+
+- Variable alternativa: Variable dicotómica (participó/no participó en al menos una forma)
+
+- Variable exploratoria: Intensidad de participación (si ELSOC incluye frecuencia)
+
+Variables Independientes Principales
+
+1. Nivel Educativo Propio (dos especificaciones):
+Especificación A (categórica - preferida para H1):
+
+- Media incompleta o menos (referencia)
+
+- Media completa
+
+- Técnica superior incompleta
+
+- Técnica superior completa
+
+- Universitaria incompleta
+
+- Universitaria completa
+
+- Postgrado
+
+Justificación: Permite capturar no linealidades y diferencias cualitativas entre trayectorias educativas. La distinción completa/incompleta captura efectos credencialistas.
+
+
+**Especificación B** (continua):
+
+- Años de educación (0-22+)
+
+- Útil para análisis de sensibilidad y comparaciones con literatura previa
+
+**Movilidad Educacional** (múltiples operacionalizaciones):
+
+- Operacionalización principal: Movilidad = Educación_propia - max(Educación_padre, Educación_madre)
+Donde educación se mide en años.
+
+- Categorización:
+
+- Movilidad descendente (diferencia < -2 años)
+
+- Sin movilidad (-2 a +2 años)
+
+- Movilidad moderada (+3 a +5 años)
+
+- Movilidad alta (>+5 años)
+
+Operacionalización alternativa (categórica):
+
+Matriz de origen-destino educativo:
+                    | Padres: Bajo | Padres: Medio | Padres: Alto |
+--------------------|--------------|---------------|--------------|
+Ego: Bajo           | Inmóvil bajo |  Desc. mod.   | Desc. alta   |
+Ego: Medio-Técnico  | Asc. mod.    | Inmóvil medio | Desc. mod.   |
+Ego: Alto-Univ      | Asc. alta    | Asc. mod.     | Inmóvil alto |
+
+
+Variables de Control
+
+Nivel individual:
+
+Demográficas:
+
+- Edad (continua y cuadrática)
+
+- Sexo (mujer=1)
+
+- Zona (urbano/rural)
+
+
+Socioeconómicas:
+
+- Situación laboral (ocupado, desocupado, inactivo)
+
+- Tipo de empleo (sector público/privado/independiente)
+
+
+Políticas:
+
+- Autoposicionamiento ideológico (0-10, izquierda-derecha)
+
+- Interés en política
+
+- Identificación partidaria
+
+
+Contextuales:
+
+- Año (efectos fijos para capturar ciclo de movilizaciones 2019)
+
+- Región (si tamaño muestral lo permite)
+
+
+
+Variables Mediadoras (para H3)
+
+Deprivación relativa:
+
+- Satisfacción con situación económica personal
+
+- Percepción de justicia distributiva
+
+
+Orientación ideológica:
+
+- Autoposicionamiento izquierda-derecha
+
+- Actitudes redistributivas
+
+- Apoyo a movimientos sociales
+
+
+Campo disciplinario (si disponible):
+
+
+
+3.3 Modelos Estadísticos
+
+Modelo base (Efectos Aleatorios):
+
+Dado que ELSOC es un panel corto con variación limitada en educación intra-individual, un modelo de efectos aleatorios es apropiado:
+
+Protesta_it = $$β₀ + β₁Educación_i + β₂Movilidad_i + 
+              β₃(Educación × Movilidad)_i + 
+              β₄X_it + α_i + ε_it$$
+Donde:
+
+$$i = individuos$$ 
+
+$$t = tiempo$$
+
+$$α_i = efectos \ aleatorios \ individuales$$
+
+$$X_it= vector \ de \ controles$$
+
+$$ε_it = error  \ idiosincrático$$
+
+
+Justificación del modelo RE sobre FE:
+
+- Las variables de interés (educación propia y parental) son time-invariant o casi invariantes
+
+- Interesa el efecto between-individual, no within
+
+- RE permite estimar efectos de variables constantes
+
+- Test de Hausman para verificar consistencia
+
+
+Especificaciones alternativas:
+
+- Pooled OLS con errores estándar robustos clusterizados (sensibilidad)
+
+- Modelos logit/probit de efectos aleatorios (si VD es dicotómica)
+
+- Modelos ordinales (si VD tiene categorías ordenadas de intensidad)
+
+- Modelos multinivel (individuos anidados en regiones/cohortes)
+
+
+**Estrategia Analítica**
+
+Fase 1: Análisis descriptivo
+
+- Tablas cruzadas educación × protesta
+
+- Gráficos de perfiles de participación por nivel educativo
+
+- Matrices de movilidad educacional × protesta
+
+Fase 2: Modelos para H1 (No linealidad)
+
+- Modelo 1: Educación categórica
+
+$$Protesta = β₀ + β₁MediaCompleta + β₂TécnicaInc + β₃TécnicaCom + 
+           β₄UniversitariaInc + β₅UniversitariaCom + β₆Postgrado +
+           Controles + α_i + ε$$
+           
+Post-estimación:
+
+- Tests de Wald para comparaciones entre categorías
+
+- Predicciones marginales y efectos marginales promedio
+
+- Gráficos de coeficientes con intervalos de confianza
+
+Fase 3: Modelos para H2 (Movilidad)
+
+- Modelo 2: Interacción educación × movilidad
+
+$$Protesta = β₀ + β₁Educación + β₂Movilidad + 
+           β₃(Educación × Movilidad) + 
+           Controles + α_i + ε$$
+
+Post-estimación:
+
+- Efectos marginales condicionales de educación a diferentes niveles de movilidad
+
+- Gráficos de interacción con intervalos de confianza
+
+- Análisis de efectos simples (simple slopes)
+
+Modelo 3: Matriz origen-destino
+
+$$Protesta = β₀ + Σ β_j(Origen-Destino)_j + Controles + α_i + ε$$
+
+Con contrastes específicos para comparar diagonales vs. móviles ascendentes.
+
+Fase 4: Análisis de mediación (H3)
+Usando técnica de descomposición de Baron & Kenny (1986) o método KHB (Karlson, Holm & Breen, 2012) para modelos no lineales:
+
+- Paso 1: Movilidad → Protesta (efecto total)
+
+- Paso 2: Movilidad → Mediador
+
+- Paso 3: Movilidad + Mediador → Protesta (efecto directo)
+
+- Efecto indirecto = Efecto total - Efecto directo
+
+Mediadores a examinar:
+
+- Ideología política
+- Campo disciplinario
+
+Fase 5: Análisis de robustez
+
+Especificaciones alternativas de variables:
+
+- VD continua vs. dicotómica
+
+- VI años vs. categorías
+
+- Diferentes umbrales de movilidad
+
+
+Subgrupos:
+
+- Por cohorte etaria
+
+- Por periodo (pre/post estallido social 2019)
+
+- Por sexo
+
+
+Alternativas al modelo RE:
+
+- Pooled OLS
+
+- Between estimator
+
+- Modelo híbrido (Allison, 2009)
+
+
+Sesgo de selección:
+
+- Heckman para participación política general
+
+- Pesos de propensity score para balance en movilidad

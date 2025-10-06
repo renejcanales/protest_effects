@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="René Canales">
+<title>Modelo de efectos aleatorios: Tesis de Magister</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<script src="01-descriptivos_files/libs/clipboard/clipboard.min.js"></script>
+<script src="01-descriptivos_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="01-descriptivos_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="01-descriptivos_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="01-descriptivos_files/libs/quarto-html/popper.min.js"></script>
+<script src="01-descriptivos_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="01-descriptivos_files/libs/quarto-html/anchor.min.js"></script>
+<link href="01-descriptivos_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="01-descriptivos_files/libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="01-descriptivos_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="01-descriptivos_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="01-descriptivos_files/libs/bootstrap/bootstrap-07b601b323af04afb06bdce9dd9a3af2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script src="01-descriptivos_files/libs/kePrint-0.0.1/kePrint.js"></script><link href="01-descriptivos_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Modelo de efectos aleatorios: Tesis de Magister</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">René Canales </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Instituto de Sociología, Pontificia Universidad Católica de Chile
+            </p>
+          <p class="affiliation">
+              Centro de estudios del conflicto y cohesión social (COES)
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      <p><strong>Keywords</strong>:</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01-descriptivos.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="análisis-descriptivo" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> ANÁLISIS DESCRIPTIVO</h1>
+<section id="análisis-descriptivo-univariado" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="análisis-descriptivo-univariado">
+<span class="header-section-number">1.1</span> Análisis Descriptivo Univariado</h2>
+<section id="variable-dependiente-participación-en-protesta" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="variable-dependiente-participación-en-protesta">
+<span class="header-section-number">1.1.1</span> Variable Dependiente: Participación en Protesta</h3>
+<div class="cell">
+<div id="fig-des-1" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>
+Participación en protesta por año (ELSOC 2016-2023)
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Índice de protesta
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Año
+</th>
+<th style="text-align:center;">
+N
+</th>
+<th style="text-align:center;">
+Participó (%)
+</th>
+<th style="text-align:center;">
+M
+</th>
+<th style="text-align:center;">
+DE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+2016
+</td>
+<td style="text-align:center;">
+2,917
+</td>
+<td style="text-align:center;">
+21.6
+</td>
+<td style="text-align:center;">
+0.29
+</td>
+<td style="text-align:center;">
+0.60
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2017
+</td>
+<td style="text-align:center;">
+2,430
+</td>
+<td style="text-align:center;">
+14.9
+</td>
+<td style="text-align:center;">
+0.20
+</td>
+<td style="text-align:center;">
+0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2018
+</td>
+<td style="text-align:center;">
+3,664
+</td>
+<td style="text-align:center;">
+16.1
+</td>
+<td style="text-align:center;">
+0.22
+</td>
+<td style="text-align:center;">
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;background-color: rgba(255, 243, 205, 255) !important;">
+2019
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(255, 243, 205, 255) !important;">
+3,275
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(255, 243, 205, 255) !important;">
+29.1
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(255, 243, 205, 255) !important;">
+0.37
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(255, 243, 205, 255) !important;">
+0.63
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+2,634
+</td>
+<td style="text-align:center;">
+12.1
+</td>
+<td style="text-align:center;">
+0.12
+</td>
+<td style="text-align:center;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2022
+</td>
+<td style="text-align:center;">
+2,570
+</td>
+<td style="text-align:center;">
+13.5
+</td>
+<td style="text-align:center;">
+0.17
+</td>
+<td style="text-align:center;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2023
+</td>
+<td style="text-align:center;">
+2,562
+</td>
+<td style="text-align:center;">
+11.4
+</td>
+<td style="text-align:center;">
+0.14
+</td>
+<td style="text-align:center;">
+0.42
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Fuente: Elaboración propia con ELSOC 2016-2023.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>1</sup> El año 2019 corresponde al estallido social en Chile.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-des-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Proporción de personas que protestaron por Ola
+</figcaption></figure>
+</div>
+</div>
+<p>Tanto la <a href="#fig-des-1" class="quarto-xref">Figure&nbsp;1</a> como el <a href="#fig-des-2" class="quarto-xref">Figure&nbsp;2</a> presentan los datos de participación en protestas en Chile para el período 2016-2023, según la encuesta ELSOC. Se logra distinguir la fluctuación en los niveles de movilización, con un punto de inflexión presente en el año 2019. Durante ese año, coincidente con el <em>estallido social</em>, la participación ciudadana en protestas alcanzó su máximo del período, con un 29.1% de los encuestados reportando haber participado. Este peak también se refleja en el índice de protesta de la <a href="#fig-des-1" class="quarto-xref">Figure&nbsp;1</a>, que llegó a su media más alta (M=0.37, DE=0.63). En contraste, los años previos y posteriores muestran cifras considerablemente menores, destacando una marcada disminución tras el 2019, hasta llegar al nivel más bajo de la serie en 2023, con un 11.4% de participación.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-des-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-descriptivos_files/figure-html/fig-des-2-1.png" class="img-fluid figure-img" width="720">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-des-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Evolución de Participación en Protesta (2016-2023)
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="variables-independientes-educación-encuestado" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="variables-independientes-educación-encuestado">
+<span class="header-section-number">1.1.2</span> Variables Independientes: Educación Encuestado</h3>
+<p>La <a href="#fig-des-3" class="quarto-xref">Figure&nbsp;3</a> detalla la distribución del nivel educativo de la muestra total, basada en los datos agrupados de la encuesta ELSOC (2016-2023). La mayor concentración de participantes se encuentra en los niveles de educación secundaria, donde la categoría “Media incompleta o menos” constituye el grupo más grande con un 34.05%, seguida de cerca por “Media completa” con un 30.08%. En conjunto, estos dos grupos representan a casi dos tercios de la muestra total (64.12%). En cuanto a la educación superior, un 12.91% de los encuestados reporta tener educación técnica superior completa y un 11.64% universitaria completa. El nivel educativo con menor frecuencia corresponde a los estudios de “Postgrado”, representando solo el 1.70% del total de la muestra (N = 20,052).</p>
+<div class="cell">
+<div id="fig-des-3" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table table-striped table-hover caption-top table-sm small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Frecuencias
+</div></th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">Nivel Educativo</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">N</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">%</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">Porcentaje Acumulado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Media completa</td>
+<td style="text-align: center;">6031</td>
+<td style="text-align: center;">30.08</td>
+<td style="text-align: center;">30.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media incompleta o menos</td>
+<td style="text-align: center;">6827</td>
+<td style="text-align: center;">34.05</td>
+<td style="text-align: center;">64.12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Postgrado</td>
+<td style="text-align: center;">340</td>
+<td style="text-align: center;">1.70</td>
+<td style="text-align: center;">65.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnica superior completa</td>
+<td style="text-align: center;">2588</td>
+<td style="text-align: center;">12.91</td>
+<td style="text-align: center;">78.73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnica superior incompleta</td>
+<td style="text-align: center;">746</td>
+<td style="text-align: center;">3.72</td>
+<td style="text-align: center;">82.45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Universitaria completa</td>
+<td style="text-align: center;">2334</td>
+<td style="text-align: center;">11.64</td>
+<td style="text-align: center;">94.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Universitaria incompleta</td>
+<td style="text-align: center;">1186</td>
+<td style="text-align: center;">5.91</td>
+<td style="text-align: center;">100.00</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;">
+<sup></sup> Fuente: Elaboración propia con datos ELSOC (2016-2023)</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0;">
+<sup>1</sup> N total = 20,052</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-des-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Distribución de Nivel Educativo
+</figcaption></figure>
+</div>
+</div>
+<p>Por su parte, la <strong>?@fig-des-4</strong> presenta la distribución de la movilidad educacional intergeneracional para la muestra de ELSOC (2016-2023). El hallazgo principal es que la categoría más frecuente es “Sin movilidad”, que agrupa a un 42.25% de los encuestados, indicando que una porción significativa mantiene el mismo nivel educativo que sus progenitores. A continuación, se destaca una importante presencia de movilidad ascendente, que en su conjunto suma casi la mitad de la muestra (49.61%). Esta se desagrega en un 26.93% que experimenta una “Ascendente alta” y un 22.68% con una “Ascendente moderada”. Finalmente, la movilidad “Descendente” es el fenómeno menos común, representando solo el 8.14% de los casos analizados (N total = 18,824).</p>
+<p>La <a href="#fig-des-5" class="quarto-xref">Figure&nbsp;4</a> y el <a href="#fig-des-6" class="quarto-xref">Figure&nbsp;5</a> presenta la interacción entre el nivel educativo y la participación en protestas, utilizando datos de la encuesta ELSOC (2016-2023). Se observa una clara tendencia positiva: a mayor nivel de formación educativa, mayor es el porcentaje de participación en protestas y más alto el índice de protesta. El grupo con “Postgrado” exhibe la tasa de participación más elevada, con un 44.4%, y el índice de protesta más alto (M=0.58). Le siguen de cerca quienes poseen estudios de “Universitaria incompleta” (38.3%) y “Universitaria completa” (30.6%). En el extremo opuesto, los niveles educativos más bajos son los que menos participan; el grupo de “Media incompleta o menos” registra la tasa más baja con solo un 7.5% de participación y un índice de protesta de M=0.09. Estos datos sugieren que el capital educativo es un factor fuertemente asociado a la propensión a involucrarse en acciones de protesta en Chile.</p>
+<div class="cell">
+<div id="fig-des-5" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table table-striped table-hover caption-top table-sm small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Protesta (%)
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Índice de protesta
+</div></th>
+</tr>
+<tr class="even">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nivel educativo</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">N</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">% total</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Participó (%)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">DE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Media completa</td>
+<td style="text-align: center;">6031</td>
+<td style="text-align: center;">30.1</td>
+<td style="text-align: center;">15.2</td>
+<td style="text-align: center;">0.19</td>
+<td style="text-align: center;">0.48</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media incompleta o menos</td>
+<td style="text-align: center;">6827</td>
+<td style="text-align: center;">34.0</td>
+<td style="text-align: center;">7.5</td>
+<td style="text-align: center;">0.09</td>
+<td style="text-align: center;">0.35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Postgrado</td>
+<td style="text-align: center;">340</td>
+<td style="text-align: center;">1.7</td>
+<td style="text-align: center;">44.4</td>
+<td style="text-align: center;">0.58</td>
+<td style="text-align: center;">0.72</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnica superior completa</td>
+<td style="text-align: center;">2588</td>
+<td style="text-align: center;">12.9</td>
+<td style="text-align: center;">21.1</td>
+<td style="text-align: center;">0.27</td>
+<td style="text-align: center;">0.57</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnica superior incompleta</td>
+<td style="text-align: center;">746</td>
+<td style="text-align: center;">3.7</td>
+<td style="text-align: center;">26.5</td>
+<td style="text-align: center;">0.32</td>
+<td style="text-align: center;">0.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Universitaria completa</td>
+<td style="text-align: center;">2334</td>
+<td style="text-align: center;">11.6</td>
+<td style="text-align: center;">30.6</td>
+<td style="text-align: center;">0.40</td>
+<td style="text-align: center;">0.65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Universitaria incompleta</td>
+<td style="text-align: center;">1186</td>
+<td style="text-align: center;">5.9</td>
+<td style="text-align: center;">38.3</td>
+<td style="text-align: center;">0.51</td>
+<td style="text-align: center;">0.70</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;">
+<sup></sup> Fuente: Elaboración propia con datos ELSOC.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0;">
+<sup>1</sup> El índice suma participación en marchas y huelgas (rango 0-2).</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-des-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Participación en protesta según nivel educativo (ELSOC 2016-2023)
+</figcaption></figure>
+</div>
+</div>
+<p>Además, para el <a href="#fig-des-6" class="quarto-xref">Figure&nbsp;5</a> se estimaron los intervalos de confianza al 95%, mostrando que las diferencias observadas no son inocuas. Los márgenes son relativamente estrechos, lo que indica estimaciones precisas de la participación en protesta en cada nivel educativo. Además, los intervalos de los extremos (menos de enseñanza media completa y posgrado) no se superponen, lo que respalda la existencia de una brecha estadísticamente significativa entre ambos grupos. En niveles intermedios, como la educación técnica y universitaria, los intervalos muestran cierto traslape, lo que sugiere que las diferencias entre titulados e incompletos deben interpretarse con mayor cautela. En conjunto, la consistencia de los intervalos refuerza la validez de la tendencia general: a mayor nivel educativo, mayor probabilidad de participación en protestas.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-des-6" class="quarto-float quarto-figure quarto-figure-center anchored" width="720">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-descriptivos_files/figure-html/fig-des-6-1.png" id="fig-des-6" class="img-fluid figure-img" width="720">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-des-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="test-anova-para-protesta-y-educación" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="test-anova-para-protesta-y-educación">
+<span class="header-section-number">1.2</span> Test ANOVA para Protesta y Educación</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: protesta_index
+                   Df Sum Sq Mean Sq F value                Pr(&gt;F)    
+educ_cat_factor     6  343.9  57.309  225.09 &lt; 0.00000000000000022 ***
+Residuals       20045 5103.6   0.255                                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Para confirmar las diferencias significativas, se estimó un test ANOVA para protesta y educación. Este confirmaría que las diferencias observadas en la participación en protestas según nivel educativo son estadísticamente significativas. El modelo muestra un estadístico F = 225,09 con un valor p &lt; 0,001, lo que indica que la variabilidad explicada por la educación es muy superior a la variabilidad dentro de los grupos. En otras palabras, no se trata de fluctuaciones aleatorias: el nivel educativo incide de manera consistente en la propensión a participar en protestas. Este resultado refuerza la evidencia de los descriptivos y de los intervalos de confianza, al demostrar que las diferencias entre categorías educativas en la movilización política son sólidas y estadísticamente robustas.</p>
+<div class="cell">
+<div id="fig-des-7" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<thead><tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Comparación</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; position: sticky; top: 0; background-color: #FFFFFF;">Diferencia</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; position: sticky; top: 0; background-color: #FFFFFF;">Error Est.</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; position: sticky; top: 0; background-color: #FFFFFF;">IC 95%</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; position: sticky; top: 0; background-color: #FFFFFF;">p-valor</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; position: sticky; top: 0; background-color: #FFFFFF;">Sig</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Media incompleta o menos - Media completa</td>
+<td style="text-align: center;">-0.097</td>
+<td style="text-align: center;">0.009</td>
+<td style="text-align: center;">[-0.123, -0.071]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media incompleta o menos - Técnica superior incompleta</td>
+<td style="text-align: center;">-0.229</td>
+<td style="text-align: center;">0.019</td>
+<td style="text-align: center;">[-0.286, -0.171]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Media incompleta o menos - Técnica superior completa</td>
+<td style="text-align: center;">-0.178</td>
+<td style="text-align: center;">0.012</td>
+<td style="text-align: center;">[-0.212, -0.144]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media incompleta o menos - Universitaria incompleta</td>
+<td style="text-align: center;">-0.411</td>
+<td style="text-align: center;">0.016</td>
+<td style="text-align: center;">[-0.458, -0.365]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Media incompleta o menos - Universitaria completa</td>
+<td style="text-align: center;">-0.305</td>
+<td style="text-align: center;">0.012</td>
+<td style="text-align: center;">[-0.341, -0.269]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media incompleta o menos - Postgrado</td>
+<td style="text-align: center;">-0.488</td>
+<td style="text-align: center;">0.028</td>
+<td style="text-align: center;">[-0.571, -0.405]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Media completa - Técnica superior incompleta</td>
+<td style="text-align: center;">-0.131</td>
+<td style="text-align: center;">0.020</td>
+<td style="text-align: center;">[-0.189, -0.074]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media completa - Técnica superior completa</td>
+<td style="text-align: center;">-0.081</td>
+<td style="text-align: center;">0.012</td>
+<td style="text-align: center;">[-0.116, -0.046]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Media completa - Universitaria incompleta</td>
+<td style="text-align: center;">-0.314</td>
+<td style="text-align: center;">0.016</td>
+<td style="text-align: center;">[-0.361, -0.267]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media completa - Universitaria completa</td>
+<td style="text-align: center;">-0.208</td>
+<td style="text-align: center;">0.012</td>
+<td style="text-align: center;">[-0.244, -0.171]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Media completa - Postgrado</td>
+<td style="text-align: center;">-0.391</td>
+<td style="text-align: center;">0.028</td>
+<td style="text-align: center;">[-0.474, -0.308]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnica superior incompleta - Técnica superior completa</td>
+<td style="text-align: center;">0.051</td>
+<td style="text-align: center;">0.021</td>
+<td style="text-align: center;">[-0.011, 0.112]</td>
+<td style="text-align: center;">0.192</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnica superior incompleta - Universitaria incompleta</td>
+<td style="text-align: center;">-0.183</td>
+<td style="text-align: center;">0.024</td>
+<td style="text-align: center;">[-0.252, -0.113]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnica superior incompleta - Universitaria completa</td>
+<td style="text-align: center;">-0.076</td>
+<td style="text-align: center;">0.021</td>
+<td style="text-align: center;">[-0.139, -0.014]</td>
+<td style="text-align: center;">0.006</td>
+<td style="text-align: center;">**</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnica superior incompleta - Postgrado</td>
+<td style="text-align: center;">-0.259</td>
+<td style="text-align: center;">0.033</td>
+<td style="text-align: center;">[-0.357, -0.162]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnica superior completa - Universitaria incompleta</td>
+<td style="text-align: center;">-0.233</td>
+<td style="text-align: center;">0.018</td>
+<td style="text-align: center;">[-0.286, -0.181]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnica superior completa - Universitaria completa</td>
+<td style="text-align: center;">-0.127</td>
+<td style="text-align: center;">0.014</td>
+<td style="text-align: center;">[-0.169, -0.084]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnica superior completa - Postgrado</td>
+<td style="text-align: center;">-0.310</td>
+<td style="text-align: center;">0.029</td>
+<td style="text-align: center;">[-0.396, -0.224]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Universitaria incompleta - Universitaria completa</td>
+<td style="text-align: center;">0.107</td>
+<td style="text-align: center;">0.018</td>
+<td style="text-align: center;">[0.054, 0.160]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Universitaria incompleta - Postgrado</td>
+<td style="text-align: center;">-0.076</td>
+<td style="text-align: center;">0.031</td>
+<td style="text-align: center;">[-0.168, 0.015]</td>
+<td style="text-align: center;">0.173</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Universitaria completa - Postgrado</td>
+<td style="text-align: center;">-0.183</td>
+<td style="text-align: center;">0.029</td>
+<td style="text-align: center;">[-0.269, -0.097]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;">
+<sup></sup> Fuente: Elaboración propia con datos ELSOC 2016-2023.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0;">
+<sup>*</sup> Significancia: *** p&lt;0.001, ** p&lt;0.01, * p&lt;0.05, . p&lt;0.1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-des-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Comparaciones múltiples entre niveles educativos (Test de Tukey)
+</figcaption></figure>
+</div>
+</div>
+<div class="cell">
+<div id="fig-des-8" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table table-striped table-hover caption-top table-sm small">
+<thead><tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Hipótesis</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Comparación</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Diferencia</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">IC 95%</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">p-valor</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Sig</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Referencia</td>
+<td style="text-align: left;">Media completa - Media incompleta o menos</td>
+<td style="text-align: center;">0.097</td>
+<td style="text-align: center;">[0.071, 0.123]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Referencia</td>
+<td style="text-align: left;">Técnica superior completa - Media incompleta o menos</td>
+<td style="text-align: center;">0.178</td>
+<td style="text-align: center;">[0.144, 0.212]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">H1a</td>
+<td style="text-align: left; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">Técnica superior completa - Media completa</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">0.081</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">[0.046, 0.116]</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">&lt;0.001</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Referencia</td>
+<td style="text-align: left;">Universitaria completa - Media completa</td>
+<td style="text-align: center;">0.208</td>
+<td style="text-align: center;">[0.171, 0.244]</td>
+<td style="text-align: center;">&lt;0.001</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">H1b</td>
+<td style="text-align: left; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">Técnica superior completa - Universitaria completa</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">-0.127</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">[-0.169, -0.084]</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">&lt;0.001</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">***</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="odd">
+<td style="text-align: center; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center; padding: 0;">
+<sup></sup> Test de Tukey con ajuste por comparaciones múltiples.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; padding: 0;">
+<sup>a</sup> H1a (amarillo): Técnica superior completa &lt; Media completa (no linealidad)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center; padding: 0;">
+<sup>b</sup> H1b (azul): Universitaria completa &gt; Técnica superior completa</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; padding: 0;">
+<sup>c</sup> Valores positivos: primer grupo protesta MÁS que segundo grupo</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-des-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Comparaciones clave para H1: No linealidad de la educación
+</figcaption></figure>
+</div>
+</div>
+<p>Ahora, si bien el análisis de varianza (ANOVA) revela diferencias descriptivas significativas entre niveles educativos, la estructura longitudinal de los datos requiere el uso de modelos de efectos que: (a) corrijan la correlación intra-individual debida a observaciones repetidas, (b) controlen por confusores temporales, y (c) modelen apropiadamente la naturaleza binaria de la variable dependiente mediante regresión logística. Por tanto, los resultados del ANOVA se presentan únicamente con propósitos descriptivos, mientras que para las predicciones y el testeo de hipótesis se basan en los modelos de efectos aleatorios multivariados.</p>
+<div class="cell">
+<div id="fig-des-9" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table table-striped table-hover caption-top table-sm small">
+<thead><tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">Movilidad Educacional</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">N</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">% Protesta</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; background-color: rgba(240, 240, 240, 255) !important;">Índice Medio</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">Ascendente alta</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">5,069</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">15.41%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(209, 236, 241, 255) !important;">0.194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ascendente moderada</td>
+<td style="text-align: center;">4,269</td>
+<td style="text-align: center;">19.23%</td>
+<td style="text-align: center;">0.248</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Descendente</td>
+<td style="text-align: center;">1,532</td>
+<td style="text-align: center;">20.37%</td>
+<td style="text-align: center;">0.273</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sin movilidad</td>
+<td style="text-align: center;">7,954</td>
+<td style="text-align: center;">18.37%</td>
+<td style="text-align: center;">0.235</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;">
+<sup></sup> Fuente: Elaboración propia con datos ELSOC 2016-2023.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0;">
+<sup>a</sup> % Protesta: Porcentaje que participó en al menos una forma de protesta</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;">
+<sup>b</sup> Índice Medio: Promedio del índice de protesta (0-2)</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-des-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Participación en Protesta por Movilidad Educacional
+</figcaption></figure>
+</div>
+</div>
+</section><section id="variable-independiente-interacción-entre-protesta-y-movilidad-educacional" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="variable-independiente-interacción-entre-protesta-y-movilidad-educacional">
+<span class="header-section-number">1.3</span> Variable independiente: Interacción entre Protesta y Movilidad Educacional</h2>
+<p>En <a href="#fig-des-10" class="quarto-xref">Figure&nbsp;9</a> muestra la participación en protestas según la movilidad educacional. Las personas con movilidad descendente presentan el nivel más alto de involucramiento (algo por sobre el 20%), lo que sugiere que la pérdida relativa de estatus educativo respecto a la generación de origen puede incentivar una mayor disposición a la acción colectiva. En contraste, quienes experimentan una movilidad ascendente alta registran la menor participación (en torno al 15%), posiblemente debido a una mayor integración institucional o satisfacción con los logros obtenidos, lo que reduce la propensión al conflicto. Los grupos con movilidad ascendente moderada y sin movilidad se ubican en posiciones intermedias, con porcentajes cercanos al 18-19%, indicando que tanto la estabilidad como los ascensos parciales pueden mantener cierto grado de involucramiento político. En conjunto, los resultados apoyan la idea de que la experiencia de movilidad social descendente o limitada se asocia a mayores niveles de descontento y activismo, en línea con las teorías de la privación relativa y las tensiones derivadas de la movilidad intergeneracional.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-des-10" class="quarto-float quarto-figure quarto-figure-center anchored" width="720">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-descriptivos_files/figure-html/fig-des-10-1.png" id="fig-des-10" class="img-fluid figure-img" width="720">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-des-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>El cruce entre origen y destino educacional de la matriz de la <a href="#fig-des-11" class="quarto-xref">Figure&nbsp;10</a> muestra que la propensión a participar en protestas varía según las trayectorias intergeneracionales. Los mayores niveles de participación se observan entre quienes provienen de hogares con educación media y alcanzan educación alta (35,9%), seguidos por aquellos con origen alto y destino medio (33%), ambos casos que implican experiencias de movilidad educativa relativa. En cambio, las trayectorias descendentes hacia niveles bajos presentan una participación sustancialmente menor (entre 7% y 10%), lo que indica que la pérdida educativa profunda tiende a desmovilizar más que a radicalizar. Estos resultados sugieren que la protesta se activa con mayor fuerza en contextos de movilidad intermedia o de frustración relativa, donde las expectativas de progreso o los temores a la pérdida de estatus generan tensiones políticas más intensas que en situaciones de estabilidad estructural.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-des-11" class="quarto-float quarto-figure quarto-figure-center anchored" width="720">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-descriptivos_files/figure-html/fig-des-11-1.png" id="fig-des-11" class="img-fluid figure-img" width="720">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-des-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Finalmente, el análisis de la interacción entre nivel educativo y movilidad del <a href="#fig-des-12" class="quarto-xref">Figure&nbsp;11</a> muestra que la participación en protestas no sigue un patrón uniforme, sino que depende de la trayectoria educativa intergeneracional. Los niveles más altos de participación se observan en el nivel de posgrado, especialmente entre quienes presentan movilidad descendente o sin movilidad, con porcentajes superiores al 40%. En contraste, las personas con movilidad ascendente alta tienden a mostrar niveles más bajos de involucramiento en casi todos los tramos educativos, lo que sugiere una mayor integración al sistema institucional. En los niveles medios y técnicos, las diferencias entre tipos de movilidad se reducen considerablemente, indicando una zona de estabilidad política relativa. En conjunto, los resultados evidencian que la movilidad descendente intensifica la protesta en contextos de alta educación, mientras que la movilidad ascendente tiende a moderarla, reflejando tensiones entre logro educativo, reconocimiento social y orientación política.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-des-12" class="quarto-float quarto-figure quarto-figure-center anchored" width="720">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-des-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-descriptivos_files/figure-html/fig-des-12-1.png" id="fig-des-12" class="img-fluid figure-img" width="720">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-des-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>

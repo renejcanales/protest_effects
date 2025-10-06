@@ -1,0 +1,256 @@
+---
+title: "Modelo de efectos aleatorios: Tesis de Magister"
+format:
+  html: 
+    code-fold: true
+    html-math-method: katex
+    number-sections: true
+    code-link: true
+    title-block-banner: true
+    theme:
+      - pretty.scss
+  pdf: 
+    geometry: margin=2cm
+    template-partials: 
+      - title.tex
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+    number-sections: true
+editor: source
+author:   
+  - name: René Canales
+    affiliations:
+      - ref: 1
+      - ref: 2     
+affiliations: 
+  - id: 1
+    name: Instituto de Sociología, Pontificia Universidad Católica de Chile
+  - id: 2
+    name: Centro de estudios del conflicto y cohesión social (COES)
+citeproc: true
+abstract: | 
+  \newline
+  **Keywords**: 
+link-citations: true
+linestretch: 1.5       
+mainfont: Times New Roman
+fontlinewidth: 13pt          
+colorlinks: true
+fig-height: 4
+fig-width: 7.5
+---
+
+```{r}
+#| results: false
+#| warning: false
+#| message: false
+#| echo: false
+
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(tidyverse,
+               sjlabelled, 
+               sjmisc, 
+               sjPlot,
+               gt,
+               xfun,
+               here,
+               tidyr,
+               naniar,
+               dplyr,
+               broom,
+               broom.mixed,
+               texreg,
+               kableExtra,
+               emmeans)
+
+options(scipen=999)
+rm(list = ls())
+```
+
+# Datos
+
+```{r}
+#| results: false
+#| warning: false
+#| message: false
+#| echo: false
+
+
+load(here("~/GitHub/protest_effects/input/data/proc/elsoc_final.RData"))
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# CORRECCIONES A LA BASE
+elsoc_final <- elsoc_final %>%
+  mutate(
+    # Corregir años de educación
+    educ_years_corr = case_when(
+      educ_cat == "Media incompleta o menos" ~ 10,
+      educ_cat == "Media completa" ~ 12,
+      educ_cat == "Técnica superior incompleta" ~ 13,
+      educ_cat == "Técnica superior completa" ~ 15,
+      educ_cat == "Universitaria incompleta" ~ 15,
+      educ_cat == "Universitaria completa" ~ 17,
+      educ_cat == "Postgrado" ~ 19,
+      TRUE ~ NA_real_
+    ),
+    # Recalcular movilidad con años corregidos
+    movilidad_years_corr = educ_years_corr - educ_parental_max,
+    # Crear matriz origen-destino
+    educ_destino = case_when(
+      educ_years_corr < 12 ~ "Bajo",
+      educ_years_corr >= 12 & educ_years_corr < 16 ~ "Medio",
+      educ_years_corr >= 16 ~ "Alto"
+    ),
+    educ_origen = case_when(
+      educ_parental_max < 12 ~ "Bajo",
+      educ_parental_max >= 12 & educ_parental_max < 16 ~ "Medio",
+      educ_parental_max >= 16 ~ "Alto"
+    ),
+    matriz_movilidad = interaction(educ_origen, educ_destino, sep = " → ")
+  )
+```
+
+## Modelos Exploratorios
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# 5. MODELOS EXPLORATORIOS (POOLED OLS) ----------------------------------
+
+cat("\n========== MODELOS EXPLORATORIOS ==========\n")
+
+# Modelo 1: Solo educación
+m1 <- lm(protesta_index ~ educ_cat_factor, data = elsoc_final)
+
+# Modelo 2: Solo movilidad
+m2 <- lm(protesta_index ~ movilidad_cat_factor, data = elsoc_final)
+
+# Modelo 3: Aditivo
+m3 <- lm(protesta_index ~ educ_cat_factor + movilidad_cat_factor, data = elsoc_final)
+
+# Modelo 4: Interacción
+m4 <- lm(protesta_index ~ educ_cat_factor * movilidad_cat_factor, data = elsoc_final)
+
+# Modelo 5: Con controles
+m5 <- lm(protesta_index ~ educ_cat_factor + movilidad_cat_factor + 
+           edad + edad_cuadratica + mujer + ideologia_std + egp3 + factor(year),
+         data = elsoc_final)
+
+# Tabla comparativa
+screenreg(list(m1, m2, m3, m4, m5),
+          custom.model.names = c("Solo Educ", "Solo Mov", "Aditivo", "Interacción", "Con controles"),
+          digits = 3)
+
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false 
+
+# 6. MODELOS DE PANEL: EFECTOS ALEATORIOS ---------------------------------
+
+cat("\n========== MODELOS DE PANEL (EFECTOS ALEATORIOS) ==========\n")
+
+# Declarar estructura de panel
+panel_data <- pdata.frame(elsoc_final, index = c("idencuesta", "ola"))
+
+# Verificar estructura
+cat("\nEstructura del panel:\n")
+print(pdim(panel_data))
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false 
+
+# 6.1 Modelo Principal H1: No linealidad educación
+cat("\n--- MODELO H1: NO LINEALIDAD EDUCACIÓN ---\n")
+
+re_h1 <- plm(protesta_index ~ educ_cat_factor + 
+               edad + edad_cuadratica + mujer + ideologia_std,
+             data = panel_data, model = "random")
+
+summary(re_h1)
+
+# Test de Hausman (RE vs FE)
+fe_h1 <- plm(protesta_index ~ educ_cat_factor + 
+               edad + edad_cuadratica + mujer + ideologia_std + factor(year),
+             data = panel_data, model = "within")
+
+hausman_test <- phtest(re_h1, fe_h1)
+cat("\nTest de Hausman (H0: RE es consistente):\n")
+print(hausman_test)
+
+library(ggeffects)
+
+# Predicciones marginales
+pred_h1 <- ggpredict(re_h1, terms = "educ_cat_factor")
+plot(pred_h1) +
+  labs(title = "Efectos marginales de educación sobre protesta",
+       x = "Nivel educativo", y = "Predicción índice protesta") +
+  theme_minimal()
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# 6.2 Modelo Principal H2: Interacción Educación × Movilidad
+cat("\n--- MODELO H2: INTERACCIÓN EDUCACIÓN × MOVILIDAD ---\n")
+
+# Preparar variables
+panel_data <- panel_data %>%
+  mutate(
+    movil_binaria = if_else(movilidad_asc_dummy == 1, "Ascendente", "No ascendente"),
+    movil_binaria = factor(movil_binaria, levels = c("No ascendente", "Ascendente"))
+  )
+
+# Estimar modelo
+re_h2a <- plm(protesta_index ~ educ_cat_factor * movil_binaria + 
+                edad + edad_cuadratica + mujer + ideologia_std + egp3 + factor(year),
+              data = panel_data, model = "random")
+
+summary(re_h2a)
+
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+
+# 6.2 Modelo Principal H2: Interacción Educación × Movilidad
+cat("\n--- MODELO H2: INTERACCIÓN EDUCACIÓN × MOVILIDAD ---\n")
+
+re_h2 <- plm(protesta_index ~ educ_cat_factor * movilidad_cat_factor + 
+               edad + edad_cuadratica + mujer + ideologia_std,
+             data = panel_data, model = "random")
+
+summary(re_h2)
+
+# Gráfico de interacción
+interact_plot(re_h2, pred = educ_cat_factor, modx = movilidad_cat_factor,
+              plot.points = TRUE) +
+  labs(title = "Interacción educación × movilidad (Modelo RE)",
+       x = "Nivel educativo", y = "Predicción índice protesta",
+       color = "Movilidad") +
+  theme_minimal()
+```
