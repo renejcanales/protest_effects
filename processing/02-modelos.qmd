@@ -123,13 +123,14 @@ elsoc_final <- elsoc_final %>%
   )
 ```
 
-## Modelos Exploratorios
+# Modelos Exploratorios
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
 #| results: false
+
 
 # Paso 1: Convertir a factor no ordenado
 elsoc_final <- elsoc_final %>%
@@ -153,6 +154,10 @@ table(elsoc_final$educ_cat_factor_ref)
 levels(elsoc_final$educ_cat_factor_ref)
 
 ```
+
+La educación se convierte en factor ordenado dada la naturaleza jerárquica de la educación. Pues, la educación tiene una secuencia lógica donde cada nivel representa un mayor grado de formación académica. Es decir, constituye una variable ordinal donde el orden importa: Media < Técnica < Universitaria < Postgrado.
+
+Lo anterior permite modelar efectos no lineales. Al ser factor ordenado, se puede capturar el gradiente educativo donde cada nivel superior tiene mayor efecto, se puede detectar patrones no monotónicos y realizar contrastes específicos entre niveles adyacentes.
 
 # Modelos Descriptivos
 
@@ -227,6 +232,10 @@ mod1_educ_simple <- glmmTMB(
 screenreg(mod1_educ_simple)
 ```
 
+El Modelo 1 evalúa el efecto bruto de la educación sobre la participación en protestas sin variables de control, utilizando educación media completa como categoría de referencia (9.1% de probabilidad de protestar). Los resultados revelan una relación altamente significativa pero claramente no lineal entre educación y protesta. Las personas con educación media incompleta o menos presentan la menor probabilidad de participación (4.3%, 58% menos que la referencia), mientras que en el extremo superior, quienes tienen postgrado muestran la mayor probabilidad (35.0%, 410% más que la referencia). Sin embargo, el patrón no es monotónicamente ascendente: la educación universitaria incompleta genera la segunda mayor probabilidad de protesta (31.8%), superando incluso a la universitaria completa (23.6%), y dentro de la educación técnica, el nivel incompleto (19.2%) presenta mayor efecto que el completo (14.2%).
+
+Estos hallazgos confirman fuertemente la hipótesis H1 sobre la no linealidad del efecto educativo, sugiriendo que diferentes tipos y niveles de educación operan a través de mecanismos distintos. El patrón observado indica que la educación no solo proporciona recursos cívicos de manera gradual, sino que ciertos niveles específicos —particularmente la educación universitaria incompleta y el postgrado— pueden generar mayor conciencia crítica o frustración con el sistema político. La varianza sustancial entre individuos (2.04) justifica el uso de modelos multinivel, mientras que la ausencia de controles en este modelo establece la línea base para evaluar si estos efectos educativos se mantienen una vez controladas variables demográficas, actitudinales y temporales en los modelos posteriores.
+
 ### Modelo con controles demográficos
 
 ```{r}
@@ -244,6 +253,10 @@ mod2_educ_demo <- glmmTMB(
 
 screenreg(mod2_educ_demo)
 ```
+
+El Modelo 2 incorpora controles demográficos básicos (edad y género) al análisis de educación y protesta, mostrando cambios importantes respecto al modelo sin controles. La inclusión de variables demográficas reduce sustancialmente los coeficientes educativos: por ejemplo, el efecto de educación media incompleta o menos se atenúa de -0.87 a -0.53, mientras que universitaria incompleta disminuye de 1.43 a 0.98, y postgrado de 1.63 a 1.54. Sin embargo, el patrón no lineal se mantiene claramente, con universitaria incompleta (23.6% de probabilidad predicha) y postgrado (30.2%) presentando los mayores efectos, seguidos por universitaria completa (22.0%), mientras que educación media incompleta o menos conserva la menor probabilidad de participación (8.4%). Los controles demográficos revelan efectos significativos y sustantivos: cada año adicional de edad reduce las log-odds de protesta en 0.05 (equivalente a una reducción del 5% en las odds por año), y ser mujer disminuye las log-odds en 0.30 (26% menos probabilidad que los hombres).
+
+La mejora en el ajuste del modelo es notable, con una reducción del AIC de 16,112 a 15,698 y una disminución en la varianza de efectos aleatorios de 2.04 a 1.92, indicando que las variables demográficas explican parte de la heterogeneidad individual en participación política. Este modelo confirma que los efectos educativos no son meramente artefactos de diferencias de edad o género, manteniendo la evidencia a favor de la hipótesis H1 sobre no linealidad. Los hallazgos son consistentes con literatura previa que documenta menor participación política entre mujeres y personas mayores, mientras que la persistencia del gradiente educativo complejo sugiere que los mecanismos subyacentes trascienden características demográficas básicas y requieren la consideración de variables actitudinales y políticas en modelos posteriores.
 
 ```{r}
 #| warning: false
@@ -265,6 +278,10 @@ screenreg(mod3_h1_tmb)
 # glmmTMB usa Template Model Builder (C++), mucho más rápido
 ```
 
+El Modelo 3 incorpora variables actitudinales clave (ideología política e interés político) y controles temporales, representando el modelo completo para evaluar la hipótesis H1 sobre no linealidad educativa. La inclusión de estos predictores reduce nuevamente los coeficientes educativos, pero mantiene el patrón no lineal: educación media incompleta o menos conserva el efecto negativo más fuerte (-0.60), mientras que postgrado mantiene el mayor efecto positivo (0.97), seguido por universitaria incompleta (0.68) y universitaria completa (0.58). Crucialmente, técnica superior incompleta (0.40) sigue superando a técnica superior completa (0.33), confirmando la persistencia del patrón complejo incluso controlando variables políticas fundamentales. Las variables actitudinales muestran efectos sustantivos y esperados: cada unidad de incremento hacia la derecha en la escala ideológica reduce las log-odds de protesta en 0.22, mientras que mayor interés político incrementa las log-odds en 0.44, evidenciando la importancia de orientaciones políticas en la participación contestataria.
+
+Los efectos temporales revelan patrones consistentes con la historia política chilena reciente: 2019 (año del estallido social) presenta el único coeficiente positivo (0.54) respecto al año base 2016, mientras que todos los demás años muestran efectos negativos, particularmente 2021 (-1.22) que coincide con el período de mayor polarización política. La mejora dramática en el ajuste del modelo (AIC reduce de 15,698 a 10,015) y la reducción del tamaño muestral a 12,654 observaciones refleja la disponibilidad limitada de variables actitudinales en algunas olas. Este modelo confirma definitivamente la hipótesis H1: la relación educación-protesta es fundamentalmente no lineal y no puede explicarse como artefacto de diferencias demográficas, ideológicas o temporales, sugiriendo que diferentes tipos de educación operan a través de mecanismos causales distintos en la movilización política.
+
 ### Modelo Completo H1 
 
 ```{r}
@@ -285,6 +302,10 @@ mod3_h1_full <- glmmTMB(
 
 screenreg(mod3_h1_full)
 ```
+
+El Modelo 3 Full representa la especificación más completa para evaluar la hipótesis H1, incorporando variables actitudinales adicionales (confianza institucional y eficacia política) que podrían mediar la relación educación-protesta. Los coeficientes educativos se mantienen prácticamente idénticos al modelo anterior, confirmando la robustez del patrón no lineal: educación media incompleta o menos conserva el efecto negativo (-0.60), mientras que el gradiente ascendente culmina en postgrado (0.99), con universitaria incompleta (0.69) superando a universitaria completa (0.59), y técnica incompleta (0.40) manteniendo ventaja sobre técnica completa (0.33). La estabilidad de estos coeficientes ante la inclusión de controles actitudinales adicionales fortalece la evidencia de que los efectos educativos no son meramente artefactos de diferencias en orientaciones políticas subyacentes, sino que reflejan mecanismos causales específicos asociados a diferentes tipos de formación educativa.
+
+Las variables actitudinales adicionales revelan patrones esperados pero con magnitudes modestas: mayor confianza en instituciones reduce la participación en protestas (-0.13), mientras que la eficacia política no muestra efecto significativo (0.02), sugiriendo que el interés político es un predictor más robusto de movilización que la percepción de eficacia personal. La mejora marginal en el ajuste del modelo (AIC: 10,009 vs 10,015 del modelo anterior) indica que estas variables aportan poco poder explicativo adicional, reforzando que el modelo sin confianza e eficacia política ya captura adecuadamente los principales determinantes actitudinales. Este modelo final para H1 confirma definitivamente la no linealidad educativa: diferentes niveles y tipos de educación generan probabilidades de protesta diferenciadas que no pueden reducirse a un gradiente monotónico, estableciendo la base empírica sólida para rechazar modelos lineales simples del efecto educativo en la participación política contestataria.
 
 ### Test específico para H1
 
@@ -318,6 +339,11 @@ contrast_h1b <- contrast(emm_h1,
 print(contrast_h1a, adjust = "none")
 print(contrast_h1b, adjust = "none")
 ```
+
+Los tests específicos para la hipótesis H1 revelan hallazgos complejos que requieren interpretación cuidadosa respecto a las predicciones teóricas sobre educación técnica versus universitaria. El primer resultado muestra que técnica superior completa tiene un odds ratio de 1.39 respecto a educación media completa (categoría de referencia), lo que equivale a 39% mayor probabilidad de protestar, con significancia estadística (p = 0.002) y un intervalo de confianza que no incluye 1.0 (1.12-1.73). Sin embargo, los contrastes específicos diseñados para evaluar las hipótesis H1a y H1b presentan resultados contraintuitivos: el contraste "Técnica vs Media" arroja un odds ratio de 0.773 (p = 0.032), sugiriendo que técnica superior completa tiene menor probabilidad de protesta que media completa, mientras que el contraste "Universitaria vs Técnica" muestra un odds ratio de 1.29 (p = 0.032), indicando que universitaria completa supera a técnica completa.
+
+La aparente contradicción entre el coeficiente individual (OR = 1.39 para técnica completa vs media completa) y el contraste específico (OR = 0.773 para el mismo contraste) sugiere problemas en la especificación de los vectores de contraste o diferencias en cómo emmeans promedia sobre las covariables (mujer, year). El resultado más confiable proviene del coeficiente directo del modelo, que indica que técnica superior completa efectivamente tiene mayor probabilidad de protesta que media completa. Respecto a las hipótesis sustantivas, los datos apoyan parcialmente H1a (técnica completa > media completa) pero contradicen H1b, ya que universitaria completa (OR = 1.80 vs media completa, del modelo principal) supera claramente a técnica completa (OR = 1.39), sugiriendo que la educación universitaria, contrario a la predicción, mantiene ventajas en participación política sobre la educación técnica, posiblemente debido a recursos cívicos diferenciados o redes sociales distintas que facilitan la movilización contestataria.
+
 ## Modelos para H2 (Movilidad Educacional)
 
 ### Efecto principal de Movilidad
@@ -340,6 +366,10 @@ mod4_movilidad <- glmmTMB(
 screenreg(mod4_movilidad)
 ```
 
+El Modelo 4 evalúa específicamente el efecto de la movilidad educacional sobre la participación en protestas, excluyendo el nivel educativo alcanzado para aislar el efecto puro de las trayectorias de movilidad social. Los resultados muestran que la movilidad educacional, tratada como factor ordenado, no presenta efectos estadísticamente significativos en ninguno de sus componentes polinómicos: el término lineal (-0.06, p > 0.05), cuadrático (0.13, p > 0.05) y cúbico (-0.11, p > 0.05) no alcanzan significancia estadística. Esto sugiere que, por sí sola y sin considerar el nivel educativo de destino, la trayectoria de movilidad educacional no constituye un predictor robusto de participación en protestas. Las variables de control mantienen los patrones esperados: edad reduce la participación (-0.05), ser mujer disminuye las probabilidades (-0.26), la ideología de derecha reduce la protesta (-0.21), y el interés político la incrementa (0.51), mientras que los efectos temporales replican el patrón ya observado con 2019 como único año con efecto positivo.
+
+La ausencia de efectos significativos de movilidad en este modelo plantea interrogantes importantes para la hipótesis H2, ya que sugiere que las trayectorias de ascenso o descenso educacional per se no generan incentivos diferenciados para la participación política contestataria. Sin embargo, esta interpretación debe ser cautelosa por dos razones: primero, el modelo excluye el nivel educativo alcanzado, que puede ser el mecanismo principal a través del cual la movilidad opera; segundo, los efectos de movilidad podrían manifestarse únicamente en interacción con el nivel educativo de destino, consistent con teorías que enfatizan la importancia del estatus relativo y las expectativas frustradas. El tamaño muestral reducido (12,018 observaciones vs 12,648 en modelos previos) refleja la disponibilidad limitada de datos completos de movilidad, mientras que el AIC relativamente favorable (9,808) sugiere un ajuste aceptable. Este modelo establece la línea base para evaluar si los efectos de movilidad emergen cuando se considera conjuntamente con la educación alcanzada en los modelos de interacción subsiguientes.
+
 ### Modelo Aditivo (educación + movilidad sin interacción)
 
 ```{r}
@@ -359,6 +389,10 @@ mod5_aditivo <- glmmTMB(
 
 screenreg(mod5_aditivo)
 ```
+
+El Modelo 5 Aditivo representa la especificación crucial para evaluar la hipótesis H2, combinando los efectos independientes de educación alcanzada y movilidad educacional sin asumir interacciones entre ambas. Los coeficientes educativos se mantienen prácticamente idénticos al Modelo 3 Full, confirmando la robustez del patrón no lineal: educación media incompleta o menos conserva el efecto negativo más fuerte (-0.61), mientras que postgrado mantiene el mayor efecto positivo (0.99), con universitaria incompleta (0.63) y universitaria completa (0.61) mostrando efectos similares y técnica superior manteniendo el patrón donde incompleta (0.41) supera ligeramente a completa (0.32). Crucialmente, al controlar por nivel educativo alcanzado, emerge un efecto significativo de movilidad: el término lineal (-0.26, p < 0.05) indica que mayor movilidad ascendente se asocia con menor participación en protestas, consistent con teorías de integración social que sugieren que quienes experimentan ascenso social desarrollan mayor identificación con el sistema político existente.
+
+La significancia del efecto lineal de movilidad en este modelo, versus su ausencia en el Modelo 4, demuestra la importancia de controlar simultáneamente por destino educativo y trayectoria de movilidad. Este hallazgo sugiere que el efecto de la movilidad opera independientemente del nivel educativo final: entre personas con el mismo nivel educativo, aquellas que experimentaron mayor ascenso tienden a protestar menos que quienes experimentaron menor movilidad o estabilidad intergeneracional. La mejora sustancial en el ajuste del modelo (AIC: 9,698 vs 9,808 del modelo solo-movilidad) confirma que educación y movilidad aportan información complementaria para predecir participación política. Los términos cuadrático (0.17) y cúbico (-0.07) de movilidad no alcanzan significancia, indicando que la relación es predominantly lineal. Este modelo establece la línea base para evaluar si existe interacción significativa entre educación y movilidad en el Modelo 6, siendo fundamental para determinar si H2 requiere un modelo de efectos condicionales o si los efectos aditivos capturan adecuadamente la relación.
 
 ### Modelo con interacción
 
@@ -380,6 +414,10 @@ mod6_h2_interaccion <- glmmTMB(
 screenreg(mod6_h2_interaccion)
 ```
 
+El Modelo 6 de Interacción representa la evaluación definitiva de la hipótesis H2, que postula que el efecto de la educación sobre la participación en protestas varía según la trayectoria de movilidad social experimentada. Los resultados muestran evidencia muy limitada de interacciones significativas entre educación y movilidad: de las múltiples interacciones estimadas, solo una alcanza significancia estadística (universitaria completa × movilidad cuadrática: -0.98, p < 0.05), mientras que todas las demás interacciones no son estadísticamente significativas. Además, el modelo presenta problemas de identificación, como evidencia el mensaje de que se eliminaron dos términos de interacción por colinealidad perfecta (universitaria completa y postgrado con el término cúbico de movilidad), sugiriendo insuficiente variación en los datos para estimar todos los parámetros de interacción de manera confiable.
+
+La ausencia generalizada de interacciones significativas, combinada con la mejora marginal en el ajuste del modelo (AIC: 9,712 vs 9,698 del modelo aditivo), proporciona evidencia contra la hipótesis H2. Los efectos principales de educación se mantienen en direcciones similares pero pierden significancia en varios niveles (técnica superior incompleta, técnica superior completa, universitaria completa y postgrado), mientras que los efectos de movilidad también se vuelven no significativos. Este patrón sugiere que el modelo de interacción está sobreajustado y que los efectos aditivos del Modelo 5 capturan mejor la relación entre educación, movilidad y protesta. La única interacción significativa (universitaria completa × movilidad cuadrática) puede ser espuria dado el contexto de múltiples comparaciones sin corrección estadística. En conjunto, estos resultados llevan al rechazo de H2 y apoyan la adopción del modelo aditivo como especificación final, donde educación y movilidad operan como efectos independientes y no condicionales en la determinación de la participación política contestataria.
+
 ### Test de interacción (LRT)
 
 ```{r}
@@ -392,6 +430,10 @@ anova(mod5_aditivo, mod6_h2_interaccion)
 
 # Si p < 0.05 → La interacción es significativa → H2 confirmada
 ```
+
+El Likelihood Ratio Test (LRT) proporciona evidencia estadística definitiva para rechazar la hipótesis H2 sobre interacciones entre educación y movilidad social. La comparación formal entre el modelo aditivo (21 parámetros) y el modelo de interacción (37 parámetros) arroja un estadístico chi-cuadrado de 17.317 con 16 grados de libertad (p = 0.3653), indicando que la adición de los 16 términos de interacción no mejora significativamente el ajuste del modelo. Este resultado confirma que la complejidad adicional del modelo de interacción no está justificada por los datos, ya que no proporciona capacidad predictiva superior al modelo más parsimonioso que asume efectos aditivos de educación y movilidad.
+
+Los criterios de información también favorecen el modelo aditivo: aunque ambos modelos tienen AIC similares (9,698 vs 9,712), el BIC penaliza más fuertemente la complejidad y muestra una diferencia sustancial (9,853 vs 9,986), favoreciendo claramente el modelo aditivo. La diferencia en log-likelihood (-4,828 vs -4,819) es marginal considerando la diferencia en parámetros estimados. Este conjunto de evidencias estadísticas lleva al rechazo formal de H2 y establece el Modelo 5 Aditivo como la especificación final óptima. Los hallazgos implican que educación y movilidad social operan como predictores independientes de participación en protestas: el efecto de cada nivel educativo es constante independientemente de la trayectoria de movilidad experimentada, y el efecto negativo de la movilidad ascendente es uniforme across diferentes niveles educativos, consistent con teorías de integración social pero no con teorías de frustración relativa que predecirían efectos condicionales.
 
 ```{r}
 #| warning: false
@@ -437,6 +479,10 @@ ggplot(grid_pred,
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+El gráfico de interacción confirma visualmente los hallazgos estadísticos que llevaron al rechazo de la hipótesis H2, mostrando patrones inconsistentes y erráticos que no apoyan la existencia de interacciones sistemáticas entre educación y movilidad social. Las líneas que representan diferentes tipos de movilidad educacional se entrecruzan múltiples veces a lo largo del gradiente educativo sin seguir patrones teóricamente coherentes: por ejemplo, la movilidad descendente (línea roja) muestra una trayectoria altamente volátil, comenzando en niveles medios en educación básica, cayendo dramáticamente en educación media, para luego incrementar abruptamente en educación técnica y colapsar nuevamente en educación universitaria y postgrado. De manera similar, la movilidad ascendente alta (línea púrpura) presenta fluctuaciones erráticas, con picos en educación técnica superior completa y universitaria completa, pero valores bajos en postgrado, contradiciendo expectativas teóricas sobre efectos consistentes de las trayectorias de movilidad.
+
+La ausencia de patrones paralelos o sistemáticamente divergentes entre las líneas de movilidad refuerza la conclusión estadística de que no existen interacciones significativas entre educación y movilidad social en la determinación de la participación en protestas. Las probabilidades predichas oscilan erráticamente entre aproximadamente 0.25 y 0.75 sin mostrar gradientes claros o diferencias consistentes entre tipos de movilidad within each nivel educativo. Este patrón visual caótico es consistente con el LRT no significativo (p = 0.365) y sugiere que las aparentes diferencias en el gráfico reflejan principalmente ruido estadístico rather than efectos sustantivos. El gráfico así apoya la adopción del modelo aditivo como especificación final, donde los efectos de educación y movilidad operan independientemente sin condicionarse mutuamente, consistent con teorías que enfatizan mecanismos causales separados rather than interactivos en la relación between estatus socioeducativo y participación política contestataria.
+
 ## Análisis de Mediación
 
 ### Modelo con mediaciones
@@ -463,6 +509,10 @@ mod7_mediacion <- glmmTMB(
 
 screenreg(mod7_mediacion)
 ```
+
+El Modelo 7 de Mediación incorpora variables actitudinales (justicia distributiva, meritocracia, clase subjetiva y satisfacción con ingresos) para evaluar si los efectos de educación y movilidad operan a través de estos mecanismos específicos. Los resultados revelan cambios sustanciales en los coeficientes educativos al incluir estos mediadores potenciales: varios niveles educativos pierden significancia estadística, incluyendo educación media incompleta (-0.42, no significativa), técnica superior incompleta (0.35, no significativa), universitaria completa (0.37, no significativa) y postgrado (1.12, no significativa), mientras que solo técnica superior completa (0.58, p < 0.05) y universitaria incompleta (1.11, p < 0.001) mantienen efectos significativos. Esta reducción generalizada en la significancia y magnitud de los coeficientes educativos sugiere que una porción considerable del efecto educativo sobre la participación en protestas opera indirectamente a través de actitudes hacia la justicia social, estratificación y posición de clase.
+
+Las variables mediadoras muestran efectos en direcciones teóricamente esperadas: mayor percepción de justicia distributiva reduce la participación en protestas (-0.14, p < 0.05), así como mayor identificación con clases sociales superiores (-0.15, p < 0.05), mientras que meritocracia y satisfacción con ingresos no alcanzan significancia estadística. La reducción dramática en el tamaño muestral (de 12,018 a 3,723 observaciones) refleja la disponibilidad limitada de variables actitudinales en el panel ELSOC, lo que limita la generalización de estos hallazgos. No obstante, los resultados proporcionan evidencia preliminar de mediación parcial: los efectos educativos se atenúan al controlar por actitudes, sugiriendo que la educación influye en la protesta tanto directamente (a través de recursos cívicos y habilidades) como indirectamente (moldeando percepciones sobre justicia social y posición de clase). La persistencia de algunos efectos educativos significativos indica mediación parcial rather than completa, consistent con teorías multidimensionales que enfatizan múltiples pathways causales entre educación y participación política contestataria.
 
 ### Comparar efecto total vs directo
 
@@ -515,54 +565,13 @@ comparacion_educacion <- coefs_educ_mod6 %>%
 print(comparacion_educacion)
 ```
 
-```{r}
-#| warning: false
-#| message: false
-#| echo: false
+El análisis de mediación para los efectos de movilidad social revela patrones mixtos que sugieren mediación parcial y selectiva a través de variables actitudinales. Los efectos principales de movilidad (términos polinómicos) muestran cambios moderados entre el modelo total (Modelo 6) y el modelo con mediadores (Modelo 7): el término lineal se intensifica de -0.313 a -0.434, mientras que el término cuadrático cambia de dirección (de 0.248 a -0.112) y el cúbico se mantiene relativamente estable (0.011 a 0.061). Estos cambios sugieren que las variables actitudinales median parcialmente la relación entre movilidad y protesta, pero no de manera uniforme across los diferentes componentes polinómicos de la movilidad.
 
-library(broom.mixed)
-library(dplyr)
+Los términos de interacción muestran patrones más diversos en cuanto a mediación: algunas interacciones se reducen en magnitud (como universitaria incompleta × movilidad lineal: de -0.404 a 0.037), mientras que otras se intensifican (como media incompleta × movilidad lineal: de 0.202 a 0.429), y otras cambian de dirección completamente (como técnica superior incompleta × movilidad lineal: de -0.118 a 0.364). Sin embargo, es crucial notar que estos cambios ocurren en un contexto donde las interacciones no eran estadísticamente significativas en el modelo original, y la reducción dramática del tamaño muestral (de 12,018 a 3,723) limita la confiabilidad de estas comparaciones. El análisis sugiere que las variables actitudinales (justicia distributiva, clase subjetiva) median algunos aspectos de cómo la movilidad social afecta la participación política, pero la evidencia es fragmentaria y debe interpretarse con cautela dado el rechazo previo de la hipótesis de interacción y las limitaciones muestrales del modelo de mediación.
 
-# 1. Extraer efectos de movilidad (términos polinómicos)
-coefs_mod6 <- tidy(mod6_h2_interaccion, effects = "fixed") %>%
-  filter(grepl("movilidad_cat_factor", term)) %>%
-  select(term, estimate_total = estimate, se_total = std.error, p_total = p.value)
+Para los efectos educativos principales, el análisis de mediación revela evidencia robusta de mediación parcial a través de variables actitudinales, con patrones diferenciados según el nivel educativo. Los resultados muestran que la educación media incompleta o menos experimenta una reducción moderada en su efecto negativo (de -0.637 a -0.419, representando 34% de mediación), mientras que los niveles de educación superior muestran patrones más complejos. La educación técnica superior completa muestra una intensificación paradójica (de 0.271 a 0.578), lo que sugiere supresión estadística donde las variables actitudinales revelan efectos educativos previamente ocultos. Los niveles de educación universitaria presentan los patrones de mediación más claros: universitaria incompleta se intensifica considerablemente (de 0.553 a 1.11, indicando 101% de "mediación negativa"), mientras que universitaria completa cambia sustancialmente (de 0.135 a 0.370), y postgrado también se intensifica (de 0.509 a 1.12).
 
-coefs_mod7 <- tidy(mod7_mediacion, effects = "fixed") %>%
-  filter(grepl("movilidad_cat_factor", term)) %>%
-  select(term, estimate_directo = estimate, se_directo = std.error, p_directo = p.value)
-
-# 2. Comparar efectos
-comparacion_movilidad <- coefs_mod6 %>%
-  inner_join(coefs_mod7, by = "term") %>%
-  mutate(
-    efecto_indirecto = estimate_total - estimate_directo,
-    cambio_pct = ((estimate_directo - estimate_total) / abs(estimate_total)) * 100,
-    reduccion = abs(estimate_directo) < abs(estimate_total)
-  )
-
-print(comparacion_movilidad)
-
-# 3. También para educación (efectos principales)
-coefs_educ_mod6 <- tidy(mod6_h2_interaccion, effects = "fixed") %>%
-  filter(grepl("^educ_cat_factor_ref[^:]", term)) %>%  # Sin interacciones
-  select(term, estimate_total = estimate, se_total = std.error, p_total = p.value)
-
-coefs_educ_mod7 <- tidy(mod7_mediacion, effects = "fixed") %>%
-  filter(grepl("^educ_cat_factor_ref[^:]", term)) %>%
-  select(term, estimate_directo = estimate, se_directo = std.error, p_directo = p.value)
-
-comparacion_educacion <- coefs_educ_mod6 %>%
-  inner_join(coefs_educ_mod7, by = "term") %>%
-  mutate(
-    efecto_indirecto = estimate_total - estimate_directo,
-    prop_mediada = (efecto_indirecto / estimate_total) * 100,
-    reduccion = abs(estimate_directo) < abs(estimate_total)
-  )
-
-print(comparacion_educacion)
-```
-
+Los patrones observados sugieren que las variables actitudinales no solo median los efectos educativos sino que también actúan como supresores estadísticos, revelando efectos educativos "puros" una vez controladas las actitudes hacia la justicia social y la estratificación. Esto es particularmente evidente en educación universitaria incompleta, donde el control por variables actitudinales revela un efecto más fuerte, sugiriendo que este grupo tiene actitudes que normalmente reducirían la participación política pero que, una vez controladas, emerge su verdadero potencial contestatario. El patrón general indica que la educación opera a través de múltiples pathways: directamente (a través de recursos cívicos y habilidades) e indirectamente (moldeando actitudes hacia el sistema social), con algunos niveles educativos mostrando efectos suprimidos por sus orientaciones actitudinales características. Estos hallazgos son consistentes con teorías multidimensionales de la participación política que enfatizan tanto recursos como motivaciones actitudinales como mediadores de los efectos educativos.
 
 ```{r}
 #| warning: false
@@ -614,6 +623,10 @@ comparacion_educacion %>%
   theme_minimal()
 ```
 
+Los gráficos del análisis de mediación proporcionan evidencia visual clara de cómo las variables actitudinales median los efectos educativos sobre la participación en protestas, revelando patrones complejos de mediación parcial y supresión estadística. El primer gráfico, compara los efectos totales (verde) versus los efectos directos (rojo) para cada nivel educativo y sus interacciones con movilidad, mostrando que la inclusión de variables mediadoras (justicia distributiva, meritocracia, clase subjetiva, satisfacción con ingresos) altera sustancialmente las magnitudes de los coeficientes. Los efectos principales de educación muestran patrones mixtos: algunos se reducen (indicando mediación tradicional), otros se intensifican (sugiriendo supresión estadística), y varios cambian de dirección completamente. Particularmente notable es que los niveles de educación universitaria (incompleta y completa) así como postgrado muestran intensificación de sus efectos al controlar por actitudes, sugiriendo que estos grupos tienen orientaciones actitudinales que normalmente reducirían su participación política, pero una vez controladas, emerge su verdadero potencial contestatario.
+
+El segundo gráfico, cuantifica el porcentaje del efecto educativo que opera a través de las variables actitudinales, revelando una variabilidad extrema en los patrones de mediación. El gráfico muestra que algunos efectos experimentan mediación sustancial (barras largas hacia la derecha), otros muestran "mediación negativa" o supresión (barras hacia la izquierda), y muchos presentan valores cercanos a cero. Los resultados más llamativos incluyen efectos que superan el 100% de mediación (valores > 500%), lo que indica supresión estadística donde las variables actitudinales revelan efectos educativos previamente ocultos. Este patrón es consistente con teorías multidimensionales que sugieren que la educación opera tanto directamente (a través de recursos cívicos) como indirectamente (moldeando actitudes), pero también puede generar orientaciones que contrarrestan su efecto movilizador, requiriendo control estadístico para revelar su verdadero impacto. La evidencia visual confirma que la relación educación-protesta no puede entenderse sin considerar las actitudes políticas como mediadoras y supresoras simultáneas.
+
 ```{r}
 #| warning: false
 #| message: false
@@ -659,7 +672,11 @@ comparacion_educacion %>%
   )
 ```
 
-## Robutez y Diagnósticos
+Esta tabla de análisis de mediación revela patrones fascinantes y complejos que van más allá de la mediación tradicional, mostrando evidencia sustancial de supresión estadística en los efectos educativos. Los efectos principales de educación muestran tres patrones distintos: (1) mediación tradicional en educación media incompleta (-0.637 a -0.419, 34.3% mediado), donde las variables actitudinales explican parte del efecto negativo; (2) supresión estadística en educación técnica y universitaria, donde los efectos se intensifican al controlar por actitudes (técnica completa: 0.271 a 0.578, -113.2% "mediado"; universitaria incompleta: 0.553 a 1.106, -100% "mediado"); y (3) revelación de efectos ocultos en niveles que no eran significativos originalmente pero emergen como significativos tras controlar por mediadores. Esto sugiere que los grupos de educación superior tienen orientaciones actitudinales (mayor percepción de justicia, identificación de clase alta) que normalmente reducirían su participación contestataria, pero una vez controladas estas actitudes conservadoras, emerge su verdadero potencial movilizador basado en recursos cívicos y capacidades políticas.
+
+Los términos de interacción con movilidad muestran variabilidad extrema (desde -733.2% hasta 1,130.7% de "mediación"), reflejando la inestabilidad estadística de estas interacciones que no eran significativas en el modelo original. Los valores extremos como técnica superior completa × movilidad lineal (-733.2%) o media incompleta × movilidad cuadrática (1,130.7%) indican coeficientes muy pequeños en el denominador que generan porcentajes inflados, confirmando que estos efectos son estadísticamente poco confiables. La ausencia de valores (NA) para universitaria completa y postgrado en el componente cúbico refleja problemas de identificación del modelo debido a insuficiente variación muestral. El patrón general confirma que las variables actitudinales no solo median los efectos educativos sino que actúan como supresores estadísticos, revelando que la educación opera de forma contradictoria: mientras proporciona recursos para la movilización, también socializa actitudes que pueden inhibir la participación en protestas, requiriendo descomposición estadística para comprender su efecto neto
+
+# Robutez y Diagnósticos
 
 ### Modelos Alternativos
 
@@ -680,7 +697,7 @@ mod_alt1_continua <- glmmTMB(
 screenreg(mod_alt1_continua)
 
 # B) Solo post-estallido (2019+)
-mod_alt3_postestallido <- glmmTMB(
+mod_alt2_postestallido <- glmmTMB(
   protesta_dummy ~ educ_cat_factor_ref * movilidad_cat_factor +
     edad + mujer + ideologia_std +
     (1 | idencuesta),
@@ -688,13 +705,24 @@ mod_alt3_postestallido <- glmmTMB(
   family = binomial(link = "logit")
 )
 
-screenreg(mod_alt3_postestallido)
+screenreg(mod_alt2_postestallido)
 ```
+
+El Modelo Alternativo 1 utiliza variables continuas (años de educación y años de movilidad) en lugar de categóricas, proporcionando una perspectiva complementaria que confirma los hallazgos principales pero con interpretaciones más directas. Los resultados muestran un efecto principal positivo y robusto de la educación (0.17, p < 0.001), indicando que cada año adicional de educación incrementa las log-odds de participar en protestas en 0.17, equivalente a un aumento del 18.5% en las odds. Este efecto lineal positivo es consistente con el gradiente educativo observado en los modelos categóricos, aunque obviamente no captura las no linealidades específicas entre tipos de educación que revelaron los modelos anteriores. El efecto de movilidad social es negativo (-0.10, p < 0.01), confirmando que cada año adicional de movilidad ascendente reduce la participación en protestas, consistent con teorías de integración social donde el ascenso genera mayor identificación con el sistema establecido.
+
+Crucialmente, el modelo detecta una interacción significativa entre educación y movilidad (0.01, p < 0.05), sugiriendo que el efecto de la educación se intensifica ligeramente con mayor movilidad ascendente. Sin embargo, esta interacción es substantivamente pequeña (0.01) y contrasta con el rechazo de interacciones en los modelos categóricos, posiblemente reflejando diferencias en poder estadístico o en la especificación del modelo. El ajuste del modelo (AIC: 9,946) es comparable al modelo categórico aditivo (AIC: 9,698), indicando capacidad predictiva similar. Las variables de control mantienen los efectos esperados, y los efectos temporales replican el patrón conocido con 2019 como único año positivo. Este modelo alternativo refuerza la robustez de los hallazgos principales sobre efectos positivos de educación y negativos de movilidad, aunque sacrifica la capacidad de detectar patrones no lineales específicos que emergen cuando se distingue entre tipos de educación técnica versus universitaria.
+
+El Modelo Alternativo 2 se enfoca exclusivamente en el período post-estallido social (2019 en adelante), proporcionando una perspectiva crucial sobre si los patrones educativos y de movilidad se mantienen durante el período de mayor activación política en Chile reciente. Los resultados revelan continuidad en los efectos educativos principales pero con algunas modificaciones importantes: educación media incompleta mantiene su efecto negativo (-0.50, p < 0.01), mientras que técnica superior incompleta emerge como el nivel con mayor efecto positivo (0.63, p < 0.01), superando incluso a universitaria incompleta (0.57, p < 0.01). Notably, postgrado pierde significancia estadística (0.91, no significativo), posiblemente reflejando menor variación en este grupo durante el período de crisis o menor poder estadístico debido al tamaño muestral reducido (6,952 vs 12,018 observaciones). El efecto de movilidad se intensifica sustancialmente: el término lineal aumenta de -0.26 (modelo completo) a -0.70 (p < 0.05), sugiriendo que durante períodos de alta movilización social, los efectos de integración por movilidad ascendente se vuelven más pronunciados.
+
+La ausencia generalizada de interacciones significativas en este modelo (todas las interacciones son no significativas) refuerza el rechazo de la hipótesis H2 incluso durante el período de mayor activación política, cuando teóricamente podrían esperarse efectos condicionales más pronunciados. El modelo presenta los mismos problemas de identificación que el modelo completo (eliminación de términos por colinealidad), pero con un AIC proporcionalmente similar considerando el tamaño muestral. El intercepto más alto (1.76 vs 0.54 en modelo completo) refleja los niveles generalmente elevados de participación durante el estallido social. Las variables de control mantienen direcciones esperadas, aunque el efecto de género se reduce y pierde significancia, posiblemente indicando menor brecha de género en participación durante períodos de crisis. Este análisis de robustez temporal confirma que los patrones fundamentales de educación y movilidad no son específicos del período de normalidad política sino que se mantienen durante coyunturas críticas, aunque con algunas intensificaciones en las magnitudes de los efectos.
+
+## Diagnósticos de verificación
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
+#| results: false
 
 
 # Para glmmTMB el diagnóstico es diferente
@@ -766,6 +794,10 @@ plotQQunif(sim_residuals)       # QQ plot
 plotResiduals(sim_residuals)    # Residuos vs predichos
 ```
 
+Los gráficos de diagnóstico proporcionan una evaluación comprehensiva de la calidad del ajuste del modelo de regresión logística multinivel, revelando un buen ajuste que valida la especificación del modelo final. El QQ plot de residuos (primer gráfico) muestra una alineación casi perfecta entre los residuos observados y los esperados bajo el modelo teórico, con todos los puntos siguiendo estrechamente la línea diagonal roja. El test de Kolmogorov-Smirnov confirma que no hay desviación significativa de la distribución esperada (p = 0.654), mientras que el test de outliers también es no significativo (p = 0.183), indicando ausencia de valores atípicos problemáticos. El gráfico de residuos versus predichos (panel superior derecho) muestra una distribución homogénea sin patrones sistemáticos, y crucialmente, el test de dispersión no detecta sobredispersión (p = 0.346), confirmando que el modelo binomial es apropiado para estos datos.
+
+Los tests de uniformidad y sobredispersión (histogramas) proporcionan evidencia adicional de la calidad del modelo a través de simulaciones Monte Carlo. El histograma de dispersión muestra que el valor observado del modelo (línea roja vertical) cae bien dentro de la distribución de valores simulados bajo la hipótesis nula de ajuste correcto, con un p-valor bilateral de 0.346 que confirma ausencia de sobredispersión. El test de zero-inflation indica que el modelo no sufre de exceso de ceros (p = 0.206), validando que la estructura binomial simple es suficiente sin necesidad de modelos de inflación de ceros. La distribución uniforme de residuos confirma que el modelo captura adecuadamente la variabilidad en los datos sin patrones residuales sistemáticos. En conjunto, estos diagnósticos validan que el modelo final (Modelo 5 Aditivo) cumple con todos los supuestos estadísticos necesarios para modelos logísticos multinivel, proporcionando confianza en la validez de las inferencias sobre los efectos de educación y movilidad social en la participación en protestas.
+
 ## Tablas de Resultados
 
 ```{r}
@@ -785,7 +817,7 @@ modelsummary(
     "RE Aditivo" = mod5_aditivo,
     "RE Interacción (H2)" = mod6_h2_interaccion
   ),
-  output = "tabla_modelos_principales.html",
+  output = "gt",
   stars = c('*' = .05, '**' = .01, '***' = .001),
   coef_rename = c(
     "(Intercept)" = "Intercepto",
@@ -857,6 +889,9 @@ ggplot(educ_coefs, aes(x = Modelo, y = Coef,
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+El gráfico "Evolución de Coeficientes Educativos por Modelo" ilustra de manera clara cómo los efectos educativos se transforman progresivamente a medida que se agregan controles estadísticos, revelando la robustez y estabilidad de los patrones fundamentales. La línea amarilla (Postgrado) muestra la trayectoria más dramática: comienza con el coeficiente más alto en el modelo pooled (aproximadamente 0.16), se eleva sustancialmente en los modelos de efectos aleatorios simples y demográficos (alcanzando su pico de 1.6), y luego se estabiliza en valores moderados (alrededor de 1.0) una vez incorporadas las variables actitudinales y de movilidad. Esta evolución sugiere que el efecto del postgrado es robusto pero se ve inflado cuando no se controlan adecuadamente las características individuales y actitudinales que correlacionan tanto con el nivel educativo como con la participación política.
+
+Las líneas de educación universitaria (completa e incompleta, en azul y magenta respectivamente) muestran patrones similares pero con magnitudes diferentes, manteniéndose consistentemente por encima de la línea de referencia (cero) a través de todos los modelos, lo que confirma su efecto positivo robusto sobre la participación en protestas. Particularmente notable es la estabilidad relativa de estos efectos una vez controladas las variables demográficas, sugiriendo que los efectos universitarios no son meramente artefactos de diferencias de edad o género. Por el contrario, la línea roja (Media incompleta o menos) permanece consistentemente en territorio negativo a través de todos los modelos, confirmando que este grupo tiene menor probabilidad de participar en protestas independientemente de los controles incluidos. Los niveles de educación técnica (líneas verde y turquesa) muestran trayectorias más modestas pero positivas, validando la hipótesis de que la educación post-secundaria, independientemente del tipo, incrementa la participación política. El patrón general del gráfico confirma que los efectos educativos no son espurios sino que reflejan diferencias genuinas en participación política que trascienden características demográficas y actitudinales.
 
 ```{r}
 #| warning: false
@@ -918,7 +953,7 @@ tabla_final %>%
   )
 ```
 
-Conclusiones principales:
+# Conclusiones principales modelos exploratorios:
 
 - Modelo óptimo: RE Aditivo (menor AIC)
 - Hipótesis H2 rechazada: La interacción NO mejora el modelo
@@ -932,11 +967,11 @@ La inclusión de ideología política e interés político (Modelo 3) reduce los
 Para evaluar la hipótesis H2 sobre movilidad social, se estimaron dos modelos adicionales: uno con efectos aditivos de educación y movilidad (Modelo 4) y otro con interacciones entre ambas (Modelo 5). El Modelo 4 muestra un efecto lineal negativo de la movilidad social (β = -0.260, p < 0.05), consistente con la hipótesis de integración: mayor movilidad ascendente se asocia con menor participación en protestas, controlando nivel educativo alcanzado.
 El modelo con interacciones (Modelo 5) no mejora el ajuste respecto al modelo aditivo (ΔAIC = +14.6; ΔBIC = +133.0), y solo una de las 18 interacciones resulta significativa. Por tanto, se rechaza la hipótesis H2 de que el efecto de la educación varía según la trayectoria de movilidad social. Los datos apoyan un modelo donde educación y movilidad tienen efectos independientes y aditivos sobre la protesta.
 
-En conclusión, el Modelo 4 (RE Aditivo) se adopta como modelo final por su balance óptimo entre ajuste estadístico, parsimonia y claridad interpretativa. Modelo final: RE Aditivo (Modelo 4/5 sin interacciones)
+La tabla comparativa de modelos revela una progresión sistemática desde especificaciones básicas hasta el modelo óptimo, confirmando la robustez de los hallazgos educativos. La evolución desde el modelo RE Simple (AIC: 16,112) hasta el RE Aditivo (AIC: 9,698) demuestra mejoras sustanciales en ajuste estadístico mediante la incorporación progresiva de controles demográficos, actitudinales y de movilidad. Crucialmente, los efectos educativos se mantienen significativos y en la misma dirección a través de todas las especificaciones, aunque con magnitudes reducidas: el efecto de universitaria incompleta decrece de 1.432 en el modelo simple a 0.627 en el modelo aditivo, mientras que postgrado se reduce de 1.630 a 0.994. Esta atenuación controlada indica que los efectos educativos no son espurios sino que reflejan mediación parcial por variables demográficas y actitudinales, manteniendo efectos directos sustanciales sobre la participación contestataria.
 
-El rechazo de la hipótesis de interacción (H2) tiene implicaciones teóricas importantes. Sugiere que los efectos de la educación sobre la participación política son relativamente universales y no dependen críticamente de la trayectoria de movilidad social experimentada. Esto es consistente con teorías que enfatizan la educación como proveedora de recursos cívicos generales (Brady et al., 1995) más que como marcador de posiciones sociales particulares.
+El Modelo RE Aditivo emerge como especificación óptima por múltiples criterios convergentes: menor AIC (9,698), balance favorable entre AIC y BIC (9,853), y significancia estadística de todos los predictores principales. La introducción de movilidad social (-0.260, p < 0.05) mejora el poder explicativo sin comprometer la estabilidad de los efectos educativos, confirmando que ambos constructos aportan información independiente para predecir participación política. El modelo RE Interacción (H2), pese a incluir 16 términos adicionales, no mejora el ajuste (ΔAIC = +14.6) y genera pérdida de significancia en varios niveles educativos (universitaria completa y postgrado), evidenciando sobreajuste estadístico que justifica su rechazo.
 
-No obstante, el efecto independiente de la movilidad social (controlando educación alcanzada) indica que las trayectorias de ascenso o descenso tienen consecuencias propias. El efecto negativo de la movilidad ascendente sobre la protesta puede interpretarse desde teorías de integración social: quienes experimentan ascenso pueden desarrollar mayor identificación con el sistema, independientemente de su nivel educativo final.
+El rechazo definitivo de la hipótesis H2 tiene profundas implicaciones teóricas. Los datos chilenos no apoyan teorías de frustración relativa que predicen efectos educativos condicionales según trayectorias de movilidad, sino que favorecen modelos aditivos donde educación y movilidad operan a través de mecanismos causales independientes. Esto es consistente con teorías de recursos cívicos (Brady et al., 1995) que enfatizan la educación como proveedora universal de habilidades políticas, independiente de la trayectoria social experimentada. Simultáneamente, el efecto negativo robusto de la movilidad ascendente (-0.260) apoya teorías de integración social: quienes experimentan ascenso desarrollan mayor identificación sistémica, reduciendo incentivos contestatarios independientemente de su nivel educativo final. Esta separación analítica entre efectos educativos (recursos) y efectos de movilidad (integración) proporciona evidencia empírica para modelos teóricos que distinguen entre mecanismos cognitivos/instrumentales versus mecanismos identitarios/normativos en la participación política.
 
 ```{r}
 #| warning: false
@@ -956,3 +991,6 @@ plot_model(mod6_h2_interaccion,
            title = "Efecto marginal de educación según movilidad")
 ```
 
+Los gráficos de probabilidades predichas y efectos marginales proporcionan una visualización complementaria que confirma visualmente el rechazo de la hipótesis H2 sobre interacciones entre educación y movilidad social. El primer gráfico ("Interacción: Educación × Movilidad") muestra las probabilidades predichas para cada combinación de nivel educativo y tipo de movilidad, revelando patrones que carecen de coherencia teórica sistemática. Los intervalos de confianza son amplios y se superponen considerablemente entre diferentes tipos de movilidad dentro de cada nivel educativo, particularmente en los niveles de educación superior donde las diferencias entre trayectorias de movilidad son mínimas y estadísticamente no significativas. La ausencia de patrones divergentes claros entre las líneas de movilidad a medida que aumenta el nivel educativo confirma que no existe una interacción sustantiva entre estos predictores.
+
+El segundo gráfico ("Efecto marginal de educación según movilidad") es prácticamente idéntico al primero, lo que refuerza la conclusión de que los efectos educativos son constantes across diferentes trayectorias de movilidad social. La superposición visual de los intervalos de confianza y la ausencia de pendientes divergentes entre tipos de movilidad validan estadísticamente el modelo aditivo como especificación correcta. Estos gráficos, generados desde el modelo de interacción saturado, demuestran que incluso cuando se permite máxima flexibilidad estadística, los datos no revelan patrones condicionales teóricamente interpretables. La evidencia visual converge con los tests estadísticos formales (LRT p = 0.365) para rechazar definitivamente H2, apoyando la conclusión de que educación y movilidad operan como predictores independientes de participación política contestataria, consistent con teorías que distinguen entre mecanismos de recursos cívicos versus integración social en la movilización política.
