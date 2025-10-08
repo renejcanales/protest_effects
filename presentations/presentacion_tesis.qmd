@@ -131,7 +131,7 @@ elsoc_final <- elsoc_final %>%
 :::
 
 :::: {.column .column-right width="80%"}
-# **Antomía del rol de la educación en la protesta: Un análissi longitudinal (2016-2023)**
+# **Antomía del rol de la educación en la protesta: Un análisis longitudinal (2016-2023)**
 
 ------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ elsoc_final <- elsoc_final %>%
 
 Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, estilos de socialización escolar e influencias intergeneracionales"
 
-20 de agosto, 2025
+08 de octubre, 2025
 ::::
 ::::::
 
@@ -171,7 +171,9 @@ Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, est
 Específicamente:
 
 PE1: ¿Existe una relación no lineal entre nivel educativo y participación en protesta?
+
 PE2: ¿La movilidad educacional ascendente modera la relación entre educación y protesta?
+
 PE3: ¿Los mecanismos operan a través de deprivación relativa u orientación ideológica?
 :::
 
