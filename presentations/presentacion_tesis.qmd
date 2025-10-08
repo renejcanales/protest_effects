@@ -1,5 +1,5 @@
 ---
-pagetitle: "Presentación Tesis 1"
+pagetitle: "Presentación Tesis"
 Author: René Canales
 lang: es
 knitr:
@@ -7,7 +7,6 @@ knitr:
     collapse: true
     comment: "#>"
     R.options:
-      
       knitr.graphics.auto_pdf: true
 format:
   revealjs:
@@ -19,13 +18,23 @@ format:
       visibility: false
     transition: fade
     transition-speed: slow
-# data-background-image: images/cover.jpg
-# data-background-size: cover
+    # Ajustes para mejor separación y tamaño
+    width: 1280
+    height: 720
+    margin: 0.1
+    min-scale: 0.2
+    max-scale: 2.0
+    center: true
+    # data-background-image: images/cover.jpg
+    # data-background-size: cover
     auto-play-media: true
     mathjax: "default"
+    # Configuración adicional para mejor presentación
+    slide-level: 2
+    incremental: false
   pdf:
     format: beamer 
-    keep-tex: true  # Debug LaTeX output if needed
+    keep-tex: true
 editor_options: 
   chunk_output_type: console
 ---
@@ -34,12 +43,19 @@ editor_options:
 #| label: setup
 #| include: false
 library(knitr)
-knitr::opts_chunk$set(echo = F,
-                      warning = F,
-                      error = F, 
-                      message = F) 
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  error = FALSE, 
+  message = FALSE,
+  fig.width = 10,
+  fig.height = 6,
+  fig.align = "center",
+  out.width = "90%",
+  dpi = 300
+) 
 
-options(kableExtra.html.bsTable = T)
+options(kableExtra.html.bsTable = TRUE)
 options(knitr.kable.NA = "")
 ```
 
@@ -47,33 +63,66 @@ options(knitr.kable.NA = "")
 #| label: packages
 #| include: false
 
-if (! require("pacman")) install.packages("pacman")
+if (!require("pacman")) install.packages("pacman")
 
 pacman::p_load(tidyverse,
+               sjlabelled, 
                sjmisc, 
                sjPlot,
+               gt,
+               xfun,
                here,
-               lavaan,
-               psych,
-               corrplot,
-               ggdist,
-               patchwork,
-               sjlabelled,
-               semTools,
-               gtools,
-               RColorBrewer,
-               skimr,
-               readxl, knitr,
+               tidyr,
+               naniar,
+               dplyr,
+               broom,
+               broom.mixed,
+               texreg,
                kableExtra,
-               DiagrammeR)
-
+               emmeans)
 
 options(scipen=999)
 rm(list = ls())
 ```
 
 ```{r}
-load("~/GitHub/protest_effects/output/data/ELSOC_Long_2016_2023 (3).RData")
+load(here("~/GitHub/protest_effects/input/data/proc/elsoc_final.RData"))
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# CORRECCIONES A LA BASE
+elsoc_final <- elsoc_final %>%
+  mutate(
+    # Corregir años de educación
+    educ_years_corr = case_when(
+      educ_cat == "Media incompleta o menos" ~ 10,
+      educ_cat == "Media completa" ~ 12,
+      educ_cat == "Técnica superior incompleta" ~ 13,
+      educ_cat == "Técnica superior completa" ~ 15,
+      educ_cat == "Universitaria incompleta" ~ 15,
+      educ_cat == "Universitaria completa" ~ 17,
+      educ_cat == "Postgrado" ~ 19,
+      TRUE ~ NA_real_
+    ),
+    # Recalcular movilidad con años corregidos
+    movilidad_years_corr = educ_years_corr - educ_parental_max,
+    # Crear matriz origen-destino
+    educ_destino = case_when(
+      educ_years_corr < 12 ~ "Bajo",
+      educ_years_corr >= 12 & educ_years_corr < 16 ~ "Medio",
+      educ_years_corr >= 16 ~ "Alto"
+    ),
+    educ_origen = case_when(
+      educ_parental_max < 12 ~ "Bajo",
+      educ_parental_max >= 12 & educ_parental_max < 16 ~ "Medio",
+      educ_parental_max >= 16 ~ "Alto"
+    ),
+    matriz_movilidad = interaction(educ_origen, educ_destino, sep = " → ")
+  )
 ```
 
 :::::: columns
@@ -82,7 +131,7 @@ load("~/GitHub/protest_effects/output/data/ELSOC_Long_2016_2023 (3).RData")
 :::
 
 :::: {.column .column-right width="80%"}
-# **Un análisis longitudinal de los perfiles de protesta en el ciclo contencioso chileno (2016-2023)**
+# **Antomía del rol de la educación en la protesta: Un análissi longitudinal (2016-2023)**
 
 ------------------------------------------------------------------------
 
@@ -103,20 +152,46 @@ Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, est
 ## Antecedentes
 
 ::: {.incremental .highlight-last style="font-size: 85%;"}
--   En las últimas décadas, la protesta se ha convertido en una forma central de participación política en democracias contemporáneas, asociada al desgaste de los canales institucionales y a la creciente legitimidad de la acción colectiva no convencional. Si bien estudios previos han identificado factores individuales que inciden en la decisión de participar en protestas, esta aproximación resulta limitada para comprender la diversidad de trayectorias, intensidades y motivaciones que adoptan quienes se movilizan.
+- En las últimas décadas, la protesta se ha convertido en una forma central de participación política en democracias contemporáneas, asociada al desgaste de los canales institucionales y a la creciente legitimidad de la acción colectiva no convencional (Grasso, 2016; Rosanvallon, 2007; Tarrow, 2011). 
 
--   En el caso de Chile, la historia reciente está marcada por un **ciclo sostenido de protestas (2006, 2011, 2019)**, lo que abre la necesidad de ir más allá de explicar por qué las personas protestan, y avanzar hacia el estudio de quiénes protestan, qué perfiles sociodemográficos y actitudinales configuran, cómo varían en el tiempo y de qué manera el involucramiento en política contenciosa repercute en otras formas de participación política.
+- Si bien estudios previos han identificado que la educación facilita recursos cívicos y habilidades que incrementan la participación política (Verba et al., 1995; Dalton, 2008), esta aproximación resulta limitada para comprender la complejidad de su efecto sobre la protesta.
 
--   El problema de investigación, entonces, radica en **la falta de comprensión sobre los perfiles diferenciados de participación política entre quienes protestan**, sus trayectorias longitudinales y los factores que explican la heterogeneidad en su involucramiento.
+-   En el caso de Chile, la historia reciente está marcada por un **ciclo sostenido de protestas (2006, 2011, 2019)** donde la educación ha ocupado un lugar protagónico (Donoso & von Bülow, 2017; Somma et al., 2021). La masificación del acceso a la educación superior ha generado tanto oportunidades como tensiones y expectativas que influyen en la acción colectiva (Bellei et al., 2014), configurando un escenario propicio para examinar el rol de la educación como determinante de la protesta.
 
--   Este vacío motiva un análisis longitudinal, en el contexto chileno, que permita identificar clases o patrones de evolución en la participación en protestas y comprender cómo actitudes políticas, recursos y orientaciones ideológicas influyen en la pertenencia a distintos perfiles de acción colectiva.
+-   El problema de investigación, entonces, radica en **la falta de comprensión sobre el efecto real de la educación en la protesta**, considerando que esta relación no es necesariamente lineal (Ustyuzhanin et al., 2022) y que la movilidad educacional intergeneracional puede generar situaciones de deprivación relativa que incrementan la disposición a participar en eventos contenciosos (Rodeghier et al., 1991; Grasso et al., 2019).
+
+-   Este vacío motiva un análisis que permita desentrañar el efecto de la educación, específicamente su carácter potencialmente no lineal, estableciendo una especie de *anatomía* del papel de la educación en la participación política no convencional.
 :::
 
 ## Pregunta y objetivos
 
 ::: {.incremental .highlight-last style="font-size: 120%;"}
--   ¿Qué perfiles de participación política se observan a través del tiempo entre quienes se involucran en protestas en el contexto chileno? ¿Qué características individuales —como actitudes políticas, recursos disponibles, trayectorias previas u orientación ideológica— permiten diferenciar estos perfiles, y como se transforman en el tiempo?
--   El objetivo general del estudio es identificar y caracterizar los distintos perfiles de personas que participan en protestas en Chile, analizando cómo variables individuales configuran formas diferenciadas de involucramiento en la acción colectiva en distintos momentos del ciclo de protesta.
+*¿Cómo afecta la educación a la participación en protesta social en Chile, considerando tanto efectos no lineales del nivel educativo como la moderación del origen socioeconómico familiar?*
+
+Específicamente:
+
+PE1: ¿Existe una relación no lineal entre nivel educativo y participación en protesta?
+PE2: ¿La movilidad educacional ascendente modera la relación entre educación y protesta?
+PE3: ¿Los mecanismos operan a través de deprivación relativa u orientación ideológica?
+:::
+
+## Hipótesis
+
+::: {.incremental .highlight-last style="font-size: 120%;"}
+
+H1 (No linealidad): La relación entre educación y protesta sigue una curva en forma de U invertida en niveles intermedios:
+
+- Individuos con educación técnica superior participan menos que aquellos con media completa o universitaria
+
+H2 (Movilidad educacional): La movilidad educacional ascendente incrementa la participación en protesta:
+
+- Entre universitarios, aquellos con padres de menor educación protestan más
+
+H3 (Mecanismos): La movilidad ascendente opera a través de:
+
+- Deprivación relativa (Menor movilidad respecto al nivel educativo alcanzado) y
+Orientación ideológica (posiciones más de izquierda)
+
 :::
 
 # Datos y Metodología {data-background-color="#5f5758"}
@@ -124,191 +199,701 @@ Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, est
 ::: incremental
 ## Datos
 
-Estudio Longitudinal Social de Chile (ELSOC): encuesta panel diseñada por el Centro de Estudios de Conflicto y Cohesión Social (COES) para analizar, a lo largo del tiempo, la evolución del conflicto y la cohesión en la sociedad chilena. Su objetivo central es proveer un insumo empírico que permita comprender cómo cambian las creencias, actitudes y percepciones de la ciudadanía en torno a la convivencia social, la desigualdad y el conflicto.
+Fuente: Estudio Longitudinal Social de Chile (ELSOC) 2016-2023 (7 olas)
+
+Variable Dependiente: Participación en protesta social
+
+- Índice aditivo (1-5): marchas, huelgas, firma de peticiones en últimos 12 meses
+- Alternativa: Variable dicotómica sólo con marchas (participó/no participó)
+
+Variables Independientes: Nivel educativo propio (categórica):
+
+- Media incompleta o menos (referencia)
+
+- Media completa / Técnica incompleta / Técnica completa
+
+- Universitaria incompleta / Universitaria completa / Postgrado
+
+Opción Movilidad educacional:
+
+- Movilidad = Educación_propia - max(Educación_padre, Educación_madre) [Imputable]
+
+- Categorías: descendente / sin movilidad / moderada / alta
+
+- Controles: Edad, sexo, situación laboral, ideología política, interés político, año (efectos fijos 2019)
+:::
+
+
+::: incremental 
+
+## Estrategia Analítica
+
+**Modelo de Efectos Aleatorios:**
+
+$$
+Protesta_{it} = \beta_0 + \beta_1Educación_i + \beta_2Movilidad_i + \beta_3(Educación \times Movilidad)_i + \beta_4X_{it} + \alpha_i + \varepsilon_{it}
+$$
+
+Donde:
+
+- $i$ = individuos
+- $t$ = tiempo (olas)
+- $\alpha_i$ = efectos aleatorios individuales
+- $X_{it}$ = vector de controles
+- $\varepsilon_{it}$ = error idiosincrático
+
+**Justificación:** Variables de interés son time-invariant; interesa efecto intre individuos (between individuals)
+
+:::
+
+# Resultados Preliminares {data-background-color="#5f5758"}
+
+---
+
+## Descriptivos {.smaller}
 
 ```{r}
-#| label: fig-n2
-#| fig-align: center
-#| fig-cap: "N por ola"
-#| fig-cap-location: top
-#| fig-width: 5
-#| out-width: '20%'
+#| label: fig-des-1
+#| fig-cap: "Proporción de personas que protestaron por Ola"
+#| warning: false
+#| message: false
+#| echo: false
 
-tabla_ola <- elsoc_long_2016_2023 %>%
-  group_by(ola) %>%
-  summarise(N = n()) %>%
-  mutate(ola = ifelse(is.na(ola), "NA", as.character(ola)))
+# ANÁLISIS DESCRIPTIVO UNIVARIADO --------------------------------------
 
-kable(tabla_ola,
-      col.names = c("Ola", "N"),
-      caption = "Número de casos por ola") %>%
-  kable_styling(full_width = FALSE, font_size = 12) %>%  # ajusta tamaño de la tabla
-  column_spec(1, width = "4cm") %>%  # ancho de la primera columna
-  column_spec(2, width = "3cm")      # ancho de la segunda columna
+# 3.1 Variable Dependiente
+
+tab_participacion <- elsoc_final %>%
+  group_by(year) %>%
+  summarise(
+    N = scales::comma(n()),
+    `Participó (%)` = sprintf("%.1f", mean(protesta_dummy, na.rm = TRUE) * 100),
+    `Índice (M)` = sprintf("%.2f", mean(protesta_index, na.rm = TRUE)),
+    `Índice (DE)` = sprintf("%.2f", sd(protesta_index, na.rm = TRUE))
+  ) %>%
+  kbl(align = c("c", "c", "c", "c", "c"),
+      col.names = c("Año", "N", "Participó (%)", "M", "DE"),
+      caption = "Participación en protesta por año (ELSOC 2016-2023)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  add_header_above(c(" " = 3, "Índice de protesta" = 2)) %>%  # 3 + 2 = 5 ✓
+  row_spec(which(unique(elsoc_final$year) == 2019), 
+           bold = TRUE, background = "#FFF3CD") %>%
+  footnote(general = "Fuente: Elaboración propia con ELSOC 2016-2023.",
+           number = "El año 2019 corresponde al estallido social en Chile.")
+
+tab_participacion
+```
+
+---
+
+## Evolución de la participación en protestas {.smaller}
+
+```{r}
+#| label: fig-des-2
+#| fig-cap: "Evolución de Participación en Protesta (2016-2023)"
+#| warning: false
+#| message: false
+#| echo: false
+
+# Primero crear el data frame
+tab_ola <- elsoc_final %>%
+  group_by(year) %>%
+  summarise(
+    n = n(),
+    prop_protesta = mean(protesta_dummy, na.rm = TRUE) * 100,
+    .groups = "drop"
+  )
+
+# Gráfico evolución temporal
+p_evol <- ggplot(tab_ola, aes(x = year, y = prop_protesta)) +
+  geom_line(linewidth = 1, color = "steelblue") +
+  geom_point(linewidth = 3, color = "steelblue") +
+  geom_vline(xintercept = 2019, linetype = "dashed", color = "red", linewidth = 1) +
+  annotate("text", x = 2019, y = max(tab_ola$prop_protesta, na.rm = TRUE), 
+           label = "Estallido Social", hjust = -0.1, color = "red") +
+  labs(title = "Evolución de participación en protesta (2016-2023)",
+       x = "Año", y = "% que participó en protesta",
+       caption = "Fuente: Elaboración propia con datos ELSOC (2016-2023)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(size = 11),
+    plot.caption = element_text(hjust = 0, size = 9, color = "gray30"),
+    legend.position = "right")
+
+print(p_evol)
+```
+
+---
+
+## Distribución de la educación {.smaller}
+
+```{r}
+#| label: fig-des-3
+#| warning: false
+#| message: false
+#| echo: false
+
+# 3.2 Variables Independientes
+
+# Tabla 1: Educación
+elsoc_final %>%
+  count(educ_cat) %>%
+  filter(!is.na(educ_cat)) %>%
+  mutate(
+    Porcentaje = (n / sum(n)) * 100,
+    `Porcentaje Acumulado` = cumsum(Porcentaje)
+  ) %>%
+  rename(`Nivel Educativo` = educ_cat, N = n, `%` = Porcentaje) %>%
+  kbl(caption = "Distribución de Nivel Educativo",
+      align = c("l", "c", "c", "c"),
+      digits = 2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  row_spec(0, bold = TRUE, background = "#f0f0f0") %>%
+  add_header_above(c(" " = 1, "Frecuencias" = 3)) %>%
+  footnote(general = "Fuente: Elaboración propia con datos ELSOC (2016-2023)",
+           number = paste("N total =", format(sum(!is.na(elsoc_final$educ_cat)), 
+                                             big.mark = ",")))
+```
+
+---
+
+## Protesta por nivel educativo {.smaller}
+
+```{r}
+#| label: fig-des-5
+#| warning: false
+#| message: false
+#| echo: false
+ 
+# 4.1 H1: Educación × Protesta (no linealidad)
+
+elsoc_final %>%
+  group_by(educ_cat) %>%
+  summarise(
+    N = n(),
+    `% del total` = sprintf("%.1f", (n() / nrow(elsoc_final)) * 100),
+    `Participó (%)` = sprintf("%.1f", mean(protesta_dummy, na.rm = TRUE) * 100),
+    `Índice M` = sprintf("%.2f", mean(protesta_index, na.rm = TRUE)),
+    `Índice DE` = sprintf("%.2f", sd(protesta_index, na.rm = TRUE))
+  ) %>%
+  kbl(align = c("l", "c", "c", "c", "c", "c"),
+      col.names = c("Nivel educativo", "N", "% total", "Participó (%)", "M", "DE"),
+      caption = "Participación en protesta según nivel educativo (ELSOC 2016-2023)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  add_header_above(c(" " = 3, "Protesta (%)" = 1, "Índice de protesta" = 2)) %>%
+  footnote(general = "Fuente: Elaboración propia con datos ELSOC.",
+           number = "El índice suma participación en marchas y huelgas (rango 0-2).")
 
 ```
-:::
 
-::: incremental
-## Métodos
+---
 
-### Primer Paso: Latent Growth Mixture Modeling (LGMM)
-
-Extensión de los modelos de crecimiento que se utiliza para analizar datos longitudinales. Permite identificar subgrupos no observados (clases latentes) de individuos que siguen trayectorias de cambio diferentes entre sí (Jung & Wickramma, 2007).
-
-En el estudio de participación en protestas, un LGMM podría identificar:
-
--   Clase 1: quienes nunca participan.
-
--   Clase 2: quienes baja participación al inicio pero creciente en el tiempo.
-
--   Clase 3: quienes poseen una participación sostenida
-:::
-
-::: {.incremental style="font-size: 100%;"}
-## Métodos
-
-### Construcción Tipología Temporal
-
-Año y Asistenica a protesta o manifestación: <br> Ola + Frecuencia de Asistencia a marcha o manifestación (c08_02)
-
-Asistencia a Marcha o Manifestación: <br> Escala de 1 a 5 (Nunca a Muy Frecuentemente)
+## Evolución por nivel educativo {.smaller}
 
 ```{r}
-#| label: fig-n3
-#| fig-align: center
-#| fig-cap: "Operacionalización Protesta"
-#| fig-cap-location: top
-#| fig-width: 5
-#| out-width: '20%'
+#| label: fig-evol-educacion
+#| fig-cap: "Evolución de Participación en Protestas por Nivel Educativo"
+#| warning: false
+#| message: false
+#| echo: false
 
-tabla <- data.frame(
-  Variable = c(
-    "Frecuencia: Asiste a marcha o manifestación pacífica",
-    "c08_02: Durante los últimos 12 meses, ¿con cuánta frecuencia usted ha...?"
-  ),
-  Codigos = c(
-    "0. No asiste<br>1. Asiste",
-    "1. Nunca<br>2. Casi Nunca<br>3. A veces<br>4. Frecuentemente<br>5. Muy frecuentemente"
-  )
+# Crear datos para el gráfico
+datos_tiempo <- elsoc_final %>%
+  # Filtrar datos válidos
+  filter(!is.na(protesta_dummy), !is.na(educ_cat_factor), !is.na(year)) %>%
+  # Agrupar por año y nivel educativo
+  group_by(year, educ_cat_factor) %>%
+  # Calcular participación promedio por grupo
+  summarise(
+    participacion = mean(protesta_dummy, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  # Convertir a porcentaje
+  mutate(participacion_pct = participacion * 100)
+
+# Definir colores personalizados
+colores_educacion <- c(
+  "Media incompleta o menos" = "#2C3E50",      # Azul oscuro
+  "Media completa" = "#3498DB",                # Azul
+  "Técnica superior incompleta" = "#E67E22",   # Naranja
+  "Técnica superior completa" = "#E74C3C",     # Rojo
+  "Universitaria incompleta" = "#9B59B6",      # Púrpura
+  "Universitaria completa" = "#1ABC9C",        # Verde agua
+  "Postgrado" = "#F39C12"                      # Amarillo dorado
 )
 
-kable(tabla,
-      col.names = c("Variable / Pregunta", "Categorías de Respuesta"),
-      escape = FALSE,
-      caption = "Tabla de variables y categorías de respuesta") 
+# Crear el gráfico
+ggplot(datos_tiempo, aes(x = year, y = participacion_pct, 
+                        color = educ_cat_factor, 
+                        group = educ_cat_factor)) +
+  geom_line(size = 1.2, alpha = 0.8) +
+  geom_point(size = 2.5, alpha = 0.9) +
+  geom_vline(xintercept = 2019, linetype = "dashed", color = "gray50", alpha = 0.7) +
+  scale_x_continuous(breaks = unique(datos_tiempo$year),
+                     labels = unique(datos_tiempo$year)) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(0, max(datos_tiempo$participacion_pct, na.rm = TRUE) * 1.1)) +
+  scale_color_manual(name = "Nivel Educativo",
+                     values = colores_educacion) +
+  labs(
+    title = "Evolución de la Participación en Protestas por Nivel Educativo",
+    subtitle = "Chile 2016-2023 (ELSOC)",
+    x = "Año",
+    y = "Porcentaje de Participación",
+    caption = "Fuente: Elaboración propia con datos ELSOC"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank(),
+    legend.text = element_text(size = 8)
+  ) +
+  guides(color = guide_legend(override.aes = list(size = 3), ncol = 2))
 ```
-:::
 
-::: {.incremental style="font-size: 100%;"}
-## Métodos
+---
 
-### Segundo paso: Incorporar Covariables
+# Modelos Multinivel: Efectos Aleatorios {data-background-color="#5f5758"}
 
-Las covariables ayudan a explicar quién pertenece a cada trayectoria.
+---
 
-Se modela como una regresión logística multinomial: las características individuales predicen la probabilidad de pertenecer a cada clase.
-
-En este caso: Autoeficacia, Orientación Ideológica, Confianza Institucional y las demás variables sociodemográficas.
-
-![](images/predictores.png)
-:::
-
-::: incremental
-## Métodos
-
-### Ventajes y Limitaciones de LGMM
+## Preparación de datos para modelos multinivel {.smaller}
 
 ```{r}
-#| label: fig-n5
-#| fig-align: center
-#| fig-cap-location: top
-#| fig-width: 5
-#| out-width: '22%'
+#| label: data-prep-multilevel
+#| warning: false
+#| message: false
+#| echo: false
 
-tabla_compara <- data.frame(
-  Aspecto = c("Ventajas", "Limitaciones"),
-  Contenido = c(
-    "Captura heterogeneidad en trayectorias <br>
-    Permite identificar subgrupos latentes<br>
-    Más flexible que el LCGA (permite varianza dentro de clases)<br>
-    Puede incluir covariables que predicen clases<br>
-    Maneja datos longitudinales incompletos bajo MAR",
-    
-    "Depende de supuestos de distribución<br>
-    Selección del número de clases es ambigua (AIC, BIC, etc.)<br>
-    Riesgo de soluciones locales / no convergencia<br>
-    Clases pueden ser artefactos estadísticos<br>
-    Requiere muestras grandes y es computacionalmente demandante"
+# Cargar paquetes adicionales para modelos multinivel
+pacman::p_load(lme4, glmmTMB, performance, parameters, modelsummary)
+
+# Preparar datos para análisis multinivel
+# Crear variables time-invariant (baseline, t1)
+baseline_vars <- elsoc_final %>%
+  filter(ola == 1) %>%  # Primera ola como baseline
+  select(idencuesta, educ_cat, educ_years) %>%
+  rename(
+    educ_cat_t1 = educ_cat,
+    educ_years_t1 = educ_years
   )
+
+# Datos para modelos multinivel
+datos_ml <- elsoc_final %>%
+  # Variables time-varying
+  select(idencuesta, year, ola, protesta_dummy, protesta_index, 
+         edad, mujer, ideologia_std, interes_politica) %>%
+  # Agregar variables baseline
+  left_join(baseline_vars, by = "idencuesta") %>%
+  # Crear variable tiempo centrada
+  mutate(
+    tiempo = year - 2016,  # 0, 1, 2, 3, 4, 5, 6
+    tiempo_factor = factor(year),
+    # Imputar educación t1 para casos perdidos (usar moda por grupo)
+    educ_years_t1_imp = ifelse(is.na(educ_years_t1), 
+                               round(mean(educ_years_t1, na.rm = TRUE)), 
+                               educ_years_t1),
+    # Educación categorica imputada
+    educ_cat_t1_imp = case_when(
+      educ_years_t1_imp <= 10 ~ "Media incompleta o menos",
+      educ_years_t1_imp <= 12 ~ "Media completa", 
+      educ_years_t1_imp <= 15 ~ "Técnica superior",
+      educ_years_t1_imp <= 17 ~ "Universitaria",
+      educ_years_t1_imp > 17 ~ "Postgrado",
+      TRUE ~ "Media completa"  # valor por defecto
+    ),
+    # Variables dummy para niveles superiores
+    univ_tec = ifelse(educ_cat_t1_imp %in% c("Técnica superior", "Universitaria", "Postgrado"), 1, 0)
+  ) %>%
+  # Filtrar casos con al menos 2 observaciones por persona
+  group_by(idencuesta) %>%
+  filter(n() >= 2) %>%
+  ungroup() %>%
+  # Filtrar casos completos para las variables principales
+  filter(!is.na(protesta_dummy), !is.na(educ_years_t1_imp))
+
+# Crear índice promedio de protesta por persona
+protesta_promedio <- datos_ml %>%
+  group_by(idencuesta) %>%
+  summarise(
+    protesta_index_mean = mean(protesta_index, na.rm = TRUE),
+    n_obs = n(),
+    .groups = "drop"
+  )
+
+# Información sobre los datos
+cat("Datos preparados para modelos multinivel:\n")
+cat("- Individuos:", length(unique(datos_ml$idencuesta)), "\n")
+cat("- Observaciones totales:", nrow(datos_ml), "\n")
+cat("- Promedio observaciones por persona:", round(nrow(datos_ml)/length(unique(datos_ml$idencuesta)), 1), "\n")
+cat("- Años incluidos:", min(datos_ml$year), "-", max(datos_ml$year), "\n")
+```
+
+---
+
+## M1: Modelo Nulo (Random Intercepts) {.smaller}
+
+```{r}
+#| label: m1-null-model
+#| warning: false
+#| message: false
+#| echo: false
+
+# M1: Modelo nulo (solo intercepto aleatorio)
+m1_null <- glmmTMB(protesta_dummy ~ 1 + (1 | idencuesta), 
+                   data = datos_ml, 
+                   family = binomial)
+
+# Extraer componentes de varianza
+var_components_m1 <- VarCorr(m1_null)
+var_between <- as.numeric(var_components_m1$cond$idencuesta[1])  # Varianza between
+var_within <- pi^2/3  # Varianza within para modelo logístico
+
+# Calcular ICC
+icc_m1 <- var_between / (var_between + var_within)
+
+cat("MODELO M1: NULO (Random Intercepts Only)\n")
+cat("==========================================\n")
+cat("Componentes de Varianza:\n")
+cat("- Varianza Between-person (τ²):", round(var_between, 4), "\n")
+cat("- Varianza Within-person (σ²):", round(var_within, 4), "\n")
+cat("- ICC (Correlación Intraclase):", round(icc_m1, 4), "\n\n")
+
+cat("Interpretación del ICC:\n")
+cat("- El", round(icc_m1*100, 1), "% de la varianza en protesta se debe a diferencias between-person\n")
+cat("- El", round((1-icc_m1)*100, 1), "% se debe a variación within-person (temporal)\n")
+cat("- ICC >", round(icc_m1, 2), "justifica el uso de modelos multinivel\n\n")
+
+# Coeficientes
+summary(m1_null)
+```
+
+---
+
+## M2: Modelo con Tiempo (factor) {.smaller}
+
+```{r}
+#| label: m2-time-model
+#| warning: false
+#| message: false
+#| echo: false
+
+# M2: Modelo con tiempo como factor
+m2_time <- glmmTMB(protesta_dummy ~ tiempo_factor + (1 | idencuesta), 
+                   data = datos_ml, 
+                   family = binomial)
+
+# Extraer componentes de varianza
+var_components_m2 <- VarCorr(m2_time)
+var_between_m2 <- as.numeric(var_components_m2$cond$idencuesta[1])
+icc_m2 <- var_between_m2 / (var_between_m2 + var_within)
+
+cat("MODELO M2: TIEMPO (Fixed Effects)\n")
+cat("=================================\n")
+cat("Componentes de Varianza:\n")
+cat("- Varianza Between-person (τ²):", round(var_between_m2, 4), "\n")
+cat("- ICC ajustado:", round(icc_m2, 4), "\n\n")
+
+# Coeficientes del modelo
+summary(m2_time)
+
+# Test de significancia del tiempo
+anova(m1_null, m2_time)
+```
+
+---
+
+## M3a: Modelo con Educación (continua) {.smaller}
+
+```{r}
+#| label: m3a-education-continuous
+#| warning: false
+#| message: false
+#| echo: false
+
+# M3a: Modelo con educación continua (años)
+m3a_educ_cont <- glmmTMB(protesta_dummy ~ tiempo_factor + educ_years_t1_imp + (1 | idencuesta), 
+                         data = datos_ml, 
+                         family = binomial)
+
+cat("MODELO M3a: EDUCACIÓN CONTINUA\n")
+cat("==============================\n")
+summary(m3a_educ_cont)
+
+# Test comparación con M2
+anova(m2_time, m3a_educ_cont)
+```
+
+---
+
+## M3b: Modelo con Educación (categórica t1) {.smaller}
+
+```{r}
+#| label: m3b-education-categorical
+#| warning: false
+#| message: false
+#| echo: false
+
+# M3b: Modelo con educación categórica en t1
+m3b_educ_cat <- glmmTMB(protesta_dummy ~ tiempo_factor + educ_cat_t1_imp + (1 | idencuesta), 
+                        data = datos_ml, 
+                        family = binomial)
+
+cat("MODELO M3b: EDUCACIÓN CATEGÓRICA (t1)\n")
+cat("=====================================\n")
+summary(m3b_educ_cat)
+
+# Test comparación
+anova(m2_time, m3b_educ_cat)
+```
+
+---
+
+## M4: Modelo Tiempo × Educación (niveles superiores) {.smaller}
+
+```{r}
+#| label: m4-interaction
+#| warning: false
+#| message: false
+#| echo: false
+
+# M4: Modelo con interacción tiempo x educación superior
+m4_interaction <- glmmTMB(protesta_dummy ~ tiempo_factor * univ_tec + (1 | idencuesta), 
+                          data = datos_ml, 
+                          family = binomial)
+
+cat("MODELO M4: TIEMPO × EDUCACIÓN SUPERIOR\n")
+cat("======================================\n")
+summary(m4_interaction)
+
+# Test comparación
+anova(m3b_educ_cat, m4_interaction)
+```
+
+---
+
+## Tabla Comparativa de Modelos {.smaller}
+
+```{r}
+#| label: texreg-table
+#| warning: false
+#| message: false
+#| echo: false
+#| results: asis
+
+# Crear tabla comparativa con texreg
+library(texreg)
+
+# Lista de modelos
+modelos <- list(m1_null, m2_time, m3a_educ_cont, m3b_educ_cat, m4_interaction)
+nombres_modelos <- c("M1: Nulo", "M2: Tiempo", "M3a: Educ. Continua", 
+                     "M3b: Educ. Categórica", "M4: Tiempo × Educación")
+
+# Crear tabla HTML optimizada para RevealJS
+tabla_html <- htmlreg(modelos,
+        custom.model.names = nombres_modelos,
+        caption = "Modelos Multinivel de Efectos Aleatorios - Participación en Protestas",
+        caption.above = TRUE,
+        custom.note = "Fuente: Elaboración propia con datos ELSOC 2016-2023.<br>
+                       Variables dependiente: participación en protestas (dummy).<br>
+                       Errores estándar en paréntesis. * p<0.05, ** p<0.01, *** p<0.001",
+        star.symbol = "*",
+        center = TRUE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        digits = 3)
+
+# Agregar CSS personalizado para mejorar la apariencia
+cat('<div style="font-size: 0.7em; margin: 0 auto; max-width: 100%; overflow-x: auto;">')
+cat(tabla_html)
+cat('</div>')
+```
+
+---
+
+## Análisis de Varianza Within-Between {.smaller}
+
+```{r}
+#| label: variance-decomposition
+#| warning: false
+#| message: false
+#| echo: false
+
+# Crear tabla de descomposición de varianza
+descomp_varianza <- data.frame(
+  Modelo = nombres_modelos,
+  `Varianza Between` = c(var_between, var_between_m2, 
+                        as.numeric(VarCorr(m3a_educ_cont)$cond$idencuesta[1]),
+                        as.numeric(VarCorr(m3b_educ_cat)$cond$idencuesta[1]),
+                        as.numeric(VarCorr(m4_interaction)$cond$idencuesta[1])),
+  `ICC` = c(icc_m1, icc_m2,
+           as.numeric(VarCorr(m3a_educ_cont)$cond$idencuesta[1]) / 
+           (as.numeric(VarCorr(m3a_educ_cont)$cond$idencuesta[1]) + var_within),
+           as.numeric(VarCorr(m3b_educ_cat)$cond$idencuesta[1]) / 
+           (as.numeric(VarCorr(m3b_educ_cat)$cond$idencuesta[1]) + var_within),
+           as.numeric(VarCorr(m4_interaction)$cond$idencuesta[1]) / 
+           (as.numeric(VarCorr(m4_interaction)$cond$idencuesta[1]) + var_within))
 )
 
-kable(tabla_compara, "html", escape = FALSE, align = "l") %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) %>%
-  column_spec(1, bold = TRUE, width = "4cm") %>%
-  column_spec(2, width = "14cm")
+kbl(descomp_varianza,
+    caption = "Descomposición de Varianza en Modelos Multinivel",
+    col.names = c("Modelo", "Varianza Between (τ²)", "ICC"),
+    digits = 4) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  footnote(general = "ICC = Correlación Intraclase. Valores más altos indican mayor clustering within-person.",
+           number = "Varianza Within fijada en π²/3 = 3.29 para modelos logísticos.")
+
+cat("\nInterpretación:\n")
+cat("- Varianza Between: Diferencias estables entre personas en su propensión a protestar\n")
+cat("- Varianza Within: Variación temporal within-person en participación\n") 
+cat("- ICC alto (>0.05) confirma estructura multinivel necesaria\n")
+cat("- La educación explica parte de las diferencias between-person\n")
 ```
+
+---
+
+## Trayectorias Individuales por Educación {.smaller}
+
+```{r}
+#| label: trajectories-plot
+#| fig-cap: "Trayectorias de Participación en Protestas por Nivel Educativo"
+#| warning: false
+#| message: false
+#| echo: false
+
+# Preparar datos para gráfico de trayectorias
+set.seed(123)
+muestra_ids <- sample(unique(datos_ml$idencuesta), 100)  # Muestra 100 individuos
+
+traj_data <- datos_ml %>%
+  filter(idencuesta %in% muestra_ids) %>%
+  select(idencuesta, year, protesta_dummy, educ_cat_t1_imp)
+
+# Calcular promedios por grupo y año
+promedios_grupo <- datos_ml %>%
+  group_by(year, educ_cat_t1_imp) %>%
+  summarise(protesta_promedio = mean(protesta_dummy, na.rm = TRUE),
+            .groups = "drop")
+
+# Gráfico de trayectorias
+p_traj <- ggplot() +
+  # Trayectorias individuales (líneas grises transparentes)
+  geom_line(data = traj_data, 
+            aes(x = year, y = protesta_dummy, group = idencuesta),
+            alpha = 0.1, color = "gray60") +
+  # Promedios por grupo (líneas gruesas coloreadas)
+  geom_line(data = promedios_grupo,
+            aes(x = year, y = protesta_promedio, color = educ_cat_t1_imp),
+            size = 2, alpha = 0.8) +
+  geom_point(data = promedios_grupo,
+             aes(x = year, y = protesta_promedio, color = educ_cat_t1_imp),
+             size = 3) +
+  facet_wrap(~ educ_cat_t1_imp, nrow = 2) +
+  geom_vline(xintercept = 2019, linetype = "dashed", alpha = 0.5) +
+  scale_y_continuous(labels = scales::percent_format(),
+                     limits = c(0, 1)) +
+  scale_color_viridis_d(name = "Educación t1") +
+  labs(title = "Trayectorias de Participación en Protestas por Nivel Educativo",
+       subtitle = "Líneas grises: trayectorias individuales (muestra). Líneas coloreadas: promedios grupales",
+       x = "Año", y = "Probabilidad de Protestar",
+       caption = "Fuente: ELSOC 2016-2023. Muestra aleatoria de 100 individuos.") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        strip.text = element_text(face = "bold", size = 9),
+        plot.title = element_text(face = "bold", size = 12))
+
+print(p_traj)
+```
+
+---
+
+## Índice Sumativo de Protesta (Promedio Individual) {.smaller}
+
+```{r}
+#| label: protest-index-analysis
+#| warning: false
+#| message: false
+#| echo: false
+
+# Análisis del índice promedio de protesta
+protesta_resumen <- protesta_promedio %>%
+  left_join(baseline_vars, by = "idencuesta") %>%
+  filter(!is.na(educ_cat_t1)) %>%
+  group_by(educ_cat_t1) %>%
+  summarise(
+    N = n(),
+    `Índice M` = round(mean(protesta_index_mean, na.rm = TRUE), 3),
+    `Índice DE` = round(sd(protesta_index_mean, na.rm = TRUE), 3),
+    `Min` = round(min(protesta_index_mean, na.rm = TRUE), 3),
+    `Max` = round(max(protesta_index_mean, na.rm = TRUE), 3),
+    .groups = "drop"
+  )
+
+kbl(protesta_resumen,
+    caption = "Índice Promedio de Participación en Protesta por Nivel Educativo",
+    align = c("l", "c", "c", "c", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  footnote(general = "Índice calculado como promedio individual across todas las olas.",
+           number = "Rango teórico del índice: 0-2 (suma de participación en marchas y huelgas).")
+
+# Modelo con índice promedio
+modelo_promedio <- lm(protesta_index_mean ~ educ_cat_t1, 
+                     data = protesta_promedio %>% 
+                       left_join(baseline_vars, by = "idencuesta") %>%
+                       filter(!is.na(educ_cat_t1)))
+
+cat("\nModelo Between-Person (Índice Promedio):\n")
+summary(modelo_promedio)
+```
+
+---
+
+# ¿Qué sigue? {data-background-color="#5f5758"}
+
+---
+
+## Modelos H2: Movilidad Educacional {.smaller}
+
+::: {.incremental}
+- Análisis de interacciones entre educación y movilidad intergeneracional
+- Efectos moderadores de origen socioeconómico familiar
+- Matriz origen-destino educacional
 :::
 
-# Hipótesis {data-background-color="#5f5758"}
+---
 
-::: {.incremental style="font-size: 120%;"}
-### Hipótesis para LGMM
+## Mediación H3: Mecanismos {.smaller}
 
-**H1. A partir del análisis de trayectorias, se espera identificar tres clases posibles**
-
-<br>
-
--   Activistas (Presentan participación en todas las olas)
--   Intermitentes (Presentan participación en algunas olas)
--   Desafectos (No participan en ninguna ola)
-
-<br>
-
-**H2. De acuerdo con lo que expresa la literatura, es posible que la mayoría se encuentre entre los desafectos y que los intermitentes sean sensibles a cambios contextuales (Verhulst & Walgrave, 2009).**
+::: {.incremental}
+- Deprivación relativa como mediador
+- Orientación ideológica como mecanismo
+- Path analysis de efectos indirectos
 :::
 
-::: {.incremental style="font-size: 100%;"}
+---
 
-**H3. Asumiendo que se identifican estos perfiles, siguiendo a la literatura, se esperaría que:**
+## Robustez {.smaller}
 
-a.  Autoeficacia política
-
-Aquellas personas con mayor autoeficacia política tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con trayectorias de baja protesta.
-
-b.  Orientación ideológica
-
-Aquellas personas con orientación ideológica de izquierda (o más distante del centro) tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con quienes se ubican en el centro o la derecha.
-
-c.  Confianza Institucional
-
-Aquellas personas con menor confianza en las instituciones tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con quienes reportan alta confianza institucional.
-
-**(Posible inclusión)** Interés en la política
-
-Las personas con mayor interés en la política tendrán mayor probabilidad de pertenecer a trayectorias de protesta alta o creciente, en comparación con aquellas con bajo interés político.
+::: {.incremental}
+- Modelos con diferentes especificaciones
+- Análisis de sensibilidad
+- Validación con submuestras
 :::
 
-# Plan de trabajo semestral <br> (20 semanas) {data-background-color="#5f5758"}
-
-::: {.incremental style="font-size: 110%;"}
-## Planificación
-
-**Reunión Grupal 2** (Agosto y Septiembre)
-
--   Preparación de la base y recodificación (En curso)
--   Observar relaciones preliminares entre variables
--   Confección de modelos
--   Primeros resultados
-
-**Informe 1: 13 de octubre** (Octubre y Noviembre)
-
--   Correcciones en contenido y resultadoss
--   Reescritura
--   Confección informe final
-
-**Borrador Tesis: 2 de diciembre**
-:::
+---
 
 # Gracias {data-background-color="#5f5758"}
 

@@ -4,11 +4,14 @@
 
 **METODOLOGÍA**
 
-- Pregunta de Investigación: ¿Cómo afecta la educación a la participación en protesta social en Chile, considerando tanto efectos no lineales del nivel educativo como la moderación del origen socioeconómico familiar?
-Preguntas específicas:
+- Pregunta de Investigación: *¿Cómo afecta la educación a la participación en protesta social en Chile, considerando tanto efectos no lineales del nivel educativo como la moderación del origen socioeconómico familiar?*
+
+Preguntas específicas (u objetivos específicos):
 
 PE1: ¿Existe una relación no lineal entre nivel educativo y participación en protesta?
+
 PE2: ¿La movilidad educacional ascendente modera la relación entre educación y protesta?
+
 PE3: ¿Los mecanismos de esta moderación operan a través de deprivación relativa, orientación ideológica, o elección de campo disciplinario?
 
 **Hipótesis**
@@ -52,7 +55,9 @@ Variable principal: Índice aditivo de participación en actividades de protesta
 
 - Marcha o manifestación autorizada
 
-- Huelga (?)
+- Huelga
+
+- Firma de peticiones
 
 - Rango: 1-5.
 
@@ -62,9 +67,9 @@ Variable principal: Índice aditivo de participación en actividades de protesta
 
 - Variable exploratoria: Intensidad de participación (si ELSOC incluye frecuencia)
 
-Variables Independientes Principales
+**Variables Independientes Principales**
 
-1. Nivel Educativo Propio (dos especificaciones):
+Nivel Educativo Propio (dos especificaciones):
 Especificación A (categórica - preferida para H1):
 
 - Media incompleta o menos (referencia)
@@ -108,6 +113,7 @@ Donde educación se mide en años.
 Operacionalización alternativa (categórica):
 
 Matriz de origen-destino educativo:
+
                     | Padres: Bajo | Padres: Medio | Padres: Alto |
 --------------------|--------------|---------------|--------------|
 Ego: Bajo           | Inmóvil bajo |  Desc. mod.   | Desc. alta   |
@@ -297,7 +303,7 @@ Subgrupos:
 
 - Por cohorte etaria
 
-- Por periodo (pre/post estallido social 2019)
+- Por periodo (pre/post estallido social 2019) (?)
 
 - Por sexo
 

@@ -159,7 +159,7 @@ tab_participacion <- elsoc_final %>%
 tab_participacion
 ```
 
-Tanto la @fig-des-1 como el @fig-des-2 presentan los datos de participación en protestas en Chile para el período 2016-2023, según la encuesta ELSOC. Se logra distinguir la fluctuación en los niveles de movilización, con un punto de inflexión presente en el año 2019. Durante ese año, coincidente con el *estallido social*, la participación ciudadana en protestas alcanzó su máximo del período, con un 29.1% de los encuestados reportando haber participado. Este peak también se refleja en el índice de protesta de la @fig-des-1, que llegó a su media más alta (M=0.37, DE=0.63). En contraste, los años previos y posteriores muestran cifras considerablemente menores, destacando una marcada disminución tras el 2019, hasta llegar al nivel más bajo de la serie en 2023, con un 11.4% de participación.
+Tanto la @fig-des-1 como el @fig-des-2 presentan los datos de la distribución de participación en protestas en Chile para el período 2016-2023. Se logra distinguir una fluctuación persistente en los niveles de movilización, con un punto de inflexión presente en el año 2019. Durante ese año, coincidente con el *estallido social*, la participación ciudadana en protestas alcanzó su máximo del período, con un 29.1% de los encuestados reportando haber participado. Este peak también se refleja en el índice de protesta de la @fig-des-1, que llegó a su media más alta (M=0.37, DE=0.63). En contraste, los años previos y posteriores muestran cifras considerablemente menores, destacando una marcada disminución tras el 2019, hasta llegar al nivel más bajo de la serie en 2023, con un 11.4% de participación.
 
 ```{r}
 #| label: fig-des-2
@@ -230,7 +230,7 @@ elsoc_final %>%
                                              big.mark = ",")))
 ```
 
-Por su parte, la @fig-des-4 presenta la distribución de la movilidad educacional intergeneracional para la muestra de ELSOC (2016-2023). El hallazgo principal es que la categoría más frecuente es "Sin movilidad", que agrupa a un 42.25% de los encuestados, indicando que una porción significativa mantiene el mismo nivel educativo que sus progenitores. A continuación, se destaca una importante presencia de movilidad ascendente, que en su conjunto suma casi la mitad de la muestra (49.61%). Esta se desagrega en un 26.93% que experimenta una "Ascendente alta" y un 22.68% con una "Ascendente moderada". Finalmente, la movilidad "Descendente" es el fenómeno menos común, representando solo el 8.14% de los casos analizados (N total = 18,824).
+Por su parte, la @fig-des-4 presenta la distribución de la movilidad educacional intergeneracional para la muestra (2016-2023). El hallazgo principal es que la categoría más frecuente es "Sin movilidad", que agrupa a un 42.25% de los encuestados, indicando que una porción significativa mantiene el mismo nivel educativo que sus progenitores. A continuación, se destaca una importante presencia de movilidad ascendente, que en su conjunto suma casi la mitad de la muestra (49.61%). Esta se desagrega en un 26.93% que experimenta una "Ascendente alta" y un 22.68% con una "Ascendente moderada". Finalmente, la movilidad "Descendente" es el fenómeno menos común, representando solo el 8.14% de los casos analizados (N total = 18,824).
 
 ```{r}
 #| label: fig-des-4
@@ -266,7 +266,7 @@ elsoc_final %>%
                                              big.mark = ",")))
 ```
 
-La @fig-des-5 y el @fig-des-6 presenta la interacción entre el nivel educativo y la participación en protestas, utilizando datos de la encuesta ELSOC (2016-2023). Se observa una clara tendencia positiva: a mayor nivel de formación educativa, mayor es el porcentaje de participación en protestas y más alto el índice de protesta. El grupo con "Postgrado" exhibe la tasa de participación más elevada, con un 44.4%, y el índice de protesta más alto (M=0.58). Le siguen de cerca quienes poseen estudios de "Universitaria incompleta" (38.3%) y "Universitaria completa" (30.6%). En el extremo opuesto, los niveles educativos más bajos son los que menos participan; el grupo de "Media incompleta o menos" registra la tasa más baja con solo un 7.5% de participación y un índice de protesta de M=0.09. Estos datos sugieren que el capital educativo es un factor fuertemente asociado a la propensión a involucrarse en acciones de protesta en Chile.
+La @fig-des-5 y el @fig-des-6 presentan la distribución de movilidad educacional y un cruce con participación no convencional. Se observa una tendencia positiva: a mayor nivel de formación educativa, mayor es el porcentaje de participación en protestas y más alto el índice de protesta. El grupo con "Postgrado" exhibe la tasa de participación más elevada, con un 44.4%, y el índice de protesta más alto (M=0.58). Le siguen de cerca quienes poseen estudios de "Universitaria incompleta" (38.3%) y "Universitaria completa" (30.6%). En el extremo opuesto, los niveles educativos más bajos son los que menos participan; el grupo de "Media incompleta o menos" registra la tasa más baja con solo un 7.5% de participación y un índice de protesta de M=0.09. Estos datos sugieren que el capital educativo es un factor fuertemente asociado a la propensión a involucrarse en acciones de protesta en Chile.
 
 ## Análisis Descriptivo Multivariado
 
@@ -298,7 +298,7 @@ elsoc_final %>%
 
 ```
 
-Además, para el @fig-des-6 se estimaron los intervalos de confianza al 95%, mostrando que las diferencias observadas no son inocuas. Los márgenes son relativamente estrechos, lo que indica estimaciones precisas de la participación en protesta en cada nivel educativo. Además, los intervalos de los extremos (menos de enseñanza media completa y posgrado) no se superponen, lo que respalda la existencia de una brecha estadísticamente significativa entre ambos grupos. En niveles intermedios, como la educación técnica y universitaria, los intervalos muestran cierto traslape, lo que sugiere que las diferencias entre titulados e incompletos deben interpretarse con mayor cautela. En conjunto, la consistencia de los intervalos refuerza la validez de la tendencia general: a mayor nivel educativo, mayor probabilidad de participación en protestas.
+Además, para el @fig-des-6 se estimaron los intervalos de confianza al 95%, mostrando las diferencias observadas. Los márgenes son relativamente estrechos, lo que indica estimaciones precisas de la participación en protesta en cada nivel educativo. Además, los intervalos de los extremos (menos de enseñanza media completa y posgrado) no se superponen, lo que respalda la existencia de una brecha estadísticamente significativa entre ambos grupos. En niveles intermedios, como la educación técnica y universitaria, los intervalos muestran cierto traslape, lo que sugiere que las diferencias entre titulados e incompletos deben interpretarse con mayor cautela. En conjunto, la consistencia de los intervalos refuerza la validez de la tendencia general: a mayor nivel educativo, mayor probabilidad de participación en protestas.
 
 ```{r}
 #| label: fig-des-6
@@ -396,6 +396,20 @@ comp_df_completo <- as.data.frame(comp_summary)
 print(names(comp_df_completo))
 
 ```
+
+Tanto el test ANOVA, como las comparaciones múltiples de Tukey incluidos en el análisis cumplen con la justificación del enfoque analítico posterior sobre las variables seleccionadas. 
+
+El test ANOVA (F = 225.09, p < 0.001) proporciona evidencia estadística robusta de que existen diferencias significativas entre los niveles educativos en la participación en protestas, rechazando la hipótesis nula de igualdad de medias y justificando formalmente la necesidad de modelos más sofisticados que capturen estas diferencias. 
+
+Esto establece como antecedente que la educación constituye un predictor estadísticamente relevante que merece ser profundizado detallada, proporcionando la base empírica para los modelos multinivel que se planea emplear para las hipótesis H1 y H2.
+
+Las medias marginales estimadas revelan patrones descriptivos que anticipan aspectos a profundizar en los modelos posteriores, mostrando claramente la no linealidad del efecto educativo. 
+
+Los valores oscilan desde 0.095 (media incompleta) hasta 0.582 (postgrado), pero crucialmente, no siguen un patrón monotónico: universitaria incompleta (0.506) supera a universitaria completa (0.399), y técnica incompleta (0.323) excede a técnica completa (0.272). 
+
+Estos patrones descriptivos proporcionan evidencia preliminar a favor de la hipótesis H1 sobre no linealidad, demostrando que la relación educación-protesta requiere especificaciones categóricas rather than lineales. Las comparaciones múltiples de Tukey con corrección para múltiples contrastes permiten identificar qué diferencias específicas entre niveles son estadísticamente significativas, proporcionando un mapa detallado de las diferencias por pares que informará la interpretación de los coeficientes en los modelos logísticos multinivel. 
+
+Esta aproximación metodológica secuencial —desde tests omnibus hasta comparaciones específicas— establece una base estadística sólida que justifica tanto la complejidad del diseño analítico como las interpretaciones teóricas sobre mecanismos diferenciados por tipo de educación.
 
 ```{r}
 #| label: fig-des-7

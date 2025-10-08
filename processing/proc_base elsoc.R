@@ -66,9 +66,6 @@ elsoc_long[elsoc_long ==-888] <- NA
 elsoc_long[elsoc_long ==-777] <- NA
 elsoc_long[elsoc_long ==-666] <- NA
 
-elsoc_long <- elsoc_long %>%
-  select(-tipo_caso)
-
 elsoc_long <- elsoc_long %>% 
   mutate(idencuesta, 
          tipo_atricion,
@@ -161,13 +158,13 @@ elsoc_long_select <- elsoc_long %>%
 # 1. VERIFICACIÓN INICIAL
 # ==============================================================================
 
-# La base elsoc_long_select ya está cargada en tu ambiente
+
 cat("Dimensiones originales:", dim(elsoc_long_select), "\n")
 cat("Número de individuos únicos:", n_distinct(elsoc_long_select$idencuesta), "\n")
 cat("Olas disponibles:", sort(unique(elsoc_long_select$ola)), "\n")
 
 # ==============================================================================
-# 2. EXPLORACIÓN INICIAL DE CODIFICACIÓN
+# 2. EXPLORACIÓN INICIAL
 # ==============================================================================
 
 cat("\n=== VERIFICAR CODIFICACIÓN ANTES DE CONTINUAR ===\n")
@@ -182,7 +179,7 @@ print(table(elsoc_long_select$part_huelga, useNA = "always"))
 # 3. LIMPIEZA Y RECODIFICACIÓN
 # ==============================================================================
 
-# El objeto 'elsoc_long_select' es el punto de partida
+
 elsoc_clean <- elsoc_long_select
 
 # ----- PASO 1: RECODIFICACIÓN DE VALORES PERDIDOS -----
@@ -254,6 +251,7 @@ elsoc_clean <- elsoc_clean %>%
                  "Técnica superior completa", "Universitaria incompleta", "Universitaria completa", "Postgrado"),
       ordered = TRUE
     ),
+    # Años de estudio aproximados según la codificación de ELSOC
     educ_years = case_when(
       educ_encuestado == 1 ~ 0, educ_encuestado == 2 ~ 4, educ_encuestado == 3 ~ 8,
       educ_encuestado == 4 ~ 10, educ_encuestado == 5 ~ 12, educ_encuestado == 6 ~ 13,
@@ -271,7 +269,7 @@ elsoc_clean <- elsoc_clean %>%
 
 elsoc_clean <- elsoc_clean %>%
   group_by(idencuesta) %>%
-  # Llenar los valores de educación parental con el valor de la primera ola
+  # Llenar los valores de educación parental con el valor de la primera ola (imputación simple)
   fill(educ_padre, educ_madre, .direction = "downup") %>%
   ungroup()
 
@@ -668,7 +666,7 @@ elsoc_final <- elsoc_analisis %>%
 sjPlot::view_df(elsoc_final,
                 show.frq = T,show.values = T,show.na = T,show.prc = T, show.type = T)
 # ==============================================================================
-# 10. GUARDAR BASES
+# 10. GUARDAR BASE
 # ==============================================================================
 
 save(elsoc_final, file = here ("input/data/proc/elsoc_final.RData"))
