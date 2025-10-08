@@ -269,7 +269,6 @@ kable(tabla_compara, "html", escape = FALSE, align = "l") %>%
 :::
 
 ::: {.incremental style="font-size: 100%;"}
-### Hipótesis con Predictores
 
 **H3. Asumiendo que se identifican estos perfiles, siguiendo a la literatura, se esperaría que:**
 
