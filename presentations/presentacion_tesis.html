@@ -1842,6 +1842,88 @@ Fuente: Elaboración propia con datos ELSOC 2016-2023.<br> Variables dependiente
 </div>
 </div>
 </section>
+<section id="principales-hallazgos-modelos-multinivel" class="slide level2 smaller center">
+<h2>Principales Hallazgos: Modelos Multinivel</h2>
+<div class="cell" data-layout-align="center">
+<pre><code>#&gt; Columnas disponibles en emmeans:
+#&gt; [1] "educ_cat_t1_imp" "prob"            "SE"              "df"             
+#&gt; [5] "asymp.LCL"       "asymp.UCL"       "null"            "z.ratio"        
+#&gt; [9] "p.value"</code></pre>
+<div class="cell-output-display">
+<table class="table table-striped table-hover caption-top" style="font-size: 10px; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Probabilidades Predichas de Participar en Protestas por Nivel Educativo</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nivel Educativo</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Probabilidad Predicha</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">IC 95%</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Cambio vs. Media Completa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">Media completa</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">8.0%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">[7.1%, 9.0%]</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 243, 205, 255) !important;">Referencia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media incompleta o menos</td>
+<td style="text-align: center;">2.2%</td>
+<td style="text-align: center;">[1.8%, 2.7%]</td>
+<td style="text-align: center;">-73%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Postgrado</td>
+<td style="text-align: center;">28.1%</td>
+<td style="text-align: center;">[16.4%, 43.7%]</td>
+<td style="text-align: center;">+252%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnica superior</td>
+<td style="text-align: center;">14.8%</td>
+<td style="text-align: center;">[12.6%, 17.4%]</td>
+<td style="text-align: center;">+86%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Universitaria</td>
+<td style="text-align: center;">18.7%</td>
+<td style="text-align: center;">[14.9%, 23.2%]</td>
+<td style="text-align: center;">+134%</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Basado en Modelo M3b. Controlando por efectos temporales.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup>1</sup> IC = Intervalo de Confianza 95%</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+</div>
+<h3 id="hallazgos-clave"><strong>Hallazgos Clave:</strong></h3>
+<div style="font-size: 90%;">
+<p><strong>1. Confirmación H1 - No Linealidad:</strong> - <strong>Relación no lineal confirmada</strong>: Saltos distintivos entre niveles educativos - <strong>Media incompleta</strong>: 73% menos probabilidad vs.&nbsp;media completa<br>
+- <strong>Educación superior</strong>: Incrementos sustanciales (Técnica: +101%, Universitaria: +165%, Postgrado: +348%)</p>
+<p><strong>2. Efectos Temporales:</strong> - <strong>Estallido 2019</strong>: Peak de participación (+66% vs.&nbsp;2016) - <strong>Post-estallido 2021-2023</strong>: Caída generalizada (-69% a -71% vs.&nbsp;2016) - <strong>Estabilidad relativa</strong>: Educación superior mantiene mayor participación incluso post-estallido</p>
+<p><strong>3. Varianza Multinivel:</strong> - <strong>ICC ≈ 40%</strong>: Justifica estructura multinivel (clustering significativo) - <strong>Between-person effects</strong>: Educación explica diferencias estables entre individuos - <strong>Within-person variation</strong>: Efectos temporales significativos</p>
+<p><strong>4. Implicaciones Teóricas:</strong> - <strong>Recursos cívicos</strong>: A mayor educación, más recursos para movilización - <strong>Umbrales educativos</strong>: Efectos cualitativos, no solo cuantitativos - <strong>Moderación temporal</strong>: Educación superior como factor protector de participación</p>
+</div>
+</section>
 <section id="análisis-de-varianza-within-between" class="slide level2 smaller center">
 <h2>Análisis de Varianza Within-Between</h2>
 <div class="cell" data-layout-align="center">

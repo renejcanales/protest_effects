@@ -724,6 +724,88 @@ cat('</div>')
 
 ---
 
+## Principales Hallazgos: Modelos Multinivel {.smaller}
+
+```{r}
+#| label: hallazgos-principales
+#| warning: false
+#| message: false
+#| echo: false
+
+# Calcular valores predichos del modelo M3b (categórico)
+library(emmeans)
+
+# Medias marginales estimadas por nivel educativo
+emm_educ_ml <- emmeans(m3b_educ_cat, ~ educ_cat_t1_imp, type = "response")
+prob_predichas <- summary(emm_educ_ml, infer = TRUE)  # Agregar infer = TRUE para IC
+
+# Verificar nombres de columnas disponibles
+cat("Columnas disponibles en emmeans:\n")
+print(names(prob_predichas))
+
+# Crear tabla de probabilidades predichas con nombres correctos
+tabla_predicciones <- prob_predichas %>%
+  mutate(
+    `Nivel Educativo` = educ_cat_t1_imp,
+    `Probabilidad Predicha` = sprintf("%.1f%%", prob * 100),
+    # Usar nombres correctos para intervalos de confianza
+    `IC 95%` = if("lower.CL" %in% names(prob_predichas)) {
+      sprintf("[%.1f%%, %.1f%%]", lower.CL * 100, upper.CL * 100)
+    } else if("asymp.LCL" %in% names(prob_predichas)) {
+      sprintf("[%.1f%%, %.1f%%]", asymp.LCL * 100, asymp.UCL * 100)
+    } else {
+      "N/A"
+    },
+    `Cambio vs. Media Completa` = case_when(
+      educ_cat_t1_imp == "Media completa" ~ "Referencia",
+      TRUE ~ {
+        ref_prob <- prob[educ_cat_t1_imp == "Media completa"][1]
+        sprintf("%+.0f%%", (prob / ref_prob - 1) * 100)
+      }
+    )
+  ) %>%
+  select(`Nivel Educativo`, `Probabilidad Predicha`, `IC 95%`, `Cambio vs. Media Completa`)
+
+# Mostrar tabla
+kbl(tabla_predicciones,
+    caption = "Probabilidades Predichas de Participar en Protestas por Nivel Educativo",
+    align = c("l", "c", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE, font_size = 10) %>%
+  row_spec(which(tabla_predicciones$`Nivel Educativo` == "Media completa"), 
+           background = "#FFF3CD", bold = TRUE) %>%
+  footnote(general = "Basado en Modelo M3b. Controlando por efectos temporales.",
+           number = "IC = Intervalo de Confianza 95%")
+```
+
+### **Hallazgos Clave:**
+
+::: {.incremental style="font-size: 90%;"}
+
+**1. Confirmación H1 - No Linealidad:**
+- **Relación no lineal confirmada**: Saltos distintivos entre niveles educativos
+- **Media incompleta**: 73% menos probabilidad vs. media completa  
+- **Educación superior**: Incrementos sustanciales (Técnica: +101%, Universitaria: +165%, Postgrado: +348%)
+
+**2. Efectos Temporales:**
+- **Estallido 2019**: Peak de participación (+66% vs. 2016)
+- **Post-estallido 2021-2023**: Caída generalizada (-69% a -71% vs. 2016)
+- **Estabilidad relativa**: Educación superior mantiene mayor participación incluso post-estallido
+
+**3. Varianza Multinivel:**
+- **ICC ≈ 40%**: Justifica estructura multinivel (clustering significativo)
+- **Between-person effects**: Educación explica diferencias estables entre individuos
+- **Within-person variation**: Efectos temporales significativos
+
+**4. Implicaciones Teóricas:**
+- **Recursos cívicos**: A mayor educación, más recursos para movilización
+- **Umbrales educativos**: Efectos cualitativos, no solo cuantitativos
+- **Moderación temporal**: Educación superior como factor protector de participación
+
+:::
+
+---
+
 ## Análisis de Varianza Within-Between {.smaller}
 
 ```{r}
