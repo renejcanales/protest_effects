@@ -80,7 +80,7 @@ pacman::p_load(plm, # Modelos Panel
 options(scipen=999)
 rm(list = ls())
 
-load("~/GitHub/protest_effects/input/data/proc/elsoc_long.RData")
+load(here("input/data/proc/elsoc_long.RData"))
 ```
 
 # Descriptivos
