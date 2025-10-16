@@ -41,7 +41,7 @@ rm(list = ls())
 # 2. Data --------------------------------------------------------------
 
 
-load("~/GitHub/protest_effects/input/data/raw/elsoc_long_2016_2023.RData")
+load(here("input/data/raw/elsoc_long_2016_2023.RData"))
 
 elsoc_long <- elsoc_long_2016_2023
 
