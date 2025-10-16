@@ -159,7 +159,9 @@ tab_participacion <- elsoc_final %>%
 tab_participacion
 ```
 
-Tanto la @fig-des-1 como el @fig-des-2 presentan los datos de la distribución de participación en protestas en Chile para el período 2016-2023. Se logra distinguir una fluctuación persistente en los niveles de movilización, con un punto de inflexión presente en el año 2019. Durante ese año, coincidente con el *estallido social*, la participación ciudadana en protestas alcanzó su máximo del período, con un 29.1% de los encuestados reportando haber participado. Este peak también se refleja en el índice de protesta de la @fig-des-1, que llegó a su media más alta (M=0.37, DE=0.63). En contraste, los años previos y posteriores muestran cifras considerablemente menores, destacando una marcada disminución tras el 2019, hasta llegar al nivel más bajo de la serie en 2023, con un 11.4% de participación.
+Tanto la @fig-des-1 como el @fig-des-2 presentan la distribución de la participación en protestas en Chile durante el período 2016-2023. Se observa una fluctuación persistente en los niveles de movilización, con un punto de inflexión marcado en el año 2019. Durante ese año, coincidente con el *estallido social*, la participación ciudadana en protestas alcanzó su máximo del período, con un 29.1% de los encuestados reportando haber participado. Este peak también se refleja en el índice de participación no convencional de la @fig-des-1, que alcanzó su media más alta (M=0.37, DE=0.63). En contraste, los años previos y posteriores muestran cifras considerablemente menores, con excepción del 2016, año en que tuvo lugar la movilización del movimiento *NO+AFP*. Se destaca una marcada disminución tras 2019, hasta llegar al nivel más bajo de la serie en 2023, con un 11.4% de participación.
+
+La disminución en la participación entre los años 2021 y 2023 podría interpretarse en el contexto del escenario político del país, donde la presencia de un gobierno progresista en el poder estaría asociada a una reducción considerable de las protestas. 
 
 ```{r}
 #| label: fig-des-2

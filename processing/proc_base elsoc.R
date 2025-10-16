@@ -66,8 +66,8 @@ elsoc_long[elsoc_long ==-888] <- NA
 elsoc_long[elsoc_long ==-777] <- NA
 elsoc_long[elsoc_long ==-666] <- NA
 
-elsoc_long <- elsoc_long %>% 
-  mutate(idencuesta, 
+elsoc_long_select <- elsoc_long %>%
+  dplyr::select(idencuesta, 
          tipo_atricion,
          estrato,
          segmento,
@@ -103,51 +103,11 @@ elsoc_long <- elsoc_long %>%
          recomp_talent = c18_10,
          justicia_pensiones = d02_01,
          justicia_educacion = d02_02, 
-         justicia_salud = d02_03
-  ) %>% 
+         justicia_salud = d02_03,
+         ciuo08_m03,
+         ciuo88_m03) %>% 
   as_tibble() %>% 
   sjlabelled::drop_labels(., drop.na = FALSE)
-
-elsoc_long_select <- elsoc_long %>%
-  select(idencuesta, 
-         tipo_atricion,
-         estrato,
-         segmento,
-         ola,
-         genero,
-         edad,
-         educ_encuestado,
-         educ_padre,
-         educ_madre,
-         conf_gob,
-         conf_part,
-         conf_cong,
-         efic_voto,
-         efic_result,
-         efic_expr,
-         voto_deber, 
-         voto_influye, 
-         voto_expresion, 
-         interes_politica, 
-         hablar_politica,
-         satisf_democracia,
-         firma_peti,
-         asist_marcha,
-         part_huelga,
-         part_cacerol,
-         miembro_pp,
-         perc_sub_clase,
-         tipo_empleo,
-         cantidad_trabajadores,
-         satis_ingreso,
-         ideologia,
-         recomp_esfuer,
-         recomp_talent,
-         justicia_pensiones,
-         justicia_educacion, 
-         justicia_salud,
-         ciuo08_m03,
-         ciuo88_m03)
 
 # ==============================================================================
 # LIMPIEZA Y CONSTRUCCIÓN DE VARIABLES - ELSOC
@@ -213,19 +173,20 @@ elsoc_clean <- elsoc_clean %>%
 # Parte B: Usar las variables recién creadas para construir los índices
 elsoc_clean <- elsoc_clean %>%
   mutate(
-    # --- ÍNDICES DE PROTESTA (SUMA DE PARTICIPACIÓN) ---
-    protesta_index = rowSums(select(., asist_marcha_bin, part_huelga_bin), na.rm = FALSE),
-    protesta_index_completo = rowSums(select(., asist_marcha_bin, part_huelga_bin, part_cacerolazo_bin), na.rm = FALSE),
-    participacion_amplia = rowSums(select(., firma_peticion_bin, asist_marcha_bin, part_huelga_bin, part_cacerolazo_bin), na.rm = TRUE),
+    # --- ÍNDICE DE PROTESTA (PROMEDIO DE FRECUENCIAS 1-5) ---
+    # Índice principal: promedio de marcha, huelga y petición
+    protesta_index = rowMeans(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
+    
+    # Índice completo: incluye también cacerolazos
+    protesta_index_completo = rowMeans(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
     
     # --- ÍNDICES DE INTENSIDAD (SUMA DE FRECUENCIAS) ---
-    protesta_intensidad = rowSums(select(., asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
-    protesta_intensidad_completa = rowSums(select(., asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
+    protesta_intensidad_suma = rowSums(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
+    protesta_intensidad_suma_completa = rowSums(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
     
-    # --- VARIABLES DICOTÓMICAS (DUMMIES) ---
-    protesta_dummy = if_else(protesta_index >= 1, 1, 0),
-    protesta_multiple = if_else(protesta_index >= 2, 1, 0),
-    participa_dummy = if_else(participacion_amplia >= 1, 1, 0),
+    # --- VARIABLE DICOTÓMICA (DUMMY) ---
+    # Dummy: participó en marcha (solo asistencia a marchas)
+    protesta_dummy = asist_marcha_bin,
     
     # --- FLAG DE DATOS FALTANTES PARA EL ÍNDICE PRINCIPAL ---
     protesta_missing = is.na(protesta_index)
@@ -331,8 +292,8 @@ elsoc_clean <- elsoc_clean %>%
       ideologia_std >= 7 ~ "Derecha",
       TRUE ~ NA_character_
     ),
-    conf_instituciones = rowMeans(select(., conf_gob, conf_part, conf_cong), na.rm = TRUE),
-    eficacia_politica = rowMeans(select(., efic_voto, efic_result, efic_expr), na.rm = TRUE)
+    conf_instituciones = rowMeans(dplyr::select(., conf_gob, conf_part, conf_cong), na.rm = TRUE),
+    eficacia_politica = rowMeans(dplyr::select(., efic_voto, efic_result, efic_expr), na.rm = TRUE)
   )
 
 # ----- PASO 7: VARIABLES TEMPORALES -----
@@ -357,8 +318,8 @@ elsoc_clean <- elsoc_clean %>%
 # Se crean índices de percepciones sobre justicia, meritocracia y estatus
 elsoc_clean <- elsoc_clean %>%
   mutate(
-    justicia_distributiva = rowMeans(select(., justicia_pensiones, justicia_educacion, justicia_salud), na.rm = TRUE),
-    meritocracia = rowMeans(select(., recomp_esfuer, recomp_talent), na.rm = TRUE),
+    justicia_distributiva = rowMeans(dplyr::select(., justicia_pensiones, justicia_educacion, justicia_salud), na.rm = TRUE),
+    meritocracia = rowMeans(dplyr::select(., recomp_esfuer, recomp_talent), na.rm = TRUE),
     clase_subjetiva = perc_sub_clase,
     satis_ingreso_std = satis_ingreso
   )
@@ -406,7 +367,7 @@ elsoc_clean <- elsoc_clean %>%
 # Rellenar los valores NA en la variable original
 elsoc_clean <- elsoc_clean %>%
   mutate(isco88=ifelse(!is.na(isco88),isco88,isco88_lagged)) %>%  # Si isco08 es NA, sustituir con el valor de la ola anterior 
-  select(-isco88_lagged)                 # Elimina la columna temporal
+  dplyr::select(-isco88_lagged)                 # Elimina la columna temporal
 
 elsoc_clean %>%
   group_by(ola) %>%
@@ -480,7 +441,7 @@ elsoc_clean <- elsoc_clean %>%
 # Rellenar los valores NA en la variable original
 elsoc_clean <- elsoc_clean %>%
   mutate(nemploy_egp=ifelse(!is.na(nemploy_egp),nemploy_egp,nemploy_egp_lagged)) %>%  # Si isco08 es NA, sustituir con el valor de la ola anterior 
-  select(-nemploy_egp_lagged)                 # Elimina la columna temporal
+  dplyr::select(-nemploy_egp_lagged)                 # Elimina la columna temporal
 
 
 sjt.xtab(elsoc_clean$nemploy_egp,elsoc_clean$ola,
@@ -549,7 +510,7 @@ cat("Porcentaje retenido:",
 # ==============================================================================
 
 missing_summary <- elsoc_analisis %>%
-  select(protesta_index, educ_years, educ_parental_max, movilidad_years,
+  dplyr::select(protesta_index, educ_years, educ_parental_max, movilidad_years,
          edad, ideologia_std) %>%
   miss_var_summary()
 print(missing_summary)
@@ -571,7 +532,7 @@ print(table(elsoc_analisis$movilidad_cat, useNA = "always"))
 
 cat("\n=== ESTADÍSTICAS NUMÉRICAS ===\n")
 print(summary(elsoc_analisis %>% 
-                select(protesta_index, educ_years, movilidad_years, edad)))
+                dplyr::select(protesta_index, educ_years, movilidad_years, edad)))
 
 # ==============================================================================
 # 7. TABLAS CRUZADAS
@@ -613,7 +574,7 @@ print(panel_structure)
 # ==============================================================================
 
 elsoc_final <- elsoc_analisis %>%
-  select(
+  dplyr::select(
     # IDs
     idencuesta, ola, year, tipo_atricion,
     
