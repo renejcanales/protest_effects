@@ -175,14 +175,14 @@ elsoc_clean <- elsoc_clean %>%
   mutate(
     # --- ÍNDICE DE PROTESTA (PROMEDIO DE FRECUENCIAS 1-5) ---
     # Índice principal: promedio de marcha, huelga y petición
-    protesta_index = rowMeans(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
+    protesta_index = rowMeans(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
     
     # Índice completo: incluye también cacerolazos
-    protesta_index_completo = rowMeans(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
+    protesta_index_completo = rowMeans(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
     
     # --- ÍNDICES DE INTENSIDAD (SUMA DE FRECUENCIAS) ---
-    protesta_intensidad_suma = rowSums(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
-    protesta_intensidad_suma_completa = rowSums(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
+    protesta_intensidad_suma = rowSums(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
+    protesta_intensidad_suma_completa = rowSums(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
     
     # --- VARIABLE DICOTÓMICA (DUMMY) ---
     # Dummy: participó en marcha (solo asistencia a marchas)
@@ -292,8 +292,8 @@ elsoc_clean <- elsoc_clean %>%
       ideologia_std >= 7 ~ "Derecha",
       TRUE ~ NA_character_
     ),
-    conf_instituciones = rowMeans(dplyr::select(., conf_gob, conf_part, conf_cong), na.rm = TRUE),
-    eficacia_politica = rowMeans(dplyr::select(., efic_voto, efic_result, efic_expr), na.rm = TRUE)
+    conf_instituciones = rowMeans(cbind(conf_gob, conf_part, conf_cong), na.rm = TRUE),
+    eficacia_politica = rowMeans(cbind(efic_voto, efic_result, efic_expr), na.rm = TRUE)
   )
 
 # ----- PASO 7: VARIABLES TEMPORALES -----
@@ -318,8 +318,8 @@ elsoc_clean <- elsoc_clean %>%
 # Se crean índices de percepciones sobre justicia, meritocracia y estatus
 elsoc_clean <- elsoc_clean %>%
   mutate(
-    justicia_distributiva = rowMeans(dplyr::select(., justicia_pensiones, justicia_educacion, justicia_salud), na.rm = TRUE),
-    meritocracia = rowMeans(dplyr::select(., recomp_esfuer, recomp_talent), na.rm = TRUE),
+    justicia_distributiva = rowMeans(cbind(justicia_pensiones, justicia_educacion, justicia_salud), na.rm = TRUE),
+    meritocracia = rowMeans(cbind(recomp_esfuer, recomp_talent), na.rm = TRUE),
     clase_subjetiva = perc_sub_clase,
     satis_ingreso_std = satis_ingreso
   )
@@ -587,21 +587,19 @@ elsoc_final <- elsoc_analisis %>%
     part_huelga_freq, part_cacerolazo_freq,
     
     # VD - Índices principales
-    protesta_index,              # PRINCIPAL: marchas + huelgas
+    protesta_index,              # PRINCIPAL: marchas + huelgas + peticiones
     protesta_index_completo,     # Incluye cacerolazos
-    participacion_amplia,        # Incluye firmar peticiones
     
     # VD - Intensidad
-    protesta_intensidad,
-    protesta_intensidad_completa,
+    protesta_intensidad_suma,
+    protesta_intensidad_suma_completa,
     
     # VD - Dicotómicas
-    protesta_dummy,              # PRINCIPAL DUMMY
-    protesta_multiple,
-    participa_dummy,
+    protesta_dummy,              # PRINCIPAL DUMMY (solo asist_marcha)
     
     # Flags
     cacerolazo_disponible,
+    protesta_missing,
     
     # VI principales
     educ_cat, educ_cat_factor, educ_years,
