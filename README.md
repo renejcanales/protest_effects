@@ -3,4 +3,4 @@
 
 [Análisis Descriptivos](https://renejcanales.github.io/protest_effects/processing/01-descriptivos.html)
 
-[Modelos Exploratorios](https://renejcanales.github.io/protest_effects/processing/02-analisis-violencia.html)
+[Modelos Exploratorios](https://renejcanales.github.io/protest_effects/processing/03-analisis-violencia.html)
