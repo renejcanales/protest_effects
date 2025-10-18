@@ -86,7 +86,7 @@ rm(list = ls())
 #| echo: false
 
 
-load(here("~/GitHub/protest_effects/input/data/proc/elsoc_final.RData"))
+load(here("input/data/proc/elsoc_final_2.RData"))
 ```
 
 
