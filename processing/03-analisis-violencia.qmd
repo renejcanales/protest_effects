@@ -1,0 +1,1111 @@
+---
+title: "Actitudes hacia la Violencia Política: Educación, Clase y Participación en Protestas"
+author: René Canales
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "Contenidos"
+    number-sections: true
+    code-fold: true
+    theme: cosmo
+execute:
+  warning: false
+  message: false
+  echo: false
+---
+
+```{r setup}
+#| include: false
+library(dplyr)
+library(ggplot2)
+library(glmmTMB)
+library(texreg)
+library(ggeffects)
+library(patchwork)
+library(gt)
+library(here)
+
+# Cargar datos
+load(here("input/data/proc/elsoc_final_2.RData"))
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#| results: false
+
+
+# Paso 1: Convertir a factor no ordenado
+elsoc_final_2 <- elsoc_final_2 %>%
+  mutate(
+    educ_cat_unordered = factor(educ_cat_factor, ordered = FALSE),
+    movilidad_cat_unordered = factor(movilidad_cat_factor, ordered = FALSE)
+  )
+
+```
+
+# Resumen Ejecutivo
+
+Este documento presenta los hallazgos principales sobre actitudes hacia la violencia política en Chile, analizando cómo la **educación** y la **clase social** interactúan con la **participación en protestas** para moldear estas actitudes.
+
+**Hallazgos centrales**:
+
+1. **Efecto diferencial de la educación**: Entre quienes NO participan en protestas, mayor educación reduce la justificación de violencia. Entre quienes SÍ participan, este efecto se invierte completamente.
+
+2. **Efecto bidireccional de la participación**: Universitarios que participan en protestas justifican MÁS la violencia en manifestaciones pero MENOS la violencia policial (efecto opuesto según tipo de actor).
+
+3. **Clase social como moderador**: La clase social determina la intensidad del cambio actitudinal al participar. Service class experimenta mayor transformación; working class muestra "efecto techo" (ya parten de mayor tolerancia).
+
+4. **Divergencia vs convergencia**: La participación amplifica desigualdades educativas (universitarios se radicalizan más) pero reduce desigualdades de clase (efecto nivelador).
+
+---
+
+# Introducción
+
+Durante el estallido social chileno de 2019, el debate sobre la legitimidad de la violencia en protestas fue central. Este análisis examina cómo diferentes grupos sociales desarrollan actitudes diferenciadas hacia:
+
+- **Violencia en protestas** (ejercida por manifestantes)
+- **Violencia estatal** (ejercida por Carabineros)
+
+Utilizando datos longitudinales de ELSOC 2016-2023 (N≈15,000), analizamos el rol de:
+- Capital cultural (educación)
+- Posición estructural (clase social EGP)
+- Experiencia vivida (participación en protestas)
+
+---
+
+# Variables y Metodología
+
+## Variables dependientes
+
+```{r}
+#| echo: false
+
+# Tabla descriptiva de variables de violencia
+elsoc_final_2 %>%
+  summarise(
+    `Violencia en Protestas (Media)` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
+    `Violencia en Protestas (DE)` = round(sd(justif_violencia_protesta, na.rm = TRUE), 2),
+    `Violencia Estatal (Media)` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    `Violencia Estatal (DE)` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
+    `% Justifica Viol. Protestas` = round(100 * mean(justifica_violencia_protesta_dummy, na.rm = TRUE), 1),
+    `% Justifica Viol. Estatal` = round(100 * mean(justifica_violencia_estatal_dummy, na.rm = TRUE), 1),
+    N = n()
+  ) %>%
+  gt() %>%
+  tab_header(
+    title = "Descriptivos: Variables de violencia",
+    subtitle = "ELSOC 2016-2023"
+  ) %>%
+  tab_footnote(
+    footnote = "Índices en escala 1-5. Dummy = 1 si justifica (>1)"
+  )
+```
+
+**Variables de violencia**:
+- `justif_violencia_protesta`: Índice promedio de 4 ítems sobre justificación de acciones violentas en manifestaciones
+- `justif_violencia_estatal`: Índice promedio de 3 ítems sobre justificación de violencia policial
+
+## Variables independientes
+
+- **Educación**: 5 categorías desde secundaria incompleta hasta universitaria completa (factor no ordenado)
+- **Clase social**: Esquema EGP en 3 categorías (Service/Intermediate/Working class)
+- **Participación en protestas**: Variable dicotómica (participó en últimos 12 meses)
+
+## Estrategia analítica
+
+Modelos multinivel (glmmTMB) con:
+- Efectos aleatorios individuales (interceptos)
+- Controles: edad, género, ideología, año
+- Interacciones: Educación × Protesta, Clase × Protesta
+
+---
+
+# Estadísticos Descriptivos
+
+## Justificación de violencia por nivel educativo
+
+```{r}
+#| label: tbl-violencia-educacion
+#| tbl-cap: "Justificación de violencia según nivel educativo y participación en protestas"
+#| echo: false
+
+elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  group_by(educ_cat_unordered, Participacion = factor(protesta_dummy, 
+                                                       labels = c("No participó", "Participó"))) %>%
+  summarise(
+    N = n(),
+    `Viol. Protestas` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
+    `DE` = round(sd(justif_violencia_protesta, na.rm = TRUE), 2),
+    `Viol. Estatal` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    `DE ` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) %>%
+  gt() %>%
+  tab_header(
+    title = "Justificación de violencia por educación y participación",
+    subtitle = "Medias y desviaciones estándar en escala 1-5"
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = -c(educ_cat_unordered, Participacion)
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "lightblue"),
+    locations = cells_body(
+      columns = Participacion,
+      rows = Participacion == "Participó"
+    )
+  )
+```
+
+**Patrones observados**:
+
+- **Sin participación**: Educación reduce ligeramente la justificación de violencia en protestas (de ~1.90 a ~1.80)
+- **Con participación**: La tendencia se invierte - universitarios participantes muestran mayor justificación (~2.10-2.20)
+- **Violencia estatal**: Patrón más estable, con menor variación por educación
+
+## Justificación de violencia por clase social
+
+```{r}
+#| label: tbl-violencia-clase
+#| tbl-cap: "Justificación de violencia según clase social y participación en protestas"
+#| echo: false
+
+elsoc_final_2 %>%
+  filter(!is.na(egp3) & !is.na(protesta_dummy)) %>%
+  group_by(egp3, Participacion = factor(protesta_dummy, 
+                                         labels = c("No participó", "Participó"))) %>%
+  summarise(
+    N = n(),
+    `Viol. Protestas` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
+    `DE` = round(sd(justif_violencia_protesta, na.rm = TRUE), 2),
+    `Viol. Estatal` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    `DE ` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) %>%
+  gt() %>%
+  tab_header(
+    title = "Justificación de violencia por clase social y participación",
+    subtitle = "Medias y desviaciones estándar en escala 1-5"
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = -c(egp3, Participacion)
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "lightgreen"),
+    locations = cells_body(
+      columns = Participacion,
+      rows = Participacion == "Participó"
+    )
+  )
+```
+
+**Patrones observados**:
+
+- **Working class sin participar**: Parten de mayor justificación (~1.85) comparado con Service class (~1.75)
+- **Service class al participar**: Experimentan mayor incremento absoluto en justificación (de ~1.75 a ~2.20)
+- **Convergencia**: Las diferencias entre clases se reducen entre participantes
+
+## Distribución de participación en protestas
+
+```{r}
+#| label: fig-participacion-distribucion
+#| fig-cap: "Distribución de participación en protestas por educación y clase"
+#| fig-height: 5
+#| fig-width: 10
+#| echo: false
+
+# Panel A: Por educación
+plot_part_educ <- elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  group_by(educ_cat_unordered) %>%
+  summarise(
+    Total = n(),
+    Participaron = sum(protesta_dummy),
+    Porcentaje = 100 * Participaron / Total,
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = educ_cat_unordered, y = Porcentaje)) +
+  geom_col(fill = "#0073C2FF", width = 0.7) +
+  geom_text(aes(label = paste0(round(Porcentaje, 1), "%")), 
+            vjust = -0.5, size = 3.5) +
+  labs(
+    title = "A) Participación por Nivel Educativo",
+    x = "Nivel Educativo",
+    y = "% que Participó en Protestas"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ylim(0, 35)
+
+# Panel B: Por clase
+plot_part_clase <- elsoc_final_2 %>%
+  filter(!is.na(egp3) & !is.na(protesta_dummy)) %>%
+  group_by(egp3) %>%
+  summarise(
+    Total = n(),
+    Participaron = sum(protesta_dummy),
+    Porcentaje = 100 * Participaron / Total,
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = egp3, y = Porcentaje)) +
+  geom_col(fill = "#00BA38", width = 0.6) +
+  geom_text(aes(label = paste0(round(Porcentaje, 1), "%")), 
+            vjust = -0.5, size = 3.5) +
+  labs(
+    title = "B) Participación por Clase Social",
+    x = "Clase Social (EGP)",
+    y = "% que Participó en Protestas"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ylim(0, 35)
+
+# Combinar
+plot_part_educ + plot_part_clase +
+  plot_annotation(
+    caption = "Fuente: ELSOC 2016-2023. Participación en últimos 12 meses."
+  )
+```
+
+**Hallazgos de participación**:
+
+- **Educación**: Participación aumenta con nivel educativo (de ~15% en secundaria incompleta a ~25% en universitaria completa)
+- **Clase**: Service class muestra ligeramente mayor participación (~22%) comparado con working class (~18%)
+- **Implicación**: Los análisis de interacción son cruciales porque participantes y no-participantes difieren sistemáticamente
+
+## Evolución temporal (2016-2023)
+
+```{r}
+#| label: fig-evolucion-temporal
+#| fig-cap: "Evolución de justificación de violencia y participación en protestas 2016-2023"
+#| fig-height: 5
+#| fig-width: 10
+#| echo: false
+
+# Panel A: Violencia
+plot_evol_violencia <- elsoc_final_2 %>%
+  group_by(year) %>%
+  summarise(
+    `Viol. en Protestas` = mean(justif_violencia_protesta, na.rm = TRUE),
+    `Viol. Estatal` = mean(justif_violencia_estatal, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  tidyr::pivot_longer(cols = starts_with("Viol"), 
+                      names_to = "Tipo", 
+                      values_to = "Justificacion") %>%
+  ggplot(aes(x = year, y = Justificacion, color = Tipo, group = Tipo)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("Viol. en Protestas" = "#EFC000FF", 
+                                  "Viol. Estatal" = "#0073C2FF")) +
+  labs(
+    title = "A) Evolución de Justificación de Violencia",
+    x = "Año",
+    y = "Justificación (escala 1-5)",
+    color = "Tipo"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+# Panel B: Participación
+plot_evol_particip <- elsoc_final_2 %>%
+  group_by(year) %>%
+  summarise(
+    Participacion = 100 * mean(protesta_dummy, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = year, y = Participacion)) +
+  geom_line(linewidth = 1.2, color = "#619CFF") +
+  geom_point(size = 3, color = "#619CFF") +
+  labs(
+    title = "B) Evolución de Participación en Protestas",
+    x = "Año",
+    y = "% que Participó"
+  ) +
+  theme_minimal(base_size = 11)
+
+# Combinar
+plot_evol_violencia + plot_evol_particip +
+  plot_annotation(
+    caption = "Fuente: ELSOC 2016-2023. Nota: 2019 = Estallido social"
+  )
+```
+
+**Patrones temporales clave**:
+
+- **2019 (Estallido social)**: Paradójicamente, MENOR justificación de ambos tipos de violencia (posible "fatiga de violencia" por saturación mediática)
+- **Participación en 2019**: Aumenta significativamente, reflejando la intensidad del conflicto
+- **Post-2019**: Justificación de violencia se mantiene baja, participación disminuye pero no vuelve a niveles pre-2019
+
+## Correlaciones entre variables clave
+
+```{r}
+#| label: tbl-correlaciones
+#| tbl-cap: "Correlaciones entre justificación de violencia y variables sociodemográficas"
+
+# Crear variables numéricas para correlaciones
+cor_data <- elsoc_final_2 %>%
+  filter(!is.na(justif_violencia_protesta) & !is.na(justif_violencia_estatal)) %>%
+  mutate(
+    educ_num = as.numeric(educ_cat_unordered),
+    edad_std = scale(edad)[,1],
+    mujer_num = as.numeric(mujer)
+  ) %>%
+  dplyr::select(justif_violencia_protesta, justif_violencia_estatal, 
+         educ_num, edad_std, mujer_num, ideologia_std, protesta_dummy) %>%
+  na.omit()
+
+# Calcular correlaciones
+cor_matrix <- cor(cor_data)
+
+# Extraer correlaciones relevantes
+cor_table <- data.frame(
+  Variable = c("Educación", "Edad", "Mujer", "Ideología (izq-der)", "Participación en protesta"),
+  Viol_Protestas = round(cor_matrix[1, 3:7], 3),
+  Viol_Estatal = round(cor_matrix[2, 3:7], 3)
+)
+
+cor_table %>%
+  gt() %>%
+  tab_header(
+    title = "Correlaciones con justificación de violencia",
+    subtitle = "Correlaciones de Pearson"
+  ) %>%
+  cols_label(
+    Variable = "Variable",
+    Viol_Protestas = "Viol. en Protestas",
+    Viol_Estatal = "Viol. Estatal"
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "lightyellow"),
+    locations = cells_body(
+      columns = Viol_Protestas,
+      rows = abs(Viol_Protestas) > 0.1
+    )
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "lightpink"),
+    locations = cells_body(
+      columns = Viol_Estatal,
+      rows = abs(Viol_Estatal) > 0.1
+    )
+  )
+```
+
+**Correlaciones destacables**:
+
+- **Participación en protesta**: Correlación moderada-fuerte con violencia en protestas (r ≈ 0.20-0.25), débil con violencia estatal
+- **Ideología**: Correlación negativa con violencia en protestas (más derecha, menos justificación), positiva con violencia estatal
+- **Educación y edad**: Correlaciones débiles, sugiriendo que efectos son complejos/no-lineales (confirmando necesidad de modelos de interacción)
+
+---
+
+# Hallazgo 1: El "Efecto Paradoja" de la Educación
+
+## Modelo de interacción Educación × Protesta
+
+```{r}
+#| echo: false
+
+# Modelo principal
+mod_educ_protesta <- glmmTMB(
+  justif_violencia_protesta ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+screenreg(mod_educ_protesta,
+          custom.model.names = "Violencia en Protestas",
+          custom.coef.names = c(
+            "(Intercepto)",
+            "Téc. sup. incompleta",
+            "Téc. sup. completa",
+            "Univ. incompleta",
+            "Univ. completa",
+            "Participó en protesta",
+            "Edad",
+            "Mujer",
+            "Ideología (izq-der)",
+            "2017", "2018", "2019", "2022", "2023",
+            "Téc. sup. inc. × Protesta",
+            "Téc. sup. comp. × Protesta",
+            "Univ. inc. × Protesta",
+            "Univ. comp. × Protesta"
+          ))
+```
+
+## Interpretación: El efecto se invierte
+
+**Para quienes NO participaron en protestas** (efectos principales):
+- Universitaria completa: **-0.11*** 
+- → Menos justificación de violencia (efecto "civilizatorio")
+
+**Para quienes SÍ participaron** (efecto total):
+- Universitaria completa: -0.11 + 0.23 + 0.13 = **+0.25**
+- → ¡MAYOR justificación de violencia!
+
+```{r}
+#| label: fig-paradoja-educacion
+#| fig-cap: "Efecto paradójico de la educación según participación en protestas"
+#| fig-height: 5
+#| fig-width: 8
+#| echo: false
+
+# Calcular efectos totales
+efectos_educacion <- data.frame(
+  Educacion = rep(c("Univ. completa"), 2),
+  Participacion = c("No participó", "Participó"),
+  Efecto = c(-0.11, 0.25),
+  SE = c(0.02, 0.05)
+)
+
+ggplot(efectos_educacion, aes(x = Participacion, y = Efecto, fill = Participacion)) +
+  geom_col(width = 0.6) +
+  geom_errorbar(aes(ymin = Efecto - 1.96*SE, ymax = Efecto + 1.96*SE), 
+                width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  scale_fill_manual(values = c("No participó" = "#0073C2FF", "Participó" = "#EFC000FF")) +
+  labs(
+    title = "Efecto de Educación Universitaria Completa sobre Justificación de Violencia",
+    subtitle = "Comparado con categoría de referencia (Secundaria incompleta o menos)",
+    x = "Participación en Protestas",
+    y = "Efecto en Justificación de Violencia",
+    caption = "Fuente: ELSOC 2016-2023. Barras de error: IC 95%"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+**Conclusión**: La educación reduce la justificación de violencia solo entre observadores externos. Entre participantes, la educación se asocia con MAYOR justificación, posiblemente porque personas más educadas elaboran marcos ideológicos que legitiman la violencia táctica en contextos de movilización.
+
+---
+
+# Hallazgo 2: Reconfiguración Bidireccional (Protestas vs Estado)
+
+## Modelos comparativos
+
+```{r}
+#| echo: false
+
+# Modelo violencia estatal
+mod_educ_estatal <- glmmTMB(
+  justif_violencia_estatal ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+# Tabla comparativa
+screenreg(list(mod_educ_protesta, mod_educ_estatal),
+          custom.model.names = c("Violencia en Protestas", "Violencia Estatal"),
+          custom.coef.names = c(
+            "(Intercepto)",
+            "Téc. sup. incompleta",
+            "Téc. sup. completa",
+            "Univ. incompleta",
+            "Univ. completa",
+            "Participó en protesta",
+            "Edad",
+            "Mujer",
+            "Ideología (izq-der)",
+            "2017", "2018", "2019", "2022", "2023",
+            "Téc. sup. inc. × Protesta",
+            "Téc. sup. comp. × Protesta",
+            "Univ. inc. × Protesta",
+            "Univ. comp. × Protesta"
+          ))
+```
+
+## Interpretación: Marcos morales opuestos
+
+**Universitarios que participaron en protestas desarrollan marcos morales diferenciados**:
+
+| Tipo de violencia | Efecto total | Interpretación |
+|-------------------|--------------|----------------|
+| **Violencia en protestas** | +0.25 | Justifican MÁS (legitimación) |
+| **Violencia estatal** | -0.16 | Justifican MENOS (crítica) |
+
+```{r}
+#| label: fig-bidireccional
+#| fig-cap: "Reconfiguración bidireccional: Universitarios que participan"
+#| fig-height: 5
+#| fig-width: 8
+#| echo: false
+
+efectos_bidireccional <- data.frame(
+  Tipo = c("Violencia en\nProtestas", "Violencia\nEstatal"),
+  Efecto_NoParticipa = c(-0.11, 0.06),
+  Efecto_Participa = c(0.25, -0.16)
+)
+
+efectos_long <- tidyr::pivot_longer(efectos_bidireccional, 
+                                     cols = starts_with("Efecto"),
+                                     names_to = "Grupo",
+                                     values_to = "Efecto")
+efectos_long$Grupo <- ifelse(efectos_long$Grupo == "Efecto_NoParticipa",
+                               "No participó", "Participó")
+
+ggplot(efectos_long, aes(x = Tipo, y = Efecto, fill = Grupo)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  scale_fill_manual(values = c("No participó" = "#0073C2FF", "Participó" = "#EFC000FF")) +
+  labs(
+    title = "Efecto de Educación Universitaria Completa según Tipo de Violencia",
+    subtitle = "Universitarios participantes legitiman violencia táctica pero critican violencia estatal",
+    x = "",
+    y = "Efecto en Justificación",
+    fill = "Participación",
+    caption = "Fuente: ELSOC 2016-2023"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+**Conclusión**: La participación genera una reconfiguración bidireccional coherente: legitima la violencia como herramienta de resistencia mientras deslegitima la violencia como herramienta de represión.
+
+---
+
+# Hallazgo 3: Clase Social como Moderador Estructural
+
+## Modelo de interacción Clase × Protesta
+
+```{r}
+#| echo: false
+
+
+# Modelo clase social
+mod_clase_protesta <- glmmTMB(
+  justif_violencia_protesta ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+screenreg(mod_clase_protesta,
+          custom.model.names = "Violencia en Protestas",
+          include.ci = FALSE)
+```
+
+## Interpretación: Efecto diferencial por clase
+
+**Efectos de participar según clase social**:
+
+| Clase | Efecto protesta | Interpretación |
+|-------|----------------|----------------|
+| **Service class** | +0.36*** | Mayor transformación |
+| **Intermediate class** | +0.40 | Transformación alta |
+| **Working class** | +0.19 | Menor transformación (efecto techo) |
+
+**Interacción negativa Working class**: -0.17**
+- Working class ya parte de mayor justificación (+0.07**)
+- Participar hace que disminuya su tolerancia (efecto techo)
+
+```{r}
+#| label: fig-clase-protesta
+#| fig-cap: "Efecto de participar en protestas según clase social"
+#| fig-height: 5
+#| fig-width: 8
+#| echo: false
+
+# Predicciones
+pred_clase <- ggpredict(mod_clase_protesta, terms = c("protesta_dummy", "egp3"))
+
+plot(pred_clase) +
+  labs(
+    title = "Justificación de Violencia en Protestas según Clase Social y Participación",
+    subtitle = "Service class experimenta mayor cambio al participar; Working class muestra efecto techo",
+    x = "Participación en Protestas",
+    y = "Justificación de Violencia (predicha)",
+    color = "Clase Social"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+**Conclusión**: La clase social determina la intensidad del cambio actitudinal. Service class, más alejada de experiencias cotidianas de violencia, experimenta mayor transformación cognitiva al participar. Working class muestra menor cambio por predisposiciones estructurales previas.
+
+---
+
+# Hallazgo 4: Divergencia vs Convergencia
+
+## Comparación Educación vs Clase
+
+```{r}
+#| label: tbl-comparacion
+#| tbl-cap: "Comparación de mecanismos: Educación vs Clase"
+#| echo: false
+
+comparacion <- data.frame(
+  Aspecto = c("Efectos principales", "Interacciones con protesta", "Patrón al participar", "Mecanismo teórico"),
+  Educacion = c(
+    "Fuertes (-0.11***)",
+    "POSITIVAS (+0.13**)",
+    "DIVERGEN (universitarios cambian más)",
+    "Flexibilidad cognitiva"
+  ),
+  Clase = c(
+    "Débiles (+0.07**)",
+    "NEGATIVAS (-0.17**)",
+    "CONVERGEN (working class cambia menos)",
+    "Predisposición estructural"
+  )
+)
+
+comparacion %>%
+  gt() %>%
+  tab_header(
+    title = "Educación vs Clase: Mecanismos diferenciados",
+    subtitle = "Cómo moderan el efecto de la participación en protestas"
+  ) %>%
+  cols_label(
+    Aspecto = "Aspecto",
+    Educacion = "Educación",
+    Clase = "Clase Social"
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(columns = Aspecto)
+  )
+```
+
+**Modelo conceptual integrado**:
+
+$$
+\text{Actitud hacia violencia} = \underbrace{\text{Capital cultural}}_{\text{Educación: línea base}} + \underbrace{\text{Posición estructural}}_{\text{Clase: predisposición}} + \underbrace{\text{Experiencia}}_{\text{Participación}} + \text{Interacciones}
+$$
+
+**Implicaciones**:
+
+1. **Educación** opera como predictor directo (efectos principales fuertes) y amplificador de experiencias (interacciones positivas)
+
+2. **Clase** opera como moderador estructural (efectos principales débiles, interacciones fuertes)
+
+3. **Participación** amplifica desigualdades educativas pero nivela desigualdades de clase
+
+---
+
+# Síntesis e Implicaciones
+
+## Hallazgos principales
+
+1. **Educación no tiene efecto lineal**: Reduce justificación entre no-participantes, la aumenta entre participantes
+
+2. **Participación genera reconfiguración bidireccional**: Legitima violencia táctica, deslegitima violencia estatal (universitarios)
+
+3. **Clase determina intensidad del cambio**: Service class más transformable, working class con efecto techo
+
+4. **Educación diverge, clase converge**: Mecanismos sociológicos diferenciados
+
+## Implicaciones teóricas
+
+**Para teoría de capital cultural**:
+- El efecto "civilizatorio" de la educación es condicional, no universal
+- Capital cultural facilita reelaboración de marcos morales según experiencias
+
+**Para teoría de movimientos sociales**:
+- Participación tiene efectos heterogéneos según estratificación social
+- Movimientos masivos pueden ser más transformativos para clases medias-altas que trabajadoras
+
+**Para estudio del estallido chileno 2019**:
+- Amplitud social del movimiento puede explicarse por transformación de sectores profesionales/gerenciales
+- Marcos de "violencia legítima" emergieron especialmente entre universitarios participantes
+
+## Limitaciones
+
+1. **Datos correlacionales**: No podemos establecer causalidad definitiva
+2. **Sesgo de selección**: Quienes participan difieren de no-participantes en variables no observadas
+3. **Medición de violencia**: Índices agregados pueden ocultar heterogeneidad en tipos específicos de acciones
+
+## Extensiones futuras
+
+1. Analizar ítems individuales de violencia (ej: bloqueos vs destrucción de propiedad)
+2. Examinar trayectorias longitudinales individuales (cambio intra-personal)
+3. Incorporar experiencias específicas de represión/victimización
+4. Analizar heterogeneidad por género, edad, territorialidad
+
+---
+
+# Anexos
+
+## Anexo A: Análisis Desagregado de Ítems de Violencia
+
+Esta sección explora si los patrones encontrados en los índices agregados se mantienen cuando analizamos tipos específicos de violencia. Esto es crucial porque diferentes acciones violentas pueden tener significados políticos y morales distintos.
+
+### A.1. Ítems de violencia en protestas (manifestantes)
+
+**Variables disponibles en ELSOC**:
+- `violencia_trabajadores`: Que trabajadores usen la violencia para alcanzar sus reivindicaciones
+- `violencia_estudiantes`: Que estudiantes usen la violencia para alcanzar sus reivindicaciones  
+- `violencia_inmobiliario`: Que se tomen de forma violenta inmuebles/edificios
+- `violencia_transporte`: Que se paralicen servicios de transporte con violencia
+- `violencia_locales`: Que se destruyan locales comerciales en marchas
+
+### A.2. Descriptivos por tipo de violencia
+
+```{r}
+#| label: tbl-items-violencia-descriptivos
+#| tbl-cap: "Justificación de diferentes tipos de violencia según educación y participación"
+#| echo: false
+
+# Crear tabla descriptiva por tipo de violencia
+items_violencia <- elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  group_by(educ_cat_unordered, Participacion = factor(protesta_dummy, 
+                                                       labels = c("No participó", "Participó"))) %>%
+  summarise(
+    N = n(),
+    `Trabajadores` = round(mean(violencia_trabajadores, na.rm = TRUE), 2),
+    `Estudiantes` = round(mean(violencia_estudiantes, na.rm = TRUE), 2),
+    `Toma inmuebles` = round(mean(violencia_inmobiliario, na.rm = TRUE), 2),
+    `Paralizar transporte` = round(mean(violencia_transporte, na.rm = TRUE), 2),
+    `Destruir locales` = round(mean(violencia_locales, na.rm = TRUE), 2),
+    `ÍNDICE (promedio)` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
+    .groups = "drop"
+  )
+
+items_violencia %>%
+  gt() %>%
+  tab_header(
+    title = "Justificación de violencia en protestas por tipo de acción",
+    subtitle = "Escala 1-5. Según educación y participación"
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = -c(educ_cat_unordered, Participacion)
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "lightyellow"),
+    locations = cells_body(
+      columns = `ÍNDICE (promedio)`
+    )
+  ) %>%
+  tab_footnote(
+    footnote = "Valores más altos indican mayor justificación"
+  )
+```
+
+### A.3. Visualización comparativa de ítems
+
+```{r}
+#| label: fig-items-violencia-educacion
+#| fig-cap: "Comparación de justificación de diferentes tipos de violencia según educación y participación"
+#| fig-height: 8
+#| fig-width: 10
+#| echo: false
+
+# Preparar datos en formato largo
+items_long <- elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  dplyr::select(educ_cat_unordered, protesta_dummy, 
+         violencia_trabajadores, violencia_estudiantes,
+         violencia_inmobiliario, violencia_transporte, violencia_locales) %>%
+  tidyr::pivot_longer(cols = starts_with("violencia_"), 
+               names_to = "Tipo", 
+               values_to = "Justificacion") %>%
+  mutate(
+    Tipo = case_when(
+      Tipo == "violencia_trabajadores" ~ "Trabajadores",
+      Tipo == "violencia_estudiantes" ~ "Estudiantes",
+      Tipo == "violencia_inmobiliario" ~ "Toma inmuebles",
+      Tipo == "violencia_transporte" ~ "Paralizar transporte",
+      Tipo == "violencia_locales" ~ "Destruir locales"
+    ),
+    Tipo = factor(Tipo, levels = c("Trabajadores", "Estudiantes", "Toma inmuebles",
+                                     "Paralizar transporte", "Destruir locales")),
+    Participacion = factor(protesta_dummy, labels = c("No participó", "Protestó"))
+  )
+
+# Gráfico comparativo
+items_long %>%
+  group_by(educ_cat_unordered, Participacion, Tipo) %>%
+  summarise(
+    Media = mean(Justificacion, na.rm = TRUE),
+    SE = sd(Justificacion, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = educ_cat_unordered, y = Media, fill = Participacion)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(aes(ymin = Media - 1.96*SE, ymax = Media + 1.96*SE),
+                position = position_dodge(width = 0.8), width = 0.3) +
+  facet_wrap(~Tipo, ncol = 2) +
+  scale_fill_manual(values = c("No participó" = "#0073C2FF", "Protestó" = "#EFC000FF")) +
+  labs(
+    title = "Justificación de Diferentes Tipos de Violencia en Protestas",
+    subtitle = "Según nivel educativo y participación en protestas",
+    x = "Nivel Educativo",
+    y = "Justificación (escala 1-5)",
+    fill = "Participación",
+    caption = "Fuente: ELSOC 2016-2023. Barras de error: IC 95%"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold")
+  )
+```
+
+### A.4. Modelos por tipo específico de violencia
+
+¿El efecto paradójico de la educación se mantiene para todos los tipos de violencia?
+
+```{r}
+#| label: tbl-modelos-items-violencia
+#| tbl-cap: "Modelos de interacción Educación × Protesta por tipo de violencia"
+#| echo: false
+#| warning: false
+
+# Preparar datos con casos completos y dropear niveles no usados
+model_vars <- c("educ_cat_unordered", "protesta_dummy", "edad", "mujer", 
+                "ideologia_std", "year", "idencuesta")
+
+# Función helper para preparar datos
+prep_data <- function(violence_var) {
+  # Seleccionar solo casos completos
+  data_complete <- elsoc_final_2[complete.cases(elsoc_final_2[, c(violence_var, model_vars)]), ]
+  
+  # Verificar que hay suficientes observaciones
+  if (nrow(data_complete) < 100) {
+    message(paste("✗", violence_var, ": Pocas observaciones (N =", nrow(data_complete), ")"))
+    return(NULL)
+  }
+  
+  # Convertir a factor y dropear niveles no usados
+  data_complete$educ_cat_unordered <- droplevels(data_complete$educ_cat_unordered)
+  data_complete$protesta_dummy <- factor(data_complete$protesta_dummy)
+  data_complete$mujer <- factor(data_complete$mujer)
+  data_complete$year <- factor(data_complete$year)
+  
+  # Verificar que TODOS los factores tienen al menos 2 niveles
+  n_levels_educ <- length(levels(data_complete$educ_cat_unordered))
+  n_levels_protesta <- length(levels(data_complete$protesta_dummy))
+  n_levels_mujer <- length(levels(data_complete$mujer))
+  n_levels_year <- length(levels(data_complete$year))
+  
+  if (n_levels_educ < 2) {
+    message(paste("✗", violence_var, ": educ_cat_unordered tiene solo", n_levels_educ, "nivel(es)"))
+    return(NULL)
+  }
+  if (n_levels_protesta < 2) {
+    message(paste("✗", violence_var, ": protesta_dummy tiene solo", n_levels_protesta, "nivel(es)"))
+    return(NULL)
+  }
+  if (n_levels_mujer < 2) {
+    message(paste("✗", violence_var, ": mujer tiene solo", n_levels_mujer, "nivel(es)"))
+    return(NULL)
+  }
+  if (n_levels_year < 2) {
+    message(paste("✗", violence_var, ": year tiene solo", n_levels_year, "nivel(es)"))
+    return(NULL)
+  }
+  
+  # Todo OK
+  message(paste("✓", violence_var, ": N =", nrow(data_complete), 
+                "| Educ:", n_levels_educ, "| Protesta:", n_levels_protesta, 
+                "| Mujer:", n_levels_mujer, "| Year:", n_levels_year))
+  
+  return(data_complete)
+}
+
+# Función para ajustar modelo con manejo de errores
+fit_violence_model <- function(violence_var, data) {
+  if (is.null(data)) return(NULL)
+  
+  tryCatch({
+    glmmTMB(
+      as.formula(paste(violence_var, "~ educ_cat_unordered * protesta_dummy +
+        edad + mujer + ideologia_std + factor(year) +
+        (1 | idencuesta)")),
+      data = data,
+      family = gaussian()
+    )
+  }, error = function(e) {
+    warning(paste("Error ajustando modelo para", violence_var, ":", e$message))
+    return(NULL)
+  })
+}
+
+# Preparar datos y ajustar modelos
+data_trabajadores <- prep_data("violencia_trabajadores")
+mod_trabajadores <- fit_violence_model("violencia_trabajadores", data_trabajadores)
+
+data_estudiantes <- prep_data("violencia_estudiantes")
+mod_estudiantes <- fit_violence_model("violencia_estudiantes", data_estudiantes)
+
+data_inmuebles <- prep_data("violencia_inmobiliario")
+mod_inmuebles <- fit_violence_model("violencia_inmobiliario", data_inmuebles)
+
+data_transporte <- prep_data("violencia_transporte")
+mod_transporte <- fit_violence_model("violencia_transporte", data_transporte)
+
+data_locales <- prep_data("violencia_locales")
+mod_locales <- fit_violence_model("violencia_locales", data_locales)
+
+# Crear lista de modelos exitosos
+models_list <- list(mod_trabajadores, mod_estudiantes, mod_inmuebles, 
+                     mod_transporte, mod_locales)
+model_names <- c("Trabajadores", "Estudiantes", "Toma\nInmuebles", 
+                 "Paralizar\nTransporte", "Destruir\nLocales")
+
+# Filtrar modelos NULL
+valid_models <- !sapply(models_list, is.null)
+models_list <- models_list[valid_models]
+model_names <- model_names[valid_models]
+
+# Tabla comparativa (solo si hay modelos válidos)
+if (length(models_list) > 0) {
+  screenreg(
+    models_list,
+    custom.model.names = model_names,
+    include.ci = FALSE,
+    custom.coef.map = list(
+      "educ_cat_unorderedUniversitaria completa" = "Univ. completa",
+      "protesta_dummy" = "Participó",
+      "educ_cat_unorderedUniversitaria completa:protesta_dummy" = "Univ. comp. × Particip."
+    ),
+    custom.note = "Nota: Se muestran solo coeficientes clave. Modelos incluyen controles completos."
+  )
+} else {
+  cat("No se pudieron ajustar modelos debido a problemas en los datos.\n")
+}
+```
+
+
+### A.5. Violencia estatal desagregada
+
+```{r}
+#| label: tbl-items-violencia-estatal
+#| tbl-cap: "Justificación de violencia policial según contexto"
+#| echo: false
+
+# Descriptivos violencia estatal
+elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  group_by(educ_cat_unordered, Participacion = factor(protesta_dummy, 
+                                                       labels = c("No participó", "Participó"))) %>%
+  summarise(
+    N = n(),
+    `Carabineros en marchas` = round(mean(violencia_carabineros_marchas, na.rm = TRUE), 2),
+    `Carabineros en tomas` = round(mean(violencia_carabineros_tomas, na.rm = TRUE), 2),
+    `ÍNDICE (promedio)` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) %>%
+  gt() %>%
+  tab_header(
+    title = "Justificación de violencia policial según contexto de acción",
+    subtitle = "Escala 1-5. Según educación y participación"
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = -c(educ_cat_unordered, Participacion)
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "lightblue"),
+    locations = cells_body(
+      columns = `ÍNDICE (promedio)`
+    )
+  )
+```
+
+```{r}
+#| label: fig-items-violencia-estatal
+#| fig-cap: "Justificación de violencia policial según contexto y participación en protestas"
+#| fig-height: 4
+#| fig-width: 10
+#| echo: false
+
+# Preparar datos
+items_estatal_long <- elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  dplyr::select(educ_cat_unordered, protesta_dummy, 
+         violencia_carabineros_marchas, violencia_carabineros_tomas) %>%
+  tidyr::pivot_longer(cols = starts_with("violencia_carabineros"), 
+               names_to = "Contexto", 
+               values_to = "Justificacion") %>%
+  mutate(
+    Contexto = ifelse(Contexto == "violencia_carabineros_marchas", 
+                      "En marchas", "En tomas"),
+    Participacion = factor(protesta_dummy, labels = c("No participó", "Protestó"))
+  )
+
+# Gráfico
+items_estatal_long %>%
+  group_by(educ_cat_unordered, Participacion, Contexto) %>%
+  summarise(
+    Media = mean(Justificacion, na.rm = TRUE),
+    SE = sd(Justificacion, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = educ_cat_unordered, y = Media, fill = Participacion)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(aes(ymin = Media - 1.96*SE, ymax = Media + 1.96*SE),
+                position = position_dodge(width = 0.8), width = 0.3) +
+  facet_wrap(~Contexto) +
+  scale_fill_manual(values = c("No participó" = "#0073C2FF", "Protestó" = "#EFC000FF")) +
+  labs(
+    title = "Justificación de Violencia Policial según Contexto",
+    subtitle = "Según nivel educativo y participación en protestas",
+    x = "Nivel Educativo",
+    y = "Justificación (escala 1-5)",
+    fill = "Participación",
+    caption = "Fuente: ELSOC 2016-2023. Barras de error: IC 95%"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold")
+  )
+```
+
+**Hallazgo**: La justificación de violencia policial es **consistentemente baja** en ambos contextos, pero muestra el patrón esperado: universitarios que participan critican MÁS la violencia policial que no-participantes.
+
+---
+
+## Anexo B: Descriptivos Completos por Educación y Clase
+
+```{r}
+#| label: tbl-descriptivos-completos-anexo
+#| tbl-cap: "Descriptivos completos por educación, clase y participación"
+#| echo: false
+
+elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  group_by(educ_cat_unordered, protesta_dummy) %>%
+  summarise(
+    N = n(),
+    `Just. Viol. Protestas` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
+    `Just. Viol. Estatal` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) %>%
+  mutate(Participacion = ifelse(protesta_dummy == 1, "Participó", "No participó")) %>%
+  dplyr::select(-protesta_dummy) %>%
+  gt() %>%
+  tab_header(
+    title = "Justificación de violencia por educación y participación",
+    subtitle = "Medias observadas"
+  ) %>%
+  cols_label(
+    educ_cat_unordered = "Nivel educativo",
+    Participacion = "Participación",
+    N = "N",
+    `Just. Viol. Protestas` = "Viol. Protestas",
+    `Just. Viol. Estatal` = "Viol. Estatal"
+  )
+```
+
+---
+
+**Documento generado**: `r Sys.Date()`  
+**Datos**: ELSOC 2016-2023  
+**Software**: R 4.x, glmmTMB, ggeffects

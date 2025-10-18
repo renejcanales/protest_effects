@@ -721,15 +721,11 @@ elsoc_final_2 <- elsoc_analisis %>%
     # VD - Índices principales
     protesta_index,                      # PRINCIPAL: promedio marcha + huelga + petición
     protesta_index_completo,             # Incluye cacerolazos
-    
-    # VD - Intensidad
-    protesta_intensidad,
-    protesta_intensidad_completa,
+    protesta_intensidad_suma,            # Suma de frecuencias (intensidad)
+    protesta_intensidad_suma_completa,   # Suma incluyendo cacerolazos
     
     # VD - Dicotómicas
-    protesta_dummy,              # PRINCIPAL DUMMY
-    protesta_multiple,
-    participa_dummy,
+    protesta_dummy,              # PRINCIPAL DUMMY (basado en marcha)
     
     # Flags
     cacerolazo_disponible,
@@ -738,7 +734,9 @@ elsoc_final_2 <- elsoc_analisis %>%
     # VI principales
     educ_cat, educ_cat_factor, educ_years,
     univ_dummy, tecnica_dummy, superior_dummy,
-    educ_parental_max, educ_parental_cat,
+    educ_parental_max, educ_parental_cat, educ_parental_cat_detallada,
+    educ_padre_years, educ_padre_cat,
+    educ_madre_years, educ_madre_cat,
     movilidad_years, movilidad_cat, movilidad_cat_factor,
     movilidad_asc_dummy, movilidad_asc_alta,
     
@@ -746,16 +744,20 @@ elsoc_final_2 <- elsoc_analisis %>%
     edad, edad_cuadratica, mujer,
     ideologia_std, ideologia_cat,
     interes_politica,
-    conf_instituciones, eficacia_politica, egp, egp3,
+    conf_instituciones, eficacia_politica, 
+    egp, egp3,
     
     # Temporales
     post_estallido, periodo,
     
     # Mediadoras
     justicia_distributiva, meritocracia,
-    clase_subjetiva, satis_ingreso_std, egp, egp3,
+    clase_subjetiva, satis_ingreso_std,
     
     # Justificación de violencia
+    violencia_trabajadores, violencia_estudiantes, 
+    violencia_inmobiliario, violencia_transporte, violencia_locales, 
+    violencia_carabineros_marchas, violencia_carabineros_tomas,
     justif_violencia_estatal, justif_violencia_protesta,
     justifica_violencia_estatal_dummy, justifica_violencia_protesta_dummy,
     violencia_disponible
