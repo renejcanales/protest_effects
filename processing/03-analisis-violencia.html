@@ -1,0 +1,5438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="René Canales">
+
+<title>Actitudes hacia la Violencia Política: Educación, Clase y Participación en Protestas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="03-analisis-violencia_files/libs/clipboard/clipboard.min.js"></script>
+<script src="03-analisis-violencia_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="03-analisis-violencia_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="03-analisis-violencia_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="03-analisis-violencia_files/libs/quarto-html/popper.min.js"></script>
+<script src="03-analisis-violencia_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="03-analisis-violencia_files/libs/quarto-html/anchor.min.js"></script>
+<link href="03-analisis-violencia_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="03-analisis-violencia_files/libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="03-analisis-violencia_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="03-analisis-violencia_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="03-analisis-violencia_files/libs/bootstrap/bootstrap-4d7f0bce1131f3e5f9547cd857cfbfc8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenidos</h2>
+   
+  <ul>
+  <li><a href="#resumen-ejecutivo" id="toc-resumen-ejecutivo" class="nav-link active" data-scroll-target="#resumen-ejecutivo"><span class="header-section-number">1</span> Resumen Ejecutivo</a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción"><span class="header-section-number">2</span> Introducción</a></li>
+  <li><a href="#variables-y-metodología" id="toc-variables-y-metodología" class="nav-link" data-scroll-target="#variables-y-metodología"><span class="header-section-number">3</span> Variables y Metodología</a>
+  <ul class="collapse">
+  <li><a href="#variables-dependientes" id="toc-variables-dependientes" class="nav-link" data-scroll-target="#variables-dependientes"><span class="header-section-number">3.1</span> Variables dependientes</a></li>
+  <li><a href="#variables-independientes" id="toc-variables-independientes" class="nav-link" data-scroll-target="#variables-independientes"><span class="header-section-number">3.2</span> Variables independientes</a></li>
+  <li><a href="#estrategia-analítica" id="toc-estrategia-analítica" class="nav-link" data-scroll-target="#estrategia-analítica"><span class="header-section-number">3.3</span> Estrategia analítica</a></li>
+  </ul></li>
+  <li><a href="#estadísticos-descriptivos" id="toc-estadísticos-descriptivos" class="nav-link" data-scroll-target="#estadísticos-descriptivos"><span class="header-section-number">4</span> Estadísticos Descriptivos</a>
+  <ul class="collapse">
+  <li><a href="#justificación-de-violencia-por-nivel-educativo" id="toc-justificación-de-violencia-por-nivel-educativo" class="nav-link" data-scroll-target="#justificación-de-violencia-por-nivel-educativo"><span class="header-section-number">4.1</span> Justificación de violencia por nivel educativo</a></li>
+  <li><a href="#justificación-de-violencia-por-clase-social" id="toc-justificación-de-violencia-por-clase-social" class="nav-link" data-scroll-target="#justificación-de-violencia-por-clase-social"><span class="header-section-number">4.2</span> Justificación de violencia por clase social</a></li>
+  <li><a href="#distribución-de-participación-en-protestas" id="toc-distribución-de-participación-en-protestas" class="nav-link" data-scroll-target="#distribución-de-participación-en-protestas"><span class="header-section-number">4.3</span> Distribución de participación en protestas</a></li>
+  <li><a href="#evolución-temporal-2016-2023" id="toc-evolución-temporal-2016-2023" class="nav-link" data-scroll-target="#evolución-temporal-2016-2023"><span class="header-section-number">4.4</span> Evolución temporal (2016-2023)</a></li>
+  <li><a href="#correlaciones-entre-variables-clave" id="toc-correlaciones-entre-variables-clave" class="nav-link" data-scroll-target="#correlaciones-entre-variables-clave"><span class="header-section-number">4.5</span> Correlaciones entre variables clave</a></li>
+  </ul></li>
+  <li><a href="#hallazgo-1-el-efecto-paradoja-de-la-educación" id="toc-hallazgo-1-el-efecto-paradoja-de-la-educación" class="nav-link" data-scroll-target="#hallazgo-1-el-efecto-paradoja-de-la-educación"><span class="header-section-number">5</span> Hallazgo 1: El “Efecto Paradoja” de la Educación</a>
+  <ul class="collapse">
+  <li><a href="#modelo-de-interacción-educación-protesta" id="toc-modelo-de-interacción-educación-protesta" class="nav-link" data-scroll-target="#modelo-de-interacción-educación-protesta"><span class="header-section-number">5.1</span> Modelo de interacción Educación × Protesta</a></li>
+  <li><a href="#interpretación-el-efecto-se-invierte" id="toc-interpretación-el-efecto-se-invierte" class="nav-link" data-scroll-target="#interpretación-el-efecto-se-invierte"><span class="header-section-number">5.2</span> Interpretación: El efecto se invierte</a></li>
+  </ul></li>
+  <li><a href="#hallazgo-2-reconfiguración-bidireccional-protestas-vs-estado" id="toc-hallazgo-2-reconfiguración-bidireccional-protestas-vs-estado" class="nav-link" data-scroll-target="#hallazgo-2-reconfiguración-bidireccional-protestas-vs-estado"><span class="header-section-number">6</span> Hallazgo 2: Reconfiguración Bidireccional (Protestas vs Estado)</a>
+  <ul class="collapse">
+  <li><a href="#modelos-comparativos" id="toc-modelos-comparativos" class="nav-link" data-scroll-target="#modelos-comparativos"><span class="header-section-number">6.1</span> Modelos comparativos</a></li>
+  <li><a href="#interpretación-marcos-morales-opuestos" id="toc-interpretación-marcos-morales-opuestos" class="nav-link" data-scroll-target="#interpretación-marcos-morales-opuestos"><span class="header-section-number">6.2</span> Interpretación: Marcos morales opuestos</a></li>
+  </ul></li>
+  <li><a href="#hallazgo-3-clase-social-como-moderador-estructural" id="toc-hallazgo-3-clase-social-como-moderador-estructural" class="nav-link" data-scroll-target="#hallazgo-3-clase-social-como-moderador-estructural"><span class="header-section-number">7</span> Hallazgo 3: Clase Social como Moderador Estructural</a>
+  <ul class="collapse">
+  <li><a href="#modelo-de-interacción-clase-protesta" id="toc-modelo-de-interacción-clase-protesta" class="nav-link" data-scroll-target="#modelo-de-interacción-clase-protesta"><span class="header-section-number">7.1</span> Modelo de interacción Clase × Protesta</a></li>
+  <li><a href="#interpretación-efecto-diferencial-por-clase-social" id="toc-interpretación-efecto-diferencial-por-clase-social" class="nav-link" data-scroll-target="#interpretación-efecto-diferencial-por-clase-social"><span class="header-section-number">7.2</span> Interpretación: Efecto diferencial por clase social</a></li>
+  </ul></li>
+  <li><a href="#hallazgo-4-divergencia-vs-convergencia" id="toc-hallazgo-4-divergencia-vs-convergencia" class="nav-link" data-scroll-target="#hallazgo-4-divergencia-vs-convergencia"><span class="header-section-number">8</span> Hallazgo 4: Divergencia vs Convergencia</a>
+  <ul class="collapse">
+  <li><a href="#comparación-educación-vs-clase" id="toc-comparación-educación-vs-clase" class="nav-link" data-scroll-target="#comparación-educación-vs-clase"><span class="header-section-number">8.1</span> Comparación Educación vs Clase</a></li>
+  </ul></li>
+  <li><a href="#síntesis-e-implicaciones" id="toc-síntesis-e-implicaciones" class="nav-link" data-scroll-target="#síntesis-e-implicaciones"><span class="header-section-number">9</span> Síntesis e Implicaciones</a>
+  <ul class="collapse">
+  <li><a href="#hallazgos-principales" id="toc-hallazgos-principales" class="nav-link" data-scroll-target="#hallazgos-principales"><span class="header-section-number">9.1</span> Hallazgos principales</a></li>
+  <li><a href="#implicaciones-teóricas" id="toc-implicaciones-teóricas" class="nav-link" data-scroll-target="#implicaciones-teóricas"><span class="header-section-number">9.2</span> Implicaciones teóricas</a></li>
+  <li><a href="#limitaciones" id="toc-limitaciones" class="nav-link" data-scroll-target="#limitaciones"><span class="header-section-number">9.3</span> Limitaciones</a></li>
+  <li><a href="#extensiones-futuras" id="toc-extensiones-futuras" class="nav-link" data-scroll-target="#extensiones-futuras"><span class="header-section-number">9.4</span> Extensiones futuras</a></li>
+  </ul></li>
+  <li><a href="#anexos" id="toc-anexos" class="nav-link" data-scroll-target="#anexos"><span class="header-section-number">10</span> Anexos</a>
+  <ul class="collapse">
+  <li><a href="#anexo-a-análisis-desagregado-de-ítems-de-violencia" id="toc-anexo-a-análisis-desagregado-de-ítems-de-violencia" class="nav-link" data-scroll-target="#anexo-a-análisis-desagregado-de-ítems-de-violencia"><span class="header-section-number">10.1</span> Anexo A: Análisis Desagregado de Ítems de Violencia</a>
+  <ul class="collapse">
+  <li><a href="#a.1.-ítems-de-violencia-en-protestas-manifestantes" id="toc-a.1.-ítems-de-violencia-en-protestas-manifestantes" class="nav-link" data-scroll-target="#a.1.-ítems-de-violencia-en-protestas-manifestantes"><span class="header-section-number">10.1.1</span> A.1. Ítems de violencia en protestas (manifestantes)</a></li>
+  <li><a href="#a.2.-descriptivos-por-tipo-de-violencia" id="toc-a.2.-descriptivos-por-tipo-de-violencia" class="nav-link" data-scroll-target="#a.2.-descriptivos-por-tipo-de-violencia"><span class="header-section-number">10.1.2</span> A.2. Descriptivos por tipo de violencia</a></li>
+  <li><a href="#a.3.-visualización-comparativa-de-ítems" id="toc-a.3.-visualización-comparativa-de-ítems" class="nav-link" data-scroll-target="#a.3.-visualización-comparativa-de-ítems"><span class="header-section-number">10.1.3</span> A.3. Visualización comparativa de ítems</a></li>
+  <li><a href="#a.4.-modelos-por-tipo-específico-de-violencia" id="toc-a.4.-modelos-por-tipo-específico-de-violencia" class="nav-link" data-scroll-target="#a.4.-modelos-por-tipo-específico-de-violencia"><span class="header-section-number">10.1.4</span> A.4. Modelos por tipo específico de violencia</a></li>
+  <li><a href="#a.5.-violencia-estatal-desagregada" id="toc-a.5.-violencia-estatal-desagregada" class="nav-link" data-scroll-target="#a.5.-violencia-estatal-desagregada"><span class="header-section-number">10.1.5</span> A.5. Violencia estatal desagregada</a></li>
+  </ul></li>
+  <li><a href="#anexo-b-descriptivos-completos-por-educación-y-clase" id="toc-anexo-b-descriptivos-completos-por-educación-y-clase" class="nav-link" data-scroll-target="#anexo-b-descriptivos-completos-por-educación-y-clase"><span class="header-section-number">10.2</span> Anexo B: Descriptivos Completos por Educación y Clase</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Actitudes hacia la Violencia Política: Educación, Clase y Participación en Protestas</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>René Canales </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="resumen-ejecutivo" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Resumen Ejecutivo</h1>
+<p>Este documento presenta los hallazgos principales sobre actitudes hacia la violencia política en Chile, analizando cómo la <strong>educación</strong> y la <strong>clase social</strong> interactúan con la <strong>participación en protestas</strong> para moldear estas actitudes.</p>
+<p><strong>Hallazgos centrales</strong>:</p>
+<ol type="1">
+<li><p><strong>Efecto diferencial de la educación</strong>: Entre quienes NO participan en protestas, mayor educación reduce la justificación de violencia. Entre quienes SÍ participan, este efecto se invierte completamente.</p></li>
+<li><p><strong>Efecto bidireccional de la participación</strong>: Universitarios que participan en protestas justifican MÁS la violencia en manifestaciones pero MENOS la violencia policial (efecto opuesto según tipo de actor).</p></li>
+<li><p><strong>Clase social como moderador</strong>: La clase social determina la intensidad del cambio actitudinal al participar. Service class experimenta mayor transformación; working class muestra “efecto techo” (ya parten de mayor tolerancia).</p></li>
+<li><p><strong>Divergencia vs convergencia</strong>: La participación amplifica desigualdades educativas (universitarios se radicalizan más) pero reduce desigualdades de clase (efecto nivelador).</p></li>
+</ol>
+<hr>
+</section>
+<section id="introducción" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Introducción</h1>
+<p>Durante el estallido social chileno de 2019, el debate sobre la legitimidad de la violencia en protestas fue central. Este análisis examina cómo diferentes grupos sociales desarrollan actitudes diferenciadas hacia:</p>
+<ul>
+<li><strong>Violencia en protestas</strong> (ejercida por manifestantes)</li>
+<li><strong>Violencia estatal</strong> (ejercida por Carabineros)</li>
+</ul>
+<p>Utilizando datos longitudinales de ELSOC 2016-2023 (N≈15,000), analizamos el rol de: - Capital cultural (educación) - Posición estructural (clase social EGP) - Experiencia vivida (participación en protestas)</p>
+<hr>
+</section>
+<section id="variables-y-metodología" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Variables y Metodología</h1>
+<section id="variables-dependientes" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="variables-dependientes"><span class="header-section-number">3.1</span> Variables dependientes</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="uvktkitkmw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uvktkitkmw table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#uvktkitkmw thead, #uvktkitkmw tbody, #uvktkitkmw tfoot, #uvktkitkmw tr, #uvktkitkmw td, #uvktkitkmw th {
+  border-style: none;
+}
+
+#uvktkitkmw p {
+  margin: 0;
+  padding: 0;
+}
+
+#uvktkitkmw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#uvktkitkmw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#uvktkitkmw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#uvktkitkmw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#uvktkitkmw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#uvktkitkmw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#uvktkitkmw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#uvktkitkmw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#uvktkitkmw .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#uvktkitkmw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#uvktkitkmw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#uvktkitkmw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#uvktkitkmw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#uvktkitkmw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#uvktkitkmw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uvktkitkmw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#uvktkitkmw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#uvktkitkmw .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#uvktkitkmw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uvktkitkmw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#uvktkitkmw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uvktkitkmw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#uvktkitkmw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uvktkitkmw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uvktkitkmw .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uvktkitkmw .gt_left {
+  text-align: left;
+}
+
+#uvktkitkmw .gt_center {
+  text-align: center;
+}
+
+#uvktkitkmw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#uvktkitkmw .gt_font_normal {
+  font-weight: normal;
+}
+
+#uvktkitkmw .gt_font_bold {
+  font-weight: bold;
+}
+
+#uvktkitkmw .gt_font_italic {
+  font-style: italic;
+}
+
+#uvktkitkmw .gt_super {
+  font-size: 65%;
+}
+
+#uvktkitkmw .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#uvktkitkmw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#uvktkitkmw .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#uvktkitkmw .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#uvktkitkmw .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#uvktkitkmw .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#uvktkitkmw .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#uvktkitkmw .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#uvktkitkmw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="7" class="gt_heading gt_title gt_font_normal">Descriptivos: Variables de violencia</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">ELSOC 2016-2023</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Violencia-en-Protestas-(Media)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Violencia en Protestas (Media)</th>
+<th id="Violencia-en-Protestas-(DE)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Violencia en Protestas (DE)</th>
+<th id="Violencia-Estatal-(Media)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Violencia Estatal (Media)</th>
+<th id="Violencia-Estatal-(DE)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Violencia Estatal (DE)</th>
+<th id="a%-Justifica-Viol.-Protestas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">% Justifica Viol. Protestas</th>
+<th id="a%-Justifica-Viol.-Estatal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">% Justifica Viol. Estatal</th>
+<th id="N" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">N</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Violencia en Protestas (Media)">1.69</td>
+<td class="gt_row gt_right" headers="Violencia en Protestas (DE)">0.81</td>
+<td class="gt_row gt_right" headers="Violencia Estatal (Media)">1.84</td>
+<td class="gt_row gt_right" headers="Violencia Estatal (DE)">0.99</td>
+<td class="gt_row gt_right" headers="% Justifica Viol. Protestas">59.8</td>
+<td class="gt_row gt_right" headers="% Justifica Viol. Estatal">57.4</td>
+<td class="gt_row gt_right" headers="N">16244</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="7" class="gt_footnote">Índices en escala 1-5. Dummy = 1 si justifica (&gt;1)</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>Variables de violencia</strong>: - <code>justif_violencia_protesta</code>: Índice promedio de 4 ítems sobre justificación de acciones violentas en manifestaciones - <code>justif_violencia_estatal</code>: Índice promedio de 3 ítems sobre justificación de violencia policial</p>
+</section>
+<section id="variables-independientes" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="variables-independientes"><span class="header-section-number">3.2</span> Variables independientes</h2>
+<ul>
+<li><strong>Educación</strong>: 5 categorías desde secundaria incompleta hasta universitaria completa (factor no ordenado)</li>
+<li><strong>Clase social</strong>: Esquema EGP en 3 categorías (Service/Intermediate/Working class)</li>
+<li><strong>Participación en protestas</strong>: Variable dicotómica (participó en últimos 12 meses)</li>
+</ul>
+</section>
+<section id="estrategia-analítica" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="estrategia-analítica"><span class="header-section-number">3.3</span> Estrategia analítica</h2>
+<p>Modelos multinivel (glmmTMB) con: - Efectos aleatorios individuales (interceptos) - Controles: edad, género, ideología, año - Interacciones: Educación × Protesta, Clase × Protesta</p>
+<hr>
+</section>
+</section>
+<section id="estadísticos-descriptivos" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Estadísticos Descriptivos</h1>
+<section id="justificación-de-violencia-por-nivel-educativo" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="justificación-de-violencia-por-nivel-educativo"><span class="header-section-number">4.1</span> Justificación de violencia por nivel educativo</h2>
+<div class="cell">
+<div id="tbl-violencia-educacion" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-violencia-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Justificación de violencia según nivel educativo y participación en protestas
+</figcaption>
+<div aria-describedby="tbl-violencia-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="szuzmxsjpt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#szuzmxsjpt table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#szuzmxsjpt thead, #szuzmxsjpt tbody, #szuzmxsjpt tfoot, #szuzmxsjpt tr, #szuzmxsjpt td, #szuzmxsjpt th {
+  border-style: none;
+}
+
+#szuzmxsjpt p {
+  margin: 0;
+  padding: 0;
+}
+
+#szuzmxsjpt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#szuzmxsjpt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#szuzmxsjpt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#szuzmxsjpt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#szuzmxsjpt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#szuzmxsjpt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#szuzmxsjpt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#szuzmxsjpt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#szuzmxsjpt .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#szuzmxsjpt .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#szuzmxsjpt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#szuzmxsjpt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#szuzmxsjpt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#szuzmxsjpt .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#szuzmxsjpt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuzmxsjpt .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#szuzmxsjpt .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#szuzmxsjpt .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#szuzmxsjpt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuzmxsjpt .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#szuzmxsjpt .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuzmxsjpt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#szuzmxsjpt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuzmxsjpt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#szuzmxsjpt .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#szuzmxsjpt .gt_left {
+  text-align: left;
+}
+
+#szuzmxsjpt .gt_center {
+  text-align: center;
+}
+
+#szuzmxsjpt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#szuzmxsjpt .gt_font_normal {
+  font-weight: normal;
+}
+
+#szuzmxsjpt .gt_font_bold {
+  font-weight: bold;
+}
+
+#szuzmxsjpt .gt_font_italic {
+  font-style: italic;
+}
+
+#szuzmxsjpt .gt_super {
+  font-size: 65%;
+}
+
+#szuzmxsjpt .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#szuzmxsjpt .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#szuzmxsjpt .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#szuzmxsjpt .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#szuzmxsjpt .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#szuzmxsjpt .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#szuzmxsjpt .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#szuzmxsjpt .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#szuzmxsjpt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="7" class="gt_heading gt_title gt_font_normal">Justificación de violencia por educación y participación</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Medias y desviaciones estándar en escala 1-5</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="educ_cat_unordered" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">educ_cat_unordered</th>
+<th id="Participacion" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Participacion</th>
+<th id="N" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">N</th>
+<th id="Viol.-Protestas" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Viol. Protestas</th>
+<th id="DE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">DE</th>
+<th id="Viol.-Estatal" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Viol. Estatal</th>
+<th id="DE-" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">DE</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">8139</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.65</td>
+<td class="gt_row gt_center" headers="DE">0.79</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.87</td>
+<td class="gt_row gt_center" headers="DE ">1.02</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #ADD8E6">Participó</td>
+<td class="gt_row gt_center" headers="N">671</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.96</td>
+<td class="gt_row gt_center" headers="DE">0.91</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.65</td>
+<td class="gt_row gt_center" headers="DE ">0.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">448</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.63</td>
+<td class="gt_row gt_center" headers="DE">0.74</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.93</td>
+<td class="gt_row gt_center" headers="DE ">1.03</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #ADD8E6">Participó</td>
+<td class="gt_row gt_center" headers="N">79</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">2.07</td>
+<td class="gt_row gt_center" headers="DE">0.83</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.75</td>
+<td class="gt_row gt_center" headers="DE ">0.90</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">2267</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.57</td>
+<td class="gt_row gt_center" headers="DE">0.71</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.90</td>
+<td class="gt_row gt_center" headers="DE ">0.98</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #ADD8E6">Participó</td>
+<td class="gt_row gt_center" headers="N">446</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.96</td>
+<td class="gt_row gt_center" headers="DE">0.89</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.59</td>
+<td class="gt_row gt_center" headers="DE ">0.82</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">739</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.70</td>
+<td class="gt_row gt_center" headers="DE">0.76</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.89</td>
+<td class="gt_row gt_center" headers="DE ">0.97</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #ADD8E6">Participó</td>
+<td class="gt_row gt_center" headers="N">292</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">2.08</td>
+<td class="gt_row gt_center" headers="DE">0.90</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.52</td>
+<td class="gt_row gt_center" headers="DE ">0.77</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">2192</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.60</td>
+<td class="gt_row gt_center" headers="DE">0.74</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.96</td>
+<td class="gt_row gt_center" headers="DE ">0.98</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #ADD8E6">Participó</td>
+<td class="gt_row gt_center" headers="N">971</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">2.12</td>
+<td class="gt_row gt_center" headers="DE">0.98</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.47</td>
+<td class="gt_row gt_center" headers="DE ">0.71</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Patrones observados</strong>:</p>
+<ul>
+<li><strong>Sin participación</strong>: Educación reduce ligeramente la justificación de violencia en protestas (de ~1.90 a ~1.80)</li>
+<li><strong>Con participación</strong>: La tendencia se invierte - universitarios participantes muestran mayor justificación (~2.10-2.20)</li>
+<li><strong>Violencia estatal</strong>: Patrón más estable, con menor variación por educación</li>
+</ul>
+</section>
+<section id="justificación-de-violencia-por-clase-social" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="justificación-de-violencia-por-clase-social"><span class="header-section-number">4.2</span> Justificación de violencia por clase social</h2>
+<div class="cell">
+<div id="tbl-violencia-clase" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-violencia-clase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Justificación de violencia según clase social y participación en protestas
+</figcaption>
+<div aria-describedby="tbl-violencia-clase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="npdthugytf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#npdthugytf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#npdthugytf thead, #npdthugytf tbody, #npdthugytf tfoot, #npdthugytf tr, #npdthugytf td, #npdthugytf th {
+  border-style: none;
+}
+
+#npdthugytf p {
+  margin: 0;
+  padding: 0;
+}
+
+#npdthugytf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#npdthugytf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#npdthugytf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#npdthugytf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#npdthugytf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#npdthugytf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#npdthugytf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#npdthugytf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#npdthugytf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#npdthugytf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#npdthugytf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#npdthugytf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#npdthugytf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#npdthugytf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#npdthugytf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#npdthugytf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#npdthugytf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#npdthugytf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#npdthugytf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#npdthugytf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#npdthugytf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#npdthugytf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#npdthugytf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#npdthugytf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#npdthugytf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#npdthugytf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#npdthugytf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#npdthugytf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#npdthugytf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#npdthugytf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#npdthugytf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#npdthugytf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#npdthugytf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#npdthugytf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#npdthugytf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#npdthugytf .gt_left {
+  text-align: left;
+}
+
+#npdthugytf .gt_center {
+  text-align: center;
+}
+
+#npdthugytf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#npdthugytf .gt_font_normal {
+  font-weight: normal;
+}
+
+#npdthugytf .gt_font_bold {
+  font-weight: bold;
+}
+
+#npdthugytf .gt_font_italic {
+  font-style: italic;
+}
+
+#npdthugytf .gt_super {
+  font-size: 65%;
+}
+
+#npdthugytf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#npdthugytf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#npdthugytf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#npdthugytf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#npdthugytf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#npdthugytf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#npdthugytf .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#npdthugytf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#npdthugytf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="7" class="gt_heading gt_title gt_font_normal">Justificación de violencia por clase social y participación</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Medias y desviaciones estándar en escala 1-5</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="egp3" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">egp3</th>
+<th id="Participacion" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Participacion</th>
+<th id="N" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">N</th>
+<th id="Viol.-Protestas" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Viol. Protestas</th>
+<th id="DE" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">DE</th>
+<th id="Viol.-Estatal" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Viol. Estatal</th>
+<th id="DE-" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">DE</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="egp3">Service class (I+II)</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">709</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.67</td>
+<td class="gt_row gt_center" headers="DE">0.75</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.99</td>
+<td class="gt_row gt_center" headers="DE ">0.96</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="egp3">Service class (I+II)</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #90EE90">Participó</td>
+<td class="gt_row gt_center" headers="N">251</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">2.11</td>
+<td class="gt_row gt_center" headers="DE">0.97</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.60</td>
+<td class="gt_row gt_center" headers="DE ">0.83</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="egp3">Intermediate class (III+IV)</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">1797</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.63</td>
+<td class="gt_row gt_center" headers="DE">0.74</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.95</td>
+<td class="gt_row gt_center" headers="DE ">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="egp3">Intermediate class (III+IV)</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #90EE90">Participó</td>
+<td class="gt_row gt_center" headers="N">278</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">2.18</td>
+<td class="gt_row gt_center" headers="DE">1.06</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.80</td>
+<td class="gt_row gt_center" headers="DE ">0.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="egp3">Working class (V+VI+VII)</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">1777</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">1.77</td>
+<td class="gt_row gt_center" headers="DE">0.85</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.94</td>
+<td class="gt_row gt_center" headers="DE ">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="egp3">Working class (V+VI+VII)</td>
+<td class="gt_row gt_center" headers="Participacion" style="background-color: #90EE90">Participó</td>
+<td class="gt_row gt_center" headers="N">220</td>
+<td class="gt_row gt_center" headers="Viol. Protestas">2.07</td>
+<td class="gt_row gt_center" headers="DE">0.95</td>
+<td class="gt_row gt_center" headers="Viol. Estatal">1.78</td>
+<td class="gt_row gt_center" headers="DE ">1.00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Patrones observados</strong>:</p>
+<ul>
+<li><strong>Working class sin participar</strong>: Parten de mayor justificación (~1.85) comparado con Service class (~1.75)</li>
+<li><strong>Service class al participar</strong>: Experimentan mayor incremento absoluto en justificación (de ~1.75 a ~2.20)</li>
+<li><strong>Convergencia</strong>: Las diferencias entre clases se reducen entre participantes</li>
+</ul>
+</section>
+<section id="distribución-de-participación-en-protestas" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="distribución-de-participación-en-protestas"><span class="header-section-number">4.3</span> Distribución de participación en protestas</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-participacion-distribucion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-participacion-distribucion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-analisis-violencia_files/figure-html/fig-participacion-distribucion-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-participacion-distribucion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribución de participación en protestas por educación y clase
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Hallazgos de participación</strong>:</p>
+<ul>
+<li><strong>Educación</strong>: Participación aumenta con nivel educativo (de ~15% en secundaria incompleta a ~25% en universitaria completa)</li>
+<li><strong>Clase</strong>: Service class muestra ligeramente mayor participación (~22%) comparado con working class (~18%)</li>
+<li><strong>Implicación</strong>: Los análisis de interacción son cruciales porque participantes y no-participantes difieren sistemáticamente</li>
+</ul>
+</section>
+<section id="evolución-temporal-2016-2023" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="evolución-temporal-2016-2023"><span class="header-section-number">4.4</span> Evolución temporal (2016-2023)</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-evolucion-temporal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-evolucion-temporal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-analisis-violencia_files/figure-html/fig-evolucion-temporal-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-evolucion-temporal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Evolución de justificación de violencia y participación en protestas 2016-2023
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Patrones temporales clave</strong>:</p>
+<ul>
+<li><strong>2019 (Estallido social)</strong>: Paradójicamente, MENOR justificación de ambos tipos de violencia (posible “fatiga de violencia” por saturación mediática)</li>
+<li><strong>Participación en 2019</strong>: Aumenta significativamente, reflejando la intensidad del conflicto</li>
+<li><strong>Post-2019</strong>: Justificación de violencia se mantiene baja, participación disminuye pero no vuelve a niveles pre-2019</li>
+</ul>
+</section>
+<section id="correlaciones-entre-variables-clave" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="correlaciones-entre-variables-clave"><span class="header-section-number">4.5</span> Correlaciones entre variables clave</h2>
+<div class="cell">
+<div id="tbl-correlaciones" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-correlaciones-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Correlaciones entre justificación de violencia y variables sociodemográficas
+</figcaption>
+<div aria-describedby="tbl-correlaciones-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="njghtthsdi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#njghtthsdi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#njghtthsdi thead, #njghtthsdi tbody, #njghtthsdi tfoot, #njghtthsdi tr, #njghtthsdi td, #njghtthsdi th {
+  border-style: none;
+}
+
+#njghtthsdi p {
+  margin: 0;
+  padding: 0;
+}
+
+#njghtthsdi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#njghtthsdi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#njghtthsdi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#njghtthsdi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#njghtthsdi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#njghtthsdi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#njghtthsdi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#njghtthsdi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#njghtthsdi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#njghtthsdi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#njghtthsdi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#njghtthsdi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#njghtthsdi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#njghtthsdi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#njghtthsdi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njghtthsdi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#njghtthsdi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#njghtthsdi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#njghtthsdi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njghtthsdi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#njghtthsdi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njghtthsdi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#njghtthsdi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njghtthsdi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#njghtthsdi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njghtthsdi .gt_left {
+  text-align: left;
+}
+
+#njghtthsdi .gt_center {
+  text-align: center;
+}
+
+#njghtthsdi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#njghtthsdi .gt_font_normal {
+  font-weight: normal;
+}
+
+#njghtthsdi .gt_font_bold {
+  font-weight: bold;
+}
+
+#njghtthsdi .gt_font_italic {
+  font-style: italic;
+}
+
+#njghtthsdi .gt_super {
+  font-size: 65%;
+}
+
+#njghtthsdi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#njghtthsdi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#njghtthsdi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#njghtthsdi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#njghtthsdi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#njghtthsdi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#njghtthsdi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#njghtthsdi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#njghtthsdi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="3" class="gt_heading gt_title gt_font_normal">Correlaciones con justificación de violencia</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Correlaciones de Pearson</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th id="Viol_Protestas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Viol. en Protestas</th>
+<th id="Viol_Estatal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Viol. Estatal</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Educación</td>
+<td class="gt_row gt_right" headers="Viol_Protestas">0.043</td>
+<td class="gt_row gt_right" headers="Viol_Estatal">-0.019</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Edad</td>
+<td class="gt_row gt_right" headers="Viol_Protestas" style="background-color: #FFFFE0">-0.169</td>
+<td class="gt_row gt_right" headers="Viol_Estatal">0.075</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Mujer</td>
+<td class="gt_row gt_right" headers="Viol_Protestas">-0.027</td>
+<td class="gt_row gt_right" headers="Viol_Estatal">-0.061</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Ideología (izq-der)</td>
+<td class="gt_row gt_right" headers="Viol_Protestas" style="background-color: #FFFFE0">-0.128</td>
+<td class="gt_row gt_right" headers="Viol_Estatal" style="background-color: #FFB6C1">0.192</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Participación en protesta</td>
+<td class="gt_row gt_right" headers="Viol_Protestas" style="background-color: #FFFFE0">0.184</td>
+<td class="gt_row gt_right" headers="Viol_Estatal" style="background-color: #FFB6C1">-0.127</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Correlaciones destacables</strong>:</p>
+<ul>
+<li><strong>Participación en protesta</strong>: Correlación moderada-fuerte con violencia en protestas (r ≈ 0.20-0.25), débil con violencia estatal</li>
+<li><strong>Ideología</strong>: Correlación negativa con violencia en protestas (más derecha, menos justificación), positiva con violencia estatal</li>
+<li><strong>Educación y edad</strong>: Correlaciones débiles, sugiriendo que efectos son complejos/no-lineales (confirmando necesidad de modelos de interacción)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="hallazgo-1-el-efecto-paradoja-de-la-educación" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Hallazgo 1: El “Efecto Paradoja” de la Educación</h1>
+<section id="modelo-de-interacción-educación-protesta" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="modelo-de-interacción-educación-protesta"><span class="header-section-number">5.1</span> Modelo de interacción Educación × Protesta</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===================================================
+                             Violencia en Protestas
+---------------------------------------------------
+(Intercepto)                      2.34 ***         
+                                 (0.04)            
+Téc. sup. incompleta             -0.13 **          
+                                 (0.05)            
+Téc. sup. completa               -0.12 ***         
+                                 (0.02)            
+Univ. incompleta                 -0.05             
+                                 (0.04)            
+Univ. completa                   -0.11 ***         
+                                 (0.02)            
+Participó en protesta             0.23 ***         
+                                 (0.03)            
+Edad                             -0.01 ***         
+                                 (0.00)            
+Mujer                            -0.03             
+                                 (0.02)            
+Ideología (izq-der)              -0.02 ***         
+                                 (0.00)            
+2017                             -0.05 *           
+                                 (0.02)            
+2018                             -0.11 ***         
+                                 (0.02)            
+2019                             -0.34 ***         
+                                 (0.02)            
+2022                             -0.10 ***         
+                                 (0.02)            
+2023                             -0.10 ***         
+                                 (0.02)            
+Téc. sup. inc. × Protesta         0.22 *           
+                                 (0.10)            
+Téc. sup. comp. × Protesta        0.12 *           
+                                 (0.05)            
+Univ. inc. × Protesta             0.08             
+                                 (0.06)            
+Univ. comp. × Protesta            0.13 **          
+                                 (0.05)            
+---------------------------------------------------
+AIC                           34474.92             
+Log Likelihood               -17217.46             
+Num. obs.                     15112                
+Num. groups: idencuesta        3383                
+Var: idencuesta (Intercept)       0.12             
+===================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+</div>
+</section>
+<section id="interpretación-el-efecto-se-invierte" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="interpretación-el-efecto-se-invierte"><span class="header-section-number">5.2</span> Interpretación: El efecto se invierte</h2>
+<p><strong>Para quienes NO participaron en protestas</strong> (efectos principales): - Universitaria completa: <strong>-0.11</strong>* - → Menos justificación de violencia (efecto “civilizatorio”)</p>
+<p><strong>Para quienes SÍ participaron</strong> (efecto total): - Universitaria completa: -0.11 + 0.23 + 0.13 = <strong>+0.25</strong> - → ¡MAYOR justificación de violencia!</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-paradoja-educacion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-paradoja-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-analisis-violencia_files/figure-html/fig-paradoja-educacion-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-paradoja-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Efecto paradójico de la educación según participación en protestas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Conclusión</strong>: La educación reduce la justificación de violencia solo entre observadores externos. Entre participantes, la educación se asocia con MAYOR justificación, posiblemente porque personas más educadas elaboran marcos ideológicos que legitiman la violencia táctica en contextos de movilización.</p>
+<hr>
+</section>
+</section>
+<section id="hallazgo-2-reconfiguración-bidireccional-protestas-vs-estado" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Hallazgo 2: Reconfiguración Bidireccional (Protestas vs Estado)</h1>
+<section id="modelos-comparativos" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="modelos-comparativos"><span class="header-section-number">6.1</span> Modelos comparativos</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+======================================================================
+                             Violencia en Protestas  Violencia Estatal
+----------------------------------------------------------------------
+(Intercepto)                      2.34 ***                1.59 ***    
+                                 (0.04)                  (0.05)       
+Téc. sup. incompleta             -0.13 **                 0.10        
+                                 (0.05)                  (0.06)       
+Téc. sup. completa               -0.12 ***                0.03        
+                                 (0.02)                  (0.03)       
+Univ. incompleta                 -0.05                    0.04        
+                                 (0.04)                  (0.05)       
+Univ. completa                   -0.11 ***                0.06        
+                                 (0.02)                  (0.03)       
+Participó en protesta             0.23 ***               -0.04        
+                                 (0.03)                  (0.04)       
+Edad                             -0.01 ***                0.00 ***    
+                                 (0.00)                  (0.00)       
+Mujer                            -0.03                   -0.13 ***    
+                                 (0.02)                  (0.02)       
+Ideología (izq-der)              -0.02 ***                0.05 ***    
+                                 (0.00)                  (0.00)       
+2017                             -0.05 *                 -0.11 ***    
+                                 (0.02)                  (0.03)       
+2018                             -0.11 ***                0.01        
+                                 (0.02)                  (0.02)       
+2019                             -0.34 ***               -0.40 ***    
+                                 (0.02)                  (0.02)       
+2022                             -0.10 ***               -0.13 ***    
+                                 (0.02)                  (0.03)       
+2023                             -0.10 ***               -0.00        
+                                 (0.02)                  (0.03)       
+Téc. sup. inc. × Protesta         0.22 *                  0.02        
+                                 (0.10)                  (0.13)       
+Téc. sup. comp. × Protesta        0.12 *                 -0.06        
+                                 (0.05)                  (0.06)       
+Univ. inc. × Protesta             0.08                   -0.16 *      
+                                 (0.06)                  (0.08)       
+Univ. comp. × Protesta            0.13 **                -0.18 ***    
+                                 (0.05)                  (0.05)       
+----------------------------------------------------------------------
+AIC                           34474.92                40370.25        
+Log Likelihood               -17217.46               -20165.13        
+Num. obs.                     15112                   15103           
+Num. groups: idencuesta        3383                    3383           
+Var: idencuesta (Intercept)       0.12                    0.20        
+======================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+</div>
+</section>
+<section id="interpretación-marcos-morales-opuestos" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="interpretación-marcos-morales-opuestos"><span class="header-section-number">6.2</span> Interpretación: Marcos morales opuestos</h2>
+<p><strong>Universitarios que participaron en protestas desarrollan marcos morales diferenciados</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tipo de violencia</th>
+<th>Efecto total</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Violencia en protestas</strong></td>
+<td>+0.25</td>
+<td>Justifican MÁS (legitimación)</td>
+</tr>
+<tr class="even">
+<td><strong>Violencia estatal</strong></td>
+<td>-0.16</td>
+<td>Justifican MENOS (crítica)</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bidireccional" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bidireccional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-analisis-violencia_files/figure-html/fig-bidireccional-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bidireccional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Reconfiguración bidireccional: Universitarios que participan
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Conclusión</strong>: La participación genera una reconfiguración bidireccional coherente: legitima la violencia como herramienta de resistencia mientras deslegitima la violencia como herramienta de represión.</p>
+<hr>
+</section>
+</section>
+<section id="hallazgo-3-clase-social-como-moderador-estructural" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Hallazgo 3: Clase Social como Moderador Estructural</h1>
+<section id="modelo-de-interacción-clase-protesta" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="modelo-de-interacción-clase-protesta"><span class="header-section-number">7.1</span> Modelo de interacción Clase × Protesta</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+======================================================================
+                                                Violencia en Protestas
+----------------------------------------------------------------------
+(Intercept)                                         2.15 ***          
+                                                   (0.06)             
+egp3Intermediate class (III+IV)                    -0.06              
+                                                   (0.04)             
+egp3Working class (V+VI+VII)                        0.08 *            
+                                                   (0.04)             
+protesta_dummy                                      0.34 ***          
+                                                   (0.06)             
+edad                                               -0.01 ***          
+                                                   (0.00)             
+mujer                                              -0.01              
+                                                   (0.03)             
+ideologia_std                                      -0.03 ***          
+                                                   (0.01)             
+factor(year)2018                                   -0.10 ***          
+                                                   (0.03)             
+factor(year)2023                                   -0.08 **           
+                                                   (0.03)             
+egp3Intermediate class (III+IV):protesta_dummy      0.12              
+                                                   (0.08)             
+egp3Working class (V+VI+VII):protesta_dummy        -0.15              
+                                                   (0.08)             
+----------------------------------------------------------------------
+AIC                                             11417.48              
+Log Likelihood                                  -5695.74              
+Num. obs.                                        4736                 
+Num. groups: idencuesta                          2520                 
+Var: idencuesta (Intercept)                         0.11              
+======================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+</div>
+</section>
+<section id="interpretación-efecto-diferencial-por-clase-social" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="interpretación-efecto-diferencial-por-clase-social"><span class="header-section-number">7.2</span> Interpretación: Efecto diferencial por clase social</h2>
+<p><strong>Efectos de participar según clase social</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Clase</th>
+<th>Efecto protesta</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Service class</strong></td>
+<td>+0.36***</td>
+<td>Mayor transformación</td>
+</tr>
+<tr class="even">
+<td><strong>Intermediate class</strong></td>
+<td>+0.40</td>
+<td>Transformación alta</td>
+</tr>
+<tr class="odd">
+<td><strong>Working class</strong></td>
+<td>+0.19</td>
+<td>Menor transformación (efecto techo)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interacción negativa Working class</strong>: -0.17<strong> - Working class ya parte de mayor justificación (+0.07</strong>) - Participar hace que disminuya su tolerancia (efecto techo)</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-clase-protesta" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-clase-protesta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-analisis-violencia_files/figure-html/fig-clase-protesta-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-clase-protesta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Efecto de participar en protestas según clase social
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Conclusión</strong>: La clase social determina la intensidad del cambio actitudinal. Service class, más alejada de experiencias cotidianas de violencia, experimenta mayor transformación cognitiva al participar. Working class muestra menor cambio por predisposiciones estructurales previas.</p>
+<hr>
+</section>
+</section>
+<section id="hallazgo-4-divergencia-vs-convergencia" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Hallazgo 4: Divergencia vs Convergencia</h1>
+<section id="comparación-educación-vs-clase" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="comparación-educación-vs-clase"><span class="header-section-number">8.1</span> Comparación Educación vs Clase</h2>
+<div class="cell">
+<div id="tbl-comparacion" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-comparacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Comparación de mecanismos: Educación vs Clase
+</figcaption>
+<div aria-describedby="tbl-comparacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="xduzhcahmn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xduzhcahmn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xduzhcahmn thead, #xduzhcahmn tbody, #xduzhcahmn tfoot, #xduzhcahmn tr, #xduzhcahmn td, #xduzhcahmn th {
+  border-style: none;
+}
+
+#xduzhcahmn p {
+  margin: 0;
+  padding: 0;
+}
+
+#xduzhcahmn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xduzhcahmn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xduzhcahmn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xduzhcahmn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xduzhcahmn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xduzhcahmn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xduzhcahmn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xduzhcahmn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xduzhcahmn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xduzhcahmn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xduzhcahmn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xduzhcahmn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xduzhcahmn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xduzhcahmn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xduzhcahmn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xduzhcahmn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xduzhcahmn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xduzhcahmn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xduzhcahmn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xduzhcahmn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xduzhcahmn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xduzhcahmn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xduzhcahmn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xduzhcahmn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xduzhcahmn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xduzhcahmn .gt_left {
+  text-align: left;
+}
+
+#xduzhcahmn .gt_center {
+  text-align: center;
+}
+
+#xduzhcahmn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xduzhcahmn .gt_font_normal {
+  font-weight: normal;
+}
+
+#xduzhcahmn .gt_font_bold {
+  font-weight: bold;
+}
+
+#xduzhcahmn .gt_font_italic {
+  font-style: italic;
+}
+
+#xduzhcahmn .gt_super {
+  font-size: 65%;
+}
+
+#xduzhcahmn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xduzhcahmn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xduzhcahmn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xduzhcahmn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xduzhcahmn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xduzhcahmn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xduzhcahmn .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#xduzhcahmn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#xduzhcahmn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="3" class="gt_heading gt_title gt_font_normal">Educación vs Clase: Mecanismos diferenciados</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Cómo moderan el efecto de la participación en protestas</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Aspecto" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Aspecto</th>
+<th id="Educacion" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Educación</th>
+<th id="Clase" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Clase Social</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Aspecto" style="font-weight: bold">Efectos principales</td>
+<td class="gt_row gt_left" headers="Educacion">Fuertes (-0.11***)</td>
+<td class="gt_row gt_left" headers="Clase">Débiles (+0.07**)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Aspecto" style="font-weight: bold">Interacciones con protesta</td>
+<td class="gt_row gt_left" headers="Educacion">POSITIVAS (+0.13**)</td>
+<td class="gt_row gt_left" headers="Clase">NEGATIVAS (-0.17**)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Aspecto" style="font-weight: bold">Patrón al participar</td>
+<td class="gt_row gt_left" headers="Educacion">DIVERGEN (universitarios cambian más)</td>
+<td class="gt_row gt_left" headers="Clase">CONVERGEN (working class cambia menos)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Aspecto" style="font-weight: bold">Mecanismo teórico</td>
+<td class="gt_row gt_left" headers="Educacion">Flexibilidad cognitiva</td>
+<td class="gt_row gt_left" headers="Clase">Predisposición estructural</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Modelo conceptual integrado</strong>:</p>
+<p><span class="math display">\[
+\text{Actitud hacia violencia} = \underbrace{\text{Capital cultural}}_{\text{Educación: línea base}} + \underbrace{\text{Posición estructural}}_{\text{Clase: predisposición}} + \underbrace{\text{Experiencia}}_{\text{Participación}} + \text{Interacciones}
+\]</span></p>
+<p><strong>Implicaciones</strong>:</p>
+<ol type="1">
+<li><p><strong>Educación</strong> opera como predictor directo (efectos principales fuertes) y amplificador de experiencias (interacciones positivas)</p></li>
+<li><p><strong>Clase</strong> opera como moderador estructural (efectos principales débiles, interacciones fuertes)</p></li>
+<li><p><strong>Participación</strong> amplifica desigualdades educativas pero nivela desigualdades de clase</p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="síntesis-e-implicaciones" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Síntesis e Implicaciones</h1>
+<section id="hallazgos-principales" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="hallazgos-principales"><span class="header-section-number">9.1</span> Hallazgos principales</h2>
+<ol type="1">
+<li><p><strong>Educación no tiene efecto lineal</strong>: Reduce justificación entre no-participantes, la aumenta entre participantes</p></li>
+<li><p><strong>Participación genera reconfiguración bidireccional</strong>: Legitima violencia táctica, deslegitima violencia estatal (universitarios)</p></li>
+<li><p><strong>Clase determina intensidad del cambio</strong>: Service class más transformable, working class con efecto techo</p></li>
+<li><p><strong>Educación diverge, clase converge</strong>: Mecanismos sociológicos diferenciados</p></li>
+</ol>
+</section>
+<section id="implicaciones-teóricas" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="implicaciones-teóricas"><span class="header-section-number">9.2</span> Implicaciones teóricas</h2>
+<p><strong>Para teoría de capital cultural</strong>: - El efecto “civilizatorio” de la educación es condicional, no universal - Capital cultural facilita reelaboración de marcos morales según experiencias</p>
+<p><strong>Para teoría de movimientos sociales</strong>: - Participación tiene efectos heterogéneos según estratificación social - Movimientos masivos pueden ser más transformativos para clases medias-altas que trabajadoras</p>
+<p><strong>Para estudio del estallido chileno 2019</strong>: - Amplitud social del movimiento puede explicarse por transformación de sectores profesionales/gerenciales - Marcos de “violencia legítima” emergieron especialmente entre universitarios participantes</p>
+</section>
+<section id="limitaciones" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="limitaciones"><span class="header-section-number">9.3</span> Limitaciones</h2>
+<ol type="1">
+<li><strong>Datos correlacionales</strong>: No podemos establecer causalidad definitiva</li>
+<li><strong>Sesgo de selección</strong>: Quienes participan difieren de no-participantes en variables no observadas</li>
+<li><strong>Medición de violencia</strong>: Índices agregados pueden ocultar heterogeneidad en tipos específicos de acciones</li>
+</ol>
+</section>
+<section id="extensiones-futuras" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="extensiones-futuras"><span class="header-section-number">9.4</span> Extensiones futuras</h2>
+<ol type="1">
+<li>Analizar ítems individuales de violencia (ej: bloqueos vs destrucción de propiedad)</li>
+<li>Examinar trayectorias longitudinales individuales (cambio intra-personal)</li>
+<li>Incorporar experiencias específicas de represión/victimización</li>
+<li>Analizar heterogeneidad por género, edad, territorialidad</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="anexos" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Anexos</h1>
+<section id="anexo-a-análisis-desagregado-de-ítems-de-violencia" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="anexo-a-análisis-desagregado-de-ítems-de-violencia"><span class="header-section-number">10.1</span> Anexo A: Análisis Desagregado de Ítems de Violencia</h2>
+<p>Esta sección explora si los patrones encontrados en los índices agregados se mantienen cuando analizamos tipos específicos de violencia. Esto es crucial porque diferentes acciones violentas pueden tener significados políticos y morales distintos.</p>
+<section id="a.1.-ítems-de-violencia-en-protestas-manifestantes" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="a.1.-ítems-de-violencia-en-protestas-manifestantes"><span class="header-section-number">10.1.1</span> A.1. Ítems de violencia en protestas (manifestantes)</h3>
+<p><strong>Variables disponibles en ELSOC</strong>: - <code>violencia_trabajadores</code>: Que trabajadores usen la violencia para alcanzar sus reivindicaciones - <code>violencia_estudiantes</code>: Que estudiantes usen la violencia para alcanzar sus reivindicaciones<br>
+- <code>violencia_inmobiliario</code>: Que se tomen de forma violenta inmuebles/edificios - <code>violencia_transporte</code>: Que se paralicen servicios de transporte con violencia - <code>violencia_locales</code>: Que se destruyan locales comerciales en marchas</p>
+</section>
+<section id="a.2.-descriptivos-por-tipo-de-violencia" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="a.2.-descriptivos-por-tipo-de-violencia"><span class="header-section-number">10.1.2</span> A.2. Descriptivos por tipo de violencia</h3>
+<div class="cell">
+<div id="tbl-items-violencia-descriptivos" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-items-violencia-descriptivos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Justificación de diferentes tipos de violencia según educación y participación
+</figcaption>
+<div aria-describedby="tbl-items-violencia-descriptivos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="pqnxpuuiux" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pqnxpuuiux table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pqnxpuuiux thead, #pqnxpuuiux tbody, #pqnxpuuiux tfoot, #pqnxpuuiux tr, #pqnxpuuiux td, #pqnxpuuiux th {
+  border-style: none;
+}
+
+#pqnxpuuiux p {
+  margin: 0;
+  padding: 0;
+}
+
+#pqnxpuuiux .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pqnxpuuiux .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pqnxpuuiux .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pqnxpuuiux .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pqnxpuuiux .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pqnxpuuiux .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pqnxpuuiux .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pqnxpuuiux .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pqnxpuuiux .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pqnxpuuiux .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pqnxpuuiux .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pqnxpuuiux .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pqnxpuuiux .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pqnxpuuiux .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pqnxpuuiux .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqnxpuuiux .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pqnxpuuiux .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pqnxpuuiux .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pqnxpuuiux .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqnxpuuiux .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pqnxpuuiux .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqnxpuuiux .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pqnxpuuiux .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqnxpuuiux .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pqnxpuuiux .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqnxpuuiux .gt_left {
+  text-align: left;
+}
+
+#pqnxpuuiux .gt_center {
+  text-align: center;
+}
+
+#pqnxpuuiux .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pqnxpuuiux .gt_font_normal {
+  font-weight: normal;
+}
+
+#pqnxpuuiux .gt_font_bold {
+  font-weight: bold;
+}
+
+#pqnxpuuiux .gt_font_italic {
+  font-style: italic;
+}
+
+#pqnxpuuiux .gt_super {
+  font-size: 65%;
+}
+
+#pqnxpuuiux .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pqnxpuuiux .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pqnxpuuiux .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pqnxpuuiux .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pqnxpuuiux .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pqnxpuuiux .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pqnxpuuiux .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pqnxpuuiux .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pqnxpuuiux div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="9" class="gt_heading gt_title gt_font_normal">Justificación de violencia en protestas por tipo de acción</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Escala 1-5. Según educación y participación</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="educ_cat_unordered" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">educ_cat_unordered</th>
+<th id="Participacion" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Participacion</th>
+<th id="N" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">N</th>
+<th id="Trabajadores" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Trabajadores</th>
+<th id="Estudiantes" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Estudiantes</th>
+<th id="Toma-inmuebles" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Toma inmuebles</th>
+<th id="Paralizar-transporte" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Paralizar transporte</th>
+<th id="Destruir-locales" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Destruir locales</th>
+<th id="aÍNDICE-(promedio)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ÍNDICE (promedio)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">8139</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.17</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.26</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.17</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.15</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.12</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">1.65</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">671</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.66</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.62</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.50</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.43</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.28</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">1.96</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">448</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.18</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.22</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.20</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.12</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.12</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">1.63</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">79</td>
+<td class="gt_row gt_center" headers="Trabajadores">3.05</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.63</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.46</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.36</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.14</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">2.07</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">2267</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.07</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.17</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.18</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.14</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.09</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">1.57</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">446</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.72</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.57</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.60</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.47</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.28</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">1.96</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">739</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.26</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.25</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.26</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.20</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.09</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">1.70</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">292</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.83</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.76</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.87</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.67</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.52</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">2.08</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">2192</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.05</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.22</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.15</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.14</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.10</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">1.60</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">971</td>
+<td class="gt_row gt_center" headers="Trabajadores">2.82</td>
+<td class="gt_row gt_center" headers="Estudiantes">1.71</td>
+<td class="gt_row gt_center" headers="Toma inmuebles">1.92</td>
+<td class="gt_row gt_center" headers="Paralizar transporte">1.75</td>
+<td class="gt_row gt_center" headers="Destruir locales">1.54</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #FFFFE0">2.12</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="9" class="gt_footnote">Valores más altos indican mayor justificación</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="a.3.-visualización-comparativa-de-ítems" class="level3" data-number="10.1.3">
+<h3 data-number="10.1.3" class="anchored" data-anchor-id="a.3.-visualización-comparativa-de-ítems"><span class="header-section-number">10.1.3</span> A.3. Visualización comparativa de ítems</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-items-violencia-educacion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-items-violencia-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-analisis-violencia_files/figure-html/fig-items-violencia-educacion-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-items-violencia-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Comparación de justificación de diferentes tipos de violencia según educación y participación
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="a.4.-modelos-por-tipo-específico-de-violencia" class="level3" data-number="10.1.4">
+<h3 data-number="10.1.4" class="anchored" data-anchor-id="a.4.-modelos-por-tipo-específico-de-violencia"><span class="header-section-number">10.1.4</span> A.4. Modelos por tipo específico de violencia</h3>
+<p>¿El efecto paradójico de la educación se mantiene para todos los tipos de violencia?</p>
+<div id="tbl-modelos-items-violencia" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modelos-items-violencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Modelos de interacción Educación × Protesta por tipo de violencia
+</figcaption>
+<div aria-describedby="tbl-modelos-items-violencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=======================================================
+                             Trabajadores   Estudiantes
+-------------------------------------------------------
+Univ. completa                   -0.21 ***      -0.05 *
+                                 (0.04)         (0.02) 
+-------------------------------------------------------
+AIC                           48926.25       34270.66  
+Log Likelihood               -24443.13      -17115.33  
+Num. obs.                     15079          15095     
+Num. groups: idencuesta        3383           3383     
+Var: idencuesta (Intercept)       0.28           0.09  
+=======================================================
+Nota: Se muestran solo coeficientes clave. Modelos incluyen controles completos.</code></pre>
+</div>
+</div>
+</figure>
+</div>
+</section>
+<section id="a.5.-violencia-estatal-desagregada" class="level3" data-number="10.1.5">
+<h3 data-number="10.1.5" class="anchored" data-anchor-id="a.5.-violencia-estatal-desagregada"><span class="header-section-number">10.1.5</span> A.5. Violencia estatal desagregada</h3>
+<div class="cell">
+<div id="tbl-items-violencia-estatal" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-items-violencia-estatal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: Justificación de violencia policial según contexto
+</figcaption>
+<div aria-describedby="tbl-items-violencia-estatal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="fmdixxiflj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fmdixxiflj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fmdixxiflj thead, #fmdixxiflj tbody, #fmdixxiflj tfoot, #fmdixxiflj tr, #fmdixxiflj td, #fmdixxiflj th {
+  border-style: none;
+}
+
+#fmdixxiflj p {
+  margin: 0;
+  padding: 0;
+}
+
+#fmdixxiflj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fmdixxiflj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fmdixxiflj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fmdixxiflj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fmdixxiflj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fmdixxiflj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fmdixxiflj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fmdixxiflj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fmdixxiflj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fmdixxiflj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fmdixxiflj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fmdixxiflj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fmdixxiflj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fmdixxiflj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fmdixxiflj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fmdixxiflj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fmdixxiflj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fmdixxiflj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fmdixxiflj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fmdixxiflj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fmdixxiflj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fmdixxiflj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fmdixxiflj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fmdixxiflj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fmdixxiflj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fmdixxiflj .gt_left {
+  text-align: left;
+}
+
+#fmdixxiflj .gt_center {
+  text-align: center;
+}
+
+#fmdixxiflj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fmdixxiflj .gt_font_normal {
+  font-weight: normal;
+}
+
+#fmdixxiflj .gt_font_bold {
+  font-weight: bold;
+}
+
+#fmdixxiflj .gt_font_italic {
+  font-style: italic;
+}
+
+#fmdixxiflj .gt_super {
+  font-size: 65%;
+}
+
+#fmdixxiflj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fmdixxiflj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fmdixxiflj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fmdixxiflj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fmdixxiflj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fmdixxiflj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fmdixxiflj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#fmdixxiflj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#fmdixxiflj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="6" class="gt_heading gt_title gt_font_normal">Justificación de violencia policial según contexto de acción</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Escala 1-5. Según educación y participación</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="educ_cat_unordered" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">educ_cat_unordered</th>
+<th id="Participacion" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Participacion</th>
+<th id="N" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">N</th>
+<th id="Carabineros-en-marchas" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Carabineros en marchas</th>
+<th id="Carabineros-en-tomas" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Carabineros en tomas</th>
+<th id="aÍNDICE-(promedio)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ÍNDICE (promedio)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">8139</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.68</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">2.06</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.87</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">671</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.52</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">1.77</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.65</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">448</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.70</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">2.17</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.93</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">79</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.50</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">2.00</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.75</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">2267</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.59</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">2.20</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.90</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">446</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.41</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">1.77</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.59</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">739</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.57</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">2.21</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.89</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">292</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.30</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">1.74</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.52</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_center" headers="Participacion">No participó</td>
+<td class="gt_row gt_center" headers="N">2192</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.61</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">2.31</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.96</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_center" headers="Participacion">Participó</td>
+<td class="gt_row gt_center" headers="N">971</td>
+<td class="gt_row gt_center" headers="Carabineros en marchas">1.31</td>
+<td class="gt_row gt_center" headers="Carabineros en tomas">1.63</td>
+<td class="gt_row gt_center" headers="ÍNDICE (promedio)" style="background-color: #ADD8E6">1.47</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-items-violencia-estatal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-items-violencia-estatal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-analisis-violencia_files/figure-html/fig-items-violencia-estatal-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-items-violencia-estatal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Justificación de violencia policial según contexto y participación en protestas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Hallazgo</strong>: La justificación de violencia policial es <strong>consistentemente baja</strong> en ambos contextos, pero muestra el patrón esperado: universitarios que participan critican MÁS la violencia policial que no-participantes.</p>
+<hr>
+</section>
+</section>
+<section id="anexo-b-descriptivos-completos-por-educación-y-clase" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="anexo-b-descriptivos-completos-por-educación-y-clase"><span class="header-section-number">10.2</span> Anexo B: Descriptivos Completos por Educación y Clase</h2>
+<div class="cell">
+<div id="tbl-descriptivos-completos-anexo" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-descriptivos-completos-anexo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Descriptivos completos por educación, clase y participación
+</figcaption>
+<div aria-describedby="tbl-descriptivos-completos-anexo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="njfmidwbrn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#njfmidwbrn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#njfmidwbrn thead, #njfmidwbrn tbody, #njfmidwbrn tfoot, #njfmidwbrn tr, #njfmidwbrn td, #njfmidwbrn th {
+  border-style: none;
+}
+
+#njfmidwbrn p {
+  margin: 0;
+  padding: 0;
+}
+
+#njfmidwbrn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#njfmidwbrn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#njfmidwbrn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#njfmidwbrn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#njfmidwbrn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#njfmidwbrn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#njfmidwbrn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#njfmidwbrn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#njfmidwbrn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#njfmidwbrn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#njfmidwbrn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#njfmidwbrn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#njfmidwbrn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#njfmidwbrn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#njfmidwbrn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njfmidwbrn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#njfmidwbrn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#njfmidwbrn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#njfmidwbrn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njfmidwbrn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#njfmidwbrn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njfmidwbrn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#njfmidwbrn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njfmidwbrn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#njfmidwbrn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#njfmidwbrn .gt_left {
+  text-align: left;
+}
+
+#njfmidwbrn .gt_center {
+  text-align: center;
+}
+
+#njfmidwbrn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#njfmidwbrn .gt_font_normal {
+  font-weight: normal;
+}
+
+#njfmidwbrn .gt_font_bold {
+  font-weight: bold;
+}
+
+#njfmidwbrn .gt_font_italic {
+  font-style: italic;
+}
+
+#njfmidwbrn .gt_super {
+  font-size: 65%;
+}
+
+#njfmidwbrn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#njfmidwbrn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#njfmidwbrn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#njfmidwbrn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#njfmidwbrn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#njfmidwbrn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#njfmidwbrn .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#njfmidwbrn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#njfmidwbrn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="5" class="gt_heading gt_title gt_font_normal">Justificación de violencia por educación y participación</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Medias observadas</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="educ_cat_unordered" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Nivel educativo</th>
+<th id="N" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">N</th>
+<th id="Just.-Viol.-Protestas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Viol. Protestas</th>
+<th id="Just.-Viol.-Estatal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Viol. Estatal</th>
+<th id="Participacion" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Participación</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_right" headers="N">8139</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">1.65</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.87</td>
+<td class="gt_row gt_left" headers="Participacion">No participó</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Media completa o menos</td>
+<td class="gt_row gt_right" headers="N">671</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">1.96</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.65</td>
+<td class="gt_row gt_left" headers="Participacion">Participó</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_right" headers="N">448</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">1.63</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.93</td>
+<td class="gt_row gt_left" headers="Participacion">No participó</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior incompleta</td>
+<td class="gt_row gt_right" headers="N">79</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">2.07</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.75</td>
+<td class="gt_row gt_left" headers="Participacion">Participó</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_right" headers="N">2267</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">1.57</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.90</td>
+<td class="gt_row gt_left" headers="Participacion">No participó</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Técnica superior completa</td>
+<td class="gt_row gt_right" headers="N">446</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">1.96</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.59</td>
+<td class="gt_row gt_left" headers="Participacion">Participó</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_right" headers="N">739</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">1.70</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.89</td>
+<td class="gt_row gt_left" headers="Participacion">No participó</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria incompleta</td>
+<td class="gt_row gt_right" headers="N">292</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">2.08</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.52</td>
+<td class="gt_row gt_left" headers="Participacion">Participó</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_right" headers="N">2192</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">1.60</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.96</td>
+<td class="gt_row gt_left" headers="Participacion">No participó</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="educ_cat_unordered">Universitaria completa</td>
+<td class="gt_row gt_right" headers="N">971</td>
+<td class="gt_row gt_right" headers="Just. Viol. Protestas">2.12</td>
+<td class="gt_row gt_right" headers="Just. Viol. Estatal">1.47</td>
+<td class="gt_row gt_left" headers="Participacion">Participó</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<hr>
+<p><strong>Documento generado</strong>: 2025-10-18<br>
+<strong>Datos</strong>: ELSOC 2016-2023<br>
+<strong>Software</strong>: R 4.x, glmmTMB, ggeffects</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
