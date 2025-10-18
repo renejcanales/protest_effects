@@ -89,7 +89,7 @@ rm(list = ls())
 # 2. CARGAR Y EXPLORAR DATOS =================
 
 # Ajustar ruta según tu ubicación
-load(file = here("~/GitHub/protest_effects/input/data/proc/elsoc_long.Rdata"))
+load(file = here("input/data/proc/elsoc_long.Rdata"))
 
 # Explorar estructura básica
 dim(elsoc_long)

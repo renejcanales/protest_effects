@@ -41,7 +41,7 @@ rm(list = ls())
 # 2. Data --------------------------------------------------------------
 
 
-load("~/GitHub/protest_effects/input/data/raw/elsoc_long_2016_2023.RData")
+load(here("input/data/raw/elsoc_long_2016_2023.RData"))
 
 elsoc_long <- elsoc_long_2016_2023
 
@@ -178,14 +178,14 @@ elsoc_clean <- elsoc_clean %>%
   mutate(
     # --- ÍNDICE DE PROTESTA (PROMEDIO DE FRECUENCIAS 1-5) ---
     # Índice principal: promedio de marcha, huelga y petición
-    protesta_index = rowMeans(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
+    protesta_index = rowMeans(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
     
     # Índice completo: incluye también cacerolazos
-    protesta_index_completo = rowMeans(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
+    protesta_index_completo = rowMeans(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
     
     # --- ÍNDICES DE INTENSIDAD (SUMA DE FRECUENCIAS) ---
-    protesta_intensidad_suma = rowSums(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
-    protesta_intensidad_suma_completa = rowSums(dplyr::select(., firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
+    protesta_intensidad_suma = rowSums(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq), na.rm = FALSE),
+    protesta_intensidad_suma_completa = rowSums(cbind(firma_peticion_freq, asist_marcha_freq, part_huelga_freq, part_cacerolazo_freq), na.rm = FALSE),
     
     # --- VARIABLE DICOTÓMICA (DUMMY) ---
     # Dummy: participó en marcha (solo asistencia a marchas)
@@ -338,8 +338,8 @@ elsoc_clean <- elsoc_clean %>%
       ideologia_std >= 7 ~ "Derecha",
       TRUE ~ NA_character_
     ),
-    conf_instituciones = rowMeans(dplyr::select(., conf_gob, conf_part, conf_cong), na.rm = TRUE),
-    eficacia_politica = rowMeans(dplyr::select(., efic_voto, efic_result, efic_expr), na.rm = TRUE)
+    conf_instituciones = rowMeans(cbind(conf_gob, conf_part, conf_cong), na.rm = TRUE),
+    eficacia_politica = rowMeans(cbind(efic_voto, efic_result, efic_expr), na.rm = TRUE)
   )
 
   # Imputar ideología hacia adelante y atrás
@@ -370,8 +370,8 @@ elsoc_clean <- elsoc_clean %>%
 # Se crean índices de percepciones sobre justicia, meritocracia y estatus
 elsoc_clean <- elsoc_clean %>%
   mutate(
-    justicia_distributiva = rowMeans(dplyr::select(., justicia_pensiones, justicia_educacion, justicia_salud), na.rm = TRUE),
-    meritocracia = rowMeans(dplyr::select(., recomp_esfuer, recomp_talent), na.rm = TRUE),
+    justicia_distributiva = rowMeans(cbind(justicia_pensiones, justicia_educacion, justicia_salud), na.rm = TRUE),
+    meritocracia = rowMeans(cbind(recomp_esfuer, recomp_talent), na.rm = TRUE),
     clase_subjetiva = perc_sub_clase,
     satis_ingreso_std = satis_ingreso
   )
@@ -722,12 +722,14 @@ elsoc_final_2 <- elsoc_analisis %>%
     protesta_index,                      # PRINCIPAL: promedio marcha + huelga + petición
     protesta_index_completo,             # Incluye cacerolazos
     
-    # VD - Intensidad (suma)
-    protesta_intensidad_suma,            # Suma de marcha + huelga + petición
-    protesta_intensidad_suma_completa,   # Suma incluyendo cacerolazos
+    # VD - Intensidad
+    protesta_intensidad,
+    protesta_intensidad_completa,
     
     # VD - Dicotómicas
-    protesta_dummy,                      # PRINCIPAL DUMMY: participó en marcha
+    protesta_dummy,              # PRINCIPAL DUMMY
+    protesta_multiple,
+    participa_dummy,
     
     # Flags
     cacerolazo_disponible,
