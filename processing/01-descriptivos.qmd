@@ -81,43 +81,7 @@ rm(list = ls())
 #| echo: false
 
 
-load(here("~/GitHub/protest_effects/input/data/proc/elsoc_final.RData"))
-```
-
-```{r}
-#| warning: false
-#| message: false
-#| echo: false
-
-# CORRECCIONES A LA BASE
-elsoc_final <- elsoc_final %>%
-  mutate(
-    # Corregir años de educación
-    educ_years_corr = case_when(
-      educ_cat == "Media incompleta o menos" ~ 10,
-      educ_cat == "Media completa" ~ 12,
-      educ_cat == "Técnica superior incompleta" ~ 13,
-      educ_cat == "Técnica superior completa" ~ 15,
-      educ_cat == "Universitaria incompleta" ~ 15,
-      educ_cat == "Universitaria completa" ~ 17,
-      educ_cat == "Postgrado" ~ 19,
-      TRUE ~ NA_real_
-    ),
-    # Recalcular movilidad con años corregidos
-    movilidad_years_corr = educ_years_corr - educ_parental_max,
-    # Crear matriz origen-destino
-    educ_destino = case_when(
-      educ_years_corr < 12 ~ "Bajo",
-      educ_years_corr >= 12 & educ_years_corr < 16 ~ "Medio",
-      educ_years_corr >= 16 ~ "Alto"
-    ),
-    educ_origen = case_when(
-      educ_parental_max < 12 ~ "Bajo",
-      educ_parental_max >= 12 & educ_parental_max < 16 ~ "Medio",
-      educ_parental_max >= 16 ~ "Alto"
-    ),
-    matriz_movilidad = interaction(educ_origen, educ_destino, sep = " → ")
-  )
+load(file = here("input/data/proc/elsoc_final_2.RData"))
 ```
 
 # ANÁLISIS DESCRIPTIVO
@@ -137,7 +101,7 @@ elsoc_final <- elsoc_final %>%
 
 # 3.1 Variable Dependiente
 
-tab_participacion <- elsoc_final %>%
+tab_participacion <- elsoc_final_2 %>%
   group_by(year) %>%
   summarise(
     N = scales::comma(n()),
@@ -151,7 +115,7 @@ tab_participacion <- elsoc_final %>%
   kable_styling(bootstrap_options = c("striped", "hover"),
                 full_width = FALSE) %>%
   add_header_above(c(" " = 3, "Índice de protesta" = 2)) %>%  # 3 + 2 = 5 ✓
-  row_spec(which(unique(elsoc_final$year) == 2019), 
+  row_spec(which(unique(elsoc_final_2$year) == 2019), 
            bold = TRUE, background = "#FFF3CD") %>%
   footnote(general = "Fuente: Elaboración propia con ELSOC 2016-2023.",
            number = "El año 2019 corresponde al estallido social en Chile.")
@@ -159,7 +123,7 @@ tab_participacion <- elsoc_final %>%
 tab_participacion
 ```
 
-Tanto la @fig-des-1 como el @fig-des-2 presentan la distribución de la participación en protestas en Chile durante el período 2016-2023. Se observa una fluctuación persistente en los niveles de movilización, con un punto de inflexión marcado en el año 2019. Durante ese año, coincidente con el *estallido social*, la participación ciudadana en protestas alcanzó su máximo del período, con un 29.1% de los encuestados reportando haber participado. Este peak también se refleja en el índice de participación no convencional de la @fig-des-1, que alcanzó su media más alta (M=0.37, DE=0.63). En contraste, los años previos y posteriores muestran cifras considerablemente menores, con excepción del 2016, año en que tuvo lugar la movilización del movimiento *NO+AFP*. Se destaca una marcada disminución tras 2019, hasta llegar al nivel más bajo de la serie en 2023, con un 11.4% de participación.
+Tanto la @fig-des-1 como el @fig-des-2 presentan la distribución de la participación en protestas en Chile durante el período 2016-2023. Se observa una fluctuación persistente en los niveles de movilización, con un punto de inflexión marcado en el año 2019. Durante ese año, coincidente con el *estallido social*, la participación ciudadana en protestas alcanzó su máximo del período, con un 26.5% de los encuestados reportando haber participado. Este peak también se refleja en el índice de participación no convencional de la @fig-des-1, que alcanzó su media más alta (M=1.39, la misma que en 2016, DE=0.66). En contraste, los años previos y posteriores muestran cifras considerablemente menores, con excepción del 2016, año en que tuvo lugar la movilización del movimiento *NO+AFP*. Se destaca una marcada disminución tras 2019, hasta llegar al nivel más bajo de la serie en 2023, con un 9.3% de participación.
 
 La disminución en la participación entre los años 2021 y 2023 podría interpretarse en el contexto del escenario político del país, donde la presencia de un gobierno progresista en el poder estaría asociada a una reducción considerable de las protestas. 
 
@@ -171,7 +135,7 @@ La disminución en la participación entre los años 2021 y 2023 podría interpr
 #| echo: false
 
 # Primero crear el data frame
-tab_ola <- elsoc_final %>%
+tab_ola <- elsoc_final_2 %>%
   group_by(year) %>%
   summarise(
     n = n(),
@@ -201,7 +165,7 @@ print(p_evol)
 
 ### Variables Independientes: Educación Encuestado
 
-La @fig-des-3 detalla la distribución del nivel educativo de la muestra total, basada en los datos agrupados de la encuesta ELSOC (2016-2023). La mayor concentración de participantes se encuentra en los niveles de educación secundaria, donde la categoría "Media incompleta o menos" constituye el grupo más grande con un 34.05%, seguida de cerca por "Media completa" con un 30.08%. En conjunto, estos dos grupos representan a casi dos tercios de la muestra total (64.12%). En cuanto a la educación superior, un 12.91% de los encuestados reporta tener educación técnica superior completa y un 11.64% universitaria completa. El nivel educativo con menor frecuencia corresponde a los estudios de "Postgrado", representando solo el 1.70% del total de la muestra (N = 20,052).
+La @fig-des-3 detalla la distribución del nivel educativo de la muestra total, basada en los datos agrupados de la encuesta ELSOC (2016-2023). La mayor concentración de participantes se encuentra en los niveles de educación secundaria, donde la categoría "Media incompleta o menos" constituye el grupo más grande con un 34.4%, seguida de cerca por "Media completa" con un 30.03%. En conjunto, estos dos grupos representan a casi dos tercios de la muestra total (64.12%). En cuanto a la educación superior, un 12.87% de los encuestados reporta tener educación técnica superior completa y un 11.64% universitaria completa. El nivel educativo con menor frecuencia corresponde a los estudios de "Postgrado", representando solo el 1.67% del total de la muestra (N = 17.394).
 
 ```{r}
 #| label: fig-des-3
@@ -212,7 +176,7 @@ La @fig-des-3 detalla la distribución del nivel educativo de la muestra total, 
 # 3.2 Variables Independientes
 
 # Tabla 1: Educación
-elsoc_final %>%
+elsoc_final_2 %>%
   count(educ_cat) %>%
   filter(!is.na(educ_cat)) %>%
   mutate(
@@ -228,11 +192,11 @@ elsoc_final %>%
   row_spec(0, bold = TRUE, background = "#f0f0f0") %>%
   add_header_above(c(" " = 1, "Frecuencias" = 3)) %>%
   footnote(general = "Fuente: Elaboración propia con datos ELSOC (2016-2023)",
-           number = paste("N total =", format(sum(!is.na(elsoc_final$educ_cat)), 
+           number = paste("N total =", format(sum(!is.na(elsoc_final_2$educ_cat)), 
                                              big.mark = ",")))
 ```
 
-Por su parte, la @fig-des-4 presenta la distribución de la movilidad educacional intergeneracional para la muestra (2016-2023). El hallazgo principal es que la categoría más frecuente es "Sin movilidad", que agrupa a un 42.25% de los encuestados, indicando que una porción significativa mantiene el mismo nivel educativo que sus progenitores. A continuación, se destaca una importante presencia de movilidad ascendente, que en su conjunto suma casi la mitad de la muestra (49.61%). Esta se desagrega en un 26.93% que experimenta una "Ascendente alta" y un 22.68% con una "Ascendente moderada". Finalmente, la movilidad "Descendente" es el fenómeno menos común, representando solo el 8.14% de los casos analizados (N total = 18,824).
+Por su parte, la @fig-des-4 presenta la distribución de la movilidad educacional intergeneracional para la muestra (2016-2023). El hallazgo principal es que la categoría más frecuente es "Sin movilidad", que agrupa a un 42.31% de los encuestados, indicando que una porción significativa mantiene el mismo nivel educativo que sus progenitores. A continuación, se destaca una importante presencia de movilidad ascendente, que en su conjunto suma casi la mitad de la muestra (49.5%). Esta se desagrega en un 26.85% que experimenta una "Ascendente alta" y un 22.64% con una "Ascendente moderada". Finalmente, la movilidad "Descendente" es el fenómeno menos común, representando solo el 8.14% de los casos analizados (N total = 16.297).
 
 ```{r}
 #| label: fig-des-4
@@ -242,7 +206,7 @@ Por su parte, la @fig-des-4 presenta la distribución de la movilidad educaciona
 #| results: false
 
 # Tabla 2: Movilidad Educacional
-elsoc_final %>%
+elsoc_final_2 %>%
   count(movilidad_cat) %>%
   filter(!is.na(movilidad_cat)) %>%
   mutate(
@@ -264,13 +228,15 @@ elsoc_final %>%
   row_spec(0, bold = TRUE, background = "#f0f0f0") %>%
   add_header_above(c(" " = 1, "Frecuencias" = 3)) %>%
   footnote(general = "Fuente: Elaboración propia con datos ELSOC (2016-2023)",
-           number = paste("N total =", format(sum(!is.na(elsoc_final$movilidad_cat)), 
+           number = paste("N total =", format(sum(!is.na(elsoc_final_2$movilidad_cat)), 
                                              big.mark = ",")))
 ```
 
-La @fig-des-5 y el @fig-des-6 presentan la distribución de movilidad educacional y un cruce con participación no convencional. Se observa una tendencia positiva: a mayor nivel de formación educativa, mayor es el porcentaje de participación en protestas y más alto el índice de protesta. El grupo con "Postgrado" exhibe la tasa de participación más elevada, con un 44.4%, y el índice de protesta más alto (M=0.58). Le siguen de cerca quienes poseen estudios de "Universitaria incompleta" (38.3%) y "Universitaria completa" (30.6%). En el extremo opuesto, los niveles educativos más bajos son los que menos participan; el grupo de "Media incompleta o menos" registra la tasa más baja con solo un 7.5% de participación y un índice de protesta de M=0.09. Estos datos sugieren que el capital educativo es un factor fuertemente asociado a la propensión a involucrarse en acciones de protesta en Chile.
-
 ## Análisis Descriptivo Multivariado
+
+La @fig-des-5 y el @fig-des-6 presentan la distribución de movilidad educacional y un cruce con participación no convencional. Se observa una tendencia positiva: a mayor nivel de formación educativa, mayor es el porcentaje de participación en protestas y más alto el índice de protesta. El grupo con "Postgrado" exhibe la tasa de participación más elevada, con un 43.3%, y el índice de protesta más alto (M=1.88). Le siguen de cerca quienes poseen estudios de "Universitaria incompleta" (37.9%) y "Universitaria completa" (29.5%). En el extremo opuesto, los niveles educativos más bajos son los que menos participan; el grupo de "Media incompleta o menos" registra la tasa más baja con solo un 5.4% de participación y un índice de protesta de M=1.14. 
+
+Estos datos sugieren que la educación sería un factor determinante en el involucramiento en acciones de protesta en Chile.
 
 ```{r}
 #| label: fig-des-5
@@ -280,11 +246,11 @@ La @fig-des-5 y el @fig-des-6 presentan la distribución de movilidad educaciona
  
 # 4.1 H1: Educación × Protesta (no linealidad)
 
-elsoc_final %>%
+elsoc_final_2 %>%
   group_by(educ_cat) %>%
   summarise(
     N = n(),
-    `% del total` = sprintf("%.1f", (n() / nrow(elsoc_final)) * 100),
+    `% del total` = sprintf("%.1f", (n() / nrow(elsoc_final_2)) * 100),
     `Participó (%)` = sprintf("%.1f", mean(protesta_dummy, na.rm = TRUE) * 100),
     `Índice M` = sprintf("%.2f", mean(protesta_index, na.rm = TRUE)),
     `Índice DE` = sprintf("%.2f", sd(protesta_index, na.rm = TRUE))
@@ -296,7 +262,7 @@ elsoc_final %>%
                 full_width = FALSE) %>%
   add_header_above(c(" " = 3, "Protesta (%)" = 1, "Índice de protesta" = 2)) %>%
   footnote(general = "Fuente: Elaboración propia con datos ELSOC.",
-           number = "El índice suma participación en marchas y huelgas (rango 0-2).")
+           number = "El índice suma participación en marchas y huelgas (rango 1-5).")
 
 ```
 
@@ -309,7 +275,7 @@ Además, para el @fig-des-6 se estimaron los intervalos de confianza al 95%, mos
 #| echo: false
 
 # Crear la tabla de datos
-tab_educ <- elsoc_final %>%
+tab_educ <- elsoc_final_2 %>%
   filter(!is.na(educ_cat)) %>%
   group_by(educ_cat) %>%
   summarise(
@@ -354,7 +320,7 @@ ggplot(tab_educ, aes(x = reorder(educ_cat, prop_protesta), y = prop_protesta)) +
 #| echo: false
 
 # Test ANOVA
-mod_anova <- lm(protesta_index ~ educ_cat_factor, data = elsoc_final)
+mod_anova <- lm(protesta_index ~ educ_cat_factor, data = elsoc_final_2)
 print(anova(mod_anova))
 ```
 
@@ -450,6 +416,26 @@ tab_completa %>%
 
 ```
 
+### Interpretación de las Comparaciones Múltiples (Test de Tukey)
+
+Los resultados del test de comparaciones múltiples de Tukey (@fig-des-7) revelan patrones detallados sobre las diferencias en participación en protestas entre niveles educativos. Este análisis permite identificar con precisión estadística qué pares de grupos difieren significativamente entre sí, proporcionando evidencia empírica robusta para las hipótesis sobre la relación entre educación y protesta.
+
+**Principales hallazgos:**
+
+La mayor diferencia observada corresponde a la comparación entre "Media incompleta o menos" y "Postgrado" (diferencia = -0.745, p<0.001, IC 95% [-0.839, -0.650]), evidenciando una separación de casi 0.75 puntos en el índice de protesta. Esta brecha sustantiva y altamente significativa confirma que las personas con mayor formación académica tienen una propensión marcadamente superior a involucrarse en acciones de protesta.
+
+Todas las comparaciones que involucran el nivel "Media incompleta o menos" muestran diferencias estadísticamente significativas (p<0.001) con todos los niveles superiores. Las diferencias aumentan de manera consistente conforme se incrementa el nivel educativo del grupo comparado: desde -0.131 puntos respecto a "Media completa" hasta -0.745 puntos frente a "Postgrado". Esto sugiere un efecto acumulativo de la educación sobre la participación política no convencional.
+
+Las comparaciones dentro del segmento técnico revelan patrones interesantes. La diferencia entre "Técnica superior incompleta" y "Técnica superior completa" no es estadísticamente significativa (diferencia = 0.035, p=0.769, IC 95% [-0.035, 0.105]), lo que indica que la completitud del título técnico no discrimina en términos de participación en protestas. Sin embargo, ambos niveles técnicos difieren significativamente de la educación universitaria, con brechas que oscilan entre 0.140 y 0.305 puntos.
+
+Un hallazgo particularmente relevante como antecedente para la hipótesis H1 sobre no linealidad es que "Universitaria incompleta" supera significativamente a "Universitaria completa" en participación en protestas (diferencia = 0.129, p<0.001, IC 95% [0.069, 0.190]). Esta inversión del patrón esperado sugiere que factores contextuales asociados al estatus estudiantil —como mayor disponibilidad de tiempo, redes de movilización estudiantil, o menor integración al mercado laboral— pueden activar la participación política más que el credencial educativo completo.
+
+De las 21 comparaciones por pares realizadas, 20 resultaron estadísticamente significativas al nivel p<0.001, con la única excepción de la comparación entre técnicas incompleta y completa. Esta alta consistencia en los niveles de significancia refuerza la solidez de la relación entre educación y protesta, descartando que las diferencias observadas sean producto del azar muestral.
+
+Los intervalos de confianza al 95% son consistentemente estrechos, lo que indica alta precisión en las estimaciones. Las diferencias más pequeñas aún estadísticamente significativas corresponden a comparaciones dentro del nivel medio y técnico (en torno a 0.08-0.13 puntos), mientras que las mayores brechas se observan al contrastar educación básica con postgrado (>0.6 puntos). Estas magnitudes representan diferencias porcentuales sustanciales en la probabilidad de participar en protestas.
+
+Estos resultados confirman estadísticamente que la educación constituye un predictor robusto y diferenciado de la participación en protestas, con efectos que no siguen una progresión lineal simple sino que presentan discontinuidades importantes —particularmente en el umbral universitario y entre técnica y universitaria completa—. Esta evidencia descriptiva establece la base empírica para los modelos multinivel posteriores, donde se controlará por estructura de panel y covariables confundidoras.
+
 ```{r}
 #| label: fig-des-8
 #| warning: false
@@ -542,13 +528,189 @@ tab_h1 %>%
 
 Ahora, si bien el análisis de varianza (ANOVA) revela diferencias descriptivas significativas entre niveles educativos, la estructura longitudinal de los datos requiere el uso de modelos de efectos que: (a) corrijan la correlación intra-individual debida a observaciones repetidas, (b) controlen por confusores temporales, y (c) modelen apropiadamente la naturaleza binaria de la variable dependiente mediante regresión logística. Por tanto, los resultados del ANOVA se presentan únicamente con propósitos descriptivos, mientras que para las predicciones y el testeo de hipótesis se basan en los modelos de efectos aleatorios multivariados.
 
+### Variables Independientes: Clase Encuestado
+
+La @fig-des-clase-1 presenta la distribución de clase social según el esquema EGP (Erikson-Goldthorpe-Portocarero) en su versión colapsada de tres categorías para la muestra ELSOC (2016-2023). La clase trabajadora (V+VI+VII) constituye el grupo más numeroso con un 57.43% del total, seguida por la clase intermedia (III+IV) con un 23.93%, y finalmente la clase de servicio (I+II) que representa el 18.64% de la muestra analizada.
+
+```{r}
+#| label: fig-des-clase-1
+#| warning: false
+#| message: false
+#| echo: false
+
+# Distribución de Clase Social (EGP)
+elsoc_final_2 %>%
+  count(egp3) %>%
+  filter(!is.na(egp3)) %>%
+  mutate(
+    Porcentaje = (n / sum(n)) * 100,
+    `Porcentaje Acumulado` = cumsum(Porcentaje)
+  ) %>%
+  rename(`Clase Social (EGP)` = egp3, N = n, `%` = Porcentaje) %>%
+  kbl(caption = "Distribución de Clase Social según Esquema EGP",
+      align = c("l", "c", "c", "c"),
+      digits = 2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  row_spec(0, bold = TRUE, background = "#f0f0f0") %>%
+  add_header_above(c(" " = 1, "Frecuencias" = 3)) %>%
+  footnote(general = "Fuente: Elaboración propia con datos ELSOC (2016-2023)",
+           number = paste("N total =", format(sum(!is.na(elsoc_final_2$egp3)), 
+                                             big.mark = ",")))
+```
+
+La @fig-des-clase-2 muestra la relación entre clase social y participación en protestas. Se observa una clara gradiente: la clase de servicio (I+II) presenta la mayor tasa de participación con un 24.1%, seguida por la clase intermedia (III+IV) con 19.8%, mientras que la clase trabajadora (V+VI+VII) registra la menor participación con 14.0%. Este patrón sugiere que los recursos y capitales asociados a posiciones de clase superiores facilitan el involucramiento en acciones de protesta.
+
+```{r}
+#| label: fig-des-clase-2
+#| warning: false
+#| message: false
+#| echo: false
+
+# Clase × Protesta
+elsoc_final_2 %>%
+  group_by(egp3) %>%
+  summarise(
+    N = n(),
+    `% del total` = sprintf("%.1f", (n() / nrow(elsoc_final_2)) * 100),
+    `Participó (%)` = sprintf("%.1f", mean(protesta_dummy, na.rm = TRUE) * 100),
+    `Índice M` = sprintf("%.2f", mean(protesta_index, na.rm = TRUE)),
+    `Índice DE` = sprintf("%.2f", sd(protesta_index, na.rm = TRUE))
+  ) %>%
+  kbl(align = c("l", "c", "c", "c", "c", "c"),
+      col.names = c("Clase social (EGP)", "N", "% total", "Participó (%)", "M", "DE"),
+      caption = "Participación en protesta según clase social (ELSOC 2016-2023)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  add_header_above(c(" " = 3, "Protesta (%)" = 1, "Índice de protesta" = 2)) %>%
+  footnote(general = "Fuente: Elaboración propia con datos ELSOC.",
+           number = "El índice suma participación en marchas y huelgas (rango 1-5).")
+```
+
+La @fig-des-clase-3 presenta los intervalos de confianza al 95% para la participación en protesta por clase social. Los márgenes son relativamente estrechos, indicando estimaciones precisas. Los intervalos de la clase de servicio y la clase trabajadora no se superponen completamente, lo que respalda la existencia de diferencias estadísticamente significativas entre estos grupos extremos en términos de participación política no convencional.
+
+```{r}
+#| label: fig-des-clase-3
+#| warning: false
+#| message: false
+#| echo: false
+
+# Gráfico con intervalos de confianza
+tab_clase <- elsoc_final_2 %>%
+  filter(!is.na(egp3)) %>%
+  group_by(egp3) %>%
+  summarise(
+    n = n(),
+    prop_protesta = mean(protesta_dummy, na.rm = TRUE) * 100,
+    se_prop = sqrt(mean(protesta_dummy, na.rm = TRUE) * 
+                   (1 - mean(protesta_dummy, na.rm = TRUE)) / n()) * 100
+  ) %>%
+  ungroup()
+
+ggplot(tab_clase, aes(x = reorder(egp3, prop_protesta), y = prop_protesta)) +
+  geom_col(fill = "darkgreen", alpha = 0.7, width = 0.6) +
+  geom_errorbar(aes(ymin = prop_protesta, 
+                    ymax = prop_protesta + 1.96*se_prop), 
+                width = 0.25, 
+                color = "black", 
+                linewidth = 0.7) +
+  geom_text(aes(label = sprintf("%.1f%%", prop_protesta)),
+            vjust = 2.5, size = 3.5, fontface = "bold", color = "white") +
+  ylim(0, max(tab_clase$prop_protesta + 1.96*tab_clase$se_prop) * 1.1) +
+  labs(title = "Participación en protesta por clase social (EGP)",
+       subtitle = "Con intervalos de confianza 95%",
+       x = NULL, 
+       y = "% que participó en protesta",
+       caption = "Fuente: Elaboración propia con datos ELSOC (2016-2023)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(size = 11),
+    plot.caption = element_text(hjust = 0, size = 9, color = "gray30"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+### Test ANOVA para Protesta y Clase Social
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+
+# Test ANOVA para clase
+mod_anova_clase <- lm(protesta_index ~ egp3, data = elsoc_final_2)
+print(anova(mod_anova_clase))
+```
+
+El test ANOVA para protesta y clase social confirma que las diferencias observadas en la participación en protestas según clase social son estadísticamente significativas. El modelo muestra un estadístico F significativo con un valor p < 0.001, indicando que la clase social incide de manera consistente en la propensión a participar en protestas. Este resultado complementa el análisis educativo al demostrar que la posición en la estructura ocupacional también constituye un predictor relevante de la movilización política.
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#| results: false
+
+# Medias marginales estimadas para clase
+emm_clase <- emmeans(mod_anova_clase, ~ egp3)
+print(summary(emm_clase))
+
+# Comparaciones por pares (Tukey)
+comp_pares_clase <- pairs(emm_clase, adjust = "tukey")
+comp_summary_clase <- summary(comp_pares_clase, infer = TRUE)
+comp_df_clase <- as.data.frame(comp_summary_clase)
+```
+
+```{r}
+#| label: fig-des-clase-4
+#| warning: false
+#| message: false
+#| echo: false
+
+# Tabla de comparaciones múltiples para clase
+tab_clase_comp <- comp_df_clase %>%
+  mutate(
+    Comparación = as.character(contrast),
+    Diferencia = sprintf("%.3f", estimate),
+    `Error Est.` = sprintf("%.3f", SE),
+    `IC 95%` = sprintf("[%.3f, %.3f]", lower.CL, upper.CL),
+    `p-valor` = ifelse(p.value < 0.001, "<0.001", sprintf("%.3f", p.value)),
+    Sig = case_when(
+      p.value < 0.001 ~ "***",
+      p.value < 0.01 ~ "**",
+      p.value < 0.05 ~ "*",
+      p.value < 0.1 ~ ".",
+      TRUE ~ ""
+    )
+  ) %>%
+  dplyr::select(Comparación, Diferencia, `Error Est.`, `IC 95%`, `p-valor`, Sig)
+
+# Tabla formateada
+tab_clase_comp %>%
+  kbl(caption = "Comparaciones múltiples entre clases sociales (Test de Tukey)",
+      align = c("l", "c", "c", "c", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  footnote(general = "Fuente: Elaboración propia con datos ELSOC 2016-2023.",
+           symbol = "Significancia: *** p<0.001, ** p<0.01, * p<0.05, . p<0.1")
+```
+
+### Interpretación de las Comparaciones Múltiples por Clase Social
+
+Los resultados del test de comparaciones múltiples de Tukey (@fig-des-clase-4) revelan diferencias significativas en la participación en protestas entre clases sociales. La comparación más relevante muestra que la clase de servicio (I+II) participa significativamente más en protestas que la clase trabajadora (V+VI+VII), evidenciando una brecha que refleja la importancia de los recursos asociados a la posición de clase. La clase intermedia (III+IV) se ubica en una posición intermedia, con diferencias estadísticamente significativas respecto a ambos extremos, lo que sugiere un gradiente continuo en la propensión a la movilización política según la jerarquía ocupacional.
+
+Estos patrones descriptivos confirman que la clase social, medida a través del esquema EGP, constituye un predictor robusto de la participación en protestas, complementando el análisis educativo y proporcionando evidencia empírica sobre la importancia de la posición estructural en la explicación del activismo político en Chile.
+
+### Variables Independientes: Movilidad Educativa
+
 ```{r}
 #| label: fig-des-9
 #| warning: false
 #| message: false
 #| echo: false
 
-tab_mov <- elsoc_final %>%
+tab_mov <- elsoc_final_2 %>%
   filter(!is.na(movilidad_cat)) %>%
   group_by(movilidad_cat) %>%
   summarise(
@@ -618,7 +780,30 @@ El cruce entre origen y destino educacional de la matriz de la @fig-des-11 muest
 
 # 4.3 Matriz Origen-Destino
 
-matriz_prot <- elsoc_final %>%
+# Crear las variables origen-destino si no existen
+elsoc_final_2 <- elsoc_final_2 %>%
+  mutate(
+    # Clasificar educación del encuestado en 3 niveles
+    educ_destino = case_when(
+      educ_years < 12 ~ "Bajo",
+      educ_years >= 12 & educ_years < 16 ~ "Medio",
+      educ_years >= 16 ~ "Alto",
+      TRUE ~ NA_character_
+    ),
+    educ_destino = factor(educ_destino, levels = c("Bajo", "Medio", "Alto"), ordered = TRUE),
+    
+    # Clasificar educación parental en 3 niveles
+    educ_origen = case_when(
+      educ_parental_max < 12 ~ "Bajo",
+      educ_parental_max >= 12 & educ_parental_max < 16 ~ "Medio",
+      educ_parental_max >= 16 ~ "Alto",
+      TRUE ~ NA_character_
+    ),
+    educ_origen = factor(educ_origen, levels = c("Bajo", "Medio", "Alto"), ordered = TRUE)
+  )
+
+# Crear matriz de movilidad
+matriz_prot <- elsoc_final_2 %>%
   filter(!is.na(educ_origen) & !is.na(educ_destino)) %>%
   group_by(educ_origen, educ_destino) %>%
   summarise(
@@ -628,17 +813,24 @@ matriz_prot <- elsoc_final %>%
   )
 
 ggplot(matriz_prot, aes(x = educ_origen, y = educ_destino, fill = prop_protesta)) +
-  geom_tile(color = "white") +
-  geom_text(aes(label = paste0(round(prop_protesta, 1), "%\n(n=", n, ")")), 
+  geom_tile(color = "white", linewidth = 1) +
+  geom_text(aes(label = paste0(round(prop_protesta, 1), "%\n(n=", scales::comma(n), ")")), 
             color = "white", size = 4, fontface = "bold") +
   scale_fill_gradient2(low = "blue", mid = "white", high = "red", 
-                       midpoint = mean(matriz_prot$prop_protesta, na.rm = TRUE)) +
+                       midpoint = mean(matriz_prot$prop_protesta, na.rm = TRUE),
+                       name = "% Protesta") +
   labs(title = "Matriz de movilidad educacional y protesta",
        subtitle = "% que participó en protesta según origen y destino educacional",
-       x = "Educación padres (origen)", y = "Educación propia (destino)",
-       fill = "% Protesta") +
+       x = "Educación padres (origen)", 
+       y = "Educación propia (destino)") +
   theme_minimal() +
-  theme(text = element_text(size = 12))
+  theme(
+    text = element_text(size = 12),
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(size = 11),
+    axis.text = element_text(size = 11),
+    legend.position = "right"
+  )
 ```
 
 Finalmente, el análisis de la interacción entre nivel educativo y movilidad del @fig-des-12 muestra que la participación en protestas no sigue un patrón uniforme, sino que depende de la trayectoria educativa intergeneracional. Los niveles más altos de participación se observan en el nivel de posgrado, especialmente entre quienes presentan movilidad descendente o sin movilidad, con porcentajes superiores al 40%. En contraste, las personas con movilidad ascendente alta tienden a mostrar niveles más bajos de involucramiento en casi todos los tramos educativos, lo que sugiere una mayor integración al sistema institucional. En los niveles medios y técnicos, las diferencias entre tipos de movilidad se reducen considerablemente, indicando una zona de estabilidad política relativa. En conjunto, los resultados evidencian que la movilidad descendente intensifica la protesta en contextos de alta educación, mientras que la movilidad ascendente tiende a moderarla, reflejando tensiones entre logro educativo, reconocimiento social y orientación política.
@@ -650,7 +842,7 @@ Finalmente, el análisis de la interacción entre nivel educativo y movilidad de
 #| echo: false
 
 # 4.4 Interacción Educación × Movilidad
-elsoc_final %>%
+elsoc_final_2 %>%
   filter(!is.na(movilidad_cat) & !is.na(educ_cat)) %>%
   group_by(educ_cat, movilidad_cat) %>%
   summarise(prop_protesta = mean(protesta_dummy, na.rm = TRUE) * 100, .groups = "drop") %>%

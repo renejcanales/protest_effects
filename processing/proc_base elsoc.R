@@ -104,6 +104,13 @@ elsoc_long_select <- elsoc_long %>%
          justicia_pensiones = d02_01,
          justicia_educacion = d02_02, 
          justicia_salud = d02_03,
+         violencia_carabineros_marchas = f05_03,
+         violencia_carabineros_tomas = f05_04,
+         violencia_trabajadores = f05_06,
+         violencia_estudiantes = f05_07,
+         violencia_inmobiliario = f05_09,
+         violencia_transporte = f05_10,
+         violencia_locales = f05_11,
          ciuo08_m03,
          ciuo88_m03) %>% 
   as_tibble() %>% 
@@ -139,7 +146,6 @@ print(table(elsoc_long_select$part_huelga, useNA = "always"))
 # 3. LIMPIEZA Y RECODIFICACIÓN
 # ==============================================================================
 
-
 elsoc_clean <- elsoc_long_select
 
 # ----- PASO 1: RECODIFICACIÓN DE VALORES PERDIDOS -----
@@ -151,20 +157,17 @@ elsoc_clean <- elsoc_clean %>%
 
 # ----- PASO 2: VARIABLE DEPENDIENTE - ÍNDICE DE PROTESTA -----
 
-# Parte A: Crear las variables base (binarias y de frecuencia)
+# Parte A: Crear las variables base
 elsoc_clean <- elsoc_clean %>%
   mutate(
-    # Variables individuales binarias (1 = participó, 0 = no participó)
-    firma_peticion_bin = if_else(firma_peti >= 2, 1, 0, missing = 0),
-    asist_marcha_bin = if_else(asist_marcha >= 2, 1, 0, missing = 0),
-    part_huelga_bin = if_else(part_huelga >= 2, 1, 0, missing = 0),
-    part_cacerolazo_bin = if_else(part_cacerol >= 2, 1, 0, missing = 0),
-    
-    # Variables de frecuencia (escala original 1-5)
+    # Variables de frecuencia (escala original 1-5) - PARA EL ÍNDICE
     firma_peticion_freq = firma_peti,
     asist_marcha_freq = asist_marcha,
     part_huelga_freq = part_huelga,
     part_cacerolazo_freq = part_cacerol,
+    
+    # Variable binaria solo para marcha (usada en protesta_dummy)
+    asist_marcha_bin = if_else(asist_marcha >= 2, 1, 0, missing = 0),
     
     # Flag para saber si la información de cacerolazos está disponible
     cacerolazo_disponible = !is.na(part_cacerol)
@@ -194,25 +197,32 @@ elsoc_clean <- elsoc_clean %>%
 
 # ----- PASO 3: EDUCACIÓN DEL ENCUESTADO -----
 # Se crean categorías, factores y años de estudio para el encuestado
+
+# PASO 3.1: Imputar la máxima educación alcanzada por el encuestado a lo largo de las olas
+elsoc_clean <- elsoc_clean %>%
+  group_by(idencuesta) %>%
+  mutate(educ_encuestado = max(educ_encuestado, na.rm = TRUE)) %>%
+  mutate(educ_encuestado = if_else(is.infinite(educ_encuestado), NA_real_, educ_encuestado)) %>%
+  ungroup()
+
+# PASO 3.2: Crear categorías educacionales colapsadas
 elsoc_clean <- elsoc_clean %>%
   mutate(
     educ_cat = case_when(
-      educ_encuestado %in% c(1:4) ~ "Media incompleta o menos",
-      educ_encuestado == 5 ~ "Media completa",
+      educ_encuestado %in% c(1:5) ~ "Media completa o menos",  # Colapso: media incompleta + media completa (Se colapsan para efectos analíticos)
       educ_encuestado == 6 ~ "Técnica superior incompleta",
       educ_encuestado == 7 ~ "Técnica superior completa",
       educ_encuestado == 8 ~ "Universitaria incompleta",
-      educ_encuestado == 9 ~ "Universitaria completa",
-      educ_encuestado == 10 ~ "Postgrado",
+      educ_encuestado %in% c(9, 10) ~ "Universitaria completa",  # Colapso: univ completa + postgrado (N muy pequeño)
       TRUE ~ NA_character_
     ),
     educ_cat_factor = factor(
       educ_cat,
-      levels = c("Media incompleta o menos", "Media completa", "Técnica superior incompleta",
-                 "Técnica superior completa", "Universitaria incompleta", "Universitaria completa", "Postgrado"),
+      levels = c("Media completa o menos", "Técnica superior incompleta",
+                 "Técnica superior completa", "Universitaria incompleta", "Universitaria completa"), 
       ordered = TRUE
     ),
-    # Años de estudio aproximados según la codificación de ELSOC
+    # Años de estudio aproximados según la codificación CASEN
     educ_years = case_when(
       educ_encuestado == 1 ~ 0, educ_encuestado == 2 ~ 4, educ_encuestado == 3 ~ 8,
       educ_encuestado == 4 ~ 10, educ_encuestado == 5 ~ 12, educ_encuestado == 6 ~ 13,
@@ -234,21 +244,57 @@ elsoc_clean <- elsoc_clean %>%
   fill(educ_padre, educ_madre, .direction = "downup") %>%
   ungroup()
 
-# Calcular años de estudio de los padres y variables resumen
+# Calcular años de estudio y categorías de los padres
 elsoc_clean <- elsoc_clean %>%
   mutate(
+    # Años de estudio del padre
     educ_padre_years = case_when(
       educ_padre == 1 ~ 0, educ_padre == 2 ~ 4, educ_padre == 3 ~ 8, educ_padre == 4 ~ 10,
       educ_padre == 5 ~ 12, educ_padre == 6 ~ 13, educ_padre == 7 ~ 14, educ_padre == 8 ~ 14,
       educ_padre == 9 ~ 17, educ_padre == 10 ~ 19, TRUE ~ NA_real_
     ),
+    # Categoría educacional del padre (colapsada como la del encuestado)
+    educ_padre_cat = case_when(
+      educ_padre %in% c(1:5) ~ "Media completa o menos",
+      educ_padre == 6 ~ "Técnica superior incompleta",
+      educ_padre == 7 ~ "Técnica superior completa",
+      educ_padre == 8 ~ "Universitaria incompleta",
+      educ_padre %in% c(9, 10) ~ "Universitaria completa",
+      TRUE ~ NA_character_
+    ),
+    # Años de estudio de la madre
     educ_madre_years = case_when(
       educ_madre == 1 ~ 0, educ_madre == 2 ~ 4, educ_madre == 3 ~ 8, educ_madre == 4 ~ 10,
       educ_madre == 5 ~ 12, educ_madre == 6 ~ 13, educ_madre == 7 ~ 14, educ_madre == 8 ~ 14,
       educ_madre == 9 ~ 17, educ_madre == 10 ~ 19, TRUE ~ NA_real_
     ),
+    # Categoría educacional de la madre (colapsada como la del encuestado)
+    educ_madre_cat = case_when(
+      educ_madre %in% c(1:5) ~ "Media completa o menos",
+      educ_madre == 6 ~ "Técnica superior incompleta",
+      educ_madre == 7 ~ "Técnica superior completa",
+      educ_madre == 8 ~ "Universitaria incompleta",
+      educ_madre %in% c(9, 10) ~ "Universitaria completa",
+      TRUE ~ NA_character_
+    ),
+    # Máximo de años de educación parental
     educ_parental_max = pmax(educ_padre_years, educ_madre_years, na.rm = TRUE),
     educ_parental_max = if_else(is.na(educ_padre_years) & is.na(educ_madre_years), NA_real_, educ_parental_max),
+    
+    # Categoría del padre/madre con mayor educación (para análisis)
+    educ_parental_cat_detallada = case_when(
+      educ_parental_max <= 10 ~ "Media completa o menos",
+      educ_parental_max %in% c(13, 14) ~ "Técnica superior",
+      educ_parental_max >= 17 ~ "Universitaria completa",
+      TRUE ~ NA_character_
+    ),
+    educ_parental_cat_detallada = factor(
+      educ_parental_cat_detallada,
+      levels = c("Media completa o menos", "Técnica superior", "Universitaria completa"),
+      ordered = TRUE
+    ),
+    
+    # Categoría simplificada en 4 niveles (mantener la original para continuidad)
     educ_parental_cat = factor(case_when(
       educ_parental_max < 12 ~ "Bajo",
       educ_parental_max == 12 ~ "Medio",
@@ -296,6 +342,12 @@ elsoc_clean <- elsoc_clean %>%
     eficacia_politica = rowMeans(dplyr::select(., efic_voto, efic_result, efic_expr), na.rm = TRUE)
   )
 
+  # Imputar ideología hacia adelante y atrás
+elsoc_clean <- elsoc_clean %>%
+  group_by(idencuesta) %>%
+  fill(ideologia_std, .direction = "downup") %>%  # Imputar hacia adelante y atrás
+  ungroup()
+
 # ----- PASO 7: VARIABLES TEMPORALES -----
 # Se crean variables relacionadas con el tiempo y contexto (Estallido Social)
 elsoc_clean <- elsoc_clean %>%
@@ -322,6 +374,34 @@ elsoc_clean <- elsoc_clean %>%
     meritocracia = rowMeans(dplyr::select(., recomp_esfuer, recomp_talent), na.rm = TRUE),
     clase_subjetiva = perc_sub_clase,
     satis_ingreso_std = satis_ingreso
+  )
+
+# ----- PASO 9: JUSTIFICACIÓN DE LA VIOLENCIA -----
+# Se crean dos índices separados para distinguir tipos de violencia
+
+elsoc_clean <- elsoc_clean %>%
+  mutate(
+    # ÍNDICE 1: Justificación de violencia ESTATAL (Carabineros)
+    # Refleja actitudes hacia la represión policial en contextos de protesta
+    justif_violencia_estatal = rowMeans(
+      dplyr::select(., violencia_carabineros_marchas, violencia_carabineros_tomas), 
+      na.rm = TRUE
+    ),
+    
+    # ÍNDICE 2: Justificación de violencia en PROTESTAS (manifestantes)
+    # Refleja actitudes hacia diferentes formas de violencia en movilizaciones
+    justif_violencia_protesta = rowMeans(
+      dplyr::select(., violencia_trabajadores, violencia_estudiantes, 
+                    violencia_inmobiliario, violencia_transporte, violencia_locales), 
+      na.rm = TRUE
+    ),
+    
+    # Variables dummy para análisis binarios
+    justifica_violencia_estatal_dummy = if_else(justif_violencia_estatal > 1, 1, 0),
+    justifica_violencia_protesta_dummy = if_else(justif_violencia_protesta > 1, 1, 0),
+    
+    # Flag de disponibilidad (estas variables no están en todas las olas)
+    violencia_disponible = !is.na(violencia_carabineros_marchas) | !is.na(violencia_trabajadores)
   )
 
 # Recode Ocupación
@@ -481,13 +561,26 @@ sjt.xtab(elsoc_clean$egp3,elsoc_clean$ola,
          show.summary=FALSE,         title=NULL)
 
 
-
 # ==================================================================================
 # 4. FILTROS Y RESTRICCIONES
 # ==============================================================================
 
+# PASO 4.1: Identificar individuos con al menos 3 olas
+individuos_min_3_olas <- elsoc_clean %>%
+  group_by(idencuesta) %>%
+  summarise(n_olas = n()) %>%
+  filter(n_olas >= 3) %>%
+  pull(idencuesta)
+
+cat("\n=== BALANCEO DEL PANEL ===\n")
+cat("Individuos con al menos 3 olas:", length(individuos_min_3_olas), "\n")
+
+# PASO 4.2: Aplicar filtros
 elsoc_analisis <- elsoc_clean %>%
   filter(
+    # Balanceo del panel: mínimo 3 olas por individuo
+    idencuesta %in% individuos_min_3_olas,
+    
     # Adultos en edad relevante
     edad >= 18 & edad <= 75,
     
@@ -500,10 +593,48 @@ elsoc_analisis <- elsoc_clean %>%
   )
 
 
+cat("\n=== RESUMEN DE FILTROS ===\n")
 cat("Casos originales:", nrow(elsoc_clean), "\n")
-cat("Casos finales:", nrow(elsoc_analisis), "\n")
+cat("Casos finales (panel balanceado):", nrow(elsoc_analisis), "\n")
 cat("Porcentaje retenido:", 
     round(nrow(elsoc_analisis)/nrow(elsoc_clean)*100, 2), "%\n")
+cat("Individuos únicos finales:", n_distinct(elsoc_analisis$idencuesta), "\n")
+
+# ==============================================================================
+# 4.3. VERIFICACIÓN DE BALANCEO DEL PANEL
+# ==============================================================================
+
+cat("\n=== VERIFICACIÓN DE BALANCEO ===\n")
+
+# Casos por ola
+casos_por_ola <- elsoc_analisis %>%
+  group_by(ola) %>%
+  summarise(n_casos = n()) %>%
+  arrange(ola)
+
+print(casos_por_ola)
+
+# Distribución de olas por individuo
+olas_por_individuo <- elsoc_analisis %>%
+  group_by(idencuesta) %>%
+  summarise(n_olas = n()) %>%
+  count(n_olas, name = "n_individuos")
+
+cat("\nDistribución de observaciones por individuo:\n")
+print(olas_por_individuo)
+
+# Verificar si está perfectamente balanceado
+n_individuos <- n_distinct(elsoc_analisis$idencuesta)
+n_olas_total <- n_distinct(elsoc_analisis$ola)
+esperado_si_balanceado <- n_individuos * n_olas_total
+
+cat("\nDiagnóstico de balanceo:\n")
+cat("- Individuos únicos:", n_individuos, "\n")
+cat("- Olas únicas:", n_olas_total, "\n")
+cat("- Casos esperados si panel balanceado:", esperado_si_balanceado, "\n")
+cat("- Casos observados:", nrow(elsoc_analisis), "\n")
+cat("- ¿Panel balanceado?:", 
+    ifelse(nrow(elsoc_analisis) == esperado_si_balanceado, "SÍ ✓", "NO ✗"), "\n")
 
 # ==============================================================================
 # 5. ANÁLISIS DE VALORES PERDIDOS
@@ -532,7 +663,7 @@ print(table(elsoc_analisis$movilidad_cat, useNA = "always"))
 
 cat("\n=== ESTADÍSTICAS NUMÉRICAS ===\n")
 print(summary(elsoc_analisis %>% 
-                dplyr::select(protesta_index, educ_years, movilidad_years, edad)))
+                dplyr::select(protesta_index, educ_years, movilidad_years, edad, protesta_dummy)))
 
 # ==============================================================================
 # 7. TABLAS CRUZADAS
@@ -569,39 +700,38 @@ panel_structure <- elsoc_analisis %>%
   count(n_olas)
 print(panel_structure)
 
+
+
 # ==============================================================================
 # 9. SELECCIONAR VARIABLES FINALES
 # ==============================================================================
 
-elsoc_final <- elsoc_analisis %>%
+elsoc_final_2 <- elsoc_analisis %>%
   dplyr::select(
     # IDs
     idencuesta, ola, year, tipo_atricion,
     
-    # VD - Formas individuales (binarias)
-    firma_peticion_bin, asist_marcha_bin, 
-    part_huelga_bin, part_cacerolazo_bin,
-    
-    # VD - Formas individuales (frecuencia)
+    # VD - Formas individuales (frecuencia 1-5) - USADAS PARA ÍNDICE
     firma_peticion_freq, asist_marcha_freq,
     part_huelga_freq, part_cacerolazo_freq,
     
-    # VD - Índices principales
-    protesta_index,              # PRINCIPAL: marchas + huelgas
-    protesta_index_completo,     # Incluye cacerolazos
-    participacion_amplia,        # Incluye firmar peticiones
+    # VD - Variable binaria auxiliar
+    asist_marcha_bin,  # Solo para crear protesta_dummy
     
-    # VD - Intensidad
-    protesta_intensidad,
-    protesta_intensidad_completa,
+    # VD - Índices principales
+    protesta_index,                      # PRINCIPAL: promedio marcha + huelga + petición
+    protesta_index_completo,             # Incluye cacerolazos
+    
+    # VD - Intensidad (suma)
+    protesta_intensidad_suma,            # Suma de marcha + huelga + petición
+    protesta_intensidad_suma_completa,   # Suma incluyendo cacerolazos
     
     # VD - Dicotómicas
-    protesta_dummy,              # PRINCIPAL DUMMY
-    protesta_multiple,
-    participa_dummy,
+    protesta_dummy,                      # PRINCIPAL DUMMY: participó en marcha
     
     # Flags
     cacerolazo_disponible,
+    protesta_missing,
     
     # VI principales
     educ_cat, educ_cat_factor, educ_years,
@@ -614,22 +744,59 @@ elsoc_final <- elsoc_analisis %>%
     edad, edad_cuadratica, mujer,
     ideologia_std, ideologia_cat,
     interes_politica,
-    conf_instituciones, eficacia_politica,
+    conf_instituciones, eficacia_politica, egp, egp3,
     
     # Temporales
     post_estallido, periodo,
     
     # Mediadoras
     justicia_distributiva, meritocracia,
-    clase_subjetiva, satis_ingreso_std, egp, egp3
+    clase_subjetiva, satis_ingreso_std, egp, egp3,
+    
+    # Justificación de violencia
+    justif_violencia_estatal, justif_violencia_protesta,
+    justifica_violencia_estatal_dummy, justifica_violencia_protesta_dummy,
+    violencia_disponible
   )
 
 sjPlot::view_df(elsoc_final,
                 show.frq = T,show.values = T,show.na = T,show.prc = T, show.type = T)
+
 # ==============================================================================
-# 10. GUARDAR BASE
+# 10. MATRIZ ORIGEN-DESTINO Y GUARDAR BASE
 # ==============================================================================
 
-save(elsoc_final, file = here ("input/data/proc/elsoc_final.RData"))
+# Crear matriz de movilidad educacional origen-destino
+elsoc_final_2 <- elsoc_final %>%
+  mutate(
+    # Clasificar educación del encuestado en 3 niveles
+    educ_destino = case_when(
+      educ_years < 12 ~ "Bajo",
+      educ_years >= 12 & educ_years < 16 ~ "Medio",
+      educ_years >= 16 ~ "Alto",
+      TRUE ~ NA_character_
+    ),
+    educ_destino = factor(educ_destino, levels = c("Bajo", "Medio", "Alto"), ordered = TRUE),
+    
+    # Clasificar educación parental en 3 niveles
+    educ_origen = case_when(
+      educ_parental_max < 12 ~ "Bajo",
+      educ_parental_max >= 12 & educ_parental_max < 16 ~ "Medio",
+      educ_parental_max >= 16 ~ "Alto",
+      TRUE ~ NA_character_
+    ),
+    educ_origen = factor(educ_origen, levels = c("Bajo", "Medio", "Alto"), ordered = TRUE),
+    
+    # Crear matriz de movilidad (9 categorías posibles)
+    matriz_movilidad = interaction(educ_origen, educ_destino, sep = " → ")
+  )
 
+cat("\n=== DISTRIBUCIÓN MATRIZ ORIGEN-DESTINO ===\n")
+print(table(elsoc_final$matriz_movilidad, useNA = "always"))
+
+# Guardar base final
+save(elsoc_final_2, file = here("input/data/proc/elsoc_final_2.RData"))
+
+cat("\n=== BASE GUARDADA ===\n")
 cat("Dimensiones finales:", dim(elsoc_final), "\n")
+cat("Variables totales:", ncol(elsoc_final), "\n")
