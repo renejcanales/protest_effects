@@ -596,7 +596,7 @@ screenreg(mod_clase_protesta,
           include.ci = FALSE)
 ```
 
-## Interpretación: Efecto diferencial por clase
+## Interpretación: Efecto diferencial por clase social
 
 **Efectos de participar según clase social**:
 
