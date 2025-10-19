@@ -1,0 +1,171 @@
+# Marco Teórico
+
+2. MARCO TEÓRICO Y DESARROLLO DE HIPÓTESIS
+
+2.1 Educación y actitudes políticas (900 palabras)
+2.2 Participación como experiencia transformadora (900 palabras)  
+2.3 Clase social como moderador estructural (900 palabras)
+2.4 Síntesis: Modelo integrado e hipótesis (300 palabras)
+
+[300 pal] El consenso: enlightenment effect
+  - Nie et al. (1996): cognitive sophistication
+  - Weakliem (2002): efecto transcultural
+  - Lipset (clásico): educación → menos autoritarismo
+  - Mecanismos: exposición a diversidad, pensamiento crítico
+
+[300 pal] Críticas y limitaciones
+  - NO consideran CONTEXTO de activación
+  - Asumen efectos lineales y estables
+  - Ignoran que educación puede ser AMPLIFICADOR
+  - Problema: estudian actitudes generales, no situacionales
+
+[300 pal] Tu propuesta: educación como amplificador condicional
+  - Educación NO es civilizatoria per se
+  - Es CONDICIONAL a participación
+  - Mecanismo: facilita elaboración de marcos complejos
+  - Hipótesis 1: Efecto paradójico (se invierte con participación)
+```
+
+---
+
+### **2.2 PARTICIPACIÓN COMO EXPERIENCIA TRANSFORMADORA (900 palabras)**
+
+#### **Papers OBLIGATORIOS:**
+
+1. **McAdam (1989)** - "Biographical Consequences of Activism"
+   - **Qué leer:** TODO (paper corto, 17 páginas)
+   - **Qué buscar:**
+     - Concepto de "biographical consequences"
+     - Freedom Summer volunteers: efectos de largo plazo
+     - Participación cambia valores, carreras, relaciones
+   - **Cita clave:** "Activismo de alto riesgo tiene consecuencias biográficas duraderas"
+
+2. **Snow & Benford (1988)** - "Ideology, Frame Resonance, and Participant Mobilization"
+   - **Qué leer:** Secciones sobre "frame alignment"
+   - **Qué buscar:**
+     - Cómo movimientos construyen marcos de acción colectiva
+     - "Frame resonance" - cuándo los marcos funcionan
+     - Procesos de "frame alignment"
+   - **Cita clave:** Movimientos redefinen lo que cuenta como legítimo
+
+3. **Giugni (2004)** - "Personal and Biographical Consequences"
+   - **Qué leer:** Capítulo en Blackwell Companion (sección teórica)
+   - **Qué buscar:**
+     - Revisión de literatura sobre efectos de participación
+     - Distingue efectos corto vs largo plazo
+     - Heterogeneidad de efectos
+
+#### **Papers COMPLEMENTARIOS:**
+
+4. **Klandermans & Oegema (1987)** - Sobre socialización política en movimientos
+5. **Downton & Wehr (1997)** - Transformación personal en activismo
+
+#### **Estructura de tu sección 2.2:**
+```
+[250 pal] De selección a socialización
+  - Crítica a modelos puramente disposicionales
+  - McAdam (1989): participación CAMBIA a personas
+  - No solo "quién protesta" sino "cómo protesta transforma"
+
+[350 pal] Mecanismos de transformación
+  - Exposición a marcos alternativos (Snow & Benford, 1988)
+  - Solidaridad grupal e identidad colectiva
+  - Experiencias directas de represión
+  - Inmersión en subculturas de movimiento
+
+[300 pal] Heterogeneidad del efecto participación
+  - Por qué universitarios cambian MÁS
+  - Mayor flexibilidad cognitiva
+  - Capacidad de elaborar justificaciones complejas
+  - Hipótesis 2: Reconfiguración bidireccional
+    * Legitiman violencia manifestantes
+    * Deslegitiman violencia estatal
+```
+
+---
+
+### **2.3 CLASE SOCIAL COMO MODERADOR ESTRUCTURAL (900 palabras)**
+
+#### **Papers OBLIGATORIOS:**
+
+1. **Stewart (2002)** - "Horizontal Inequalities: A Neglected Dimension"
+   - **Qué leer:** Todo (working paper, ~30 págs)
+   - **Qué buscar:**
+     - Definición de horizontal inequalities
+     - Por qué importan más que vertical
+     - Mecanismos: grievances + opportunities
+   - **Cita clave:** "Desigualdades que coinciden con clivajes culturales facilitan movilización"
+
+2. **Østby (2013)** - "Inequality and Political Violence: A Review"
+   - **Qué leer:** Secciones teóricas (pp. 214-218)
+   - **Qué buscar:**
+     - Figura 1: mecanismos HI → movilización
+     - Grievances vs opportunities
+     - Por qué desigualdad grupal importa
+   - **Cita clave:** "Conflicto es fenómeno grupal, no individual"
+
+3. **Svallfors (2006)** - *The Moral Economy of Class*
+   - **Qué leer:** Capítulo sobre actitudes hacia estado/autoridad
+   - **Qué buscar:**
+     - Habitus de clase
+     - Orientaciones diferenciadas hacia transgresión
+     - Experiencias estructurales diferentes
+
+4. **Horowitz (1985)** - *Ethnic Groups in Conflict*
+   - **Qué leer:** Capítulos sobre "ranked ethnic systems"
+   - **Qué buscar:**
+     - Cuando grupos son estratificados jerárquicamente
+     - Comparación social y conflicto
+     - Grupos privilegiados vs desprivilegiados
+
+#### **Papers COMPLEMENTARIOS:**
+
+5. **Bourdieu (1984)** - *Distinction* (solo sección sobre habitus de clase)
+6. **Cederman et al. (2011)** - Desigualdades horizontales y conflicto etno-nacionalista
+
+#### **Estructura de tu sección 2.3:**
+```
+[300 pal] Clase y orientaciones hacia autoridad/transgresión
+  - Habitus de clase (Bourdieu light)
+  - Svallfors: actitudes de clase hacia estado
+  - Experiencias diferenciales con violencia estructural
+
+[300 pal] El "efecto techo" de la working class
+  - Mayor proximidad a violencia cotidiana
+  - Ya parten de mayor tolerancia (predisposición estructural)
+  - Service class: mayor "distancia"
+  - Mecanismo: grievances preexistentes
+
+[300 pal] Clase como MODERADOR (no predictor lineal)
+  - Østby/Stewart: HI operan vía grievances + opportunities
+  - Working class: altos grievances limitan cambio marginal
+  - Service class: bajos grievances → mayor transformación
+  - Hipótesis 3: Interacción negativa clase × participación
+```
+
+---
+
+### **2.4 SÍNTESIS: MODELO INTEGRADO E HIPÓTESIS (300 palabras)**
+```
+[150 pal] Modelo conceptual integrado
+  - Figura o diagrama conceptual
+  - Educación: amplificador
+  - Clase: moderador estructural
+  - Participación: contexto de activación
+
+[150 pal] Hipótesis formales
+  H1: Interacción Educación × Participación (positiva)
+      - Entre no-participantes: educación → menos violencia
+      - Entre participantes: educación → MÁS violencia
+  
+  H2: Reconfiguración bidireccional (universitarios participantes)
+      - Justifican MÁS violencia manifestantes
+      - Justifican MENOS violencia policial
+  
+  H3: Interacción Clase × Participación (negativa)
+      - Service class: mayor cambio al participar
+      - Working class: menor cambio (efecto techo)
+  
+  H4: Divergencia vs convergencia
+      - Educación: divergencia (amplifica diferencias)
+      - Clase: convergencia (nivela diferencias)

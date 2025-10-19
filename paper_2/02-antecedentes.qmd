@@ -1,0 +1,52 @@
+# Antecedentes
+
+I. El "efecto civilizatorio" de la educación: promesa y límites
+   - Revisión clásica: educación → menor violencia
+   - Crítica: estos estudios no consideran PARTICIPACIÓN
+   - Tu hipótesis implícita: la educación interactúa con experiencia
+
+II. Participación como experiencia transformadora
+   - No solo "quién protesta" sino "cómo protesta cambia a las personas"
+   - Mecanismos: exposición a marcos alternativos, solidaridad grupal, 
+     experiencias de represión
+   - Gap en literatura: efectos heterogéneos por capital cultural
+
+III. Clase social como estructura de predisposiciones
+   - Por qué working class puede partir de mayor tolerancia
+   - Service class: mayor "distancia" de violencia cotidiana
+   - Tu contribución: clase MODERA el efecto de participación
+
+IV. Contexto chileno 2019: un laboratorio natural
+   - Masividad del movimiento permite observar efectos en múltiples estratos
+   - Debate público sobre "violencia legítima"
+   - Pregunta: ¿quién legitimó QUÉ tipo de violencia?
+```
+
+### 3. **Búsquedas estratégicas urgentes**
+
+Te sugiero buscar AHORA (en este orden de prioridad):
+
+1. **"education protest violence"** + **"legitimacy"**
+2. **"political violence attitudes" + "social class"**  
+3. **"participation effects" + "political socialization"**
+4. **"Chile 2019" + "estallido social" + "violence"** (contexto específico)
+
+### 4. **Cómo "rellenar" el marco teórico eficientemente**
+
+Dado que vas contra el tiempo:
+
+**NO intentes:**
+- Revisar exhaustivamente cada tradición
+- Cubrir toda la literatura de movimientos sociales
+
+**SÍ enfócate en:**
+- 2-3 papers clave por sección que te permitan plantear tu "puzzle teórico"
+- Tu argumento debe ser: "La literatura X dice Y, pero cuando consideramos Z (participación/clase), encontramos lo opuesto"
+- Usa tus resultados para **justificar retrospectivamente** qué teorías necesitabas
+
+**Estructura de cada sub-sección:**
+```
+- Claim teórico dominante (2-3 citas)
+- Limitación/gap de ese claim (1-2 citas + tu argumento)
+- Qué predice tu enfoque alternativo
+- [Luego tus resultados lo confirman/matizan]
