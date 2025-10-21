@@ -1,20 +1,25 @@
 ---
 title: "Actitudes hacia la Violencia Política: Educación, Clase y Participación en Protestas en Chile (2016-2023)"
+subtitle: "Informe de Tesis: Resultados Preliminares"
+author: "René Canales"
 format:
   pdf: 
-    documentclass: article
-    geometry: 
-      - margin=2.5cm
-      - top=3cm
-      - bottom=3cm
-    keep-tex: true
     include-in-header:
       text: |
+        \usepackage{float}
+        \usepackage{graphicx}
         \usepackage[noblocks]{authblk}
         \renewcommand*{\Authsep}{, }
         \renewcommand*{\Authand}{, }
         \renewcommand*{\Authands}{, }
         \renewcommand\Affilfont{\small}
+    documentclass: article
+    pdf-engine: xelatex
+    keep-tex: true
+    geometry:
+      - margin=2.5cm
+      - top=3cm
+      - bottom=3cm
     number-sections: true
     colorlinks: true
     linkcolor: blue
@@ -23,84 +28,19 @@ format:
     code-block-bg: true
     code-block-border-left: "#31BAE9"
     highlight-style: github
+    linestretch: 1.5
+    mainfont: "Times New Roman"
+    fontsize: 12pt
+    fig-height: 4
+    fig-width: 7
 editor: source
-author:
-  - name: René Canales
-    orcid: 0009-0002-4299-2725
-    email: renecanales@uc.cl
-    affiliations: Instituto de Sociología, Pontificia Universidad Católica de Chile
 citeproc: true
-abstract: | 
+abstract: |
   **Keywords**: Political Violence, Protest Participation, Education, Social Class, Chile
 link-citations: true
-linestretch: 1.5       
-mainfont: Times New Roman
-fontsize: 12pt          
-fig-height: 4
-fig-width: 7
 ---
 
-# Antecedentes
-
-El 18 de octubre de 2019 marcó un antes y un después en la historia política de Chile. Lo que comenzó como una evasión masiva del metro en Santiago se transformó en pocas horas en el acontecimiento contencioso más importante desde el retorno a la democracia en 1990 (Somma et al., 2021). Durante semanas, miles de personas ocuparon las calles de todo el país, desafiando no solo la herencia del neoliberalismo que arrastraba el país desde la dictadura, sino también los límites históricos de lo que se consideraba acción colectiva. Las protestas del llamado "estallido social" combinaron masividad, aparente transversalidad social y repertorios confrontacionales de manera inédita: desde marchas pacíficas hasta bloqueos de calles, ocupaciones de plazas públicas, y episodios recurrentes de violencia contra la propiedad y enfrentamientos con fuerzas de ley y orden. La respuesta estatal fue igualmente sin precedentes: más de 8,000 víctimas de violencia policial, más de 400 casos de trauma ocular, y lo que Amnistía Internacional calificó como la crisis de derechos humanos más grave desde el fin de la dictadura (Amnistía Internacional, 2020; Human Rights Watch, 2019). En medio de la polarización mediática y política, una pregunta emergió con urgencia tanto en espacios públicos como académicos: ¿cuándo, si acaso, es legítima la violencia política? Y más importante aún: ¿quiénes justifican qué tipo de violencia?
-
-Observadores del estallido notaron un patrón contraintuitivo que desafiaba las expectativas del sentido sociológico común: entre quienes defendían ciertas formas de violencia táctica en protestas, profesionales, académicos y estudiantes universitarios estaban notoriamente representados. Análisis preliminares de encuestas mostraban que manifestantes intensivos tendían a ser "jóvenes y educados, más de izquierda, más interesados y participativos en política", y "más probables de justificar acciones ilegales/violentas como medio para el cambio social" (González & Le Foulon, 2020, p. 228). Este patrón empírico contradice décadas de investigación en ciencias sociales que han documentado consistentemente una asociación entre mayor educación y actitudes menos permisivas hacia la violencia, la transgresión normativa y el autoritarismo (Nie et al., 1996; Weakliem, 2002). Si la educación supuestamente promueve valores democráticos de tolerancia y resolución pacífica de conflictos, ¿cómo explicar que universitarios participantes en protestas mostraran niveles comparativamente altos de justificación de violencia política?
-
-La literatura existente sobre educación y actitudes políticas ha documentado de manera robusta lo que podríamos llamar un "efecto civilizatorio" de la educación formal. Desde los trabajos seminales de Lipset en los años 60 hasta investigaciones recientes, numerosos estudios muestran que personas con mayor educación tienden a exhibir actitudes más tolerantes, mayor apoyo a normas democráticas, menor autoritarismo y rechazo a la violencia como medio político. Nie et al. (1996) argumentan que la educación afecta la ciudadanía democrática a través de dos vías: incrementando la sofisticación racional y posicionando a individuos en redes que facilitan el compromiso político. Weakliem (2002) muestra que estos efectos operan transculturalmente, reflejando la influencia de lo que denomina "cultura ilustrada oficial". Los mecanismos propuestos son múltiples: la educación incrementaría la sofisticación cognitiva, expondría a las personas a perspectivas diversas, desarrollaría habilidades de pensamiento crítico y facilitaría la internalización de normas democráticas. De manera similar, aunque con resultados más mixtos, la literatura sobre clase social y actitudes políticas ha explorado cómo la posición en la estructura ocupacional se asocia con orientaciones diferenciadas hacia la autoridad, el orden social y la transgresión normativa (Svallfors, 2006).
-
-Sin embargo, esta literatura comparte una limitación fundamental: asume que los efectos de educación y clase social sobre actitudes hacia la violencia política son lineales, estables y operan de manera independiente del contexto situacional y las experiencias concretas de los individuos. Los estudios típicamente modelan educación y clase como predictores directos de actitudes, sin considerar que sus efectos pueden ser contingentes a otras variables cruciales, particularmente la experiencia de participación en protestas. Esta omisión es problemática porque ignora que la participación política no es meramente un reflejo de predisposiciones previas, sino una experiencia potencialmente transformadora que puede reconfigurar marcos cognitivos, identidades colectivas y evaluaciones morales sobre lo que constituye acción política legítima. McAdam (1989), en un estudio pionero sobre el tema, demostró que la participación en activismo de alto riesgo tiene "consecuencias biográficas" profundas y duraderas: los voluntarios no solo permanecieron más activos políticamente décadas después, sino que sus trayectorias profesionales, maritales y valores fundamentales fueron transformados por la experiencia. Si asumimos que participar en protestas expone a las personas a marcos discursivos alternativos (Snow & Benford, 1988), genera solidaridad grupal, y puede involucrar experiencias directas de represión estatal, entonces es plausible que los efectos de educación y clase operen de manera diferente entre quienes participan versus quienes no lo hacen.
-
-Una segunda limitación conceptual de la literatura tradicional sobre desigualdad y conflicto radica en su enfoque exclusivo sobre desigualdades "verticales" (inter-individuales) en vez de desigualdades "horizontales" (inter-grupales). Como documenta Østby (2013), décadas de estudios sobre desigualdad vertical medida por el coeficiente de Gini han producido resultados inconsistentes respecto a su relación con violencia política. El problema, argumenta siguiendo a Stewart (2002, 2008), es que el conflicto y la violencia son fenómenos esencialmente grupales, no situaciones de individuos cometiendo violencia aleatoriamente. La identidad grupal es crítica para el reclutamiento y mantención de lealtad a organizaciones de movilización. 
-
-En el caso chileno, las divisiones relevantes no son puramente económicas individuales, sino que se estructuran a través de clivajes educativos y de clase que configuran experiencias colectivas diferenciadas. La clase trabajadora (working class) experimenta cotidianamente formas de violencia estructural y simbólica que pueden generar mayor tolerancia basal hacia transgresiones normativas, mientras que la clase de servicio (service class), más distante de estas experiencias, puede experimentar transformaciones cognitivas más profundas al participar en protestas (Horowitz, 1985).
-
-Este artículo propone que los efectos de la educación y la clase social sobre actitudes hacia la violencia política son fundamentalmente contingentes a la participación en protestas, y que operan a través de mecanismos sociológicos diferenciados. Específicamente, argumento tres puntos centrales. Primero, la educación no tiene un efecto civilizatorio universal, sino que actúa como un amplificador condicional: entre quienes no participan en protestas, mayor educación efectivamente reduce la justificación de violencia (consistente con el efecto civilizatorio clásico); sin embargo, entre quienes sí participan, este efecto se invierte, y personas más educadas muestran mayor justificación de violencia en manifestaciones. Este "efecto paradójico" sugiere que la educación facilita la elaboración de marcos ideológicos complejos que pueden legitimar la violencia táctica en contextos específicos de movilización, similar a como Snow y Benford (1988) argumentan que los movimientos sociales construyen "marcos de acción colectiva" que redefinen lo que cuenta como acción legítima.
-
-Segundo, la participación en protestas genera una reconfiguración bidireccional de actitudes hacia violencia según el tipo de actor que la ejerce. Universitarios que participan en protestas no solo incrementan su justificación de violencia ejercida por manifestantes, sino que simultáneamente reducen su justificación de violencia ejercida por Carabineros. Esta diferenciación sugiere que la participación facilita el desarrollo de marcos morales coherentes que legitiman la violencia como herramienta de resistencia mientras deslegitiman la violencia como herramienta de represión estatal, un patrón consistente con literatura sobre legitimidad policial que muestra que la percepción de injusticia procedimental erosiona la legitimidad institucional (Tyler, 2006).
-
-Tercero, la clase social opera como un moderador estructural que determina la intensidad del cambio actitudinal al participar. Siguiendo el enfoque de desigualdades horizontales (Stewart, 2002, 2008; Østby, 2013), argumento que la clase trabajadora (working class), debido a su mayor proximidad a experiencias cotidianas de violencia estructural y simbólica, parte de niveles más altos de tolerancia hacia la violencia política, mostrando un "efecto techo" al participar (menor transformación). En contraste, la clase de servicio (service class), más distante de estas experiencias, experimenta una transformación cognitiva más profunda al involucrarse en protestas. Como señala Østby (2013, p. 216), las desigualdades horizontales afectan la movilización grupal tanto a través de mecanismos basados en agravios (grievances) como en oportunidades. En el caso de la clase trabajadora, los agravios preexistentes generan una predisposición estructural que limita el cambio marginal al participar. Este patrón implica que la participación tiene efectos niveladores entre clases (convergencia), mientras que amplifica desigualdades educativas (divergencia).
-
-La pregunta que guía este estudio es: ¿Cómo interactúan la educación, la clase social y la participación en protestas para moldear actitudes hacia la violencia política en el contexto chileno?
-
-Los objetivos específicos son:
-
-- Examinar el efecto diferencial de la educación sobre la justificación de violencia política según participación en protestas, testeando si el "efecto civilizatorio" se mantiene, se atenúa o se invierte entre participantes.
-
-- Analizar la reconfiguración bidireccional de actitudes hacia violencia ejercida por diferentes actores (manifestantes versus Carabineros) entre universitarios que participan en protestas.
-
-- Evaluar el rol moderador de la clase social en la relación entre participación y actitudes hacia violencia, identificando si existen efectos diferenciales entre service class, intermediate class y working class.
-
-- Comparar los mecanismos sociológicos diferenciados a través de los cuales educación y clase social operan como determinantes de actitudes hacia violencia política.
-
-El análisis de datos longitudinales de la Encuesta Longitudinal Social de Chile (ELSOC) 2016-2023, que cubre el periodo antes, durante y después del estallido social, revela cuatro hallazgos principales. Primero, se documenta un efecto paradójico de la educación: entre no participantes, universitarios justifican menos la violencia en protestas (-0.11 puntos en escala 1-5, p<0.001); sin embargo, entre participantes, universitarios muestran los niveles más altos de justificación (+0.25 puntos respecto al efecto base). Segundo, universitarios que participan exhiben una reconfiguración bidireccional coherente: incrementan 0.25 puntos su justificación de violencia en protestas, pero reducen 0.16 puntos su justificación de violencia policial (p<0.001 en ambos casos). Tercero, la clase social modera la intensidad del cambio: la service class experimenta un incremento de 0.36 puntos al participar, mientras que la working class solo incrementa 0.19 puntos (interacción negativa: -0.17, p<0.10). Cuarto, estos patrones revelan mecanismos diferenciados: la educación amplifica efectos de participación (interacciones positivas, divergencia entre grupos educativos), mientras que la clase los modera estructuralmente (interacciones negativas, convergencia entre clases).
-
-Este estudio contribuye a tres literaturas. Primero, a la investigación sobre educación y actitudes políticas (Nie et al., 1996; Weakliem, 2002), al demostrar que el efecto civilizatorio de la educación es condicional y no universal, dependiendo críticamente del contexto de activación (participación versus no participación). La educación no es inherentemente civilizatoria, sino que actúa como amplificador cognitivo que puede legitimar o deslegitimar violencia según marcos situacionales. Segundo, contribuye a la literatura sobre participación política y socialización (McAdam, 1989; Giugni, 2004), al proveer evidencia cuantitativa de heterogeneidad en los efectos transformadores de la participación según capital cultural y posición de clase. La participación no tiene efectos uniformes, sino que interactúa con estratificación social preexistente de maneras complejas. Tercero, contribuye a la literatura sobre desigualdad y violencia política (Stewart, 2002, 2008; Østby, 2013) al trasladar el enfoque de desigualdades horizontales desde conflictos civiles hacia actitudes sobre violencia en contextos de protesta masiva. Mientras la literatura de desigualdades horizontales se ha enfocado principalmente en conflictos armados entre grupos étnicos o regionales (Østby, 2013; Cederman et al., 2011), este estudio muestra que mecanismos similares —donde la posición grupal estructura tanto agravios como oportunidades para acción colectiva— operan en contextos de movilización social no armada. Sustantivamente, esto ilumina las bases sociales diferenciadas de la legitimación de violencia durante el estallido chileno de 2019: la amplitud transversal del movimiento se explica parcialmente por la transformación actitudinal de sectores profesionales y gerenciales que, al participar, desarrollaron marcos que legitimaban formas específicas de transgresión normativa.
-
-El artículo se organiza en cinco secciones adicionales. La segunda sección desarrolla el marco teórico, revisando literatura sobre educación y actitudes políticas, participación como experiencia transformadora, y clase social como moderador estructural, derivando en las hipótesis específicas que guían la presente investigación. La tercera sección describe los datos, las variables utilizadas y la estrategia analítica utilizada. La cuarta sección presenta los resultados empíricos, documentando los cuatro hallazgos principales. La quinta sección discute las implicaciones teóricas, limitaciones del estudio y direcciones para investigación futura. Y finalmente, una sexta sección a modo de conclusión sobre las lecciones del caso chileno para la comprensión de la violencia política como fenómeno.
-
-# Hipótesis
-
-# Datos y metodología
-
-## Datos
-
-Esta propuesta de medición y análisis se desarrolla a partir de los datos del Estudio Longitudinal Social de Chile (ELSOC), una encuesta panel representativa a nivel nacional que recoge información sobre la población adulta urbana del país. ELSOC, implementado por el Centro de Estudios de Conflicto y Cohesión Social (COES) desde 2016, tiene como propósito examinar las actitudes, percepciones y comportamientos de las personas frente a temas como el conflicto y la cohesión social. Su diseño de panel permite seguir a los mismos individuos a lo largo del tiempo, ofreciendo una mirada única sobre la evolución de la sociedad chilena.
-
-Diseño Muestral y Población Objetivo
-ELSOC utiliza un muestreo probabilístico, estratificado, por conglomerados y multietápico, que cubre tanto los principales centros urbanos como ciudades medianas y pequeñas del país. El marco muestral se estratificó proporcionalmente según el tamaño de la población urbana (en seis categorías), seleccionando aleatoriamente hogares dentro de 1.067 manzanas censales. La población objetivo incluye a hombres y mujeres de 18 a 75 años residentes habituales en viviendas particulares.
-
-Panel y Muestra Analítica
-La encuesta se ha aplicado anualmente desde 2016, con excepción de 2020 debido a la pandemia de COVID-19, acumulando siete olas de datos (2016, 2017, 2018, 2019, 2021, 2022 y 2023). Entre las olas 1 y 7, la atrición (desgaste) del panel alcanza aproximadamente un 40%, logrando una retención cercana al 60%.
-
-Para los análisis de este documento, y tras aplicar un criterio de inclusión de encuestados que hayan participado en al menos tres olas, se dispone de una muestra analítica de 20.007 observaciones anidadas en 3.666 individuos.
-
-Gracias a su diseño riguroso y su cobertura, ELSOC constituye una fuente de datos única en Chile para analizar la evolución de los vínculos sociales, las percepciones de conflicto y la confianza. La encuesta, sus manuales metodológicos y bases de datos se encuentran disponibles públicamente en el portal de [COES](https://coes.cl/elsoc/) y en el repositorio de [Harvard Dataverse](https://dataverse.harvard.edu/dataverse/elsoc).
-
-## Variables (800 pal) + TABLA 1
-
-### Variables dependientes
-
-```{r setup}
+```{r}
 #| include: false
 knitr::opts_chunk$set(
   echo = FALSE,
@@ -117,54 +57,226 @@ library(texreg)
 library(ggeffects)
 library(patchwork)
 library(gt)
+library(kableExtra)
 library(here)
 
 # Cargar datos
 load(here("input/data/proc/elsoc_final_2.RData"))
 ```
 
+# Antecedentes
+
+El 18 de octubre de 2019 marcó un antes y un después en la historia política de Chile. Lo que comenzó como una evasión masiva del metro en Santiago por las alzas en el pasaje, se transformó en pocas horas en el acontecimiento contencioso más impactante desde el retorno a la democracia (Somma et al., 2021). Durante semanas, miles de personas ocuparon las calles de todo el país, desafiando no solo la herencia del sistema neoliberal que el país arrastraba desde la dictadura (Canales, 2022), sino también los límites históricos de lo que se hasta entonces se había presenciado desde la acción colectiva. Las protestas del llamado "estallido social" combinaron masividad, transversalidad social y repertorios confrontacionales de manera inédita: desde marchas pacíficas hasta bloqueos de calles, ocupaciones de plazas públicas, y episodios recurrentes de violencia contra la propiedad y enfrentamientos con fuerzas de ley y orden (Cox et al., 2023). La respuesta estatal fue igualmente sin precedentes: más de 8,000 víctimas de violencia policial, más de 400 casos de trauma ocular, y lo que Amnistía Internacional calificó como la crisis de derechos humanos más grave desde el fin de la dictadura (Amnistía Internacional, 2020; Human Rights Watch, 2019). En medio de la polarización mediática y política, una pregunta no dejó de sonar con urgencia, tanto en espacios públicos como académicos: ¿cuándo, si acaso, es legítima la violencia política? Y más importante aún: ¿quiénes justifican qué tipo de violencia?
+
+Observadores del estallido notaron que el tema ha sido el protagonista de todos los espacios de discusión hasta el día de hoy. Aunque existía un rechazo transversal a la violencia, resultaba llamativo ver cómo distintos sectores podían sostener opiniones contrarias: profesionales, académicos y estudiantes universitarios estaban particularmente representados entre quienes la justificaban. Análisis preliminares de encuestas mostraban que manifestantes intensivos tendían a ser "jóvenes y educados, más de izquierda, más interesados y participativos en política", y "más probables de justificar acciones ilegales/violentas como medio para el cambio social" (González & Le Foulon, 2020, p. 228). Este patrón empírico contradice una larga trayectoria de investigación en ciencias sociales que han documentado consistentemente una asociación entre mayor educación y actitudes menos permisivas hacia la violencia, la transgresión normativa y el autoritarismo (Nie et al., 1996; Weakliem, 2002). Si la educación supuestamente promueve valores democráticos de tolerancia y resolución pacífica de conflictos, ¿cómo explicar que universitarios participantes en protestas mostraran niveles comparativamente altos de justificación de violencia política? Y sobretodo ¿se mantiene esta tendencia en el tiempo, más allá de los eventos contenciosos?
+
+La literatura existente sobre educación y actitudes políticas ha documentado de manera robusta lo que podríamos llamar un "efecto civilizatorio" de la educación formal (Verba et al., 1995). Desde los trabajos seminales de Lipset en los años 60 hasta investigaciones recientes, numerosos estudios muestran que personas con mayor educación tienden a exhibir actitudes más tolerantes, mayor apoyo a normas democráticas y rechazo a la violencia como intrumento político. Nie et al. (1996) argumentan que la educación afecta la ciudadanía democrática a través de dos vías: incrementando la sofisticación del raciocinio político y posicionando a individuos en redes que facilitan el compromiso político. Weakliem (2002) muestra que estos efectos operan transculturalmente, reflejando la influencia de lo que denomina "cultura ilustrada oficial". Los mecanismos propuestos son múltiples: la educación incrementaría la sofisticación cognitiva, expondría a las personas a perspectivas diversas, desarrollaría habilidades de pensamiento crítico y facilitaría la internalización de normas democráticas. De manera similar, aunque con resultados mixtos, la literatura sobre clase social y actitudes políticas ha explorado cómo la posición en la estructura ocupacional se asocia con orientaciones diferenciadas hacia la autoridad, el orden social y la transgresión normativa (Svallfors, 2006).
+
+Sin embargo, esta literatura comparte una limitación fundamental: asume que los efectos de educación y clase social sobre actitudes hacia la violencia política son lineales, estables y operan de manera independiente del contexto situacional y las experiencias concretas de los individuos. Los estudios típicamente modelan educación y clase como predictores directos de actitudes, sin considerar que sus efectos pueden ser contingentes a otras variables cruciales, particularmente la experiencia de participación en protestas. Esta omisión es problemática, pues ignora que la participación política no es meramente un reflejo de predisposiciones previas, sino una experiencia potencialmente transformadora que puede reconfigurar marcos e identidades colectivas, y evaluaciones morales sobre lo que constituye acción política legítima. McAdam (1989) demostró que la participación en activismo de alto riesgo tiene "consecuencias biográficas" profundas y duraderas: los voluntarios no solo permanecieron más activos políticamente décadas después, sino que sus trayectorias profesionales y valores fundamentales fueron transformados por la experiencia. Si asumimos que participar en protestas expone a las personas a marcos discursivos alternativos (Snow & Benford, 1988), genera solidaridad grupal, y puede involucrar experiencias directas de represión estatal, entonces es plausible que los efectos de educación y clase operen de manera diferente entre quienes participan versus quienes no lo hacen.
+
+Una segunda limitación conceptual de la literatura sobre desigualdad y conflicto radica en su enfoque exclusivo sobre desigualdades "verticales" (inter-individuales) en vez de desigualdades "horizontales" (inter-grupales) (Tilly, 1999; Sen, A., 2006). Como documenta Østby (2013), décadas de estudios sobre desigualdad vertical, medida principalmente por el coeficiente de Gini, han producido resultados inconsistentes respecto a su relación con las actitudes políticas. Stewart (2002, 2008) argumenta que el problema está en que el conflicto y la violencia son fenómenos esencialmente grupales, no situaciones de individuos cometiendo violencia aleatoriamente. La identidad grupal es crítica para el reclutamiento y mantención de lealtad a organizaciones de movilización. 
+
+En el caso chileno, como han mostrado algunos estudios, las divisiones relevantes no son puramente individuales, sino que se estructuran a través de clivajes de clase que configuran experiencias colectivas diferenciadas (Pérez-Ahumada, 2021; Pérez-Ahumada & Andrade, 2021). La clase trabajadora (working class) experimenta cotidianamente formas de violencia estructural que pueden generar mayor tolerancia basal hacia transgresiones normativas, mientras que la clase de servicio (service class), más distante de estas experiencias, puede experimentar transformaciones actitudinales más profundas al participar del conflicto (Gurr, 2000).
+
+Este artículo propone que los efectos de la educación y la clase social sobre las actitudes hacia la violencia política son fundamentalmente contingentes a la participación en protestas, y que operan a través de mecanismos diferenciados. Específicamente, argumento tres puntos centrales. Primero, la educación no tiene un efecto civilizatorio universal, sino que actúa como un amplificador condicional: entre quienes no participan en protestas, mayor educación efectivamente reduciría la justificación de la violencia (consistente con el efecto civilizatorio); sin embargo, entre quienes sí participan, este efecto se invierte, y mostraría que personas más educadas tienen una mayor justificación de violencia en manifestaciones. Este "efecto paradójico" sugiere que la educación facilita la elaboración de marcos ideológicos complejos que pueden legitimar la violencia táctica en contextos específicos de movilización, afin con la teoría de "marcos de acción colectiva" de Snow y Benford (1988) para los movimientos sociales, con los cuales redefinen lo que cuenta como acción legítima.
+
+Segundo, la participación en protestas genera una reconfiguración bidireccional de actitudes hacia la violencia según el tipo de actor que la ejerce. Universitarios que participan en protestas no solo incrementan su justificación de violencia ejercida dentro del conflicto, sino que simultáneamente reducen su justificación de la violencia ejercida por fuerzas del Estado. Esta diferenciación sugiere que la participación facilita el desarrollo de marcos morales coherentes que legitiman la violencia como herramienta de resistencia mientras deslegitiman la violencia como herramienta de represión estatal, un patrón consistente con literatura sobre legitimidad policial que muestra que la percepción de injusticia procedimental erosiona la legitimidad institucional (Tyler, 2006; Fassin, 2012).
+
+Tercero, la clase social opera como un moderador estructural que determina la intensidad del cambio actitudinal al participar. Siguiendo el enfoque de desigualdades horizontales (Gubler & Selway, 2012), argumento que la clase trabajadora (working class), debido a su mayor proximidad a experiencias cotidianas de violencia estructural y simbólica, parte de niveles más altos de tolerancia hacia la violencia política, mostrando un "efecto techo" al participar (menor transformación). En contraste, la clase de servicio (service class), más distante de estas experiencias, experimenta una transformación actitudinal más profunda al involucrarse en protestas. Como señalan Brown & Langer (2010), las desigualdades horizontales afectan la movilización grupal tanto a través de mecanismos basados en agravios (grievances) como en oportunidades. En el caso de la clase trabajadora, los agravios preexistentes generan una predisposición estructural que limita el cambio marginal al participar. Este patrón implica que la participación tiene efectos niveladores entre clases (convergencia), mientras que amplifica desigualdades educativas (divergencia).
+
+La pregunta que guía el presente estudio es: ¿Cómo interactúan la educación, la clase social y la participación en protestas para moldear actitudes hacia la violencia política en el contexto chileno?
+
+Los objetivos específicos son:
+
+- Examinar el efecto diferencial de la educación sobre la justificación de violencia política según participación en protestas, testeando si el "efecto civilizatorio" se mantiene, se atenúa o se invierte entre participantes.
+
+- Analizar la reconfiguración bidireccional de actitudes hacia violencia ejercida por diferentes actores (manifestantes versus Carabineros) entre universitarios que participan en protestas.
+
+- Evaluar el rol moderador de la clase social en la relación entre participación y actitudes hacia violencia, identificando si existen efectos diferenciales entre service class, intermediate class y working class.
+
+- Comparar los mecanismos sociológicos diferenciados a través de los cuales educación y clase social operan como determinantes de actitudes hacia violencia política.
+
+Este estudio espera contribuir a tres literaturas. Primero, a la investigación sobre educación y actitudes políticas (Nie et al., 1996; Weakliem, 2002), al demostrar que el efecto civilizatorio de la educación es condicional y no universal, dependiendo críticamente del contexto de activación (participación versus no participación). La educación no es inherentemente civilizatoria, sino que actúa como amplificador cognitivo que puede legitimar o deslegitimar violencia según marcos situacionales. 
+
+Segundo, contribuye a la literatura sobre participación política y socialización (McAdam, 1989; Giugni, 2004), al proveer evidencia cuantitativa de heterogeneidad en los efectos transformadores de la participación según capital cultural y posición de clase. La participación no tiene efectos uniformes, sino que interactúa con estratificación social preexistente de maneras complejas. Tercero, contribuye a la literatura sobre desigualdad y violencia política (Stewart, 2002, 2008; Østby, 2013) al trasladar el enfoque de desigualdades horizontales desde conflictos civiles hacia actitudes sobre violencia en contextos de protesta masiva. Mientras la literatura de desigualdades horizontales se ha enfocado principalmente en conflictos armados entre grupos étnicos o regionales (Østby, 2013; Cederman et al., 2011), este estudio muestra que mecanismos similares —donde la posición grupal estructura tanto agravios como oportunidades para acción colectiva— operan en contextos de movilización social no armada. 
+
+Sustantivamente, esto ilumina las bases sociales diferenciadas de la legitimación de violencia durante el estallido chileno de 2019: la amplitud transversal del movimiento se explica parcialmente por la transformación actitudinal de sectores profesionales y gerenciales que, al participar, desarrollaron marcos que legitimaban formas específicas de transgresión normativa.
+
+# Hipótesis
+
+Las hipótesis se orientan alrededor de la idea de que tanto los efectos de la educación y la clase social sobre las actitudes hacia la violencia política son contingentes a la participación en protestas, operando a través de mecanismos diferenciados. Por un lado, la educación actúa como amplificador cognitivo que facilita la reelaboración de marcos morales según experiencias situacionales, mientras que la clase social opera como moderador estructural que determina la intensidad del cambio actitudinal mediante predisposiciones arraigadas en experiencias cotidianas diferenciadas.
+
+## Hipótesis 1: Efecto Paradójico de la Educación
+
+- H1a: Entre individuos que **no** participan en protestas, mayor nivel educativo está asociado con menor justificación de violencia en manifestaciones, consistente con el "efecto civilizatorio" de la educación.
+- H1b: Entre individuos que **sí** participan en protestas, el efecto de la educación se invierte: universitarios muestran mayor justificación de violencia en manifestaciones comparado con individuos de menor educación.
+
+La potencial explicación de lo anterior estaría en que la educación fomenta un pensamiento político más sofisticado, pero este opera de forma distinta según la participación. Los no-participantes utilizan esta capacidad para reforzar su adhesión a la democracia no-violenta. Por el contrario, los participantes emplean esa misma sofisticación para elaborar marcos ideológicos que les permiten legitimar tácticamente la violencia como un instrumento político válido en situaciones de protesta puntuales.
+
+## Hipótesis 2: Reconfiguración Bidireccional de Marcos Morales
+
+- H2a: Universitarios que participan en protestas muestran mayor justificación de violencia ejercida por manifestantes, comparado con universitarios no-participantes.
+- H2b: Los mismos universitarios participantes muestran menor justificación de violencia ejercida por Carabineros, comparado con universitarios no-participantes.
+
+Participar en protestas expone a los individuos educados a marcos discursivos alternativos. Estos marcos generan una reconfiguración coherente y bidireccional: los participantes emplean estos nuevos discursos para legitimar la violencia como herramienta de resistencia ("violencia desde abajo") y, simultáneamente, los usan para deslegitimar la violencia como herramienta de represión ("violencia desde arriba").
+
+## Hipótesis 3: Clase Social como Moderador Estructural
+
+- H3a: La clase trabajadora (working class) muestra mayor justificación basal de violencia política comparada con la clase de servicio (service class), independientemente de la participación.
+- H3b: El incremento en justificación de violencia asociado a participar en protestas es menor para la clase trabajadora que para la clase de servicio, evidenciando un "efecto techo".
+
+Proponemos que la clase trabajadora, debido a su mayor proximidad a la violencia estructural y simbólica, ya posee una alta tolerancia a las transgresiones normativas (una predisposición estructural). Cuando participa en protestas, esta clase muestra un cambio marginal limitado, pues ya parte de niveles altos de justificación. Por el contrario, la clase de servicio, que vive más distante de estas experiencias, emplea la participación en protestas para experimentar una transformación cognitiva mucho más profunda.
+
+## Hipótesis 4: Mecanismos Diferenciados (Divergencia vs Convergencia)
+
+- H4a: La participación en protestas amplifica las diferencias entre grupos educativos, generando mayor heterogeneidad en actitudes hacia violencia entre universitarios y no-universitarios participantes.
+- H4b: La participación en protestas reduce las diferencias entre clases sociales, generando mayor homogeneidad en actitudes hacia violencia entre working class y service class participantes.
+
+Sugerimos que la educación predice fuertemente las actitudes a hacia la violencia política por sí sola. Cuando la gente participa, esa acción amplifica las diferencias creadas por la educación (generando interacciones positivas). La clase social, en cambio, mostraría efectos principales débiles, pero opera como un moderador estructural que limita la transformación (generando interacciones negativas). En simple, la educación impulsa la divergencia, mientras que la clase impulsa la convergencia.
+
+# Datos y metodología
+
+## Datos
+
+La investigación se desarrolla a partir de los datos del Estudio Longitudinal Social de Chile (ELSOC), una encuesta panel representativa a nivel nacional que recoge información sobre la población adulta urbana del país. ELSOC, implementado por el Centro de Estudios de Conflicto y Cohesión Social (COES) desde 2016, tiene como propósito examinar las actitudes, percepciones y comportamientos de las personas frente a temas como el conflicto y la cohesión social. Su diseño de panel permite seguir a los mismos individuos a lo largo del tiempo, ofreciendo una mirada única sobre la evolución de la sociedad chilena.
+
+ELSOC utiliza un muestreo probabilístico, estratificado, por conglomerados y multietápico, que cubre tanto los principales centros urbanos como ciudades medianas y pequeñas del país. El marco muestral se estratificó proporcionalmente según el tamaño de la población urbana (en seis categorías), seleccionando aleatoriamente hogares dentro de 1.067 manzanas censales. La población objetivo incluye a hombres y mujeres de 18 a 75 años residentes habituales en viviendas particulares.
+
+La encuesta se ha aplicado anualmente desde 2016, con excepción de 2020 debido a la pandemia de COVID-19, acumulando siete olas de datos (2016, 2017, 2018, 2019, 2021, 2022 y 2023). Entre las olas 1 y 7, la atrición (desgaste) del panel alcanza aproximadamente un 40%, logrando una retención cercana al 60%.
+
+Para los análisis de la investigación, y tras aplicar un criterio de inclusión de encuestados que hayan participado en al menos tres olas, se dispone de una muestra analítica de 20.007 observaciones anidadas en 3.666 individuos.
+
+Gracias a su diseño riguroso y su cobertura, ELSOC constituye una fuente de datos única en Chile para analizar las actitudes políticas y las percepciones de conflicto. La encuesta, sus manuales metodológicos y bases de datos se encuentran disponibles públicamente en el portal de [COES](https://coes.cl/elsoc/) y en el repositorio de [Harvard Dataverse](https://dataverse.harvard.edu/dataverse/elsoc).
+
+## Variables
+
+### Variable(s) dependiente(s)
+
+**Variables de violencia**
+
+Para la medición de actitudes hacia la violencia política se crearon dos índices para la medición de dos tipos de violencia:
+
+El índice de Justificación de la Violencia en contexto de protesta (`justif_violencia_protesta`) se compone del promedio de cinco ítems sobre justificación de acciones violentas en manifestaciones:
+ 
+- Trabajadores bloquean calles
+
+- Estudiantes ocupan colegios
+
+- Toma de inmuebles
+
+- Paralizar transporte
+
+- Destruir locales comerciales
+
+Mientras que el índice de Justificación de la Violencia Estatal (`justif_violencia_estatal`) se compone a partir del promedio de dos ítems sobre justificación de violencia policial:
+
+- Carabineros usan violencia en marchas
+
+- Carabineros desalojan tomas
+
+La composición y la descripción de cada ítem se encuentra detallado en la siguiente tabla.
+
 ```{r}
 #| echo: false
 #| warning: false
+#| tbl-pos: "H"
 
-# Tabla descriptiva de variables de violencia
 elsoc_final_2 %>%
   summarise(
-    `Violencia en Protestas (Media)` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
-    `Violencia en Protestas (DE)` = round(sd(justif_violencia_protesta, na.rm = TRUE), 2),
-    `Violencia Estatal (Media)` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
-    `Violencia Estatal (DE)` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
-    `% Justifica Viol. Protestas` = round(100 * mean(justifica_violencia_protesta_dummy, na.rm = TRUE), 1),
-    `% Justifica Viol. Estatal` = round(100 * mean(justifica_violencia_estatal_dummy, na.rm = TRUE), 1),
-    N = n()
+    across(
+      c(violencia_trabajadores, violencia_estudiantes, violencia_inmobiliario,
+        violencia_transporte, violencia_locales, 
+        violencia_carabineros_marchas, violencia_carabineros_tomas),
+      list(
+        Media = ~round(mean(., na.rm = TRUE), 2),
+        DE = ~round(sd(., na.rm = TRUE), 2)
+      ),
+      .names = "{.col}_{.fn}"
+    )
   ) %>%
-  gt() %>%
-  tab_header(
-    title = "Descriptivos: Variables de violencia",
-    subtitle = "ELSOC 2016-2023"
+  tidyr::pivot_longer(
+    everything(),
+    names_to = c("Item", ".value"),
+    names_pattern = "(.+)_(Media|DE)"
   ) %>%
-  tab_footnote(
-    footnote = "Nota: Indices en escala 1-5"
+  mutate(
+    Tipo = case_when(
+      Item %in% c("violencia_trabajadores", "violencia_estudiantes", 
+                  "violencia_inmobiliario", "violencia_transporte", 
+                  "violencia_locales") ~ "Violencia en Protestas",
+      TRUE ~ "Violencia Estatal"
+    ),
+    Item = case_when(
+      Item == "violencia_trabajadores" ~ "Trabajadores bloquean calles",
+      Item == "violencia_estudiantes" ~ "Estudiantes ocupan colegios",
+      Item == "violencia_inmobiliario" ~ "Toma de inmuebles",
+      Item == "violencia_transporte" ~ "Paralizar transporte público",
+      Item == "violencia_locales" ~ "Destruir locales comerciales",
+      Item == "violencia_carabineros_marchas" ~ "Carabineros usan violencia en marchas",
+      Item == "violencia_carabineros_tomas" ~ "Carabineros desalojan tomas"
+    )
   ) %>%
-  opt_table_font(font = "Times New Roman")
+  select(Tipo, Item, Media, DE) %>%
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    col.names = c("Tipo", "Ítem", "Media", "DE"),
+    align = c("l", "l", "c", "c"),
+    escape = FALSE
+  ) %>%
+  kable_styling(
+    latex_options = c("HOLD_position"),
+    font_size = 10,
+    position = "center"
+  ) %>%
+  add_header_above(c(" " = 2, "Escala 1-5" = 2)) %>%
+  pack_rows("Violencia en Protestas", 1, 5) %>%
+  pack_rows("Violencia Estatal", 6, 7) %>%
+  footnote(
+    general = "Escala: 1 = Nunca justificado, 5 = Siempre justificado",
+    general_title = "Nota:",
+    footnote_as_chunk = TRUE
+  )
 ```
 
-**Variables de violencia**:
-- `justif_violencia_protesta`: Índice promedio de 4 ítems sobre justificación de acciones violentas en manifestaciones
-- `justif_violencia_estatal`: Índice promedio de 3 ítems sobre justificación de violencia policial
 
 ### Variables independientes
 
-- **Educación**: 5 categorías desde secundaria incompleta hasta universitaria completa (factor no ordenado)
-- **Clase social**: Esquema EGP en 3 categorías (Service/Intermediate/Working class)
+Por su parte, las variables independientes a utilizar consisten en:
+
+- **Educación del encuestado**: Cinco categorías desde secundaria incompleta hasta universitaria completa (factor no ordenado)
+- **Clase social**: Esquema EGP dividido en 3 categorías (Service/Intermediate/Working class)
 - **Participación en protestas**: Variable dicotómica (participó en últimos 12 meses)
 
-## Estrategia analítica (700 pal)
+## Estrategia analítica
 
-Modelos multinivel (glmmTMB) con:
-- Efectos aleatorios individuales (interceptos)
-- Controles: edad, género, ideología, año
-- Interacciones: Educación × Protesta, Clase × Protesta
+La naturaleza longitudinal de los datos sugiere que observamos a los mismos individuos ($j$) en múltiples ocasiones a lo largo del tiempo ($t$). Esta estructura de datos de panel —donde las observaciones (Nivel 1, $t$) están anidadas dentro de los individuos (Nivel 2, $j$)— viola uno de los supuestos fundamentales de los modelos de regresión estándar (como Mínimos Cuadrados Ordinarios o una regresión logística simple): la independencia de las observaciones.
+
+La especificación del modelo multinivel (GLMM) utilizado se define por
+
+$$
+y_{tj} = \beta_0 + \beta_1 X_{tj} + \beta_2 Z_j + u_{0j} + \varepsilon_{tj}
+$$
+
+Donde:
+
+- $y_{tj}$: Justificación de la violencia para el individuo $j$ en el tiempo $t$.
+- $X_{tj}$: Variables de nivel 1 (tiempo), como participación en protestas, edad, etc.
+- $Z_j$: Variables de nivel 2 (individuo), como educación, clase social, género, etc.
+- $u_{0j}$: Intercepto aleatorio para el individuo $j$ (captura la heterogeneidad estable entre personas).
+- $\varepsilon_{tj}$: Error residual a nivel de observación.
+
+En este estudio, la variable dependiente principal es el índice continuo de justificación de la violencia (escala 1-5), tanto para el contexto de protesta como para la violencia estatal. Esta decisión responde a que los índices capturan mejor la variabilidad y los matices en las actitudes, permitiendo analizar diferencias graduales y cambios de intensidad, y aprovechan toda la información disponible en la escala. Así, los modelos principales se estiman mediante Modelos Lineales Generalizados Mixtos (GLMM) con distribución gaussiana, incorporando interceptos aleatorios por individuo para modelar la estructura de datos de panel y la heterogeneidad individual (Raudenbush & Bryk, 2002).
+
+El uso de los índices continuos permite interpretar los efectos en términos de cambios promedio en la justificación, lo que resulta más informativo para el análisis de mecanismos y matices actitudinales. No obstante, para robustez y comparación, en los anexos se incluyen las estimaciones de modelos adicionales con las variables dicotómicas (dummy) de justificación de la violencia, empleando modelos logit multinivel. Estos modelos permiten analizar la probabilidad de justificar la violencia (sí/no) y facilitan la interpretación en términos de odds ratios, pero sacrifican parte de la variabilidad y sensibilidad de la escala original.
+
+La estrategia analítica es la siguiente:
+
+1. Modelos principales: GLMM con distribución gaussiana para los índices continuos de justificación de la violencia, con interceptos aleatorios por individuo ($u_{0j}$), controlando por edad, género, ideología, año y los predictores centrales (educación, clase social, participación en protestas) y sus interacciones.
+
+2. Modelos de robustez: GLMM logit multinivel para las variables dummy de justificación, con la misma especificación de predictores e interacciones, para mostrar que los resultados no dependen de la operacionalización de la variable dependiente.
+
+Esta aproximación combinada permite aprovechar la riqueza de la escala original y, al mismo tiempo, garantizar la robustez de los hallazgos ante diferentes especificaciones. La presentación de resultados se centrará en los modelos con el índice continuo, complementando con los modelos logit/dummy en los anexos o como análisis de sensibilidad.
 
 # Resultados
 
@@ -186,20 +298,38 @@ elsoc_final_2 <- elsoc_final_2 %>%
 
 ```
 
-# Estadísticos Descriptivos
+## Estadísticos Descriptivos
 
-## Justificación de violencia por nivel educativo
+### Justificación de violencia por nivel educativo
+
+Los patrones observados en la @tbl-justificacion-educ revelan una dinámica de interacción clave. Entre quienes no participan en protestas, un mayor nivel educativo se asocia con una ligera reducción en la justificación de la violencia en manifestaciones, con medias que bajan de aproximadamente 1.90 a 1.80. Sin embargo, esta tendencia se invierte drásticamente entre quienes sí participan: los participantes con educación universitaria son, de hecho, quienes muestran los niveles más altos de justificación, alcanzando medias en torno a 2.10 y 2.20. Este efecto de la educación parece ser específico de la violencia en protestas, ya que, en contraste, la justificación de la violencia estatal exhibe un patrón mucho más estable, con una variación considerablemente menor entre los distintos niveles educativos.
 
 ```{r}
-#| label: tbl-violencia-educacion
+#| label: tbl-justificacion-educ
 #| tbl-cap: "Justificación de violencia según nivel educativo y participación en protestas"
 #| echo: false
 #| warning: false
+#| tbl-pos: "H"
+
+# Redefinir los labels del factor:
+elsoc_final_2 <- elsoc_final_2 %>%
+  mutate(
+    educ_cat_unordered = factor(
+      educ_cat_unordered,
+      labels = c(
+        "Media completa o menos",
+        "Téc. sup.incompleta",
+        "Téc. sup.completa",
+        "Univ. incompleta",
+        "Univ. completa"
+      )
+    )
+  )
 
 elsoc_final_2 %>%
   filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
   group_by(educ_cat_unordered, Participacion = factor(protesta_dummy, 
-                                                       labels = c("No participo", "Participo"))) %>%
+                                                       labels = c("No participó", "Participó"))) %>%
   summarise(
     N = n(),
     `Viol. Protestas` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
@@ -208,36 +338,39 @@ elsoc_final_2 %>%
     `DE ` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
     .groups = "drop"
   ) %>%
-  gt() %>%
-  tab_header(
-    title = "Justificacion de violencia por educacion y participacion",
-    subtitle = "Medias y desviaciones estandar en escala 1-5"
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    col.names = c("Educación", "Participación", "N", "Media", "DE", "Media", "DE"),
+    align = c("l", "l", "c", "c", "c", "c", "c"),
+    escape = FALSE
   ) %>%
-  cols_align(
-    align = "center",
-    columns = -c(educ_cat_unordered, Participacion)
+  kable_styling(
+    latex_options = c("HOLD_position"),
+    font_size = 10,
+    position = "center"
   ) %>%
-  opt_table_font(font = "Times New Roman")
+  add_header_above(c(" " = 2, " " = 1, "Viol. Protestas" = 2, "Viol. Estatal" = 2)) %>%
+  footnote(
+    general = "Escala 1-5 donde 1 = Nunca se justifica y 5 = Siempre se justifica",
+    general_title = "Nota:",
+    threeparttable = TRUE
+  )
 ```
 
-**Patrones observados**:
-
-- **Sin participación**: Educación reduce ligeramente la justificación de violencia en protestas (de ~1.90 a ~1.80)
-- **Con participación**: La tendencia se invierte - universitarios participantes muestran mayor justificación (~2.10-2.20)
-- **Violencia estatal**: Patrón más estable, con menor variación por educación
-
-## Justificación de violencia por clase social
+### Justificación de violencia por clase social
 
 ```{r}
-#| label: tbl-violencia-clase
+#| label: tbl-justificacion-clase
 #| tbl-cap: "Justificación de violencia según clase social y participación en protestas"
 #| echo: false
 #| warning: false
+#| tbl-pos: "H"
 
 elsoc_final_2 %>%
   filter(!is.na(egp3) & !is.na(protesta_dummy)) %>%
   group_by(egp3, Participacion = factor(protesta_dummy, 
-                                         labels = c("No participo", "Participo"))) %>%
+                                         labels = c("No participó", "Participó"))) %>%
   summarise(
     N = n(),
     `Viol. Protestas` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
@@ -246,25 +379,29 @@ elsoc_final_2 %>%
     `DE ` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
     .groups = "drop"
   ) %>%
-  gt() %>%
-  tab_header(
-    title = "Justificacion de violencia por clase social y participacion",
-    subtitle = "Medias y desviaciones estandar en escala 1-5"
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    col.names = c("Clase Social", "Participación", "N", "Media", "DE", "Media", "DE"),
+    align = c("l", "l", "c", "c", "c", "c", "c"),
+    escape = FALSE
   ) %>%
-  cols_align(
-    align = "center",
-    columns = -c(egp3, Participacion)
+  kable_styling(
+    latex_options = c("striped", "HOLD_position", "scale_down"),
+    font_size = 10,
+    position = "center"
   ) %>%
-  opt_table_font(font = "Times New Roman")
+  add_header_above(c(" " = 2, " " = 1, "Viol. Protestas" = 2, "Viol. Estatal" = 2)) %>%
+  footnote(
+    general = "Escala 1-5 donde 1 = Nunca se justifica y 5 = Siempre se justifica",
+    general_title = "Nota:",
+    threeparttable = TRUE
+  )
 ```
 
-**Patrones observados**:
+Los patrones observados para la clase social en @tbl-justificacion-clase también son llamativos. La clase trabajadora (Working class) que no participa en protestas parte de un nivel de justificación de la violencia más alto (~1.85), en comparación con la clase de servicio (Service class) (~1.75). Sin embargo, al participar, es la clase de servicio la que experimenta el incremento absoluto más pronunciado en la justificación, saltando de ~1.75 a un nivel cercano a 2.20. Este cambio diferencial resulta en una clara convergencia: las diferencias iniciales observadas entre clases se reducen significativamente entre quienes participan activamente en protestas.
 
-- **Working class sin participar**: Parten de mayor justificación (~1.85) comparado con Service class (~1.75)
-- **Service class al participar**: Experimentan mayor incremento absoluto en justificación (de ~1.75 a ~2.20)
-- **Convergencia**: Las diferencias entre clases se reducen entre participantes
-
-## Distribución de participación en protestas
+### Distribución de participación en protestas
 
 ```{r}
 #| label: fig-participacion-distribucion
@@ -272,6 +409,8 @@ elsoc_final_2 %>%
 #| fig-height: 5
 #| fig-width: 10
 #| echo: false
+#| warning: false
+#| fig-pos: "H"  
 
 # Panel A: Por educación
 plot_part_educ <- elsoc_final_2 %>%
@@ -287,8 +426,8 @@ plot_part_educ <- elsoc_final_2 %>%
   geom_col(fill = "#0073C2FF", width = 0.7) +
   geom_text(aes(label = paste0(round(Porcentaje, 1), "%")), 
             vjust = -0.5, size = 3.5) +
-  labs(
-    title = "A) Participación por Nivel Educativo",
+  labs( 
+    title = "Participación por Nivel Educativo",
     x = "Nivel Educativo",
     y = "% que Participó en Protestas"
   ) +
@@ -310,29 +449,24 @@ plot_part_clase <- elsoc_final_2 %>%
   geom_col(fill = "#00BA38", width = 0.6) +
   geom_text(aes(label = paste0(round(Porcentaje, 1), "%")), 
             vjust = -0.5, size = 3.5) +
-  labs(
-    title = "B) Participación por Clase Social",
+  labs( 
+    title = "Participación por Clase Social",
     x = "Clase Social (EGP)",
-    y = "% que Participó en Protestas"
-  ) +
+    y = "% que Participó en Protestas") +
   theme_minimal(base_size = 11) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ylim(0, 35)
 
-# Combinar
+# Combinar los dos gráficos
 plot_part_educ + plot_part_clase +
   plot_annotation(
-    caption = "Fuente: ELSOC 2016-2023. Participación en últimos 12 meses."
+    caption = "Elaboración propia con ELSOC 2016-2023. Participación en últimos 12 meses."
   )
 ```
 
-**Hallazgos de participación**:
+El @fig-participacion-distribucion muestra como la educación tiene una tendencia fuerte sobre la participación. Pues, esta aumenta consistentemente con el nivel educativo, creciendo desde un ~15% entre quienes tienen secundaria incompleta hasta un ~25% para aquellos con educación universitaria completa. La clase social también muestra una brecha: la clase servicios participa ligeramente más (~22%) en comparación con la clase trabajadora (~18%). Esta implicancia es crucial, dado que los participantes y no-participantes difieren en su composición, los análisis de interacción resultan fundamentales para comprender correctamente los efectos.
 
-- **Educación**: Participación aumenta con nivel educativo (de ~15% en secundaria incompleta a ~25% en universitaria completa)
-- **Clase**: Service class muestra ligeramente mayor participación (~22%) comparado con working class (~18%)
-- **Implicación**: Los análisis de interacción son cruciales porque participantes y no-participantes difieren sistemáticamente
-
-## Evolución temporal (2016-2023)
+### Evolución temporal (2016-2023)
 
 ```{r}
 #| label: fig-evolucion-temporal
@@ -340,6 +474,7 @@ plot_part_educ + plot_part_clase +
 #| fig-height: 5
 #| fig-width: 10
 #| echo: false
+#| fig-pos: "H"
 
 # Panel A: Violencia
 plot_evol_violencia <- elsoc_final_2 %>%
@@ -358,11 +493,10 @@ plot_evol_violencia <- elsoc_final_2 %>%
   scale_color_manual(values = c("Viol. en Protestas" = "#EFC000FF", 
                                   "Viol. Estatal" = "#0073C2FF")) +
   labs(
-    title = "A) Evolución de Justificación de Violencia",
+    title = "Evolución de Justificación de Violencia",
     x = "Año",
     y = "Justificación (escala 1-5)",
-    color = "Tipo"
-  ) +
+    color = "Tipo") +
   theme_minimal(base_size = 11) +
   theme(legend.position = "bottom")
 
@@ -377,30 +511,28 @@ plot_evol_particip <- elsoc_final_2 %>%
   geom_line(linewidth = 1.2, color = "#619CFF") +
   geom_point(size = 3, color = "#619CFF") +
   labs(
-    title = "B) Evolución de Participación en Protestas",
+    title = "Evolución de Participación en Protestas",
     x = "Año",
-    y = "% que Participó"
-  ) +
+    y = "% que Participó") +
   theme_minimal(base_size = 11)
 
 # Combinar
 plot_evol_violencia + plot_evol_particip +
   plot_annotation(
-    caption = "Fuente: ELSOC 2016-2023. Nota: 2019 = Estallido social"
+    caption = "Elaboración propia con ELSOC 2016-2023. Nota: 2019 = Estallido social"
   )
 ```
 
-**Patrones temporales clave**:
+El análisis de los patrones temporales de la @fig-evolucion-temporal muestra un dato paradójico durante el ciclo observado. Pues, para el 2019 -año del estallido social- se registra el promedio más bajo de justificación para ambos tipos de violencia. 
 
-- **2019 (Estallido social)**: Paradójicamente, MENOR justificación de ambos tipos de violencia (posible "fatiga de violencia" por saturación mediática)
-- **Participación en 2019**: Aumenta significativamente, reflejando la intensidad del conflicto
-- **Post-2019**: Justificación de violencia se mantiene baja, participación disminuye pero no vuelve a niveles pre-2019
+Coherentemente con el contexto, la participación en protestas aumentó significativamente en 2019, reflejando la intensidad de la movilización. En el período post-2019, la justificación de la violencia se mantiene en niveles bajos, y aunque la participación disminuye desde su punto álgido, no retorna a los niveles previos al Estallido.
 
-## Correlaciones entre variables clave
+### Correlaciones entre variables clave
 
 ```{r}
 #| label: tbl-correlaciones
 #| tbl-cap: "Correlaciones entre justificación de violencia y variables sociodemográficas"
+#| tbl-pos: "H"
 
 # Crear variables numéricas para correlaciones
 cor_data <- elsoc_final_2 %>%
@@ -417,7 +549,7 @@ cor_data <- elsoc_final_2 %>%
 # Calcular correlaciones
 cor_matrix <- cor(cor_data)
 
-# Extraer correlaciones relevantes
+# Extraer correlaciones relevantes - AQUÍ ESTÁ EL CAMBIO IMPORTANTE
 cor_table <- data.frame(
   Variable = c("Educación", "Edad", "Mujer", "Ideología (izq-der)", "Participación en protesta"),
   Viol_Protestas = round(cor_matrix[1, 3:7], 3),
@@ -425,33 +557,67 @@ cor_table <- data.frame(
 )
 
 cor_table %>%
-  gt() %>%
-  tab_header(
-    title = "Correlaciones con justificacion de violencia",
-    subtitle = "Correlaciones de Pearson"
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    col.names = c("Variable", "Viol. en Protestas", "Viol. Estatal"),
+    align = c("l", "c", "c"),
+    escape = TRUE  # CAMBIA ESTO DE FALSE A TRUE
   ) %>%
-  cols_label(
-    Variable = "Variable",
-    Viol_Protestas = "Viol. en Protestas",
-    Viol_Estatal = "Viol. Estatal"
+  kable_styling(
+    latex_options = c("striped", "HOLD_position"),
+    font_size = 11,
+    position = "center"
   ) %>%
-  opt_table_font(font = "Times New Roman")
+  footnote(
+    general = "* p < 0.05, ** p < 0.01, *** p < 0.001",
+    general_title = "Nota:",
+    footnote_as_chunk = TRUE,
+    threeparttable = TRUE
+  )
 ```
 
-**Correlaciones destacables**:
+Las correlaciones de Pearson muestran patrones destacables. La participación en protestas exhibe una correlación moderada-fuerte con la justificación de la violencia en protestas (r ≈ 0.20-0.25), pero su relación con la violencia estatal es débil. La ideología opera de forma opuesta para cada tipo: muestra una correlación negativa con la violencia en protestas (a más derecha, menos justificación), pero positiva con la violencia estatal. Finalmente, tanto la educación como la edad presentan correlaciones débiles con las variables dependientes, lo que sugiere que sus efectos son complejos o no-lineales y confirma la necesidad de usar los modelos de interacción propuestos.
 
-- **Participación en protesta**: Correlación moderada-fuerte con violencia en protestas (r ≈ 0.20-0.25), débil con violencia estatal
-- **Ideología**: Correlación negativa con violencia en protestas (más derecha, menos justificación), positiva con violencia estatal
-- **Educación y edad**: Correlaciones débiles, sugiriendo que efectos son complejos/no-lineales (confirmando necesidad de modelos de interacción)
+```{r}
+#| echo: false
+#| results: 'asis'
 
----
+# Modelo principal
+mod_baseline_1 <- glmmTMB(
+  justif_violencia_protesta ~
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
 
-# Hallazgo 1: El "Efecto Paradoja" de la Educación
+mod_baseline_2 <- glmmTMB(
+  justif_violencia_estatal ~
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+library(performance)
+
+icc(mod_baseline_1)
+icc(mod_baseline_2)
+
+```
+
+Como paso inicial, se estimaron los modelos nulos para ambas variables de justificación de la violencia, incluyendo únicamente los interceptos aleatorios por individuo. Los Coeficientes de Correlación Intraclase (ICC) calculados a partir de estos modelos confirman la idoneidad del enfoque multinivel.
+
+Para la justificación de la violencia en protestas, el ICC es de 0.229, indicando que un 22.9% de la varianza total es atribuible a diferencias sistemáticas y estables entre los individuos. Para la justificación de la violencia estatal, este valor fue incluso ligeramente superior, alcanzando un ICC de 0.240 (un 24.0% de varianza entre-sujetos).
+
+En ambos casos, estos valores son sustanciales y confirman la existencia de una fuerte interdependencia en los datos, validando la elección de los modelos de efectos aleatorios.
+
+# Hipótesis 1: El "Efecto Paradoja" de la Educación
 
 ## Modelo de interacción Educación × Protesta
 
 ```{r}
 #| echo: false
+#| label: tbl-modelo-educ
 
 # Modelo principal
 mod_educ_protesta <- glmmTMB(
@@ -462,7 +628,7 @@ mod_educ_protesta <- glmmTMB(
   family = gaussian()
 )
 
-texreg(mod_educ_protesta,
+screenreg(mod_educ_protesta,
           custom.model.names = "Violencia en Protestas",
           custom.coef.names = c(
             "(Intercepto)",
@@ -482,15 +648,11 @@ texreg(mod_educ_protesta,
           ))
 ```
 
-## Interpretación: El efecto se invierte
+El @tbl-modelo-educ revela una interacción interesante: el efecto de la educación superior varía significativamente según la participación en protestas. 
 
-**Para quienes NO participaron en protestas** (efectos principales):
-- Universitaria completa: **-0.11*** 
-- → Menos justificación de violencia (efecto "civilizatorio")
+Entre quienes no participaron en movilizaciones, contar con educación universitaria completa predice una menor justificación de la violencia (efecto estimado de -0.11), lo que respalda la hipótesis de un posible “efecto civilizatorio” de la educación. Sin embargo, esta tendencia se invierte entre quienes sí participaron: para este grupo, el efecto total de la educación universitaria se vuelve positivo y significativo (≈ +0.25), indicando que los individuos con mayor capital educativo que se involucran activamente en la protesta tienden a justificar en mayor medida la violencia. 
 
-**Para quienes SÍ participaron** (efecto total):
-- Universitaria completa: -0.11 + 0.23 + 0.13 = **+0.25**
-- → ¡MAYOR justificación de violencia!
+Esto sugiere que la experiencia de movilización puede reconfigurar los marcos normativos asociados al estatus educativo, relativizando las disposiciones más moderadas que normalmente acompañan a los grupos con mayor nivel de escolarización.
 
 ```{r}
 #| label: fig-paradoja-educacion
@@ -498,42 +660,31 @@ texreg(mod_educ_protesta,
 #| fig-height: 5
 #| fig-width: 8
 #| echo: false
+#| fig-pos: "H"
 
-# Calcular efectos totales
-efectos_educacion <- data.frame(
-  Educacion = rep(c("Univ. completa"), 2),
-  Participacion = c("No participó", "Participó"),
-  Efecto = c(-0.11, 0.25),
-  SE = c(0.02, 0.05)
-)
+pred_educ <- ggpredict(mod_educ_protesta, terms = c("educ_cat_unordered", "protesta_dummy"))
 
-ggplot(efectos_educacion, aes(x = Participacion, y = Efecto, fill = Participacion)) +
-  geom_col(width = 0.6) +
-  geom_errorbar(aes(ymin = Efecto - 1.96*SE, ymax = Efecto + 1.96*SE), 
-                width = 0.2) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-  scale_fill_manual(values = c("No participó" = "#0073C2FF", "Participó" = "#EFC000FF")) +
+plot(pred_educ) +
   labs(
-    title = "Efecto de Educación Universitaria Completa sobre Justificación de Violencia",
-    subtitle = "Comparado con categoría de referencia (Secundaria incompleta o menos)",
-    x = "Participación en Protestas",
-    y = "Efecto en Justificación de Violencia",
-    caption = "Fuente: ELSOC 2016-2023. Barras de error: IC 95%"
+    title = "Efecto de Educación sobre Justificación de Violencia en Protestas",
+    subtitle = "Según participación en protestas",
+    x = "Nivel Educativo",
+    y = "Justificación de Violencia (predicha)",
+    color = "Participación"
   ) +
   theme_minimal(base_size = 13) +
-  theme(legend.position = "none")
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-**Conclusión**: La educación reduce la justificación de violencia solo entre observadores externos. Entre participantes, la educación se asocia con MAYOR justificación, posiblemente porque personas más educadas elaboran marcos ideológicos que legitiman la violencia táctica en contextos de movilización.
+Tanto el modelo @tbl-modelo-educ como el gráfico @fig-paradoja-educacion sugieren que la educación reduce la justificación de violencia solo entre observadores externos. Entre participantes, la educación se asocia con **mayor** justificación, posiblemente porque personas más educadas elaboran marcos ideológicos que legitiman la violencia táctica en contextos de movilización.
 
----
-
-# Hallazgo 2: Reconfiguración Bidireccional (Protestas vs Estado)
+# Hipótesis 2: Reconfiguración Bidireccional de la justificación de la violencia (Protestas vs Estado)
 
 ## Modelos comparativos
 
 ```{r}
 #| echo: false
+#| label: tbl-modelos-educ
 
 # Modelo violencia estatal
 mod_educ_estatal <- glmmTMB(
@@ -545,7 +696,7 @@ mod_educ_estatal <- glmmTMB(
 )
 
 # Tabla comparativa
-texreg(list(mod_educ_protesta, mod_educ_estatal),
+screenreg(list(mod_educ_protesta, mod_educ_estatal),
           custom.model.names = c("Violencia en Protestas", "Violencia Estatal"),
           custom.coef.names = c(
             "(Intercepto)",
@@ -565,14 +716,7 @@ texreg(list(mod_educ_protesta, mod_educ_estatal),
           ))
 ```
 
-## Interpretación: Marcos morales opuestos
-
-**Universitarios que participaron en protestas desarrollan marcos morales diferenciados**:
-
-| Tipo de violencia | Efecto total | Interpretación |
-|-------------------|--------------|----------------|
-| **Violencia en protestas** | +0.25 | Justifican MÁS (legitimación) |
-| **Violencia estatal** | -0.16 | Justifican MENOS (crítica) |
+Los resultados de ambos modelos en la @tbl-modelos-educ confirman que el efecto de la educación superior se ve condicionado por la participación en protestas. Mientras que entre los no participantes la educación universitaria reduce la justificación de la violencia en manifestaciones (un "efecto civilizatorio" de -0.11), esta tendencia se anula e invierte para los participantes con educación superior (técnica y universitaria), quienes muestran una mayor legitimación (interacciones de +0.13 a +0.22). De forma crucial, son específicamente los universitarios movilizados quienes desarrollan un marco moral opuesto hacia la violencia estatal, justificándola significativamente menos (interacción de -0.18). Este hallazgo, consistente con la H2, demuestra que la participación activa genera una reconfiguración normativa 'bidireccional' (rechazo a la violencia estatal y aceptación de la de protesta) de forma más completa entre los individuos con educación universitaria.
 
 ```{r}
 #| label: fig-bidireccional
@@ -580,6 +724,7 @@ texreg(list(mod_educ_protesta, mod_educ_estatal),
 #| fig-height: 5
 #| fig-width: 8
 #| echo: false
+#| fig-pos: "H"
 
 efectos_bidireccional <- data.frame(
   Tipo = c("Violencia en\nProtestas", "Violencia\nEstatal"),
@@ -604,22 +749,23 @@ ggplot(efectos_long, aes(x = Tipo, y = Efecto, fill = Grupo)) +
     x = "",
     y = "Efecto en Justificación",
     fill = "Participación",
-    caption = "Fuente: ELSOC 2016-2023"
+    caption = "Elaboración propia con ELSOC 2016-2023"
   ) +
   theme_minimal(base_size = 13) +
   theme(legend.position = "bottom")
 ```
 
-**Conclusión**: La participación genera una reconfiguración bidireccional coherente: legitima la violencia como herramienta de resistencia mientras deslegitima la violencia como herramienta de represión.
+En síntesis, la participación genera una reconfiguración bidireccional coherente, pues, se legitima la violencia como herramienta de protesta mientras deslegitima la violencia como herramienta de represión.
 
----
-
-# Hallazgo 3: Clase Social como Moderador Estructural
+# Hipótesis 3: Clase Social como Moderador Estructural
 
 ## Modelo de interacción Clase × Protesta
 
 ```{r}
 #| echo: false
+#| label: tbl-modelo-clase
+#| warning: false
+#| include: false
 
 
 # Modelo clase social
@@ -631,24 +777,16 @@ mod_clase_protesta <- glmmTMB(
   family = gaussian()
 )
 
-texreg(mod_clase_protesta,
+screenreg(mod_clase_protesta,
           custom.model.names = "Violencia en Protestas",
           include.ci = FALSE)
 ```
 
-## Interpretación: Efecto diferencial por clase social
+Tomando a la Clase de Servicio (Service class) como referencia, el modelo @tbl-modelo-clase muestra dos hallazgos importantes. Primero, entre los no participantes, la Clase Trabajadora (Working class) exhibe un nivel de justificación de la violencia significativamente más alto (efecto principal de $+0.09**$), lo que respalda la idea de una mayor "predisposición estructural".
 
-**Efectos de participar según clase social**:
+Segundo, el efecto de la participación es diferencial. La Clase de Servicio experimenta un fuerte incremento en su justificación al protestar (efecto de $+0.36***$). En cambio, la Clase Trabajadora tiene una reacción más atenuada, como lo indica el coeficiente de interacción negativo y significativo ($-0.15 **$). 
 
-| Clase | Efecto protesta | Interpretación |
-|-------|----------------|----------------|
-| **Service class** | +0.36*** | Mayor transformación |
-| **Intermediate class** | +0.40 | Transformación alta |
-| **Working class** | +0.19 | Menor transformación (efecto techo) |
-
-**Interacción negativa Working class**: -0.17**
-- Working class ya parte de mayor justificación (+0.07**)
-- Participar hace que disminuya su tolerancia (efecto techo)
+Esto significa que, si bien la participación aumenta la justificación para ambas clases, el efecto neto es mucho más intenso para la Clase de Servicio ($+0.36$) que para la Clase Trabajadora ($0.36 - 0.15 = +0.21$). La participación, por tanto, provoca que la brecha inicial de justificación entre ellas se reduzca significativamente entre los manifestantes.
 
 ```{r}
 #| label: fig-clase-protesta
@@ -656,6 +794,7 @@ texreg(mod_clase_protesta,
 #| fig-height: 5
 #| fig-width: 8
 #| echo: false
+#| fig-pos: "H"
 
 # Predicciones
 pred_clase <- ggpredict(mod_clase_protesta, terms = c("protesta_dummy", "egp3"))
@@ -666,17 +805,16 @@ plot(pred_clase) +
     subtitle = "Service class experimenta mayor cambio al participar; Working class muestra efecto techo",
     x = "Participación en Protestas",
     y = "Justificación de Violencia (predicha)",
-    color = "Clase Social"
+    color = "Clase Social",
+    caption = "Elaboración propia con ELSOC 2016-2023"
   ) +
   theme_minimal(base_size = 13) +
   theme(legend.position = "bottom")
 ```
 
-**Conclusión**: La clase social determina la intensidad del cambio actitudinal. Service class, más alejada de experiencias cotidianas de violencia, experimenta mayor transformación cognitiva al participar. Working class muestra menor cambio por predisposiciones estructurales previas.
+La @fig-clase-protesta muestra como clase social determina la intensidad del cambio actitudinal. Se podría decir que la clase servicios, más alejada de experiencias cotidianas de violencia, experimenta mayor transformación cognitiva al participar. Mientras que la clase trabajadora muestra menor cambio por predisposiciones estructurales previas.
 
----
-
-# Hallazgo 4: Divergencia vs Convergencia
+# Hipótesis 4: Divergencia vs Convergencia
 
 ## Comparación Educación vs Clase
 
@@ -684,6 +822,7 @@ plot(pred_clase) +
 #| label: tbl-comparacion
 #| tbl-cap: "Comparación de mecanismos: Educación vs Clase"
 #| echo: false
+#| tbl-pos: "H"
 
 comparacion <- data.frame(
   Aspecto = c("Efectos principales", "Interacciones con protesta", "Patrón al participar", "Mecanismo teórico"),
@@ -702,75 +841,32 @@ comparacion <- data.frame(
 )
 
 comparacion %>%
-  gt() %>%
-  tab_header(
-    title = "Educacion vs Clase: Mecanismos diferenciados",
-    subtitle = "Como moderan el efecto de la participacion en protestas"
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    # Renombramos 'Clase' a 'Clase Social' como tenías en gt()
+    col.names = c("Aspecto", "Educacion", "Clase Social"),
+    # Alineamos la primera columna a la izquierda y las otras al centro
+    align = c("l", "c", "c"),
+    escape = FALSE
   ) %>%
-  cols_label(
-    Aspecto = "Aspecto",
-    Educacion = "Educacion",
-    Clase = "Clase Social"
-  ) %>%
-  opt_table_font(font = "Times New Roman")
+  kable_styling(
+    latex_options = c("striped", "HOLD_position"),
+    position = "center",
+    font_size = 11
+  )
 ```
 
-**Modelo conceptual integrado**:
+**Modelo conceptual propuesto**:
 
 $$
 \text{Actitud hacia violencia} = \underbrace{\text{Capital cultural}}_{\text{Educación: línea base}} + \underbrace{\text{Posición estructural}}_{\text{Clase: predisposición}} + \underbrace{\text{Experiencia}}_{\text{Participación}} + \text{Interacciones}
 $$
 
-**Implicaciones**:
+La comparación de @tbl-comparacion revela que la educación y la clase social, como muestran los análisis previos, moderan el impacto de la participación en protestas a través de mecanismos opuestos. La educación actúa como un motor de divergencia, pues, aunque presenta efectos principales fuertes que inhiben la justificación (-0.11), su interacción positiva (+0.13) con la protesta indica que los universitarios experimentan la transformación normativa más grande al movilizarse, lo que sugiere un mecanismo de "flexibilidad cognitiva".
 
-1. **Educación** opera como predictor directo (efectos principales fuertes) y amplificador de experiencias (interacciones positivas)
+Por el contrario, la clase social funciona como un factor de convergencia, donde la clase trabajadora muestra un efecto principal positivo (+0.09), que apoya la idea de una "predisposición estructural". Sin embargo, la interacción negativa (-0.15) con la protesta demuestra que este grupo experimenta un menor cambio marginal al participar. Como resultado, mientras la participación acentúa las diferencias educativas, reduce las brechas de justificación existentes entre clases sociales.
 
-2. **Clase** opera como moderador estructural (efectos principales débiles, interacciones fuertes)
-
-3. **Participación** amplifica desigualdades educativas pero nivela desigualdades de clase
-
----
-
-# Síntesis e Implicaciones
-
-## Hallazgos principales
-
-1. **Educación no tiene efecto lineal**: Reduce justificación entre no-participantes, la aumenta entre participantes
-
-2. **Participación genera reconfiguración bidireccional**: Legitima violencia táctica, deslegitima violencia estatal (universitarios)
-
-3. **Clase determina intensidad del cambio**: Service class más transformable, working class con efecto techo
-
-4. **Educación diverge, clase converge**: Mecanismos sociológicos diferenciados
-
-## Implicaciones teóricas
-
-**Para teoría de capital cultural**:
-- El efecto "civilizatorio" de la educación es condicional, no universal
-- Capital cultural facilita reelaboración de marcos morales según experiencias
-
-**Para teoría de movimientos sociales**:
-- Participación tiene efectos heterogéneos según estratificación social
-- Movimientos masivos pueden ser más transformativos para clases medias-altas que trabajadoras
-
-**Para estudio del estallido chileno 2019**:
-- Amplitud social del movimiento puede explicarse por transformación de sectores profesionales/gerenciales
-- Marcos de "violencia legítima" emergieron especialmente entre universitarios participantes
-
-## Limitaciones
-
-1. **Datos correlacionales**: No podemos establecer causalidad definitiva
-2. **Sesgo de selección**: Quienes participan difieren de no-participantes en variables no observadas
-3. **Medición de violencia**: Índices agregados pueden ocultar heterogeneidad en tipos específicos de acciones
-
-## Extensiones futuras
-
-1. Analizar ítems individuales de violencia (ej: bloqueos vs destrucción de propiedad)
-2. Examinar trayectorias longitudinales individuales (cambio intra-personal)
-3. Incorporar experiencias específicas de represión/victimización
-4. Analizar heterogeneidad por género, edad, territorialidad
-
----
 
 # Anexos
 
@@ -790,15 +886,15 @@ Esta sección explora si los patrones encontrados en los índices agregados se m
 ### A.2. Descriptivos por tipo de violencia
 
 ```{r}
-#| label: tbl-items-violencia-descriptivos
+#| label: items-violencia-descriptivos
 #| tbl-cap: "Justificación de diferentes tipos de violencia según educación y participación"
 #| echo: false
+#| tbl-pos: "H"
 
-# Crear tabla descriptiva por tipo de violencia
 items_violencia <- elsoc_final_2 %>%
   filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
   group_by(educ_cat_unordered, Participacion = factor(protesta_dummy, 
-                                                       labels = c("No participo", "Participo"))) %>%
+                                                      labels = c("No participo", "Participo"))) %>%
   summarise(
     N = n(),
     `Trabajadores` = round(mean(violencia_trabajadores, na.rm = TRUE), 2),
@@ -811,29 +907,37 @@ items_violencia <- elsoc_final_2 %>%
   )
 
 items_violencia %>%
-  gt() %>%
-  tab_header(
-    title = "Justificacion de violencia en protestas por tipo de accion",
-    subtitle = "Escala 1-5. Segun educacion y participacion"
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    # Definimos la alineación que tenías en gt()
+    align = c("l", "l", "c", "c", "c", "c", "c", "c", "c"),
+    # Acortamos nombres para que quepan mejor
+    col.names = c("Nivel Educativo", "Participación", "N", "Trabajadores", 
+                  "Estudiantes", "Inmuebles", "Transporte", "Locales", "Índice"),
+    escape = FALSE
   ) %>%
-  cols_align(
-    align = "center",
-    columns = -c(educ_cat_unordered, Participacion)
+  kable_styling(
+    # scale_down es clave para tablas anchas
+    latex_options = c("striped", "HOLD_position", "scale_down"),
+    font_size = 9, # Reducimos la fuente porque la tabla es muy ancha
+    position = "center"
   ) %>%
-  tab_footnote(
-    footnote = "Nota: Valores mas altos indican mayor justificacion"
-  ) %>%
-  opt_table_font(font = "Times New Roman")
+  footnote(
+    general = "Nota: Valores mas altos indican mayor justificacion",
+    threeparttable = TRUE
+  )
 ```
 
 ### A.3. Visualización comparativa de ítems
 
 ```{r}
-#| label: fig-items-violencia-educacion
+#| label: items-violencia-educacion
 #| fig-cap: "Comparación de justificación de diferentes tipos de violencia según educación y participación"
 #| fig-height: 8
 #| fig-width: 10
 #| echo: false
+#| fig-pos: "H"
 
 # Preparar datos en formato largo
 items_long <- elsoc_final_2 %>%
@@ -887,138 +991,13 @@ items_long %>%
   )
 ```
 
-### A.4. Modelos por tipo específico de violencia
 
-¿El efecto paradójico de la educación se mantiene para todos los tipos de violencia?
-
-```{r}
-#| label: tbl-modelos-items-violencia
-#| tbl-cap: "Modelos de interacción Educación × Protesta por tipo de violencia"
-#| echo: false
-#| warning: false
-
-# Preparar datos con casos completos y dropear niveles no usados
-model_vars <- c("educ_cat_unordered", "protesta_dummy", "edad", "mujer", 
-                "ideologia_std", "year", "idencuesta")
-
-# Función helper para preparar datos
-prep_data <- function(violence_var) {
-  # Seleccionar solo casos completos
-  data_complete <- elsoc_final_2[complete.cases(elsoc_final_2[, c(violence_var, model_vars)]), ]
-  
-  # Verificar que hay suficientes observaciones
-  if (nrow(data_complete) < 100) {
-    message(paste("✗", violence_var, ": Pocas observaciones (N =", nrow(data_complete), ")"))
-    return(NULL)
-  }
-  
-  # Convertir a factor y dropear niveles no usados
-  data_complete$educ_cat_unordered <- droplevels(data_complete$educ_cat_unordered)
-  data_complete$protesta_dummy <- factor(data_complete$protesta_dummy)
-  data_complete$mujer <- factor(data_complete$mujer)
-  data_complete$year <- factor(data_complete$year)
-  
-  # Verificar que TODOS los factores tienen al menos 2 niveles
-  n_levels_educ <- length(levels(data_complete$educ_cat_unordered))
-  n_levels_protesta <- length(levels(data_complete$protesta_dummy))
-  n_levels_mujer <- length(levels(data_complete$mujer))
-  n_levels_year <- length(levels(data_complete$year))
-  
-  if (n_levels_educ < 2) {
-    message(paste("✗", violence_var, ": educ_cat_unordered tiene solo", n_levels_educ, "nivel(es)"))
-    return(NULL)
-  }
-  if (n_levels_protesta < 2) {
-    message(paste("✗", violence_var, ": protesta_dummy tiene solo", n_levels_protesta, "nivel(es)"))
-    return(NULL)
-  }
-  if (n_levels_mujer < 2) {
-    message(paste("✗", violence_var, ": mujer tiene solo", n_levels_mujer, "nivel(es)"))
-    return(NULL)
-  }
-  if (n_levels_year < 2) {
-    message(paste("✗", violence_var, ": year tiene solo", n_levels_year, "nivel(es)"))
-    return(NULL)
-  }
-  
-  # Todo OK
-  message(paste("✓", violence_var, ": N =", nrow(data_complete), 
-                "| Educ:", n_levels_educ, "| Protesta:", n_levels_protesta, 
-                "| Mujer:", n_levels_mujer, "| Year:", n_levels_year))
-  
-  return(data_complete)
-}
-
-# Función para ajustar modelo con manejo de errores
-fit_violence_model <- function(violence_var, data) {
-  if (is.null(data)) return(NULL)
-  
-  tryCatch({
-    glmmTMB(
-      as.formula(paste(violence_var, "~ educ_cat_unordered * protesta_dummy +
-        edad + mujer + ideologia_std + factor(year) +
-        (1 | idencuesta)")),
-      data = data,
-      family = gaussian()
-    )
-  }, error = function(e) {
-    warning(paste("Error ajustando modelo para", violence_var, ":", e$message))
-    return(NULL)
-  })
-}
-
-# Preparar datos y ajustar modelos
-data_trabajadores <- prep_data("violencia_trabajadores")
-mod_trabajadores <- fit_violence_model("violencia_trabajadores", data_trabajadores)
-
-data_estudiantes <- prep_data("violencia_estudiantes")
-mod_estudiantes <- fit_violence_model("violencia_estudiantes", data_estudiantes)
-
-data_inmuebles <- prep_data("violencia_inmobiliario")
-mod_inmuebles <- fit_violence_model("violencia_inmobiliario", data_inmuebles)
-
-data_transporte <- prep_data("violencia_transporte")
-mod_transporte <- fit_violence_model("violencia_transporte", data_transporte)
-
-data_locales <- prep_data("violencia_locales")
-mod_locales <- fit_violence_model("violencia_locales", data_locales)
-
-# Crear lista de modelos exitosos
-models_list <- list(mod_trabajadores, mod_estudiantes, mod_inmuebles, 
-                     mod_transporte, mod_locales)
-model_names <- c("Trabajadores", "Estudiantes", "Toma\nInmuebles", 
-                 "Paralizar\nTransporte", "Destruir\nLocales")
-
-# Filtrar modelos NULL
-valid_models <- !sapply(models_list, is.null)
-models_list <- models_list[valid_models]
-model_names <- model_names[valid_models]
-
-# Tabla comparativa (solo si hay modelos válidos)
-if (length(models_list) > 0) {
-  texreg(
-    models_list,
-    custom.model.names = model_names,
-    include.ci = FALSE,
-    custom.coef.map = list(
-      "educ_cat_unorderedUniversitaria completa" = "Univ. completa",
-      "protesta_dummy" = "Participó",
-      "educ_cat_unorderedUniversitaria completa:protesta_dummy" = "Univ. comp. × Particip."
-    ),
-    custom.note = "Nota: Se muestran solo coeficientes clave. Modelos incluyen controles completos."
-  )
-} else {
-  cat("No se pudieron ajustar modelos debido a problemas en los datos.\n")
-}
-```
-
-
-### A.5. Violencia estatal desagregada
+### A.4. Violencia estatal desagregada
 
 ```{r}
-#| label: tbl-items-violencia-estatal
 #| tbl-cap: "Justificación de violencia policial según contexto"
 #| echo: false
+#| tbl-pos: "H"
 
 # Descriptivos violencia estatal
 elsoc_final_2 %>%
@@ -1032,24 +1011,26 @@ elsoc_final_2 %>%
     `INDICE (promedio)` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
     .groups = "drop"
   ) %>%
-  gt() %>%
-  tab_header(
-    title = "Justificacion de violencia policial segun contexto de accion",
-    subtitle = "Escala 1-5. Segun educacion y participacion"
-  ) %>%
-  cols_align(
-    align = "center",
-    columns = -c(educ_cat_unordered, Participacion)
-  ) %>%
-  opt_table_font(font = "Times New Roman")
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    align = c("l", "l", "c", "c", "c", "c"),
+    col.names = c("Nivel Educativo", "Participación", "N", 
+                  "Carab. en Marchas", "Carab. en Tomas", "Índice (Promedio)"),
+    escape = FALSE) %>%
+  kable_styling(
+    latex_options = c("striped", "HOLD_position"),
+    position = "center",
+    font_size = 10
+  )
 ```
 
 ```{r}
-#| label: fig-items-violencia-estatal
+#| label: fig-violencia-estatal
 #| fig-cap: "Justificación de violencia policial según contexto y participación en protestas"
 #| fig-height: 4
 #| fig-width: 10
-#| echo: false
+#| fig-pos: "H"
 
 # Preparar datos
 items_estatal_long <- elsoc_final_2 %>%
@@ -1095,16 +1076,16 @@ items_estatal_long %>%
   )
 ```
 
-**Hallazgo**: La justificación de violencia policial es **consistentemente baja** en ambos contextos, pero muestra el patrón esperado: universitarios que participan critican MÁS la violencia policial que no-participantes.
+La justificación de violencia policial es consistentemente baja en ambos contextos, pero muestra el patrón esperado: universitarios que participan critican MÁS la violencia policial que no-participantes.
 
----
 
 ## Anexo B: Descriptivos Completos por Educación y Clase
 
 ```{r}
-#| label: tbl-descriptivos-completos-anexo
+#| label: descriptivos-completos-anexo
 #| tbl-cap: "Descriptivos completos por educación, clase y participación"
 #| echo: false
+#| tbl-pos: "H"
 
 elsoc_final_2 %>%
   filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
@@ -1117,23 +1098,283 @@ elsoc_final_2 %>%
   ) %>%
   mutate(Participacion = ifelse(protesta_dummy == 1, "Participó", "No participó")) %>%
   dplyr::select(-protesta_dummy) %>%
-  gt() %>%
-  tab_header(
-    title = "Justificacion de violencia por educacion y participacion",
-    subtitle = "Medias observadas"
-  ) %>%
-  cols_label(
-    educ_cat_unordered = "Nivel educativo",
-    Participacion = "Participacion",
-    N = "N",
-    `Just. Viol. Protestas` = "Viol. Protestas",
-    `Just. Viol. Estatal` = "Viol. Estatal"
-  ) %>%
-  opt_table_font(font = "Times New Roman")
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    # Replicamos los cols_label de gt()
+    col.names = c("Nivel educativo", "N", "Viol. Protestas", "Viol. Estatal", "Participacion"),
+    # Alineamos (5 columnas)
+    align = c("l", "c", "c", "c", "l"),
+    escape = FALSE) %>%
+  kable_styling(
+    latex_options = c("striped", "HOLD_position"),
+    position = "center",
+    font_size = 11
+  )
 ```
 
----
 
-**Documento generado**: `r Sys.Date()`  
-**Datos**: ELSOC 2016-2023  
-**Software**: R 4.x, glmmTMB, ggeffects
+# Anexo C: Análisis de robustez con modelos logit multinivel
+
+En el presente anexo se muestran los resultados de robustez utilizando como variable dependiente las versiones dicotómicas (dummy) de justificación de la violencia: `justifica_violencia_protesta_dummy` y `justifica_violencia_estatal_dummy`. Se estima la misma especificación principal, pero empleando modelos logit multinivel (GLMM con familia binomial), lo que permite analizar la probabilidad de justificar la violencia (sí/no) y comparar los patrones con los modelos de índice continuo.
+
+En el caso de variables dependientes binarias, se utiliza la función de enlace logit:
+
+$$
+ext{logit}(P(y_{tj}=1)) = \beta_0 + \beta_1 X_{tj} + \beta_2 Z_j + u_{0j}
+$$
+
+```{r} 
+#| warning: false
+#| message: false
+#| include: false
+
+# Modelo logit multinivel para violencia en protestas (dummy)
+mod_logit_protesta <- glmmTMB(
+  justifica_violencia_protesta_dummy ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = binomial()
+)
+
+# Modelo logit multinivel para violencia estatal (dummy)
+mod_logit_estatal <- glmmTMB(
+  justifica_violencia_estatal_dummy ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = binomial()
+)
+
+# Tabla comparativa de resultados
+screenreg(list(mod_logit_protesta, mod_logit_estatal),
+          custom.model.names = c("Violencia en Protestas (Logit)", "Violencia Estatal (Logit)"),
+          custom.coef.names = c(
+            "(Intercepto)",
+            "Téc. sup. incompleta",
+            "Téc. sup. completa",
+            "Univ. incompleta",
+            "Univ. completa",
+            "Participó en protesta",
+            "Edad",
+            "Mujer",
+            "Ideología (izq-der)",
+            "2017", "2018", "2019", "2022", "2023",
+            "Téc. sup. inc. × Protesta",
+            "Téc. sup. comp. × Protesta",
+            "Univ. inc. × Protesta",
+            "Univ. comp. × Protesta"
+          ),
+          digits = 3)
+```
+
+Los análisis de regresión multinivel buscan determinar cómo la estratificación social (educación y clase) modera el efecto de la participación en protestas sobre la justificación de la violencia. Los resultados revelan que la educación y la clase social no solo importan, sino que operan a través de mecanismos opuestos.El primer conjunto de modelos (@tbl-modelos-educ) analiza la interacción entre el nivel educativo y la participación en protestas, sugiriendo una reconfiguración normativa bidireccional en los individuos con educación universitaria. Entre quienes no participan en protestas, la educación universitaria tiene un "efecto civilizatorio", reduciendo significativamente la justificación de la violencia (Efecto: $-0.11$). Sin embargo, esta tendencia se anula e invierte para los universitarios que sí protestan (Interacción: $+0.13$), lo que sugiere un mecanismo de "flexibilidad cognitiva". De forma crucial, estos mismos universitarios movilizados desarrollan un marco moral opuesto hacia la violencia estatal, reduciendo drásticamente su justificación al participar (Interacción: $-0.18**$). En resumen, la participación en protestas activa a los grupos con mayor educación, provocando que justifiquen más la violencia en manifestaciones y, simultáneamente, rechacen con más fuerza la violencia estatal.
+
+El segundo modelo (@tbl-modelo-clase), que utiliza la variable de clase EGP imputada, muestra una dinámica contraria. Tomando a la Clase de Servicio (I+II) como referencia, la Clase Trabajadora (V-VII) exhibe, entre los no participantes, un nivel de justificación de la violencia significativamente más alto (Efecto: $+0.09$). Esto respalda la idea de una "predisposición estructural". En cuanto al efecto de la protesta, la Clase de Servicio experimenta un fuerte incremento en su justificación (Efecto: $+0.36$), mientras la Clase Trabajadora tiene una reacción más atenuada (Interacción: $-0.15*$). Esto significa que el efecto neto es mucho más intenso para la Clase de Servicio ($+0.36$) que para la Clase Trabajadora ($0.36 - 0.15 = +0.21$). La participación, por tanto, provoca que la brecha inicial de justificación entre ellas se reduzca significativamente entre los manifestantes.
+
+La comparación de ambos mecanismos (resumida en @tbl-comparacion) es la tesis central de estos hallazgos. La educación actúa como un motor de divergencia (divergent driver): la protesta acrecienta las diferencias normativas entre niveles educativos. Por el contrario, la clase social funciona como un factor de convergencia: la protesta reduce las diferencias normativas entre clases.
+
+Finalmente, los análisis de robustez mediante modelos logit multinivel (@tbl-anexos-logit) confirman parcialmente estos patrones y ofrecen un matiz crucial. Por un lado, la evidencia para la Violencia Estatal se fortalece: la interacción negativa entre protesta y educación universitaria es altamente significativa ($-0.542$***), confirmando un sólido rechazo a la violencia estatal por parte de los universitarios movilizados. Por otro lado, la evidencia para la Violencia en Protestas se debilita: la interacción positiva (la "flexibilidad cognitiva") pierde su significancia estadística en el modelo logit.
+
+En síntesis, la evidencia más sólida y robusta a distintas especificaciones de modelo es que la participación en protestas genera un rechazo normativo robusto a la violencia estatal entre los más educados, mientras que el efecto sobre la justificación de la violencia en protestas es más ambiguo y sensible a la operacionalización de la variable dependiente.
+
+Para facilitar la interpretación, se graficaron las probabilidades predichas de justificar la violencia según nivel educativo y participación en protestas:
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-pos: "H"
+#| fig-height: 4
+#| fig-width: 10
+
+library(ggeffects)
+pred_logit <- ggpredict(mod_logit_protesta, terms = c("educ_cat_unordered", "protesta_dummy"))
+plot(pred_logit) +
+  labs(
+    title = "Probabilidad predicha de justificar violencia en protestas (modelo logit)",
+    x = "Nivel educativo",
+    y = "Probabilidad de justificar (predicha)",
+    color = "Participación en protestas"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+La probabilidad de justificar la violencia en protestas aumenta entre universitarios que participan, replicando el efecto paradójico hallado con el índice continuo.
+
+En específico, para todos los niveles educativos, quienes participaron en protestas tienen una probabilidad significativamente mayor de justificar la violencia en comparación con quienes no participaron.
+
+Entre los no participantes, la probabilidad de justificación tiende a ser más baja y relativamente estable o levemente decreciente a mayor nivel educativo.
+
+Entre los participantes, la probabilidad es más alta y, aunque hay variación, se observa que los universitarios (especialmente completos) mantienen o incluso aumentan su probabilidad de justificación respecto a los otros grupos.
+
+Las barras de error muestran que las diferencias son estadísticamente relevantes, especialmente entre participantes y no participantes.
+
+Finalmente, participar en protestas incrementa la probabilidad de justificar la violencia en todos los niveles educativos, y el efecto paradójico de la educación se mantiene: los universitarios que participan justifican tanto o más que otros grupos, mientras que entre no participantes la educación tiende a reducir la justificación. Esto refuerza la interacción entre educación y protesta hallada en los modelos.
+
+# Anexo D: Análisis de robustez logit por clase social
+
+En este anexo se presenta el análisis de robustez utilizando modelos logit multinivel para la variable dummy de justificación de la violencia, pero considerando la interacción con clase social (`egp3`) en vez de nivel educativo. Esto permite evaluar si los patrones de interacción entre clase social y participación en protestas replican los hallazgos principales.
+
+```{r}
+#| warning: false
+#| message: false
+#| include: false
+
+
+# Modelo logit multinivel para violencia en protestas (dummy) por clase social
+mod_logit_clase <- glmmTMB(
+  justifica_violencia_protesta_dummy ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = binomial()
+)
+
+# Tabla de resultados
+screenreg(mod_logit_clase,
+          custom.model.names = "Violencia en Protestas (Logit, Clase)",
+          include.ci = FALSE)
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-pos: "H"
+#| label: tbl-logit-clase
+#| results: asis
+#| echo: false
+
+texreg(
+  mod_logit_clase,
+  caption = "Modelo logit de violencia en protestas por clase social",
+  custom.model.names = "Violencia en Protestas (Logit)",
+  custom.coef.map = list(
+    "(Intercept)" = "(Intercepto)",
+    "egp3Intermedia" = "Clase Intermedia",
+    "egp3Trabajadores manuales" = "Trabajadores Manuales",
+    "protesta_dummy" = "Participó en protesta",
+    "edad" = "Edad",
+    "mujer" = "Mujer",
+    "ideologia_std" = "Ideología (izq-der)",
+    "factor(year)2017" = "2017",
+    "factor(year)2018" = "2018",
+    "factor(year)2019" = "2019",
+    "factor(year)2022" = "2022",
+    "factor(year)2023" = "2023",
+    "egp3Intermedia:protesta_dummy" = "Clase Intermedia × Protesta",
+    "egp3Trabajadores manuales:protesta_dummy" = "Trab. Manuales × Protesta"
+  ),
+  stars = c(0.001, 0.01, 0.05),
+  custom.note = "\\parbox{.9\\linewidth}{\\vspace{2pt}\\textit{Notas:} Coeficientes logit. Errores estándar entre paréntesis. Categoría de referencia: Clase de Servicio. Año de referencia: 2016. * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}",
+  digits = 3,
+  fontsize = "small",
+  use.packages = TRUE
+)
+```
+
+El intercepto y el efecto de participar en protestas (protesta_dummy) son positivos y significativos, es decir, participar en protestas aumenta la probabilidad de justificar la violencia en todos los grupos de clase.
+
+La clase trabajadora ("Working class") parte de una probabilidad levemente mayor de justificación (coeficiente positivo y significativo: $+0.17$ *), mientras que la clase intermedia no difiere significativamente de la de servicios (referencia).
+
+La interacción "Working class × Protesta" es negativa ($-0.37$), lo que indica que el aumento en la probabilidad de justificar la violencia al participar es menor para la clase trabajadora que para la de servicios (efecto techo), aunque esta interacción no es estadísticamente significativa ($p > 0.05$).
+
+Edad e ideología muestran efectos esperados: mayor edad y mayor autoubicación a la derecha reducen la probabilidad de justificar la violencia.
+
+Finalmente, el patrón es parcialmente inconsistente con el análisis principal (lineal). Si bien los efectos principales (como la "predisposición" de la clase trabajadora) se mantienen, este modelo logit falla en confirmar estadísticamente la tesis de la "convergencia". Dado que la interacción no es significativa, no podemos concluir que la transformación es más intensa en la clase de servicios, lo que genera convergencia entre clases. Este hallazgo parece ser sensible a la especificación del modelo.
+
+```{r}
+#| fig.height: 5
+#| fig.width: 8
+#| warning: false
+#| message: false
+#| fig-pos: "H"
+
+pred_logit_clase <- ggpredict(mod_logit_clase, terms = c("egp3", "protesta_dummy"))
+plot(pred_logit_clase) +
+  labs(
+    title = "Probabilidad predicha de justificar violencia en protestas (logit, clase social)",
+    x = "Clase social (EGP)",
+    y = "Probabilidad de justificar (predicha)",
+    color = "Participación en protestas"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+# Referencias
+
+Agresti, A. (2013). Categorical data analysis. John Wiley & Sons.
+
+Amnistía Internacional. (2020). Ojos sobre Chile: Violencia policial y responsabilidad de mando durante el estallido social. Amnistía Internacional. https://www.amnesty.org/es/documents/amr22/3133/2020/es/
+
+Blee, K. M., & Currier, A. (2006). How gender matters: The effects of gender on protest participation and outcomes. En The Blackwell companion to social movements. Blackwell Publishing.
+
+Brooks, M. E., Kristensen, K., van Benthem, K. J., Magnusson, A., Berg, C. W., Nielsen, A., ... & Bolker, B. M. (2017). glmmTMB: A flexible, fast, and general-purpose package for modeling zero-inflated and zero-altered data. Methods in Ecology and Evolution, 8(3), 335-348.
+
+Brown, G., K. and Langer, A. (2010) Horizontal inequalities and conflict: A critical review and research agenda. Conflict, Security and Development 10(1): 27–55
+
+Buis, M. L. (2010). Stata tip 87: Interpretation of interactions in non-linear models. The Stata Journal, 10(2), 305-308.
+
+Canales, M. (2022). La Pregunta de Octubre: Fundación, apogeo y crisis del Chile neoliberal. Santiago: LOM Ediciones.
+
+Cederman, L.-E., Gleditsch, K. S., & Weidmann, N. B. (2011). Horizontal inequalities and ethno-nationalist civil war: A global comparison. American Political Science Review, 105(3), 478-495. https://doi.org/10.1017/S0003055411000207
+
+Cox, L., González, R., & Le Foulon, C. (2023). The 2019 Chilean Social Upheaval: A Descriptive Approach. Journal of Politics in Latin America, 16(1), 68-89. https://doi.org/10.1177/1866802X231203747 
+
+Fassin, D. (2012). La Fuerza del orden: Una etnografía del accionar policial en las periferias urbanas. Buenos Aires: Siglo XXI.
+
+Gelman, A., & Hill, J. (2007). Data analysis using regression and multilevel/hierarchical models. Cambridge University Press.
+
+Giugni, M. (2004). Personal and biographical consequences. En D. A. Snow, S. A. Soule, & H. Kriesi (Eds.), The Blackwell companion to social movements (pp. 489-507). Blackwell Publishing.
+
+González, R., & Le Foulon, C. (2020). The 2019–2020 Chilean protests: A first look at their causes and participants. International Journal of Sociology, 50(3), 227-235. https://doi.org/10.1080/00207659.2020.1752085
+
+Gubler, J., R. and Selway J., S. (2012). Horizontal inequality, crosscutting cleavages, and civil war. Journal of Conflict Resolution 56(2): 206–232.
+
+Gurr, T., R. (2000). Peoples Versus States: Minorities at Risk in the New Century. Washington, DC: United States Institute of Peace Press.
+
+Hainmueller, J., & Hiscox, M. J. (2007). Educated preferences: Explaining attitudes toward immigration in Europe. International Organization, 61(2), 399-442. https://doi.org/10.1017/S0020818307070142
+
+Hox, J. J. (2010). Multilevel analysis: Techniques and applications. Routledge.
+
+Human Rights Watch. (2019). Chile: Llamado urgente a una reforma policial tras las protestas. Human Rights Watch. https://www.hrw.org/es/news/2019/11/26/chile-llamado-urgente-una-reforma-policial-tras-las-protestas
+
+Lipset, S. M. (1959). Democracy and working-class authoritarianism. American Sociological Review, 24(4), 482-501. https://doi.org/10.2307/2089536
+
+Lüdecke, D. (2018). ggeffects: Tidy data frames of marginal effects from regression models. Journal of Open Source Software, 3(26), 771.
+
+McAdam, D. (1989). The biographical consequences of activism. American Sociological Review, 54(5), 744-760. https://doi.org/10.2307/2117751
+
+Mize, T. D. (2019). Best practices for estimating and interpreting interactions in non-linear models. Sociological Science, 6, 88-140.
+
+Nie, N. H., Junn, J., & Stehlik-Barry, K. (1996). Education and democratic citizenship in America. University of Chicago Press.
+
+Østby, G. (2013). Inequality and political violence: A review of the literature. International Area Studies Review, 16(2), 206-231. https://doi.org/10.1177/2233865913490937
+
+Pérez Ahumada P (2021) Why is it so difficult to reform collective labour law? Associational power and policy continuity in Chile in comparative perspective. Journal of Latin American Studies 83: 81–105.
+
+Pérez Ahumada, P., & Andrade, V. (2021). Class identity in times of social mobilization and labor union revitalization: Evidence from the case of Chile (2009–2019). Current Sociology, 71(6), 1040-1062. https://doi.org/10.1177/00113921211056052
+
+Raudenbush, S. W., & Bryk, A. S. (2002). Hierarchical linear models: Applications and data analysis methods. Sage Publications.
+
+Sen A (2006) Conceptualizing and measuring poverty. In: Grusky DB and England P (eds) Poverty and Inequality. Standford, CA: Standford University Press, pp. 30–46.
+
+Snijders, T. A. B., & Bosker, R. J. (2012). Multilevel analysis: An introduction to basic and advanced multilevel modeling. Sage Publications.
+
+Snow, D. A., & Benford, R. D. (1988). Ideology, frame resonance, and participant mobilization. International Social Movement Research, 1(1), 197-217.
+
+Somma, N. M., Bargsted, M., Disi Pavlic, R., & Medel, R. (2021). No water in the oasis: The Chilean spring of 2019-2020. Social Movement Studies, 20(4), 495-502. https://doi.org/10.1080/14742837.2020.1727737
+
+Stewart, F. (2002). Horizontal inequalities: A neglected dimension of development. QEH Working Paper Series, Working Paper Number 81. Queen Elizabeth House, University of Oxford. https://www.qeh.ox.ac.uk/sites/www.odid.ox.ac.uk/files/qehwps81.pdf
+
+Stewart, F. (Ed.). (2008). Horizontal inequalities and conflict: Understanding group violence in multiethnic societies. Palgrave Macmillan. https://doi.org/10.1057/9780230582729
+
+Svallfors, S. (2006). The moral economy of class: Class and attitudes in comparative perspective. Stanford University Press.
+
+Tyler, T. R. (2006). Psychological perspectives on legitimacy and legitimation. Annual Review of Psychology, 57, 375-400. https://doi.org/10.1146/annurev.psych.57.102904.190038
+
+Tilly, C. (1999). Durable Inequality. Berkeley, CA: University of California Press.
+
+Verba, S., Schlozman, K. L., & Brady, H., E. (1995). Voice and Equality: Civic Voluntarism in American Politics. Cambridge: Harvard University Press.
+
+Weakliem, D. L. (2002). The effects of education on political opinions: An international study. International Journal of Public Opinion Research, 14(2), 141-157. https://doi.org/10.1093/ijpor/14.2.141

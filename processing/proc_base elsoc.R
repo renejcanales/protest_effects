@@ -404,130 +404,132 @@ elsoc_clean <- elsoc_clean %>%
     violencia_disponible = !is.na(violencia_carabineros_marchas) | !is.na(violencia_trabajadores)
   )
 
-# Recode Ocupación
+#----10. Recode Ocupación---------
 
 remotes::install_github("DiogoFerrari/occupar")
 
-# ISCO 
-
-frq(elsoc_clean$ciuo08_m03)
-
-elsoc_clean %>%
-  group_by(ola) %>%
-  summarise(
-    solo_NA = all(is.na(ciuo88_m03))
-  ) # only not in wave 2016
-
-frq(elsoc_clean$ciuo08_m03)
-
-elsoc_clean %>%
-  group_by(ola) %>%
-  summarise(
-    solo_NA = all(is.na(ciuo08_m03))
-  ) # only wave 2018, 2021 and 2023
-
-elsoc_clean$isco88 <- NA
-elsoc_clean$isco88[elsoc_clean$ola %in% c(1)] <- elsoc_clean$ciuo88_m03[elsoc_clean$ola %in% c(1)]
-
-elsoc_clean$isco88[elsoc_clean$ola %in% c(3,5,7)] <- occupar::isco08to88(elsoc_clean$ciuo08_m03[elsoc_clean$ola %in% c(3,5,7)]
-)
-
-elsoc_clean %>%
-  group_by(ola) %>%
-  summarise(
-    solo_NA = all(is.na(isco88))
-  )
-
-# Crear una columna con la variable "isco08" adelantada una ola
 elsoc_clean <- elsoc_clean %>%
-  group_by(idencuesta) %>%        # Agrupa por id para trabajar en cada individuo
-  mutate(isco88_lagged=lag(isco88,n=1)) %>%  # Desplaza isco08 a la siguiente ola
+  # 1. Aseguramos el orden cronológico
+  arrange(idencuesta, ola) %>%
+  
+  # 2. Creamos la variable combinada (aún con NAs en olas 2, 4, 6)
+  mutate(
+    isco88 = case_when(
+      ola == 1 ~ as.numeric(ciuo88_m03),
+      ola %in% c(3, 5, 7) ~ occupar::isco08to88(ciuo08_m03),
+      TRUE ~ NA_real_
+    )
+  ) %>%
+  
+  # 3. ¡La solución! Rellenamos "hacia abajo"
+  # Toma el último valor válido y lo arrastra a los NAs siguientes
+  group_by(idencuesta) %>%
+  fill(isco88, .direction = "down") %>%
   ungroup()
 
-# Rellenar los valores NA en la variable original
-elsoc_clean <- elsoc_clean %>%
-  mutate(isco88=ifelse(!is.na(isco88),isco88,isco88_lagged)) %>%  # Si isco08 es NA, sustituir con el valor de la ola anterior 
-  dplyr::select(-isco88_lagged)                 # Elimina la columna temporal
-
+# 4. Verificación (Opcional pero recomendado)
+# Comprueba si ahora sí hay datos en todas las olas
 elsoc_clean %>%
   group_by(ola) %>%
   summarise(
-    solo_NA = all(is.na(isco88))
+    total_NAs = sum(is.na(isco88)),
+    total_validos = sum(!is.na(isco88))
   )
 
-# tipo empleo
+# Tipo de empleo
+
 library(sjPlot)
+library(sjmisc) # Para set_labels y frq
 
-frq(elsoc_clean$tipo_empleo)
-
+# 1. Definir etiquetas (tu código)
 labs_sj <- c(
   `1` = "Empleado u obrero en empresa privada",
   `2` = "Empleado u obrero del sector publico",
-  `3` = "Miembro de las Fuerzas Armadas y de Orden",
+  `3` = "Miembro de las Fuerzas Armadas y de Orden", # Se filtrará
   `4` = "Patron/a o empleador/a",
   `5` = "Trabaja solo, no tiene empleados",
-  `6` = "Familiar no remunerado",
+  `6` = "Familiar no remunerado", # Se filtrará
   `7` = "Servicio domestico"
 )
 
+# 2. Limpiar, IMPUTAR CON FILL, y crear selfemp_egp
 elsoc_clean <- elsoc_clean %>%
-  mutate(tipo_empleo = suppressWarnings(as.integer(tipo_empleo)),
-         tipo_empleo = if_else(tipo_empleo %in% c(1,2,4,5,7), tipo_empleo, NA_integer_)) %>%
+  # Aseguramos orden cronológico (clave para fill)
+  arrange(idencuesta, ola) %>%
+  
+  # Limpiamos la variable original (tu código)
+  mutate(
+    tipo_empleo = suppressWarnings(as.integer(tipo_empleo)),
+    tipo_empleo = if_else(tipo_empleo %in% c(1, 2, 4, 5, 7), tipo_empleo, NA_integer_)
+  ) %>%
+  
+  # *** LA SOLUCIÓN: Imputar con fill() ***
+  # Reemplaza tu 'lag()' y 'coalesce()'
   group_by(idencuesta) %>%
-  arrange(idencuesta, ola, .by_group = TRUE) %>%
-  mutate(tipo_empleo = coalesce(tipo_empleo, lag(tipo_empleo))) %>%
+  fill(tipo_empleo, .direction = "down") %>%
   ungroup() %>%
+  
+  # 3. Aplicar etiquetas y crear selfemp_egp (tu código, combinado)
   mutate(
     tipo_empleo = set_labels(tipo_empleo, labels = labs_sj),
-    tipo_empleo = set_label(tipo_empleo, label = "Relación de empleo (1–7)")
+    tipo_empleo = set_label(tipo_empleo, label = "Relación de empleo (1–7)"),
+    
+    selfemp_egp = case_when(
+      tipo_empleo %in% c(4, 5) ~ 1,     # Patrón o cuenta propia
+      tipo_empleo %in% c(1, 2, 7) ~ 0, # Empleado (priv/pub) o serv. dom.
+      TRUE ~ NA_real_
+    )
   )
 
-frq(elsoc_clean$tipo_empleo)
-
-sjt.xtab(elsoc_clean$tipo_empleo,elsoc_clean$ola,
-         show.col.prc=TRUE,
-         var.labels=c("Relacion de empleo","Ola"),
-         show.summary=FALSE,         title=NULL)
-
-elsoc_clean <- elsoc_clean %>% 
-  rowwise() %>% 
-  mutate(selfemp_egp = case_when(tipo_empleo %in% c(4:5) ~ 1,
-                                 tipo_empleo %in% c(1,2,7) ~ 0,
-                                 TRUE ~ NA)) %>% 
-  ungroup()
-
+# 4. Verificación (tu código)
+# Revisa que 'selfemp_egp' y 'tipo_empleo' tengan datos en todas las olas
 frq(elsoc_clean$selfemp_egp)
 
-elsoc_clean <- elsoc_clean %>% 
-  mutate(cantidad_trabajadores_rec = case_when(
-                            cantidad_trabajadores == 1 ~ 1,
-                            cantidad_trabajadores == 2 ~ 4,
-                            cantidad_trabajadores == 3 ~ 9,
-                            cantidad_trabajadores == 4 ~ 49,
-                            cantidad_trabajadores == 5 ~ 199,
-                            cantidad_trabajadores == 6 ~ 201,
-                             TRUE ~ NA_real_))
-
-elsoc_clean <- elsoc_clean %>% 
-  mutate(nemploy_egp = if_else(selfemp_egp == 1 & cantidad_trabajadores_rec > 1, cantidad_trabajadores_rec, 0))
-
-frq(elsoc_clean$nemploy_egp)
+sjt.xtab(elsoc_clean$tipo_empleo, elsoc_clean$ola,
+         show.col.prc = TRUE,
+         var.labels = c("Relacion de empleo (Imputada)", "Ola"),
+         show.summary = FALSE, 
+         title = NULL)
 
 elsoc_clean <- elsoc_clean %>%
-  group_by(idencuesta) %>%        # Agrupa por id para trabajar en cada individuo
-  mutate(nemploy_egp_lagged=lag(nemploy_egp,n=1)) %>%  # Desplaza isco08 a la siguiente ola
+  # 1. Aseguramos el orden (clave para fill)
+  arrange(idencuesta, ola) %>%
+  
+  # 2. Creamos las variables (tu código)
+  mutate(
+    cantidad_trabajadores_rec = case_when(
+      cantidad_trabajadores == 1 ~ 1,
+      cantidad_trabajadores == 2 ~ 4,
+      cantidad_trabajadores == 3 ~ 9,
+      cantidad_trabajadores == 4 ~ 49,
+      cantidad_trabajadores == 5 ~ 199,
+      cantidad_trabajadores == 6 ~ 201,
+      TRUE ~ NA_real_
+    ),
+    
+    # Creamos nemploy_egp
+    # OJO: selfemp_egp debe estar creado e imputado (Paso 2)
+    nemploy_egp = if_else(selfemp_egp == 1 & cantidad_trabajadores_rec > 1, 
+                          cantidad_trabajadores_rec, 0)
+  ) %>%
+  
+  # 3. *** LA SOLUCIÓN: Imputar con fill() ***
+  # Reemplaza tu bloque de 'lag()'
+  group_by(idencuesta) %>%
+  fill(nemploy_egp, .direction = "down") %>%
   ungroup()
 
-# Rellenar los valores NA en la variable original
-elsoc_clean <- elsoc_clean %>%
-  mutate(nemploy_egp=ifelse(!is.na(nemploy_egp),nemploy_egp,nemploy_egp_lagged)) %>%  # Si isco08 es NA, sustituir con el valor de la ola anterior 
-  dplyr::select(-nemploy_egp_lagged)                 # Elimina la columna temporal
+# 4. Verificación (tu código)
+# Revisa que 'nemploy_egp' tenga datos en todas las olas
+frq(elsoc_clean$nemploy_egp)
 
+sjt.xtab(elsoc_clean$nemploy_egp, elsoc_clean$ola,
+         show.col.prc = TRUE,
+         var.labels = c("N employees (Imputado)", "Ola"),
+         show.summary = FALSE, 
+         title = NULL)
 
-sjt.xtab(elsoc_clean$nemploy_egp,elsoc_clean$ola,
-         show.col.prc=TRUE,
-         var.labels=c("N employees","Ola"),
-         show.summary=FALSE,         title=NULL)
+# 5. Convertir ISCO-88 a EGP
 
 elsoc_clean <- elsoc_clean %>% 
   mutate(egp = occupar::isco88toEGP(isco88 = isco88, 
