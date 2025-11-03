@@ -59,6 +59,8 @@ library(patchwork)
 library(gt)
 library(kableExtra)
 library(here)
+library(modelsummary)
+library(stargazer)
 
 # Cargar datos
 load(here("input/data/proc/elsoc_final_2.RData"))
@@ -613,11 +615,9 @@ En ambos casos, estos valores son sustanciales y confirman la existencia de una 
 
 # Hipótesis 1: El "Efecto Paradoja" de la Educación
 
-## Modelo de interacción Educación × Protesta
-
 ```{r}
 #| echo: false
-#| label: tbl-modelo-educ
+#| include: false
 
 # Modelo principal
 mod_educ_protesta <- glmmTMB(
@@ -648,7 +648,30 @@ screenreg(mod_educ_protesta,
           ))
 ```
 
-El @tbl-modelo-educ revela una interacción interesante: el efecto de la educación superior varía significativamente según la participación en protestas. 
+```{r}
+#| label: tbl-educ-protesta
+#| tbl-cap: "Violencia en Protestas"
+#| echo: false
+#| tbl-pos: "H"
+
+modelsummary(
+  mod_educ_protesta,
+  stars = c('*' = 0.05, '**' = 0.01, '***' = 0.001),
+  estimate = "{estimate}{stars}",
+  statistic = "({std.error})",
+  fmt = 2,
+  gof_map = c("nobs", "r.squared", "aic"),
+  output = "kableExtra"
+) %>%
+  kable_styling(
+    font_size = 6,
+    latex_options = c("scale_down", "HOLD_position"),
+    full_width = FALSE
+  ) %>%
+  column_spec(1, width = "4cm")
+```
+
+El @tbl-educ-protesta revela una interacción interesante: el efecto de la educación superior varía significativamente según la participación en protestas. 
 
 Entre quienes no participaron en movilizaciones, contar con educación universitaria completa predice una menor justificación de la violencia (efecto estimado de -0.11), lo que respalda la hipótesis de un posible “efecto civilizatorio” de la educación. Sin embargo, esta tendencia se invierte entre quienes sí participaron: para este grupo, el efecto total de la educación universitaria se vuelve positivo y significativo (≈ +0.25), indicando que los individuos con mayor capital educativo que se involucran activamente en la protesta tienden a justificar en mayor medida la violencia. 
 
@@ -676,7 +699,7 @@ plot(pred_educ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-Tanto el modelo @tbl-modelo-educ como el gráfico @fig-paradoja-educacion sugieren que la educación reduce la justificación de violencia solo entre observadores externos. Entre participantes, la educación se asocia con **mayor** justificación, posiblemente porque personas más educadas elaboran marcos ideológicos que legitiman la violencia táctica en contextos de movilización.
+Tanto el modelo @tbl-educ-protesta como el gráfico @fig-paradoja-educacion sugieren que la educación reduce la justificación de violencia solo entre observadores externos. Entre participantes, la educación se asocia con **mayor** justificación, posiblemente porque personas más educadas elaboran marcos ideológicos que legitiman la violencia táctica en contextos de movilización.
 
 # Hipótesis 2: Reconfiguración Bidireccional de la justificación de la violencia (Protestas vs Estado)
 
@@ -684,7 +707,8 @@ Tanto el modelo @tbl-modelo-educ como el gráfico @fig-paradoja-educacion sugier
 
 ```{r}
 #| echo: false
-#| label: tbl-modelos-educ
+#| include: false
+
 
 # Modelo violencia estatal
 mod_educ_estatal <- glmmTMB(
@@ -716,7 +740,53 @@ screenreg(list(mod_educ_protesta, mod_educ_estatal),
           ))
 ```
 
-Los resultados de ambos modelos en la @tbl-modelos-educ confirman que el efecto de la educación superior se ve condicionado por la participación en protestas. Mientras que entre los no participantes la educación universitaria reduce la justificación de la violencia en manifestaciones (un "efecto civilizatorio" de -0.11), esta tendencia se anula e invierte para los participantes con educación superior (técnica y universitaria), quienes muestran una mayor legitimación (interacciones de +0.13 a +0.22). De forma crucial, son específicamente los universitarios movilizados quienes desarrollan un marco moral opuesto hacia la violencia estatal, justificándola significativamente menos (interacción de -0.18). Este hallazgo, consistente con la H2, demuestra que la participación activa genera una reconfiguración normativa 'bidireccional' (rechazo a la violencia estatal y aceptación de la de protesta) de forma más completa entre los individuos con educación universitaria.
+
+```{r}
+#| label: tbl-modelos-comparativos
+#| tbl-cap: "Modelos de justificación de violencia"
+#| echo: false
+#| tbl-pos: "H"
+
+modelsummary(
+  list("Protestas" = mod_educ_protesta,
+       "Estatal" = mod_educ_estatal),
+  stars = c('*' = 0.05, '**' = 0.01, '***' = 0.001),
+  estimate = "{estimate}{stars}",
+  statistic = "({std.error})",
+  fmt = 2,
+  coef_rename = c(
+    "(Intercept)" = "Intercepto",
+    "educ_cat_unorderedTéc. sup. incompleta" = "Téc. inc.",
+    "educ_cat_unorderedTéc. sup. completa" = "Téc. comp.",
+    "educ_cat_unorderedUniv. incompleta" = "Univ. inc.",
+    "educ_cat_unorderedUniv. completa" = "Univ. comp.",
+    "protesta_dummy" = "Protesta",
+    "edad" = "Edad",
+    "mujer" = "Mujer",
+    "ideologia_std" = "Ideología",
+    "factor(year)2017" = "2017",
+    "factor(year)2018" = "2018",
+    "factor(year)2019" = "2019",
+    "factor(year)2022" = "2022",
+    "factor(year)2023" = "2023",
+    "educ_cat_unorderedTéc. sup. incompleta:protesta_dummy" = "Téc. inc. × Prot.",
+    "educ_cat_unorderedTéc. sup. completa:protesta_dummy" = "Téc. comp. × Prot.",
+    "educ_cat_unorderedUniv. incompleta:protesta_dummy" = "Univ. inc. × Prot.",
+    "educ_cat_unorderedUniv. completa:protesta_dummy" = "Univ. comp. × Prot."
+  ),
+  gof_map = c("nobs", "aic"),
+  output = "kableExtra"
+) %>%
+  kable_styling(
+    font_size = 5,
+    latex_options = c("scale_down", "HOLD_position"),
+    full_width = FALSE
+  ) %>%
+  column_spec(1, width = "3.5cm") %>%
+  column_spec(2:3, width = "2cm")
+```
+
+Los resultados de ambos modelos en la @tbl-modelos-comparativos confirman que el efecto de la educación superior se ve condicionado por la participación en protestas. Mientras que entre los no participantes la educación universitaria reduce la justificación de la violencia en manifestaciones (un "efecto civilizatorio" de -0.11), esta tendencia se anula e invierte para los participantes con educación superior (técnica y universitaria), quienes muestran una mayor legitimación (interacciones de +0.13 a +0.22). De forma crucial, son específicamente los universitarios movilizados quienes desarrollan un marco moral opuesto hacia la violencia estatal, justificándola significativamente menos (interacción de -0.18). Este hallazgo, consistente con la H2, demuestra que la participación activa genera una reconfiguración normativa 'bidireccional' (rechazo a la violencia estatal y aceptación de la de protesta) de forma más completa entre los individuos con educación universitaria.
 
 ```{r}
 #| label: fig-bidireccional
@@ -763,7 +833,6 @@ En síntesis, la participación genera una reconfiguración bidireccional cohere
 
 ```{r}
 #| echo: false
-#| label: tbl-modelo-clase
 #| warning: false
 #| include: false
 
@@ -782,7 +851,30 @@ screenreg(mod_clase_protesta,
           include.ci = FALSE)
 ```
 
-Tomando a la Clase de Servicio (Service class) como referencia, el modelo @tbl-modelo-clase muestra dos hallazgos importantes. Primero, entre los no participantes, la Clase Trabajadora (Working class) exhibe un nivel de justificación de la violencia significativamente más alto (efecto principal de $+0.09**$), lo que respalda la idea de una mayor "predisposición estructural".
+```{r}
+#| label: tbl-clase-protesta
+#| tbl-cap: "Violencia en Protestas"
+#| echo: false
+#| tbl-pos: "H"
+
+
+modelsummary(
+  mod_clase_protesta,
+  stars = c('*' = 0.05, '**' = 0.01, '***' = 0.001),
+  estimate = "{estimate}{stars}",
+  statistic = "({std.error})",
+  fmt = 2,
+  gof_map = c("nobs", "r.squared", "aic"),
+  output = "kableExtra"
+) %>%
+  kable_styling(
+    font_size = 6,
+    latex_options = c("scale_down", "HOLD_position"),
+    full_width = FALSE
+  )
+```
+
+Tomando a la Clase de Servicio (Service class) como referencia, el modelo @tbl-clase-protesta muestra dos hallazgos importantes. Primero, entre los no participantes, la Clase Trabajadora (Working class) exhibe un nivel de justificación de la violencia significativamente más alto (efecto principal de $+0.09**$), lo que respalda la idea de una mayor "predisposición estructural".
 
 Segundo, el efecto de la participación es diferencial. La Clase de Servicio experimenta un fuerte incremento en su justificación al protestar (efecto de $+0.36***$). En cambio, la Clase Trabajadora tiene una reacción más atenuada, como lo indica el coeficiente de interacción negativo y significativo ($-0.15 **$). 
 
@@ -1169,13 +1261,57 @@ screenreg(list(mod_logit_protesta, mod_logit_estatal),
           digits = 3)
 ```
 
-Los análisis de regresión multinivel buscan determinar cómo la estratificación social (educación y clase) modera el efecto de la participación en protestas sobre la justificación de la violencia. Los resultados revelan que la educación y la clase social no solo importan, sino que operan a través de mecanismos opuestos.El primer conjunto de modelos (@tbl-modelos-educ) analiza la interacción entre el nivel educativo y la participación en protestas, sugiriendo una reconfiguración normativa bidireccional en los individuos con educación universitaria. Entre quienes no participan en protestas, la educación universitaria tiene un "efecto civilizatorio", reduciendo significativamente la justificación de la violencia (Efecto: $-0.11$). Sin embargo, esta tendencia se anula e invierte para los universitarios que sí protestan (Interacción: $+0.13$), lo que sugiere un mecanismo de "flexibilidad cognitiva". De forma crucial, estos mismos universitarios movilizados desarrollan un marco moral opuesto hacia la violencia estatal, reduciendo drásticamente su justificación al participar (Interacción: $-0.18**$). En resumen, la participación en protestas activa a los grupos con mayor educación, provocando que justifiquen más la violencia en manifestaciones y, simultáneamente, rechacen con más fuerza la violencia estatal.
+```{r}
+#| echo: false
+#| label: tbl-modelos-educ-2
+#| tbl-cap: "Modelos logísticos de justificación de violencia"
+#| tbl-pos: "H"
 
-El segundo modelo (@tbl-modelo-clase), que utiliza la variable de clase EGP imputada, muestra una dinámica contraria. Tomando a la Clase de Servicio (I+II) como referencia, la Clase Trabajadora (V-VII) exhibe, entre los no participantes, un nivel de justificación de la violencia significativamente más alto (Efecto: $+0.09$). Esto respalda la idea de una "predisposición estructural". En cuanto al efecto de la protesta, la Clase de Servicio experimenta un fuerte incremento en su justificación (Efecto: $+0.36$), mientras la Clase Trabajadora tiene una reacción más atenuada (Interacción: $-0.15*$). Esto significa que el efecto neto es mucho más intenso para la Clase de Servicio ($+0.36$) que para la Clase Trabajadora ($0.36 - 0.15 = +0.21$). La participación, por tanto, provoca que la brecha inicial de justificación entre ellas se reduzca significativamente entre los manifestantes.
+modelsummary(
+  list("Protestas (Logit)" = mod_logit_protesta,
+       "Estatal (Logit)" = mod_logit_estatal),
+  stars = c('*' = 0.05, '**' = 0.01, '***' = 0.001),
+  estimate = "{estimate}{stars}",
+  statistic = "({std.error})",
+  fmt = 2,
+  coef_rename = c(
+    "(Intercept)" = "Intercepto",
+    "educ_cat_unorderedTéc. sup. incompleta" = "Téc. inc.",
+    "educ_cat_unorderedTéc. sup. completa" = "Téc. comp.",
+    "educ_cat_unorderedUniv. incompleta" = "Univ. inc.",
+    "educ_cat_unorderedUniv. completa" = "Univ. comp.",
+    "protesta_dummy" = "Protesta",
+    "edad" = "Edad",
+    "mujer" = "Mujer",
+    "ideologia_std" = "Ideología",
+    "factor(year)2017" = "2017",
+    "factor(year)2018" = "2018",
+    "factor(year)2019" = "2019",
+    "factor(year)2022" = "2022",
+    "factor(year)2023" = "2023",
+    "educ_cat_unorderedTéc. sup. incompleta:protesta_dummy" = "Téc. inc. × Prot.",
+    "educ_cat_unorderedTéc. sup. completa:protesta_dummy" = "Téc. comp. × Prot.",
+    "educ_cat_unorderedUniv. incompleta:protesta_dummy" = "Univ. inc. × Prot.",
+    "educ_cat_unorderedUniv. completa:protesta_dummy" = "Univ. comp. × Prot."
+  ),
+  gof_map = c("nobs", "aic"),
+  output = "kableExtra"
+) %>%
+  kable_styling(
+    font_size = 5,
+    latex_options = c("scale_down", "HOLD_position"),
+    full_width = FALSE
+  ) %>%
+  column_spec(1, width = "3.5cm")
+```
+
+Los análisis de regresión multinivel buscan determinar cómo la estratificación social (educación y clase) modera el efecto de la participación en protestas sobre la justificación de la violencia. Los resultados revelan que la educación y la clase social no solo importan, sino que operan a través de mecanismos opuestos. El primer modelo analiza la interacción entre el nivel educativo y la participación en protestas, sugiriendo una reconfiguración normativa bidireccional en los individuos con educación universitaria. Entre quienes no participan en protestas, la educación universitaria tiene un "efecto civilizatorio", reduciendo significativamente la justificación de la violencia (Efecto: $-0.11$). Sin embargo, esta tendencia se anula e invierte para los universitarios que sí protestan (Interacción: $+0.13$), lo que sugiere un mecanismo de "flexibilidad cognitiva". De forma crucial, estos mismos universitarios movilizados desarrollan un marco moral opuesto hacia la violencia estatal, reduciendo drásticamente su justificación al participar (Interacción: $-0.18**$). En resumen, la participación en protestas activa a los grupos con mayor educación, provocando que justifiquen más la violencia en manifestaciones y, simultáneamente, rechacen con más fuerza la violencia estatal.
+
+El segundo modelo, que utiliza la variable de clase EGP imputada, muestra una dinámica contraria. Tomando a la Clase de Servicio (I+II) como referencia, la Clase Trabajadora (V-VII) exhibe, entre los no participantes, un nivel de justificación de la violencia significativamente más alto (Efecto: $+0.09$). Esto respalda la idea de una "predisposición estructural". En cuanto al efecto de la protesta, la Clase de Servicio experimenta un fuerte incremento en su justificación (Efecto: $+0.36$), mientras la Clase Trabajadora tiene una reacción más atenuada (Interacción: $-0.15*$). Esto significa que el efecto neto es mucho más intenso para la Clase de Servicio ($+0.36$) que para la Clase Trabajadora ($0.36 - 0.15 = +0.21$). La participación, por tanto, provoca que la brecha inicial de justificación entre ellas se reduzca significativamente entre los manifestantes.
 
 La comparación de ambos mecanismos (resumida en @tbl-comparacion) es la tesis central de estos hallazgos. La educación actúa como un motor de divergencia (divergent driver): la protesta acrecienta las diferencias normativas entre niveles educativos. Por el contrario, la clase social funciona como un factor de convergencia: la protesta reduce las diferencias normativas entre clases.
 
-Finalmente, los análisis de robustez mediante modelos logit multinivel (@tbl-anexos-logit) confirman parcialmente estos patrones y ofrecen un matiz crucial. Por un lado, la evidencia para la Violencia Estatal se fortalece: la interacción negativa entre protesta y educación universitaria es altamente significativa ($-0.542$***), confirmando un sólido rechazo a la violencia estatal por parte de los universitarios movilizados. Por otro lado, la evidencia para la Violencia en Protestas se debilita: la interacción positiva (la "flexibilidad cognitiva") pierde su significancia estadística en el modelo logit.
+Finalmente, los análisis de robustez mediante modelos logit multinivel confirman parcialmente estos patrones y ofrecen un matiz crucial. Por un lado, la evidencia para la Violencia Estatal se fortalece: la interacción negativa entre protesta y educación universitaria es altamente significativa ($-0.542$***), confirmando un sólido rechazo a la violencia estatal por parte de los universitarios movilizados. Por otro lado, la evidencia para la Violencia en Protestas se debilita: la interacción positiva (la "flexibilidad cognitiva") pierde su significancia estadística en el modelo logit.
 
 En síntesis, la evidencia más sólida y robusta a distintas especificaciones de modelo es que la participación en protestas genera un rechazo normativo robusto a la violencia estatal entre los más educados, mientras que el efecto sobre la justificación de la violencia en protestas es más ambiguo y sensible a la operacionalización de la variable dependiente.
 
@@ -1240,37 +1376,25 @@ screenreg(mod_logit_clase,
 ```{r}
 #| warning: false
 #| message: false
-#| fig-pos: "H"
+#| tbl-pos: "H"
 #| label: tbl-logit-clase
-#| results: asis
+#| tbl-cap: "Modelo logístico de violencia en protestas con clase social"
 #| echo: false
 
-texreg(
+modelsummary(
   mod_logit_clase,
-  caption = "Modelo logit de violencia en protestas por clase social",
-  custom.model.names = "Violencia en Protestas (Logit)",
-  custom.coef.map = list(
-    "(Intercept)" = "(Intercepto)",
-    "egp3Intermedia" = "Clase Intermedia",
-    "egp3Trabajadores manuales" = "Trabajadores Manuales",
-    "protesta_dummy" = "Participó en protesta",
-    "edad" = "Edad",
-    "mujer" = "Mujer",
-    "ideologia_std" = "Ideología (izq-der)",
-    "factor(year)2017" = "2017",
-    "factor(year)2018" = "2018",
-    "factor(year)2019" = "2019",
-    "factor(year)2022" = "2022",
-    "factor(year)2023" = "2023",
-    "egp3Intermedia:protesta_dummy" = "Clase Intermedia × Protesta",
-    "egp3Trabajadores manuales:protesta_dummy" = "Trab. Manuales × Protesta"
-  ),
-  stars = c(0.001, 0.01, 0.05),
-  custom.note = "\\parbox{.9\\linewidth}{\\vspace{2pt}\\textit{Notas:} Coeficientes logit. Errores estándar entre paréntesis. Categoría de referencia: Clase de Servicio. Año de referencia: 2016. * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}",
-  digits = 3,
-  fontsize = "small",
-  use.packages = TRUE
-)
+  stars = c('*' = 0.05, '**' = 0.01, '***' = 0.001),
+  estimate = "{estimate}{stars}",
+  statistic = "({std.error})",
+  fmt = 2,
+  gof_map = c("nobs", "aic"),
+  output = "kableExtra"
+) %>%
+  kable_styling(
+    font_size = 6,
+    latex_options = c("scale_down", "HOLD_position"),
+    full_width = FALSE
+  )
 ```
 
 El intercepto y el efecto de participar en protestas (protesta_dummy) son positivos y significativos, es decir, participar en protestas aumenta la probabilidad de justificar la violencia en todos los grupos de clase.
