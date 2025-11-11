@@ -1,52 +1,155 @@
 # Antecedentes
 
-I. El "efecto civilizatorio" de la educación: promesa y límites
-   - Revisión clásica: educación → menor violencia
-   - Crítica: estos estudios no consideran PARTICIPACIÓN
-   - Tu hipótesis implícita: la educación interactúa con experiencia
+## Educación y actitudes políticas
 
-II. Participación como experiencia transformadora
-   - No solo "quién protesta" sino "cómo protesta cambia a las personas"
-   - Mecanismos: exposición a marcos alternativos, solidaridad grupal, 
-     experiencias de represión
-   - Gap en literatura: efectos heterogéneos por capital cultural
+La educación ha sido una de las variables más robustas en la literatura sobre comportamiento político, tradicionalmente asociada con una mayor participación, tolerancia y adhesión a valores democráticos (Lipset, 1959; Verba, Nie & Kim, 1978; Persson, 2013). Sin embargo, cuando el foco se desplaza hacia la justificación de la violencia política, este vínculo requiere ser revisado. En lugar de funcionar de manera lineal y universal como un agente de moderación, la educación puede operar como un filtro moral y cognitivo que reconfigura la manera en que los individuos interpretan y valoran el conflicto político.
 
-III. Clase social como estructura de predisposiciones
-   - Por qué working class puede partir de mayor tolerancia
-   - Service class: mayor "distancia" de violencia cotidiana
-   - Tu contribución: clase MODERA el efecto de participación
+Desde esta perspectiva, la educación no se limita a moldear preferencias políticas o a incrementar competencias cívicas, sino que estructura los marcos de interpretación moral que los individuos utilizan para evaluar la legitimidad de la violencia. La capacidad de comprender la complejidad del orden político, de articular argumentos abstractos sobre justicia y legitimidad, y de integrar experiencias de desigualdad en narrativas coherentes, depende en gran medida del tipo y nivel de educación alcanzado. En contextos de estabilidad institucional, estos marcos suelen reforzar la confianza en los procedimientos democráticos; pero en contextos de desigualdad estructural y crisis de representación, la misma capacidad reflexiva puede traducirse en una justificación más elaborada del uso instrumental o moral de la violencia.
 
-IV. Contexto chileno 2019: un laboratorio natural
-   - Masividad del movimiento permite observar efectos en múltiples estratos
-   - Debate público sobre "violencia legítima"
-   - Pregunta: ¿quién legitimó QUÉ tipo de violencia?
-```
+En consecuencia, la educación actúa menos como una “barrera” frente a la radicalización que como un multiplicador de significados: amplifica la capacidad de las personas para dotar de sentido a la violencia, ya sea condenándola o legitimándola según el contexto y la posición social que ocupen.
 
-### 3. **Búsquedas estratégicas urgentes**
+### El efecto civilizatorio
 
-Te sugiero buscar AHORA (en este orden de prioridad):
+El argumento clásico del “efecto civilizatorio” (Lipset, 1959; Almond & Verba, 1963) postulaba que la educación fomenta la internalización de normas democráticas, reduciendo la propensión a aceptar la violencia política. Esta hipótesis descansaba en tres supuestos fundamentales: primero, que la educación desarrolla habilidades cognitivas que permiten comprender la complejidad social y, por ende, adoptar posturas moderadas (Converse, 1972; Nie et al., 1996); segundo, que promueve valores de tolerancia, pluralismo y respeto a las instituciones (Kohlberg, 1981; Pascarella & Terenzini, 1991); y tercero, que fortalece la eficacia política subjetiva —la creencia de que las instituciones responden a las demandas ciudadanas—, lo que reduce la percepción de que la violencia sea necesaria como medio de acción (Jackson, 1995).
 
-1. **"education protest violence"** + **"legitimacy"**
-2. **"political violence attitudes" + "social class"**  
-3. **"participation effects" + "political socialization"**
-4. **"Chile 2019" + "estallido social" + "violence"** (contexto específico)
+Bajo este paradigma, el sistema educativo cumple una función integradora: produce ciudadanos racionales y responsables que canalizan sus conflictos mediante vías institucionales. Desde esta óptica, la educación “domestica” la conflictividad política y moral, transformando la violencia en algo ajeno a la ciudadanía moderna. La justificación de la violencia, entonces, se entiende como un residuo de déficit educativo o de exclusión cultural.
 
-### 4. **Cómo "rellenar" el marco teórico eficientemente**
+No obstante, este modelo presupone condiciones de igualdad estructural que raramente existen. En sociedades donde el acceso a bienes, derechos y oportunidades se encuentra profundamente estratificado, la educación no opera sobre un terreno neutro, sino dentro de un campo desigual de reconocimiento. Las instituciones educativas reproducen jerarquías culturales y económicas (Bourdieu & Passeron, 1970), y con ello también distribuyen desigualmente la confianza en el orden político. Por tanto, la relación entre educación y justificación de la violencia no puede entenderse sin considerar el contexto de desigualdad estructural que moldea las expectativas de justicia y los límites de la acción legítima.
 
-Dado que vas contra el tiempo:
+### Limitaciones del consenso
 
-**NO intentes:**
-- Revisar exhaustivamente cada tradición
-- Cubrir toda la literatura de movimientos sociales
+La desigualdad estructural altera los mecanismos mediante los cuales la educación modera las actitudes hacia la violencia. En entornos donde las instituciones políticas se perciben como capturadas por intereses de élite, o donde la movilidad social se ha vuelto inalcanzable, la educación puede dejar de ser una promesa de integración y convertirse en un recordatorio del carácter cerrado del sistema. En este escenario, los individuos más educados no necesariamente rechazan la violencia por principio, sino que reformulan su sentido moral: pueden verla como una respuesta trágica pero necesaria frente a un orden estructuralmente violento o injusto.
 
-**SÍ enfócate en:**
-- 2-3 papers clave por sección que te permitan plantear tu "puzzle teórico"
-- Tu argumento debe ser: "La literatura X dice Y, pero cuando consideramos Z (participación/clase), encontramos lo opuesto"
-- Usa tus resultados para **justificar retrospectivamente** qué teorías necesitabas
+En este sentido, la educación actúa como una herramienta de elaboración moral. Permite a los individuos articular narrativas más sofisticadas sobre la legitimidad de ciertos actos violentos, especialmente cuando los enmarcan dentro de discursos de defensa de derechos humanos, resistencia civil o desobediencia moral (Della Porta, 2013; Jasper, 2018). El resultado no es una relación monotónica entre educación y rechazo de la violencia, sino una relación curvilínea o condicional, en la que la justificación de la violencia emerge de la disonancia entre los valores aprendidos (igualdad, justicia) y la experiencia vivida de exclusión o represión.
 
-**Estructura de cada sub-sección:**
-```
-- Claim teórico dominante (2-3 citas)
-- Limitación/gap de ese claim (1-2 citas + tu argumento)
-- Qué predice tu enfoque alternativo
-- [Luego tus resultados lo confirman/matizan]
+Por el contrario, entre quienes carecen de educación formal, la relación con la violencia política tiende a ser más inmediata y menos mediada por marcos morales universales. En estos sectores, la justificación puede derivar más de la familiaridad cotidiana con la violencia estructural y simbólica (Wacquant, 2008) que de una elaboración ideológica. Así, mientras las clases trabajadoras pueden normalizar la violencia como componente de la supervivencia social, las clases educadas tienden a justificarla como excepción moral dentro de un sistema que ha traicionado sus propias normas.
+
+### Educación como amplificador
+
+En contextos de alta desigualdad estructural y represión estatal, la educación puede convertirse en un amplificador moral de la radicalización cognitiva. Este efecto no implica que los individuos más educados sean más propensos a la violencia, sino que poseen mayor capacidad para racionalizar su legitimidad cuando consideran que los canales institucionales han perdido eficacia o justicia.
+
+La educación dota de vocabulario político, histórico y ético para reinterpretar la violencia no como mera ruptura del orden, sino como acción moralmente coherente con principios de justicia o defensa de derechos fundamentales (Snow & Benford, 1988). Esta capacidad de reinterpretación moral puede observarse en movimientos donde los sectores educados redefinen la protesta violenta como una forma de “violencia defensiva” o “resistencia legítima” frente a estructuras percibidas como violentas en sí mismas (Zizek, 2008; Butler, 2020).
+
+De este modo, el efecto de la educación no es inhibitorio, sino transformativo: reconfigura la gramática moral mediante la cual los individuos evalúan la violencia política. Donde el sentido común ve desorden, los individuos más educados pueden ver contradicción estructural o injusticia moral. La educación, entonces, no elimina la violencia del horizonte político, sino que la reinscribe en un marco moralmente argumentado, donde el conflicto puede concebirse como medio legítimo de emancipación o denuncia.
+
+### El mecanismo de activación: de lo abstracto a lo situacional
+
+El mecanismo de activación clave ocurre cuando la participación directa en protestas expone a los individuos más educados a experiencias situacionales que tensionan sus principios abstractos de no violencia y respeto institucional. Las actitudes sobre la violencia política suelen formarse en contextos descontextualizados —como aulas, medios de comunicación o encuestas— donde predominan las normas democráticas generales. En tales entornos, la violencia aparece como un fenómeno anómico y moralmente ilegítimo. Sin embargo, la experiencia de participar en una protesta —un espacio saturado de emociones, riesgo y conflicto— introduce elementos situacionales que pueden redefinir los límites de lo políticamente aceptable.
+
+Como argumentan Klandermans y Van Stekelenburg (2013), la acción colectiva transforma las actitudes políticas no solo por exposición a nueva información, sino mediante la experiencia vivida del conflicto. La protesta altera el marco de referencia de quienes la protagonizan: lo que antes se percibía como una abstracción normativa —el monopolio legítimo de la violencia, la obediencia a la ley, la autoridad estatal— se convierte en una relación concreta, corporal y emocional con las instituciones de coerción. Este desplazamiento de lo abstracto a lo experiencial abre la posibilidad de que los individuos reinterpreten moralmente la violencia, no como ruptura de la democracia, sino como reacción legítima frente a una injusticia estructural.
+
+El primer mecanismo de activación proviene del contacto directo con la represión estatal. Quienes participan en protestas presencian o experimentan el uso de la fuerza por parte de la policía, enfrentamientos con contramanifestantes o situaciones de tensión que alteran radicalmente su percepción del poder. La protesta, en ese sentido, convierte la abstracción de la “coerción estatal” en una vivencia corporal: el gas lacrimógeno, el sonido de los disparos, la detención arbitraria.
+
+Esta vivencia concreta puede activar marcos de “autodefensa legítima” o de “resistencia necesaria”, que permanecen latentes en quienes solo reflexionan sobre la violencia desde fuera del conflicto. Como muestran Della Porta y Reiter (1998) o Earl et al. (2003), la experiencia personal con la represión es uno de los predictores más sólidos del apoyo a tácticas más confrontacionales dentro de los movimientos sociales. La violencia deja de ser vista como iniciativa gratuita y pasa a ser interpretada como respuesta proporcional o acto de justicia reactiva.
+
+Este proceso es especialmente relevante en sociedades atravesadas por desigualdad estructural, donde la represión no se percibe como un accidente institucional, sino como manifestación del carácter sistémicamente violento del orden social. En tales contextos, incluso los individuos con mayor educación —aquellos más socializados en normas democráticas— pueden reinterpretar su adhesión a la legalidad como subordinada a principios morales superiores, como la igualdad o la dignidad humana.
+
+Un segundo mecanismo se relaciona con la exposición a narrativas de justificación sofisticadas. Las protestas no son espacios ideológicamente neutrales, sino entornos de circulación intensa de significados y marcos interpretativos (Snow et al., 1986; Tilly, 2003). En ellas se elaboran distinciones fundamentales que permiten reconfigurar moralmente la violencia: la diferencia entre “violencia contra la propiedad” y “violencia contra personas”, entre “violencia preventiva” y “violencia reactiva”, o entre “violencia estructural del Estado” y “violencia de resistencia popular” (Gamson, 1992; Žižek, 2008).
+
+Estos marcos no son simples racionalizaciones post hoc, sino construcciones morales complejas que requieren competencia cognitiva y discursiva para ser internalizadas. En este punto, la educación desempeña un papel crucial. Los individuos más educados poseen las herramientas analíticas para asimilar y aplicar estas narrativas, reinterpretando las tensiones normativas a través de esquemas morales coherentes. Como sostienen Snow y Benford (1988), el “alineamiento de marcos” (frame alignment) es más efectivo cuando los individuos disponen de capital cultural suficiente para integrar marcos abstractos en su experiencia personal.
+
+Así, la educación no inmuniza frente a la violencia, sino que aumenta la capacidad de legitimarla estratégicamente: los individuos más educados pueden elaborar distinciones situacionales que les permiten considerar la violencia como un medio moralmente excepcional, pero legítimo, para alcanzar fines percibidos como superiores, como la justicia o la defensa de derechos vulnerados.
+
+El tercer mecanismo tiene que ver con la reconfiguración identitaria que produce la participación. La protesta no solo expone a los individuos a ideas, sino que los incorpora en comunidades morales donde las normas y lealtades se redefinen (Polletta & Jasper, 2001). La solidaridad con compañeros manifestantes, la experiencia de riesgo compartido y la construcción de una causa común generan una identidad colectiva que puede entrar en tensión con principios universales de no violencia (Simon & Klandermans, 2001).
+
+Para los individuos más educados, esta tensión se gestiona mediante lo que Tetlock (1986) denomina “compartimentalización cognitiva”: la capacidad de mantener valores democráticos abstractos al mismo tiempo que se construyen excepciones situacionales. En este marco, la violencia no se percibe como negación de la democracia, sino como defensa circunstancial de su promesa traicionada. Es decir, se la justifica no a pesar de los valores democráticos, sino en nombre de ellos.
+
+Esta ambivalencia explica la evidencia contraintuitiva documentada por Krueger y Malečková (2003), quienes muestran la sobrerrepresentación de individuos educados en organizaciones radicales, y por Fair y Shepherd (2006), que encuentran una relación no lineal entre educación y apoyo al terrorismo. Ambos estudios convergen en la idea de que la sofisticación cognitiva no necesariamente modera, sino que permite justificar contextualmente la violencia bajo esquemas morales complejos. Los individuos menos educados, por el contrario, tienden a sostener posturas más unívocas —ya sea de rechazo o de apoyo— porque carecen de los recursos cognitivos para construir distinciones situacionales elaboradas.
+
+En síntesis, la participación en protestas no simplemente “activa” un efecto latente de la educación, sino que crea las condiciones específicas donde la sofisticación cognitiva se emplea para legitimar tácticamente la violencia. A través de la experiencia vivida del conflicto, la exposición a marcos ideológicos complejos y la construcción de identidades colectivas, los individuos educados adquieren la capacidad de reconciliar sus valores democráticos abstractos con la justificación situacional de la violencia.
+
+Este proceso da lugar a un efecto paradójico de la educación, formulado en los siguientes términos:
+
+- H1a: Entre individuos que no participan en protestas, un mayor nivel educativo está asociado con menor justificación de la violencia, consistente con el “efecto civilizatorio” clásico de la educación.
+
+- H1b: Entre individuos que sí participan, el efecto de la educación se invierte: las personas con educación universitaria muestran mayor justificación de la violencia política que aquellas con menor nivel educativo.
+
+En otras palabras, la educación fomenta un pensamiento político más sofisticado, pero este opera de manera bifurcada según la experiencia de protesta. Los no-participantes utilizan su sofisticación para reforzar la adhesión a normas abstractas de no violencia; los participantes, en cambio, emplean esa misma sofisticación para construir marcos morales que legitiman la violencia como instrumento político excepcional, sin necesariamente abandonar su compromiso con los valores democráticos.
+
+Así, la educación deja de ser una variable de contención moral universal y se convierte en un recurso cognitivo ambivalente, cuyo efecto depende del contexto de conflicto y de la interacción con la experiencia participativa. Bajo condiciones de desigualdad estructural, este mecanismo de activación explica por qué los sectores educados pueden ser al mismo tiempo portadores de ideales democráticos y justificadores racionales de la violencia política.
+
+## Participación como transformación
+
+La literatura clásica sobre participación política, anclada en el modelo de recursos (Verba, Schlozman y Brady, 1995), ha interpretado históricamente la acción política como el resultado de características preexistentes y recursos disponibles. Desde este punto de vista, la participación es un acto de selección racional: quienes poseen más educación, tiempo y dinero tienen mayor probabilidad de involucrarse políticamente. Este enfoque, de fuerte raigambre conductista, presupone que las actitudes políticas —como la confianza institucional, la orientación democrática o las creencias sobre la violencia— son estables, exógenas y previas a la acción. Dicho de otro modo, la gente participa porque ya tiene ciertas actitudes, y no porque la participación las transforme.
+
+Sin embargo, este modelo lineal resulta insuficiente para explicar las dinámicas de los ciclos de alta contención política, donde la protesta adquiere una intensidad disruptiva y emocional que excede los patrones habituales de movilización. En estos contextos, la participación no se reduce a un comportamiento expresivo ni a una estrategia instrumental, sino que constituye una experiencia socializadora que reconfigura las orientaciones cognitivas, afectivas y morales de los individuos (Passy & Monsch, 2019). La literatura reciente ha comenzado a concebir la participación como un proceso transformador: no solo refleja predisposiciones políticas, sino que las produce, modifica y radicaliza (Blühdorn & Deflorian, 2021; McAdam, 1989). Así, la acción colectiva deja de ser una mera consecuencia de las actitudes para convertirse en un espacio donde se aprenden nuevas formas de interpretar el conflicto, se redefinen los límites de la legitimidad y se reconfigura el sentido moral de la acción política.
+
+En este sentido, la protesta puede entenderse como un laboratorio moral y cognitivo en el que los individuos confrontan de manera directa los límites del orden político y las narrativas dominantes sobre justicia, legalidad y violencia. La participación, especialmente en su forma de alto riesgo, constituye una experiencia liminal (Turner, 1969): un punto de inflexión biográfico en que se suspenden temporalmente las jerarquías normativas y emergen nuevas formas de sentido. Estas experiencias no solo alteran los marcos interpretativos de los participantes, sino que pueden redefinir su identidad política y su evaluación moral del uso de la violencia.
+
+### De la selección a la socialización
+
+El giro conceptual que desplaza la participación del terreno de la selección al de la socialización tiene su punto de partida en el trabajo seminal de McAdam (1989) sobre las consecuencias biográficas del activismo. McAdam aborda una pregunta metodológicamente desafiante: ¿los activistas desarrollan actitudes distintas porque participaron, o participaron porque ya las tenían? Para resolver este dilema del sesgo de autoselección, el autor estudió el proyecto Freedom Summer de 1964 —una campaña de alto riesgo para registrar votantes afroamericanos en Mississippi— comparando a los voluntarios que efectivamente participaron con un grupo de control compuesto por los “no-shows”, es decir, personas aceptadas en el proyecto pero que finalmente no asistieron. Ambos grupos compartían las mismas motivaciones iniciales, recursos y orientación política, lo que permitió aislar el efecto causal de la experiencia participativa en sí misma.
+
+Los resultados fueron contundentes: veinte años después, quienes participaron seguían mostrando niveles significativamente más altos de involucramiento político, y además habían experimentado transformaciones duraderas en su identidad, trayectorias ocupacionales y proyectos de vida. No se trataba de un episodio transitorio, sino de un evento que “dejó una huella indeleble” (McAdam, 1989, p. 756). Desde entonces, una vasta literatura empírica ha documentado las consecuencias biográficas de la participación, mostrando que el activismo transforma las disposiciones políticas y morales de quienes lo experimentan (Giugni, 2004; De Vydt & Ketelaars, 2020; Passy & Monsch, 2019). En este marco, la protesta no solo es una práctica política, sino un proceso de aprendizaje moral y cognitivo que reconfigura cómo los individuos entienden la justicia, la autoridad y la violencia.
+
+### Mecanismos de transformación
+
+La transformación biográfica inducida por la participación no ocurre de manera automática; depende de mecanismos situacionales y relacionales que median entre la experiencia y el cambio actitudinal. La literatura ha identificado dos mecanismos principales: (1) la exposición a nuevos marcos cognitivos y (2) la experiencia directa con la represión (Passy & Monsch, 2019; Crossley, 2003; Beckwith, 2016; McAdam & Brandt, 2009).
+
+En primer lugar, los movimientos sociales no son simples agregadores de demandas, sino productores de significado (Snow & Benford, 1988). A través del trabajo de encuadre (framing), los movimientos elaboran esquemas interpretativos que permiten a los individuos comprender, diagnosticar y moralizar el conflicto. Este proceso involucra tres dimensiones: (a) diagnóstico (qué y quién causa el problema), (b) pronóstico (cómo puede resolverse), y (c) motivación (por qué actuar). La participación inmersa en este entorno simbólico no solo refuerza marcos previos, sino que puede provocar una transformación de marco (frame transformation), es decir, un cambio radical en la forma en que el individuo entiende la realidad social.
+
+Durante el estallido social chileno, por ejemplo, muchos jóvenes universitarios experimentaron una resignificación del uso de la violencia en la protesta. Aquello que antes aparecía como un tabú normativo —efecto del aprendizaje institucional y del discurso civilizatorio de la educación— fue rearticulado dentro de un marco de justicia moral que la redefinía como “autodefensa legítima” o “resistencia necesaria”. Estos nuevos marcos no se imponen por mera ideología, sino porque adquieren credibilidad empírica: se ajustan a la experiencia concreta del participante, que presencia o sufre la violencia estatal y la traduce en evidencia vivida de un orden injusto (Snow & Benford, 1988).
+
+El segundo mecanismo se refiere a la vivencia corporal y emocional del conflicto. La represión estatal, al producir experiencias de injusticia procedimental (Tyler, 2006), tiene un efecto doble: erosiona la legitimidad del Estado y valida las narrativas del movimiento. La teoría de la justicia procedimental (Tyler & Blader, 2003) sostiene que la legitimidad de la autoridad depende menos de los resultados y más del modo en que ejerce su poder —particularmente del trato justo, el respeto y la neutralidad percibidos. Cuando individuos, especialmente de clases medias educadas, experimentan un trato arbitrario, la legitimidad estatal se desmorona, generando un reencuadre moral del conflicto. Lo que antes era “violencia ilegítima” pasa a ser “violencia defensiva”, y lo que antes era “orden público” se transforma en “violencia estructural del Estado”.
+
+Ambos mecanismos —la reinterpretación cognitiva y la experiencia emocional de injusticia— se articulan en una secuencia dinámica: la represión proporciona la evidencia empírica que valida los nuevos marcos, y estos, a su vez, legitiman moralmente respuestas más confrontacionales.
+
+### Heterogeneidad del efecto
+
+No obstante, esta transformación no es homogénea. Como advierte Giugni (2004), los efectos de la participación son heterogéneos y socialmente mediados. La intensidad del cambio depende del tipo de experiencia (positiva o negativa), del riesgo percibido, de la trayectoria previa y, crucialmente, de la posición social y educativa del participante. La literatura ha tendido a tratar a “los activistas” como una categoría homogénea, ignorando cómo la clase, el género o la educación modulan la experiencia del activismo (Passy & Monsch, 2019). Pero el aprendizaje moral derivado de la protesta no es universal: está estructuralmente filtrado por las disposiciones y capitales previos de los individuos.
+
+En este punto se sitúa el aporte de esta tesis. La hipótesis central es que los efectos transformadores de la participación no son uniformes, sino que dependen de la interacción entre socialización educativa y experiencia de protesta. La educación proporciona la capacidad cognitiva para elaborar justificaciones morales sofisticadas; la participación, en cambio, provee las condiciones emocionales y simbólicas que hacen necesaria esa elaboración. El resultado es una reconfiguración bidireccional de los marcos morales: quienes participan reinterpretan la violencia estatal como ilegítima y la violencia de los manifestantes como legítima.
+
+Hipótesis 2: Reconfiguración bidireccional de marcos morales
+
+H2a: Universitarios que participan en protestas muestran mayor justificación de la violencia ejercida por manifestantes, en comparación con universitarios no participantes.
+H2b: Los mismos universitarios participantes muestran menor justificación de la violencia ejercida por el Estado, en comparación con universitarios no participantes.
+
+En suma, la participación en protestas no es un reflejo pasivo de actitudes preexistentes, sino un proceso de reaprendizaje moral y político, donde los individuos más educados —precisamente por su sofisticación cognitiva— son los más capaces de reformular coherentemente sus principios normativos en función de la experiencia. De este modo, la acción colectiva se convierte en el espacio donde se rearticulan las tensiones entre educación, desigualdad estructural y legitimidad de la violencia política.
+
+## Desigualdad estructural y experiencias de conflicto
+
+Los mecanismos discutidos en la sección anterior operan con diferente intensidad según la posición estructural de los individuos dentro del sistema de clases. La desigualdad estructural —entendida como la distribución jerárquica y persistente de recursos materiales, culturales y simbólicos en la sociedad— no solo condiciona la probabilidad de participar políticamente, sino también las formas en que los sujetos experimentan, interpretan y justifican la violencia en el espacio político. Las diferencias de clase configuran, en consecuencia, universos de sentido diferenciados en torno al conflicto y la legitimidad del uso de la fuerza en la acción colectiva.
+
+Como han señalado Beeghley (1986) y Bottero (2004), la clase social no solo organiza el acceso a los recursos, sino también los modos de percepción y valoración del orden social. En contextos de desigualdad persistente, los sectores subalternos se encuentran expuestos de manera más directa y cotidiana a formas de violencia estructural —desempleo, inseguridad económica, control policial, precarización laboral o residencial— que erosionan la sensación de estabilidad y previsibilidad del entorno. Estas condiciones, acumuladas en la experiencia vital, naturalizan la presencia de la coerción en la vida social y pueden producir una mayor predisposición a justificar acciones violentas cuando se las percibe como respuesta legítima frente a la injusticia o la exclusión.
+
+Por el contrario, los grupos situados en posiciones estructuralmente ventajosas —profesionales, técnicos, clases medias consolidadas— tienden a experimentar el orden social como estable, predecible y justo, al menos en su funcionamiento general. Desde esa posición, la violencia política aparece como una ruptura moral y normativa del equilibrio social, un exceso irracional que amenaza la continuidad del orden institucional. De este modo, la posición estructural de clase define el umbral moral y cognitivo a partir del cual la violencia es concebida como una forma legítima o ilegítima de acción política.
+
+La desigualdad estructural, entonces, no solo genera brechas materiales entre grupos, sino también brechas interpretativas y normativas respecto a qué formas de acción colectiva se consideran aceptables, necesarias o moralmente justificadas. Esta dimensión simbólica de la desigualdad resulta clave para comprender por qué, ante estímulos similares —represión policial, frustración política o crisis económica—, distintos grupos sociales pueden elaborar juicios radicalmente distintos sobre la legitimidad de la violencia política.
+
+### Habitus de clase
+
+El concepto de habitus de Bourdieu (1984) permite dar cuenta de la traducción micro y subjetiva de esas estructuras objetivas. El habitus de clase constituye un sistema de disposiciones duraderas que orienta la percepción de la autoridad, la justicia y el conflicto, y que moldea las estrategias posibles de acción. A través del habitus, las condiciones estructurales se incorporan en forma de esquemas de apreciación moral y práctica, que influyen en la evaluación del uso de la violencia como medio político.
+
+Para las clases medias y de servicio, el habitus tiende a estar formado por trayectorias de relativa seguridad económica y experiencias de socialización en entornos institucionalizados, donde las normas y reglas aparecen como garantes de orden y previsibilidad. En este marco, la violencia se representa como una disfunción del sistema democrático y una falla moral del ciudadano. La protesta legítima es aquella que se expresa dentro de los cauces institucionales o discursivos, mientras que la confrontación directa o el uso de la fuerza se perciben como una forma de barbarie incompatible con el ideal cívico. El habitus, en este sentido, refuerza una disposición pacifista normativa, anclada en la confianza en el Estado como mediador neutral del conflicto.
+
+En cambio, para los sectores populares y trabajadores, el habitus se forma bajo condiciones de subordinación estructural, inseguridad material y exposición constante a la coerción —ya sea en el espacio laboral, territorial o estatal—. Esta experiencia configura disposiciones prácticas más ambivalentes hacia la autoridad y la legalidad, donde la obediencia se combina con la desconfianza y la resistencia. La violencia política puede, en este contexto, ser interpretada como una prolongación de experiencias previas de autodefensa, dignidad o supervivencia, y no necesariamente como un rechazo ideológico a la democracia o un síntoma de radicalización. Lo que cambia no es el valor moral de la violencia, sino el marco experiencial desde el cual se evalúa su necesidad o legitimidad.
+
+El habitus de clase, por tanto, media entre estructura y agencia: traduce la desigualdad en esquemas de interpretación que definen qué tipo de acción política se percibe como razonable, posible o moralmente admisible. A partir de ello, la justificación de la violencia se comprende menos como una elección racional que como una disposición práctica inscrita en biografías estructuralmente diferenciadas.
+
+### El efecto techo
+
+La literatura reciente sobre estratificación y actitudes políticas (Lindh & McCall 2020; Elsässer & Schäfer 2023) ha mostrado que la distribución de orientaciones normativas no es simétrica entre clases. Los individuos de clases altas o con mayor nivel educativo suelen exhibir, incluso antes de participar políticamente, niveles elevados de apoyo a valores igualitarios, cosmopolitas o pacifistas. Esto genera un efecto techo: al partir de niveles altos de rechazo a la violencia, la experiencia de protesta tiene un margen muy limitado para producir cambios adicionales en su justificación.
+
+Para los sectores trabajadores o precarizados, el patrón puede ser inverso. Su contacto constante con la violencia estructural y la desigualdad produce una mayor tolerancia basal hacia la transgresión normativa. Sin embargo, esa tolerancia no siempre implica una actitud activa o militante, sino una normalización pragmática de la violencia como rasgo del entorno. En consecuencia, la participación en protestas puede reforzar experiencias de conflicto o represión, pero difícilmente transformar de manera significativa sus justificaciones previas: ya existen disposiciones estables que interpretan la violencia como parte constitutiva del campo político.
+
+En cambio, para las clases medias o de servicio, la participación en protestas puede representar una experiencia disruptiva en términos biográficos. Al enfrentarse por primera vez a la represión estatal o a la frustración institucional, pueden reconfigurar cognitivamente sus percepciones sobre la violencia, reinterpretándola como un recurso de defensa frente a la injusticia o la exclusión política. La exposición directa al conflicto, por tanto, amplía los marcos interpretativos y puede generar incrementos significativos en la justificación de la violencia como medio legítimo de acción.
+
+Así, la clase social opera como un moderador estructural y simbólico del vínculo entre participación y justificación de la violencia: define tanto los puntos de partida —niveles basales de tolerancia o rechazo— como el potencial de cambio actitudinal derivado de la experiencia de protesta. Este enfoque permite comprender que los efectos de la participación política no son homogéneos, sino socialmente estratificados por la posición de clase.
+
+### Hipótesis 3: Moderación por clase social
+
+Integrando los argumentos anteriores sobre desigualdad estructural, habitus de clase y efectos techo, planteamos la siguiente hipótesis:
+
+- H3a: La clase trabajadora presenta una mayor justificación basal de la violencia política que la clase de servicio, independientemente de su nivel de participación política.
+
+- H3b: El incremento en la justificación de la violencia asociado a la participación en protestas es menor para la clase trabajadora que para la clase de servicio, evidenciando un efecto techo.
+
+En síntesis, la clase trabajadora —por su proximidad cotidiana con formas estructurales de violencia y por un habitus moldeado en condiciones de subordinación y conflicto— tiende a mantener niveles altos y estables de tolerancia a la violencia. Su participación en protestas refuerza estas disposiciones, pero no las transforma radicalmente. Por el contrario, en la clase de servicio, donde las experiencias previas de coerción son menos comunes, la protesta puede implicar un choque cognitivo y moral que reordena las categorías de justicia y legitimidad, ampliando la justificación de la violencia como una forma comprensible —e incluso necesaria— de acción política.
+
+Esta moderación por clase social complejiza el modelo propuesto en las hipótesis anteriores (H1 y H2), mostrando que los mecanismos de transformación biográfica operan diferencialmente según la posición estructural del individuo y las experiencias de conflicto que esa posición predispone. La desigualdad, por tanto, no solo estructura el acceso a los recursos políticos, sino también la gramática moral desde la cual se juzga el uso de la violencia en la vida colectiva.
+
+2.4. Contexto Chileno
+2.4.1. La expansión educativa
+2.4.2. El ciclo contencioso
+2.4.3. Clases Sociales

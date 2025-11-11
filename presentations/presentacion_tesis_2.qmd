@@ -1,0 +1,85 @@
+---
+pagetitle: "Presentación Tesis"
+Author: René Canales
+lang: es
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+format:
+  revealjs:
+    #logo: images/puc.png
+    slide-number: true
+    theme: "libs/tesis.scss"
+    auto-stretch: false
+    title-slide-attributes:
+      visibility: false
+    transition: fade
+    transition-speed: slow
+    # Ajustes para mejor separación y tamaño
+    width: 1280
+    height: 720
+    margin: 0.1
+    min-scale: 0.2
+    max-scale: 2.0
+    center: true
+    # data-background-image: images/cover.jpg
+    # data-background-size: cover
+    auto-play-media: true
+    mathjax: "default"
+    # Configuración adicional para mejor presentación
+    slide-level: 2
+    incremental: false
+  pdf:
+    format: beamer 
+    keep-tex: true
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+#| label: setup
+#| include: false
+library(knitr)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  error = FALSE, 
+  message = FALSE,
+  fig.width = 10,
+  fig.height = 6,
+  fig.align = "center",
+  out.width = "90%",
+  dpi = 300
+) 
+
+options(kableExtra.html.bsTable = TRUE)
+options(knitr.kable.NA = "")
+```
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = 'center',
+  dev = 'pdf'
+)
+
+library(dplyr)
+library(ggplot2)
+library(glmmTMB)
+library(texreg)
+library(ggeffects)
+library(patchwork)
+library(gt)
+library(kableExtra)
+library(here)
+library(modelsummary)
+library(stargazer)
+
+# Cargar datos
+load(here("input/data/proc/elsoc_final_2.RData"))
+```

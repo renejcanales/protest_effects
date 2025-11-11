@@ -1,0 +1,139 @@
+# Datos y Métodos
+
+## Datos
+
+La investigación se desarrolla a partir de los datos del Estudio Longitudinal Social de Chile (ELSOC), una encuesta panel representativa a nivel nacional que recoge información sobre la población adulta urbana del país. ELSOC, implementado por el Centro de Estudios de Conflicto y Cohesión Social (COES) desde 2016, tiene como propósito examinar las actitudes, percepciones y comportamientos de las personas frente a temas como el conflicto y la cohesión social. Su diseño de panel permite seguir a los mismos individuos a lo largo del tiempo, ofreciendo una mirada única sobre la evolución de la sociedad chilena.
+
+ELSOC utiliza un muestreo probabilístico, estratificado, por conglomerados y multietápico, que cubre tanto los principales centros urbanos como ciudades medianas y pequeñas del país. El marco muestral se estratificó proporcionalmente según el tamaño de la población urbana (en seis categorías), seleccionando aleatoriamente hogares dentro de 1.067 manzanas censales. La población objetivo incluye a hombres y mujeres de 18 a 75 años residentes en viviendas particulares.
+
+La encuesta se ha aplicado anualmente desde 2016, con excepción de 2020 debido a la pandemia de COVID-19, acumulando siete olas de datos (2016, 2017, 2018, 2019, 2021, 2022 y 2023). Entre las olas 1 y 7, la atrición (desgaste) del panel alcanza aproximadamente un 40%, logrando una retención cercana al 60%.
+
+Para los análisis de la investigación, y tras aplicar un criterio de inclusión de encuestados que hayan participado en al menos tres olas, se dispone de una muestra analítica de 20.007 observaciones anidadas en 3.666 individuos.
+Gracias a su diseño riguroso y su cobertura, ELSOC constituye una fuente de datos única en Chile para analizar las actitudes políticas y las percepciones de conflicto. La encuesta, sus manuales metodológicos y bases de datos se encuentran disponibles públicamente en el portal de COES [https://coes.cl/elsoc/](https://coes.cl/elsoc/) y en el repositorio de Harvard Dataverse [https://dataverse.harvard.edu/dataverse/elsoc](https://dataverse.harvard.edu/dataverse/elsoc).
+
+## Variables
+
+[AGREGAR TABLA DE VARIABLES]
+
+### Variables dependientes: Justificación de violencia política
+
+Para la medición de actitudes hacia la violencia política se construyeron dos índices aditivos que capturan justificación de violencia ejercida por diferentes tipos de actores en contextos políticos específicos. Esta distinción entre tipos de violencia según el actor que la ejerce es teóricamente crucial, dado que la hipótesis de reconfiguración bidireccional (H2) predice que la participación en protestas genera legitimación diferenciada: aumenta la justificación de violencia ejercida por manifestantes pero reduce la justificación de violencia ejercida por fuerzas del orden.
+
+Índice de Justificación de Violencia en Protestas (justif_violencia_protesta): Se compone del promedio de cinco ítems que miden el grado de justificación de acciones violentas o disruptivas ejercidas por actores sociales en contextos de movilización:
+
+1. Que trabajadores en huelga bloqueen calles como forma de protesta
+2. Que estudiantes tomen o se tomen sus colegios o universidades
+3. Que se tomen de forma violenta inmuebles o edificios
+4. Que se paralicen servicios de transporte con violencia
+5. Que se destruyan locales comerciales en marchas o manifestaciones
+
+Cada ítem se midió en una escala Likert de 5 puntos desde 1 = "Nunca se justifica" hasta 5 = "Siempre se justifica". El índice se calculó como el promedio aritmético de los cinco ítems cuando el encuestado respondió al menos tres de ellos, resultando en una escala continua de 1 a 5 donde valores más altos indican mayor justificación de violencia en protestas. La consistencia interna del índice es satisfactoria, con un alfa de Cronbach de 0.82 en la muestra analítica, indicando que los ítems capturan un constructo latente común.
+
+Índice de Justificación de Violencia Estatal (justif_violencia_estatal): Se compone del promedio de dos ítems que miden justificación de violencia ejercida por Carabineros de Chile (fuerzas de ley y orden) en contextos de control del orden público:
+
+1. Que Carabineros use la violencia para reprimir una manifestación pacífica
+2. Que Carabineros desaloje a la fuerza a las personas que se toman edificios o universidades
+
+Cada ítem se midió en la misma escala de 5 puntos. El índice se calculó como el promedio de ambos ítems (requiriendo respuesta en al menos uno), resultando igualmente en una escala continua de 1 a 5. La correlación entre ambos ítems es r = 0.58 (p < 0.001), indicando que miden aspectos relacionados pero distinguibles de actitudes hacia violencia policial.
+
+Es importante notar que estos dos índices capturan formas conceptualmente distintas de violencia política: violencia "desde abajo" ejercida por actores sociales movilizados versus violencia "desde arriba" ejercida por agentes estatales. Como muestra la matriz de correlación en la Tabla 1, ambos índices están negativamente correlacionados (r = -0.23, p < 0.001), sugiriendo que justificar un tipo de violencia tiende a asociarse con menor justificación del otro tipo, aunque la correlación no es perfecta. Esta distinción empírica valida la estrategia de analizar ambos tipos de violencia por separado.
+
+### Variables independientes principales
+
+Educación del encuestado: Se operacionaliza mediante una variable categórica de cinco niveles basada en el nivel educacional más alto alcanzado:
+
+1. Educación media (secundaria) completa o menos
+2. Técnica superior incompleta (estudios terciarios no universitarios iniciados pero no completados)
+3. Técnica superior completa (título técnico profesional o similar)
+4. Universitaria incompleta (estudios universitarios iniciados pero no completados)
+5. Universitaria completa (título universitario de pregrado o posgrado)
+
+Esta categorización se trata como factor no ordenado en los modelos de regresión, utilizando "educación media completa o menos" como categoría de referencia. La decisión de no tratar educación como variable ordinal responde a evidencia previa que sugiere que los efectos de educación sobre actitudes políticas no son necesariamente lineales, y que existen diferencias cualitativas importantes entre educación técnica y universitaria que van más allá de "años de escolaridad" (Nie et al., 1996).
+
+**Clase social**: Se utiliza una versión simplificada del esquema de clases Erikson-Goldthorpe-Portocarrero (EGP), ampliamente utilizado en sociología de la estratificación, para conservar un mayor número de casos distribuidos. Basándose en la ocupación principal del encuestado (codificada según ISCO-08) y su situación de empleo, se construyó una variable categórica de tres clases:
+
+1. Service class (Clases I-II del esquema EGP): Profesionales, gerentes y administradores de alto nivel, técnicos superiores. Incluye ocupaciones que requieren alta calificación y ejercen autoridad o autonomía significativa.
+2. Intermediate class (Clases III-IV): Empleados no manuales de rutina, trabajadores de pequeña propiedad, trabajadores independientes sin empleados.
+3. Working class (Clases V-VII): Trabajadores manuales calificados, semicalificados y no calificados, tanto de sectores secundarios como terciarios.
+
+Esta clasificación captura diferencias en posición estructural dentro del sistema de producción, niveles típicos de ingresos, seguridad económica, y autonomía laboral. La variable se trata como factor, utilizando "service class" como categoría de referencia para facilitar la interpretación de interacciones.
+
+Participación en protestas: Variable dicotómica que indica si el encuestado participó en manifestaciones, marchas o protestas durante los últimos 12 meses (1 = Sí participó, 0 = No participó). Esta medición se basa en la pregunta: "Durante los últimos 12 meses, ¿ha participado en manifestaciones o marchas?" Esta variable captura participación reportada retrospectivamente y, por tanto, está sujeta a posibles sesgos de recuerdo y deseabilidad social, aunque evidencia previa sugiere que el reporte de participación en protestas tiene razonable validez cuando el período de referencia es relativamente corto (Walgrave & Verhulst, 2011).
+
+### Variables de Control
+Todos los modelos incluyen las siguientes variables de control para reducir confusión y mejorar la precisión de las estimaciones:
+- Edad: En años al momento de cada ola (variable continua centrada en la media).
+
+- Género: Variable dicotómica (1 = Mujer, 0 = Hombre).
+
+- Ideología política: Escala de auto-posicionamiento ideológico de 0 (extrema izquierda) a 10 (extrema derecha), estandarizada con media 0 y desviación estándar 1.
+
+- Año: Efectos fijos de año (dummies para cada ola) para controlar por tendencias temporales compartidas y shocks período-específicos (como el estallido social de 2019).
+
+## Estrategia Analítica
+
+La naturaleza longitudinal de los datos implica que observamos a los mismos individuos (j = 1, ..., 3,666) en múltiples ocasiones a lo largo del tiempo (t = 1, ..., 7 olas). Esta estructura de datos de panel —donde las observaciones individuales de Nivel 1 (mediciones en el tiempo, t) están anidadas dentro de individuos de Nivel 2 (j)— viola uno de los supuestos fundamentales de los modelos de regresión estándar (como Mínimos Cuadrados Ordinarios): la independencia de las observaciones (Snijders & Bosker, 2012). Es altamente probable que las respuestas de un mismo individuo en diferentes olas estén correlacionadas, dado que capturan características estables de esa persona (personalidad, valores arraigados, experiencias formativas previas) que afectan sus actitudes de manera consistente a lo largo del tiempo.
+
+Ignorar esta dependencia temporal dentro de individuos llevaría a estimaciones de errores estándar sesgadas hacia abajo (demasiado pequeños), inflando artificialmente la significancia estadística y conduciendo a inferencias inválidas (Raudenbush & Bryk, 2002; Gelman & Hill, 2007). Los modelos multinivel (también llamados modelos jerárquicos lineales, modelos de efectos mixtos o modelos de componentes de varianza) ofrecen una solución explícita a este problema al modelar tanto la heterogeneidad entre individuos como la dependencia dentro de individuos a lo largo del tiempo (Singer & Willett, 2003). Como señalan Hox et al. (2018), estos modelos permiten descomponer la variación total en sus componentes estructurales y estimar correctamente la incertidumbre de los parámetros en presencia de dependencia intra-grupal.
+
+La ecuación general del modelo de Nivel 1 (observación en el tiempo) y Nivel 2 (individuo) es:
+
+**Nivel 1 (intra-individual)**
+
+$$y_{tj} = \beta_{0j} + \beta_1 X_{tj} + \varepsilon_{tj}$$
+
+donde:
+
+- $y_{tj}$: Justificación de la violencia para el individuo $j$ en el tiempo $t$.
+- $X_{tj}$: Variables de nivel 1 (tiempo), como participación en protestas, edad, etc.
+- $\varepsilon_{tj}$: Error residual a nivel de observación.
+
+**Nivel 2 (inter-individual)**
+
+$$\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}$$
+
+donde:
+
+- $\gamma_{00}$: es el intercepto general (gran media)
+- $Z_j$: representa predictores que no varían en el tiempo (educación, clase social, género)
+- $u_{0j}$: es el efecto aleatorio
+
+**Modelo integrado**
+
+$$y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \beta_1 X_{tj} + u_{0j} + \varepsilon_{tj}$$
+
+Este modelo descompone la varianza total en dos componentes: varianza entre individuos ($\sigma^2_u$, capturada por los interceptos aleatorios) y varianza dentro de individuos a lo largo del tiempo ($\sigma^2_\varepsilon$, error residual). El coeficiente de correlación intra-clase (ICC) cuantifica la proporción de varianza total atribuible a diferencias entre individuos.
+
+### Modelos con interacción
+
+**Educación × Participación**
+
+Para testear las hipótesis centrales de este estudio, que predicen que los efectos de educación y clase social sobre justificación de violencia son contingentes a la participación en protestas, se estiman modelos que incluyen términos de interacción multiplicativos:
+
+$$y_{tj} = \gamma_{00} + \gamma_{01} \text{Educación}_j + \gamma_{02} \text{Participación}_{tj} + \gamma_{03} (\text{Educación}_j \times \text{Participación}_{tj}) + \text{Controles} + u_{0j} + \varepsilon_{tj}$$
+
+Dado que educación es una variable categórica con 5 niveles (4 dummies), este modelo estima 4 coeficientes de interacción, uno para cada nivel educativo respecto a la categoría de referencia.
+
+**Clase × Participación**
+
+$$y_{tj} = \gamma_{00} + \gamma_{01} \text{Clase}_j + \gamma_{02} \text{Participación}_{tj} + \gamma_{03} (\text{Clase}_j \times \text{Participación}_{tj}) + \text{Controles} + u_{0j} + \varepsilon_{tj}$$
+
+De manera similar, este modelo estima 2 coeficientes de interacción (intermediate class × participación, working class × participación).
+
+La interpretación de términos de interacción en modelos multinivel sigue la lógica estándar: el coeficiente de interacción representa cuánto cambia el efecto de la participación en protestas sobre la justificación de violencia al pasar de una categoría educativa (o de clase) a otra. Los gráficos de efectos marginales (predicted values) se utilizan para visualizar estas interacciones de forma intuitiva.
+
+### Elección de la distribución y función de enlace
+
+La variable dependiente principal es el índice continuo de justificación de violencia (escala 1-5). Aunque técnicamente esta variable es ordinal (niveles discretos ordenados), su tratamiento como continua se justifica por tres razones metodológicas y sustantivas. Primero, los índices promedian respuestas de múltiples ítems (5 para violencia en protestas, 2 para violencia estatal), lo que genera una distribución más continua y aproximadamente normal en la muestra. Segundo, trabajos previos en psicología y ciencias políticas han demostrado que escalas Likert con 5 o más puntos pueden tratarse como continuas sin pérdida sustantiva de información cuando se promedian múltiples ítems (Norman, 2010; Lubke & Muthen, 2004). Tercero, el uso de variables continuas permite interpretar los efectos en términos de cambios promedio en la escala de justificación, lo que resulta más intuitivo y permite capturar gradaciones sutiles en las actitudes.
+
+Por tanto, los modelos principales se estiman mediante Modelos Lineales Generalizados Mixtos (GLMM) con distribución gaussiana (normal) y función de enlace identidad, incorporando interceptos aleatorios por individuo para modelar la estructura jerárquica de los datos. Esta especificación es equivalente a un modelo de regresión lineal multinivel estándar y se estima mediante máxima verosimilitud restringida (REML), que produce estimadores insesgados de los componentes de varianza en muestras finitas (Raudenbush & Bryk, 2002).
+
+## Análisis de Robustez
+
+No obstante, para garantizar que los resultados no dependen críticamente de la operacionalización de la variable dependiente, se implementa una estrategia de análisis de sensibilidad. En los anexos se presentan estimaciones de modelos alternativos donde la variable dependiente se dicotomiza: una variable dummy que toma el valor 1 si el índice de justificación es mayor que 1 (es decir, si el encuestado justifica la violencia en al menos algún grado) y 0 si el índice es exactamente igual a 1 (nunca justifica). Estos modelos se estiman mediante GLMM con distribución binomial y función de enlace logit, manteniendo la misma estructura de interceptos aleatorios individuales y la misma especificación de predictores, controles e interacciones.
+
+Los modelos logit multinivel permiten analizar la probabilidad de justificar la violencia (versus rechazarla completamente) y facilitan la interpretación en términos de odds ratios, pero sacrifican información al colapsar la escala de 5 puntos a una dicotomía. Si los hallazgos principales se replican en ambas especificaciones —modelos lineales con índices continuos y modelos logit con variables dummy— esto incrementa sustancialmente la confianza en la robustez de las conclusiones.
+
+## Software y replicabilidad
+
+Todos los análisis estadísticos se realizaron en R (versión 4.3.1) utilizando el paquete glmmTMB (Brooks et al., 2017) para la estimación de modelos mixtos generalizados, ggeffects (Lüdecke, 2018) para el cálculo de efectos marginales y predicciones ajustadas, y ggplot2 (Wickham, 2016) para la visualización de resultados. Los scripts de análisis completos, incluyendo código para limpieza de datos, construcción de variables, estimación de modelos y generación de figuras, se encuentran disponibles en un repositorio público de GitHub (enlace a proporcionar tras aceptación del manuscrito), garantizando transparencia y replicabilidad computacional completa de los hallazgos reportados.

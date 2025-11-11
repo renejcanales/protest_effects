@@ -613,7 +613,8 @@ Para la justificación de la violencia en protestas, el ICC es de 0.229, indican
 
 En ambos casos, estos valores son sustanciales y confirman la existencia de una fuerte interdependencia en los datos, validando la elección de los modelos de efectos aleatorios.
 
-# Hipótesis 1: El "Efecto Paradoja" de la Educación
+## Estadísticos exploratorios
+### Hipótesis 1: El "Efecto Paradoja" de la Educación
 
 ```{r}
 #| echo: false
