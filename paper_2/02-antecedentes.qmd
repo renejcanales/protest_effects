@@ -4,15 +4,15 @@
 
 La educación ha sido una de las variables más robustas en la literatura sobre comportamiento político, tradicionalmente asociada con una mayor participación, tolerancia y adhesión a valores democráticos (Lipset, 1959; Verba, Nie & Kim, 1978; Persson, 2013). Sin embargo, cuando el foco se desplaza hacia la justificación de la violencia política, este vínculo requiere ser revisado. En lugar de funcionar de manera lineal y universal como un agente de moderación, la educación puede operar como un filtro moral y cognitivo que reconfigura la manera en que los individuos interpretan y valoran el conflicto político.
 
-Desde esta perspectiva, la educación no se limita a moldear preferencias políticas o a incrementar competencias cívicas, sino que estructura los marcos de interpretación moral que los individuos utilizan para evaluar la legitimidad de la violencia. La capacidad de comprender la complejidad del orden político, de articular argumentos abstractos sobre justicia y legitimidad, y de integrar experiencias de desigualdad en narrativas coherentes, depende en gran medida del tipo y nivel de educación alcanzado. En contextos de estabilidad institucional, estos marcos suelen reforzar la confianza en los procedimientos democráticos; pero en contextos de desigualdad estructural y crisis de representación, la misma capacidad reflexiva puede traducirse en una justificación más elaborada del uso instrumental o moral de la violencia.
+Desde esta perspectiva, la educación no se limita a moldear preferencias políticas o a incrementar competencias cívicas, sino que estructura los marcos de interpretación moral que los individuos utilizan para evaluar la legitimidad de la violencia (cita). La capacidad de comprender la complejidad del orden político, de articular argumentos abstractos sobre justicia y legitimidad, y de integrar experiencias de desigualdad en narrativas coherentes, depende en gran medida del tipo y nivel de educación alcanzado. En contextos de estabilidad institucional, estos marcos suelen reforzar la confianza en los procedimientos democráticos; pero en contextos de desigualdad estructural y crisis de representación, la misma capacidad reflexiva puede traducirse en una justificación más elaborada del uso instrumental o moral de la violencia.
 
-En consecuencia, la educación actúa menos como una “barrera” frente a la radicalización que como un multiplicador de significados: amplifica la capacidad de las personas para dotar de sentido a la violencia, ya sea condenándola o legitimándola según el contexto y la posición social que ocupen.
+En consecuencia, la educación actúa menos como una “barrera” frente a la radicalización que como un multiplicador de significados: amplifica la capacidad de las personas para dotar de sentido a la violencia, ya sea condenándola o legitimándola según el contexto y la posición social que ocupen (cita).
 
 ### El efecto civilizatorio
 
 El argumento clásico del “efecto civilizatorio” (Lipset, 1959; Almond & Verba, 1963) postulaba que la educación fomenta la internalización de normas democráticas, reduciendo la propensión a aceptar la violencia política. Esta hipótesis descansaba en tres supuestos fundamentales: primero, que la educación desarrolla habilidades cognitivas que permiten comprender la complejidad social y, por ende, adoptar posturas moderadas (Converse, 1972; Nie et al., 1996); segundo, que promueve valores de tolerancia, pluralismo y respeto a las instituciones (Kohlberg, 1981; Pascarella & Terenzini, 1991); y tercero, que fortalece la eficacia política subjetiva —la creencia de que las instituciones responden a las demandas ciudadanas—, lo que reduce la percepción de que la violencia sea necesaria como medio de acción (Jackson, 1995).
 
-Bajo este paradigma, el sistema educativo cumple una función integradora: produce ciudadanos racionales y responsables que canalizan sus conflictos mediante vías institucionales. Desde esta óptica, la educación “domestica” la conflictividad política y moral, transformando la violencia en algo ajeno a la ciudadanía moderna. La justificación de la violencia, entonces, se entiende como un residuo de déficit educativo o de exclusión cultural.
+Bajo este paradigma, el sistema educativo cumple una función integradora: produce ciudadanos racionales y responsables que canalizan sus conflictos mediante vías institucionales. Desde esta óptica, la educación “domestica” la conflictividad política y moral, transformando la violencia en algo ajeno a la ciudadanía moderna (cita). La justificación de la violencia, entonces, se entiende como un residuo de déficit educativo o de exclusión cultural.
 
 No obstante, este modelo presupone condiciones de igualdad estructural que raramente existen. En sociedades donde el acceso a bienes, derechos y oportunidades se encuentra profundamente estratificado, la educación no opera sobre un terreno neutro, sino dentro de un campo desigual de reconocimiento. Las instituciones educativas reproducen jerarquías culturales y económicas (Bourdieu & Passeron, 1970), y con ello también distribuyen desigualmente la confianza en el orden político. Por tanto, la relación entre educación y justificación de la violencia no puede entenderse sin considerar el contexto de desigualdad estructural que moldea las expectativas de justicia y los límites de la acción legítima.
 
@@ -22,13 +22,13 @@ La desigualdad estructural altera los mecanismos mediante los cuales la educaci�
 
 En este sentido, la educación actúa como una herramienta de elaboración moral. Permite a los individuos articular narrativas más sofisticadas sobre la legitimidad de ciertos actos violentos, especialmente cuando los enmarcan dentro de discursos de defensa de derechos humanos, resistencia civil o desobediencia moral (Della Porta, 2013; Jasper, 2018). El resultado no es una relación monotónica entre educación y rechazo de la violencia, sino una relación curvilínea o condicional, en la que la justificación de la violencia emerge de la disonancia entre los valores aprendidos (igualdad, justicia) y la experiencia vivida de exclusión o represión.
 
-Por el contrario, entre quienes carecen de educación formal, la relación con la violencia política tiende a ser más inmediata y menos mediada por marcos morales universales. En estos sectores, la justificación puede derivar más de la familiaridad cotidiana con la violencia estructural y simbólica (Wacquant, 2008) que de una elaboración ideológica. Así, mientras las clases trabajadoras pueden normalizar la violencia como componente de la supervivencia social, las clases educadas tienden a justificarla como excepción moral dentro de un sistema que ha traicionado sus propias normas.
+Por el contrario, entre quienes carecen de educación formal, la relación con la violencia política tiende a ser más inmediata y menos mediada por marcos morales universales. En estos sectores, la justificación puede derivar más de la familiaridad cotidiana con la violencia estructural y simbólica (Wacquant, 2008; Olin Wright, 1991) que de una elaboración ideológica. Así, mientras las clases trabajadoras pueden normalizar la violencia como componente de la supervivencia social, las clases educadas tienden a justificarla como excepción moral dentro de un sistema que ha traicionado sus propias normas.
 
 ### Educación como amplificador
 
 En contextos de alta desigualdad estructural y represión estatal, la educación puede convertirse en un amplificador moral de la radicalización cognitiva. Este efecto no implica que los individuos más educados sean más propensos a la violencia, sino que poseen mayor capacidad para racionalizar su legitimidad cuando consideran que los canales institucionales han perdido eficacia o justicia.
 
-La educación dota de vocabulario político, histórico y ético para reinterpretar la violencia no como mera ruptura del orden, sino como acción moralmente coherente con principios de justicia o defensa de derechos fundamentales (Snow & Benford, 1988). Esta capacidad de reinterpretación moral puede observarse en movimientos donde los sectores educados redefinen la protesta violenta como una forma de “violencia defensiva” o “resistencia legítima” frente a estructuras percibidas como violentas en sí mismas (Zizek, 2008; Butler, 2020).
+La educación dota de vocabulario político, histórico y ético para reinterpretar la violencia no como mera ruptura del orden, sino como acción moralmente coherente con principios de justicia o defensa de derechos fundamentales (Snow & Benford, 1988). Esta capacidad de reinterpretación moral puede observarse en movimientos donde los sectores educados redefinen la protesta violenta como una forma de “violencia defensiva” o “resistencia legítima” frente a estructuras percibidas como violentas en sí mismas (cita).
 
 De este modo, el efecto de la educación no es inhibitorio, sino transformativo: reconfigura la gramática moral mediante la cual los individuos evalúan la violencia política. Donde el sentido común ve desorden, los individuos más educados pueden ver contradicción estructural o injusticia moral. La educación, entonces, no elimina la violencia del horizonte político, sino que la reinscribe en un marco moralmente argumentado, donde el conflicto puede concebirse como medio legítimo de emancipación o denuncia.
 
@@ -141,7 +141,7 @@ Así, la clase social opera como un moderador estructural y simbólico del vínc
 
 Integrando los argumentos anteriores sobre desigualdad estructural, habitus de clase y efectos techo, planteamos la siguiente hipótesis:
 
-- H3a: La clase trabajadora presenta una mayor justificación basal de la violencia política que la clase de servicio, independientemente de su nivel de participación política.
+- H3a: La clase trabajadora presenta una mayor justificación basal de la violencia política que la clase de servicio, independientemente de su nivel de participación en protestas.
 
 - H3b: El incremento en la justificación de la violencia asociado a la participación en protestas es menor para la clase trabajadora que para la clase de servicio, evidenciando un efecto techo.
 
@@ -149,7 +149,18 @@ En síntesis, la clase trabajadora —por su proximidad cotidiana con formas est
 
 Esta moderación por clase social complejiza el modelo propuesto en las hipótesis anteriores (H1 y H2), mostrando que los mecanismos de transformación biográfica operan diferencialmente según la posición estructural del individuo y las experiencias de conflicto que esa posición predispone. La desigualdad, por tanto, no solo estructura el acceso a los recursos políticos, sino también la gramática moral desde la cual se juzga el uso de la violencia en la vida colectiva.
 
-2.4. Contexto Chileno
-2.4.1. La expansión educativa
-2.4.2. El ciclo contencioso
-2.4.3. Clases Sociales
+## Contexto Chileno
+
+### La expansión educativa
+
+- Bellei y Cabalin
+
+### El ciclo contencioso
+
+- Somma
+- Disi
+- Medel
+
+### Clases Sociales
+
+- Pablo Pérez

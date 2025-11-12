@@ -83,3 +83,4 @@ library(stargazer)
 # Cargar datos
 load(here("input/data/proc/elsoc_final_2.RData"))
 ```
+

@@ -52,76 +52,49 @@ knitr::opts_chunk$set(
   fig.height = 6,
   fig.align = "center",
   out.width = "90%",
-  dpi = 300
+  dpi = 300,
+  cache = FALSE
 ) 
 
 options(kableExtra.html.bsTable = TRUE)
 options(knitr.kable.NA = "")
+options(knitr.duplicate.label = "allow")
 ```
 
 ```{r}
-#| label: packages
 #| include: false
+library(dplyr)
+library(ggplot2)
+library(glmmTMB)
+library(texreg)
+library(ggeffects)
+library(patchwork)
+library(gt)
+library(kableExtra)
+library(here)
+library(modelsummary)
+library(stargazer)
+library(DiagrammeR)
+library(performance)
+library(broom.mixed)
 
-if (!require("pacman")) install.packages("pacman")
+# Cargar datos
+load(here("input/data/proc/elsoc_final_2.RData"))
 
-pacman::p_load(tidyverse,
-               sjlabelled, 
-               sjmisc, 
-               sjPlot,
-               gt,
-               xfun,
-               here,
-               tidyr,
-               naniar,
-               dplyr,
-               broom,
-               broom.mixed,
-               texreg,
-               kableExtra,
-               emmeans)
-
-options(scipen=999)
-rm(list = ls())
-```
-
-```{r}
-load(here("~/GitHub/protest_effects/input/data/proc/elsoc_final.RData"))
-```
-
-```{r}
-#| warning: false
-#| message: false
-#| echo: false
-
-# CORRECCIONES A LA BASE
-elsoc_final <- elsoc_final %>%
+# Preparar datos
+elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
-    # Corregir años de educación
-    educ_years_corr = case_when(
-      educ_cat == "Media incompleta o menos" ~ 10,
-      educ_cat == "Media completa" ~ 12,
-      educ_cat == "Técnica superior incompleta" ~ 13,
-      educ_cat == "Técnica superior completa" ~ 15,
-      educ_cat == "Universitaria incompleta" ~ 15,
-      educ_cat == "Universitaria completa" ~ 17,
-      educ_cat == "Postgrado" ~ 19,
-      TRUE ~ NA_real_
-    ),
-    # Recalcular movilidad con años corregidos
-    movilidad_years_corr = educ_years_corr - educ_parental_max,
-    # Crear matriz origen-destino
-    educ_destino = case_when(
-      educ_years_corr < 12 ~ "Bajo",
-      educ_years_corr >= 12 & educ_years_corr < 16 ~ "Medio",
-      educ_years_corr >= 16 ~ "Alto"
-    ),
-    educ_origen = case_when(
-      educ_parental_max < 12 ~ "Bajo",
-      educ_parental_max >= 12 & educ_parental_max < 16 ~ "Medio",
-      educ_parental_max >= 16 ~ "Alto"
-    ),
-    matriz_movilidad = interaction(educ_origen, educ_destino, sep = " → ")
+    educ_cat_unordered = factor(educ_cat_factor, ordered = FALSE),
+    educ_cat_unordered = factor(
+      educ_cat_unordered,
+      labels = c(
+        "Media completa o menos",
+        "Téc. sup. incompleta",
+        "Téc. sup. completa",
+        "Univ. incompleta",
+        "Univ. completa"
+      )
+    )
   )
 ```
 
@@ -131,7 +104,7 @@ elsoc_final <- elsoc_final %>%
 :::
 
 :::: {.column .column-right width="80%"}
-# **Antomía del rol de la educación en la protesta: Un análisis longitudinal (2016-2023)**
+# **Actitudes hacia la violencia política: Educación y Clase en el ciclo contencioso chileno (2016-2023)**
 
 ------------------------------------------------------------------------
 
@@ -143,842 +116,905 @@ elsoc_final <- elsoc_final %>%
 
 Fondecyt 1230922 "Actitudes y Comportamiento Político Juvenil: Desigualdad, estilos de socialización escolar e influencias intergeneracionales"
 
-08 de octubre, 2025
+12 de noviembre, 2025
 ::::
 ::::::
 
 # Contexto {data-background-color="#5f5758"}
 
-## Antecedentes
-
 ::: {.incremental .highlight-last style="font-size: 85%;"}
-- En las últimas décadas, la protesta se ha convertido en una forma central de participación política en democracias contemporáneas, asociada al desgaste de los canales institucionales y a la creciente legitimidad de la acción colectiva no convencional (Grasso, 2016; Rosanvallon, 2007; Tarrow, 2011). 
+- ¿Cómo la educación y clase social moldean actitudes hacia la violencia política?
 
-- Si bien estudios previos han identificado que la educación facilita recursos cívicos y habilidades que incrementan la participación política (Verba et al., 1995; Dalton, 2008), esta aproximación resulta limitada para comprender la complejidad de su efecto sobre la protesta.
+- Contexto: Estallido social chileno (octubre 2019) - ciclo contencioso inédito con alta represión estatal y justificación diferenciada de violencia según perfil social.
 
--   En el caso de Chile, la historia reciente está marcada por un **ciclo sostenido de protestas (2006, 2011, 2019)** donde la educación ha ocupado un lugar protagónico (Donoso & von Bülow, 2017; Somma et al., 2021). La masificación del acceso a la educación superior ha generado tanto oportunidades como tensiones y expectativas que influyen en la acción colectiva (Bellei et al., 2014), configurando un escenario propicio para examinar el rol de la educación como determinante de la protesta.
+- Problema teórico: Literatura clásica predice que más educación = menor violencia. Pero en Chile 2019, han surgido estudios que acusan lo contrario: sectores educados y participantes justificaron más la violencia de protesta (Cox et al., 2023).
 
--   El problema de investigación, entonces, radica en **la falta de comprensión sobre el efecto real de la educación en la protesta**, considerando que esta relación no es necesariamente lineal (Ustyuzhanin et al., 2022) y que la movilidad educacional intergeneracional puede generar situaciones de deprivación relativa que incrementan la disposición a participar en eventos contenciosos (Rodeghier et al., 1991; Grasso et al., 2019).
+- Argumento central: Los efectos de educación y clase son condicionales a la participación:
 
--   Este vacío motiva un análisis que permita desentrañar el efecto de la educación, específicamente su carácter potencialmente no lineal, estableciendo una especie de *anatomía* del papel de la educación en la participación política no convencional.
+- Educación como amplificador: Sin participación → efecto civilizatorio. Con participación → provee marcos ideológicos para legitimar violencia de protesta.
+- Reconfiguración moral: Universitarios movilizados distinguen entre violencia de protesta (legítima) vs. estatal (ilegítima).
+- Clase social modera: Clase trabajadora = tolerancia basal alta, cambio bajo. Clase de servicio = tolerancia baja inicial, alto cambio al participar (convergencia por reencuadre moral).
+
+- Contribución: La participación transforma actitudes de forma diferenciada según posición estructural - explica transversalidad del movimiento.
 :::
 
-## Pregunta y objetivos
+## Pregunta
 
 ::: {.incremental .highlight-last style="font-size: 120%;"}
-*¿Cómo afecta la educación a la participación en protesta social en Chile, considerando tanto efectos no lineales del nivel educativo como la moderación del origen socioeconómico familiar?*
+Pregunta de investigación: ¿Cómo interactúan la educación, la clase social y la participación en protestas para moldear actitudes hacia la violencia política en el contexto chileno?
 
-Específicamente:
+Argumento central: Los efectos de educación y clase son condicionales a la participación:
 
-PE1: ¿Existe una relación no lineal entre nivel educativo y participación en protesta?
+- Educación como amplificador: Sin participación → efecto civilizatorio. Con participación → marcos ideológicos para legitimar violencia de protesta.
 
-PE2: ¿La movilidad educacional ascendente modera la relación entre educación y protesta?
+- Reconfiguración moral: Universitarios movilizados distinguen violencia de protesta (legítima) vs. estatal (ilegítima).
 
-PE3: ¿Los mecanismos operan a través de deprivación relativa u orientación ideológica?
+- Moderación de clase: Clase trabajadora = tolerancia alta/cambio bajo. Clase de servicio = tolerancia baja/cambio alto al participar.
+
 :::
 
-## Hipótesis
+## Objetivos:
 
 ::: {.incremental .highlight-last style="font-size: 120%;"}
 
-H1 (No linealidad): La relación entre educación y protesta sigue una curva en forma de U invertida en niveles intermedios:
+- Mostrar que el "efecto civilizatorio" de la educación es condicional al contexto participativo
 
-- Individuos con educación técnica superior participan menos que aquellos con media completa o universitaria
+- Evidenciar que participación interactúa con estratificación social de forma compleja
 
-H2 (Movilidad educacional): La movilidad educacional ascendente incrementa la participación en protesta:
-
-- Entre universitarios, aquellos con padres de menor educación protestan más
-
-H3 (Mecanismos): La movilidad ascendente opera a través de:
-
-- Deprivación relativa (Menor movilidad respecto al nivel educativo alcanzado) y
-Orientación ideológica (posiciones más de izquierda)
-
+- Explicar bases sociales diferenciadas de legitimación durante el estallido
 :::
+
+# Antecedentes
+
+## Educación y Actitudes Políticas (1/3)
+
+**Tesis clásica: "efecto civilizatorio"**
+
+- Educación → tolerancia, moderación, rechazo a violencia (Lipset, 1959)
+- **Supuestos clave:**
+  - Habilidades cognitivas para comprender complejidad social
+  - Valores democráticos y pluralismo
+  - Eficacia política subjetiva
+
+**Limitación:** Modelo presupone igualdad estructural que raramente existe
+
+## Educación y Actitudes Políticas (2/3)
+
+**Educación en contextos desiguales:**
+
+- No opera en terreno neutro → reproduce jerarquías (Bourdieu)
+- En sistemas percibidos como injustos: educación permite **elaborar narrativas sofisticadas** de legitimación
+- **Educación como amplificador cognitivo**, no barrera universal
+- Permite articular violencia como "respuesta moral necesaria"
+
+## Educación y Actitudes Políticas (3/3)
+
+**Mecanismo de activación: participación en protestas**
+
+1. **Contacto con represión estatal** → "autodefensa legítima"
+2. **Exposición a narrativas justificatorias** → distinciones morales sofisticadas
+3. **Reconfiguración identitaria** → compartimentalización cognitiva
+
+**Resultado:** Mantener valores democráticos + justificar violencia situacional
+
+## Hipótesis 1: Efecto Educativo Condicional
+
+:::: {.columns}
+::: {.column width="50%"}
+**H1a: Sin participación**
+
+Mayor educación → **menor** justificación
+
+*(efecto civilizatorio clásico)*
+:::
+
+::: {.column width="50%"}
+**H1b: Con participación**
+
+Mayor educación → **mayor** justificación
+
+*(marcos ideológicos sofisticados)*
+:::
+::::
+
+La educación amplifica capacidad de legitimar violencia cuando se participa
+
+## Participación como Transformación (1/2)
+
+**Giro conceptual:**
+
+- Modelo de recursos: participación refleja predisposiciones
+- **Participación como socialización transformadora** (McAdam, 1989)
+
+**Mecanismos de transformación:**
+
+1. **Nuevos marcos cognitivos** (framing):
+   - Diagnóstico, pronóstico, motivación
+   - Resignificación: "orden público" → "violencia estructural estatal"
+
+2. **Experiencia corporal/emocional**:
+   - Represión erosiona legitimidad estatal
+   - Valida narrativas del movimiento
+
+## Participación como Transformación (2/2)
+
+**Heterogeneidad del efecto:**
+
+- Transformación no uniforme → depende de posición social y educación
+- Educación + participación = capacidad de reelaboración moral sofisticada
+- **Reconfiguración bidireccional** de marcos morales
+
+## Hipótesis 2: Reconfiguración Bidireccional
+
+**Universitarios participantes vs. no participantes:**
+
+**H2a:** Mayor justificación de **violencia de manifestantes**
+
+**H2b:** Menor justificación de **violencia estatal**
+
+Mantienen valores democráticos pero reinterpretan tipos de violencia según legitimidad moral
+
+## Desigualdad Estructural y Clase (1/3)
+
+**Posición de clase moldea experiencias de conflicto:**
+
+- **Clase trabajadora:**
+  - Exposición cotidiana a violencia estructural
+  - Normalización de la coerción
+  - Mayor tolerancia basal
+
+- **Clase de servicio/medias:**
+  - Orden estable y predecible
+  - Violencia como ruptura moral
+  - Menor tolerancia basal
+
+## Desigualdad Estructural y Clase (2/3)
+
+**Habitus de clase (Bourdieu):**
+
+- Traduce desigualdad estructural en **esquemas morales**
+- Define qué acciones políticas son "razonables" o "legítimas"
+- Orienta percepción de autoridad, justicia y conflicto
+
+**La clase no solo condiciona recursos, sino marcos interpretativos**
+
+## Desigualdad Estructural y Clase (3/3)
+
+**Efecto techo:**
+
+- **Clase trabajadora:**
+  - Alta tolerancia basal (normalización pragmática)
+  - Participación **refuerza** disposiciones existentes
+  - Bajo potencial de cambio
+
+- **Clase de servicio:**
+  - Baja tolerancia inicial
+  - Participación = **experiencia disruptiva**
+  - Alto potencial de reconfiguración cognitiva
+
+## Hipótesis 3: Moderación por Clase
+
+**H3a:** Clase trabajadora → mayor justificación basal
+*(independiente de participación)*
+
+**H3b:** Incremento por participación es:
+
+- **Menor** en clase trabajadora (efecto techo)
+
+- **Mayor** en clase de servicio (potencial de cambio)
+
+## Modelo Integrado
+
+**Tres efectos condicionales:**
+
+1. **Educación** opera diferencialmente según participación (H1)
+2. **Participación** reconfigura marcos bidireccionally en universitarios (H2)
+3. **Clase social** modera magnitud del cambio (H3)
+
+**Resultado esperado:**
+
+- Convergencia entre clases en **niveles** de justificación
+- Divergencia en **marcos** que sustentan esa legitimación
 
 # Datos y Metodología {data-background-color="#5f5758"}
 
 ::: incremental
-## Datos
 
-Fuente: Estudio Longitudinal Social de Chile (ELSOC) 2016-2023 (7 olas)
+## Datos: ELSOC
 
-Variable Dependiente: Participación en protesta social
+**Estudio Longitudinal Social de Chile (COES)**
 
-- Índice aditivo (1-5): marchas, huelgas, firma de peticiones en últimos 12 meses
-- Alternativa: Variable dicotómica sólo con marchas (participó/no participó)
+- **Diseño:** Panel representativo nacional (población urbana adulta)
+- **Período:** 2016-2023 (7 olas, sin 2020 por COVID)
+- **Muestreo:** Probabilístico, estratificado, por conglomerados, multietápico
+- **Cobertura:** 1.067 manzanas censales, población 18-75 años
 
-Variables Independientes: Nivel educativo propio (categórica):
+**Muestra analítica:**
+- 20.007 observaciones anidadas en 3.666 individuos
+- Criterio: ≥3 olas participadas
+- Retención: ~60% (atrición ~40%)
 
-- Media incompleta o menos (referencia)
+## Variables Dependientes
 
-- Media completa / Técnica incompleta / Técnica completa
+**Dos índices aditivos (escala 1-5):**
 
-- Universitaria incompleta / Universitaria completa / Postgrado
+**1. Justificación de Violencia en Protestas** (α = 0.82)
+- Bloquear calles en huelga
+- Tomas de colegios/universidades
+- Tomas violentas de edificios
+- Paralizar transporte con violencia
+- Destruir locales en marchas
 
-Opción Movilidad educacional:
+**2. Justificación de Violencia Estatal** (r = 0.58)
+- Carabineros reprimen manifestación pacífica
+- Carabineros desalojan tomas por la fuerza
 
-- Movilidad = Educación_propia - max(Educación_padre, Educación_madre) [Imputable]
+**Correlación entre índices:** r = -0.23*** (violencias conceptualmente distintas)
 
-- Categorías: descendente / sin movilidad / moderada / alta
+## Variables Independientes Principales
 
-- Controles: Edad, sexo, situación laboral, ideología política, interés político, año (efectos fijos 2019)
-:::
+**Educación** (5 categorías, no ordenada):
+1. Media completa o menos (ref.)
+2. Técnica superior incompleta
+3. Técnica superior completa
+4. Universitaria incompleta
+5. Universitaria completa
 
+**Clase Social** (esquema EGP simplificado):
+1. Service class (ref.): profesionales, gerentes
+2. Intermediate class: empleados rutina, pequeña propiedad
+3. Working class: trabajadores manuales
 
-::: incremental 
+**Participación en Protestas:** Dicotómica (últimos 12 meses)
 
-## Estrategia Analítica
+## Variables de Control
 
-**Modelo de Efectos Aleatorios:**
+- **Edad:** Continua (centrada en media)
+- **Género:** Dicotómica (1=Mujer)
+- **Ideología política:** Auto-posicionamiento 0-10 (estandarizada)
+- **Año:** Efectos fijos por ola (controla tendencias temporales)
 
-$$
-Protesta_{it} = \beta_0 + \beta_1Educación_i + \beta_2Movilidad_i + \beta_3(Educación \times Movilidad)_i + \beta_4X_{it} + \alpha_i + \varepsilon_{it}
-$$
+## Estrategia Analítica: Modelos Multinivel
 
-Donde:
+**Problema:** Datos panel → observaciones correlacionadas dentro de individuos
 
-- $i$ = individuos
-- $t$ = tiempo (olas)
-- $\alpha_i$ = efectos aleatorios individuales
-- $X_{it}$ = vector de controles
-- $\varepsilon_{it}$ = error idiosincrático
+**Solución:** Modelos Lineales Generalizados Mixtos (GLMM)
 
-**Justificación:** Variables de interés son time-invariant; interesa efecto intre individuos (between individuals)
+**Estructura jerárquica:**
+- Nivel 1: Observaciones en el tiempo (t)
+- Nivel 2: Individuos (j)
 
-:::
+**Ventaja:** Controla dependencia temporal + heterogeneidad individual
 
-# Resultados Preliminares {data-background-color="#5f5758"}
+## Especificación del Modelo
 
----
+**Nivel 1 (intra-individual):**
+$$y_{tj} = \beta_{0j} + \beta_1 X_{tj} + \varepsilon_{tj}$$
 
-## Descriptivos {.smaller}
+**Nivel 2 (inter-individual):**
+$$\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}$$
 
+**Modelo integrado:**
+$$y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \beta_1 X_{tj} + u_{0j} + \varepsilon_{tj}$$
+
+- $u_{0j}$: Intercepto aleatorio (efectos individuales)
+- $\varepsilon_{tj}$: Error residual
+- Descompone varianza: entre individuos ($\sigma^2_u$) y dentro ($\sigma^2_\varepsilon$)
+
+## Modelos con Interacción
+
+**Educación × Participación (H1):**
+$$y_{tj} = \gamma_{00} + \gamma_{01} \text{Educ}_j + \gamma_{02} \text{Part}_{tj} + \gamma_{03} (\text{Educ}_j \times \text{Part}_{tj}) + \text{Controles} + u_{0j} + \varepsilon_{tj}$$
+
+**Clase × Participación (H3):**
+$$y_{tj} = \gamma_{00} + \gamma_{01} \text{Clase}_j + \gamma_{02} \text{Part}_{tj} + \gamma_{03} (\text{Clase}_j \times \text{Part}_{tj}) + \text{Controles} + u_{0j} + \varepsilon_{tj}$$
+
+**Interpretación:** Coeficiente de interacción = cambio en efecto de participación según categoría educativa/clase
+
+## Elección de Distribución
+
+**Variable dependiente:** Índice continuo (1-5)
+
+**Justificación para tratamiento como continua:**
+1. Promedio de múltiples ítems → distribución más continua
+2. Escalas Likert ≥5 puntos tratables como continuas (Norman, 2010)
+3. Permite interpretar cambios promedio en escala
+
+**Especificación:**
+- Distribución: Gaussiana (normal)
+- Enlace: Identidad
+- Estimación: Máxima verosimilitud restringida (REML)
+
+## Análisis de Robustez
+
+**Modelos alternativos (Anexos):**
+
+Variable dependiente **dicotomizada:**
+- 1 = Justifica en algún grado (índice > 1)
+- 0 = Nunca justifica (índice = 1)
+
+**Especificación:**
+- Distribución: Binomial
+- Enlace: Logit
+- Misma estructura multinivel
+
+**Objetivo:** Verificar que resultados no dependen de operacionalización
+
+## Software y Replicabilidad
+
+**R (versión 4.3.1):**
+- `glmmTMB`: Estimación modelos mixtos
+- `ggeffects`: Efectos marginales y predicciones
+- `ggplot2`: Visualización
+
+**Transparencia:**
+- Scripts completos disponibles en GitHub
+- Replicabilidad computacional total
+- Código: limpieza, variables, modelos, figuras
+
+## Datos y Estructura
+
+**ELSOC 2016-2023:**
+- 20.007 observaciones anidadas en 3.666 individuos
+- Criterio: ≥3 olas participadas
 ```{r}
-#| label: fig-des-1
-#| fig-cap: "Proporción de personas que protestaron por Ola"
-#| warning: false
-#| message: false
 #| echo: false
+#| include: false
 
-# ANÁLISIS DESCRIPTIVO UNIVARIADO --------------------------------------
-
-# 3.1 Variable Dependiente
-
-tab_participacion <- elsoc_final %>%
-  group_by(year) %>%
-  summarise(
-    N = scales::comma(n()),
-    `Participó (%)` = sprintf("%.1f", mean(protesta_dummy, na.rm = TRUE) * 100),
-    `Índice (M)` = sprintf("%.2f", mean(protesta_index, na.rm = TRUE)),
-    `Índice (DE)` = sprintf("%.2f", sd(protesta_index, na.rm = TRUE))
-  ) %>%
-  kbl(align = c("c", "c", "c", "c", "c"),
-      col.names = c("Año", "N", "Participó (%)", "M", "DE"),
-      caption = "Participación en protesta por año (ELSOC 2016-2023)") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"),
-                full_width = FALSE) %>%
-  add_header_above(c(" " = 3, "Índice de protesta" = 2)) %>%  # 3 + 2 = 5 ✓
-  row_spec(which(unique(elsoc_final$year) == 2019), 
-           bold = TRUE, background = "#FFF3CD") %>%
-  footnote(general = "Fuente: Elaboración propia con ELSOC 2016-2023.",
-           number = "El año 2019 corresponde al estallido social en Chile.")
-
-tab_participacion
-```
-
----
-
-## Evolución de la participación en protestas {.smaller}
-
-```{r}
-#| label: fig-des-2
-#| fig-cap: "Evolución de Participación en Protesta (2016-2023)"
-#| warning: false
-#| message: false
-#| echo: false
-
-# Primero crear el data frame
-tab_ola <- elsoc_final %>%
-  group_by(year) %>%
-  summarise(
-    n = n(),
-    prop_protesta = mean(protesta_dummy, na.rm = TRUE) * 100,
-    .groups = "drop"
-  )
-
-# Gráfico evolución temporal
-p_evol <- ggplot(tab_ola, aes(x = year, y = prop_protesta)) +
-  geom_line(linewidth = 1, color = "steelblue") +
-  geom_point(linewidth = 3, color = "steelblue") +
-  geom_vline(xintercept = 2019, linetype = "dashed", color = "red", linewidth = 1) +
-  annotate("text", x = 2019, y = max(tab_ola$prop_protesta, na.rm = TRUE), 
-           label = "Estallido Social", hjust = -0.1, color = "red") +
-  labs(title = "Evolución de participación en protesta (2016-2023)",
-       x = "Año", y = "% que participó en protesta",
-       caption = "Fuente: Elaboración propia con datos ELSOC (2016-2023)") +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = "bold", size = 14),
-    plot.subtitle = element_text(size = 11),
-    plot.caption = element_text(hjust = 0, size = 9, color = "gray30"),
-    legend.position = "right")
-
-print(p_evol)
-```
-
----
-
-## Distribución de la educación {.smaller}
-
-```{r}
-#| label: fig-des-3
-#| warning: false
-#| message: false
-#| echo: false
-
-# 3.2 Variables Independientes
-
-# Tabla 1: Educación
-elsoc_final %>%
-  count(educ_cat) %>%
-  filter(!is.na(educ_cat)) %>%
-  mutate(
-    Porcentaje = (n / sum(n)) * 100,
-    `Porcentaje Acumulado` = cumsum(Porcentaje)
-  ) %>%
-  rename(`Nivel Educativo` = educ_cat, N = n, `%` = Porcentaje) %>%
-  kbl(caption = "Distribución de Nivel Educativo",
-      align = c("l", "c", "c", "c"),
-      digits = 2) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"),
-                full_width = FALSE) %>%
-  row_spec(0, bold = TRUE, background = "#f0f0f0") %>%
-  add_header_above(c(" " = 1, "Frecuencias" = 3)) %>%
-  footnote(general = "Fuente: Elaboración propia con datos ELSOC (2016-2023)",
-           number = paste("N total =", format(sum(!is.na(elsoc_final$educ_cat)), 
-                                             big.mark = ",")))
-```
-
----
-
-## Protesta por nivel educativo {.smaller}
-
-```{r}
-#| label: fig-des-5
-#| warning: false
-#| message: false
-#| echo: false
- 
-# 4.1 H1: Educación × Protesta (no linealidad)
-
-elsoc_final %>%
-  group_by(educ_cat) %>%
-  summarise(
-    N = n(),
-    `% del total` = sprintf("%.1f", (n() / nrow(elsoc_final)) * 100),
-    `Participó (%)` = sprintf("%.1f", mean(protesta_dummy, na.rm = TRUE) * 100),
-    `Índice M` = sprintf("%.2f", mean(protesta_index, na.rm = TRUE)),
-    `Índice DE` = sprintf("%.2f", sd(protesta_index, na.rm = TRUE))
-  ) %>%
-  kbl(align = c("l", "c", "c", "c", "c", "c"),
-      col.names = c("Nivel educativo", "N", "% total", "Participó (%)", "M", "DE"),
-      caption = "Participación en protesta según nivel educativo (ELSOC 2016-2023)") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"),
-                full_width = FALSE) %>%
-  add_header_above(c(" " = 3, "Protesta (%)" = 1, "Índice de protesta" = 2)) %>%
-  footnote(general = "Fuente: Elaboración propia con datos ELSOC.",
-           number = "El índice suma participación en marchas y huelgas (rango 0-2).")
-
-```
-
----
-
-## Evolución por nivel educativo {.smaller}
-
-```{r}
-#| label: fig-evol-educacion
-#| fig-cap: "Evolución de Participación en Protestas por Nivel Educativo"
-#| warning: false
-#| message: false
-#| echo: false
-
-# Crear datos para el gráfico
-datos_tiempo <- elsoc_final %>%
-  # Filtrar datos válidos
-  filter(!is.na(protesta_dummy), !is.na(educ_cat_factor), !is.na(year)) %>%
-  # Agrupar por año y nivel educativo
-  group_by(year, educ_cat_factor) %>%
-  # Calcular participación promedio por grupo
-  summarise(
-    participacion = mean(protesta_dummy, na.rm = TRUE),
-    n = n(),
-    .groups = "drop"
-  ) %>%
-  # Convertir a porcentaje
-  mutate(participacion_pct = participacion * 100)
-
-# Definir colores personalizados
-colores_educacion <- c(
-  "Media incompleta o menos" = "#2C3E50",      # Azul oscuro
-  "Media completa" = "#3498DB",                # Azul
-  "Técnica superior incompleta" = "#E67E22",   # Naranja
-  "Técnica superior completa" = "#E74C3C",     # Rojo
-  "Universitaria incompleta" = "#9B59B6",      # Púrpura
-  "Universitaria completa" = "#1ABC9C",        # Verde agua
-  "Postgrado" = "#F39C12"                      # Amarillo dorado
+# Modelos nulos
+mod_baseline_1 <- glmmTMB(
+  justif_violencia_protesta ~ (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
 )
 
-# Crear el gráfico
-ggplot(datos_tiempo, aes(x = year, y = participacion_pct, 
-                        color = educ_cat_factor, 
-                        group = educ_cat_factor)) +
-  geom_line(size = 1.2, alpha = 0.8) +
-  geom_point(size = 2.5, alpha = 0.9) +
-  geom_vline(xintercept = 2019, linetype = "dashed", color = "gray50", alpha = 0.7) +
-  scale_x_continuous(breaks = unique(datos_tiempo$year),
-                     labels = unique(datos_tiempo$year)) +
-  scale_y_continuous(labels = scales::percent_format(scale = 1),
-                     limits = c(0, max(datos_tiempo$participacion_pct, na.rm = TRUE) * 1.1)) +
-  scale_color_manual(name = "Nivel Educativo",
-                     values = colores_educacion) +
-  labs(
-    title = "Evolución de la Participación en Protestas por Nivel Educativo",
-    subtitle = "Chile 2016-2023 (ELSOC)",
-    x = "Año",
-    y = "Porcentaje de Participación",
-    caption = "Fuente: Elaboración propia con datos ELSOC"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    plot.subtitle = element_text(size = 12),
-    legend.position = "bottom",
-    legend.title = element_text(face = "bold"),
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    panel.grid.minor = element_blank(),
-    legend.text = element_text(size = 8)
-  ) +
-  guides(color = guide_legend(override.aes = list(size = 3), ncol = 2))
+mod_baseline_2 <- glmmTMB(
+  justif_violencia_estatal ~ (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+# Calcular ICC (no se imprimirá)
+icc_protesta <- icc(mod_baseline_1)  # 0.229
+icc_estatal <- icc(mod_baseline_2)  # 0.240
 ```
 
----
+**ICC:** Violencia protestas = 22.9%, Violencia estatal = 24.0%
+→ Confirma idoneidad del enfoque multinivel
 
-# Modelos Multinivel: Efectos Aleatorios {data-background-color="#5f5758"}
-
----
-
-## Preparación de datos para modelos multinivel {.smaller}
-
+## Descriptivos: Educación × Participación
 ```{r}
-#| label: data-prep-multilevel
-#| warning: false
-#| message: false
+#| label: tbl-justificacion-educ
+#| tbl-cap: "Justificación de violencia según nivel educativo y participación"
 #| echo: false
+#| warning: false
 
-# Cargar paquetes adicionales para modelos multinivel
-pacman::p_load(lme4, glmmTMB, performance, parameters, modelsummary)
-
-# Preparar datos para análisis multinivel
-# Crear variables time-invariant (baseline, t1)
-baseline_vars <- elsoc_final %>%
-  filter(ola == 1) %>%  # Primera ola como baseline
-  select(idencuesta, educ_cat, educ_years) %>%
-  rename(
-    educ_cat_t1 = educ_cat,
-    educ_years_t1 = educ_years
-  )
-
-# Datos para modelos multinivel
-datos_ml <- elsoc_final %>%
-  # Variables time-varying
-  select(idencuesta, year, ola, protesta_dummy, protesta_index, 
-         edad, mujer, ideologia_std, interes_politica) %>%
-  # Agregar variables baseline
-  left_join(baseline_vars, by = "idencuesta") %>%
-  # Crear variable tiempo centrada
+elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
-    tiempo = year - 2016,  # 0, 1, 2, 3, 4, 5, 6
-    tiempo_factor = factor(year),
-    # Imputar educación t1 para casos perdidos (usar moda por grupo)
-    educ_years_t1_imp = ifelse(is.na(educ_years_t1), 
-                               round(mean(educ_years_t1, na.rm = TRUE)), 
-                               educ_years_t1),
-    # Educación categorica imputada
-    educ_cat_t1_imp = case_when(
-      educ_years_t1_imp <= 10 ~ "Media incompleta o menos",
-      educ_years_t1_imp <= 12 ~ "Media completa", 
-      educ_years_t1_imp <= 15 ~ "Técnica superior",
-      educ_years_t1_imp <= 17 ~ "Universitaria",
-      educ_years_t1_imp > 17 ~ "Postgrado",
-      TRUE ~ "Media completa"  # valor por defecto
-    ),
-    # Variables dummy para niveles superiores
-    univ_tec = ifelse(educ_cat_t1_imp %in% c("Técnica superior", "Universitaria", "Postgrado"), 1, 0)
-  ) %>%
-  # Filtrar casos con al menos 2 observaciones por persona
-  group_by(idencuesta) %>%
-  filter(n() >= 2) %>%
-  ungroup() %>%
-  # Filtrar casos completos para las variables principales
-  filter(!is.na(protesta_dummy), !is.na(educ_years_t1_imp))
-
-# Crear índice promedio de protesta por persona
-protesta_promedio <- datos_ml %>%
-  group_by(idencuesta) %>%
-  summarise(
-    protesta_index_mean = mean(protesta_index, na.rm = TRUE),
-    n_obs = n(),
-    .groups = "drop"
-  )
-
-# Información sobre los datos
-cat("Datos preparados para modelos multinivel:\n")
-cat("- Individuos:", length(unique(datos_ml$idencuesta)), "\n")
-cat("- Observaciones totales:", nrow(datos_ml), "\n")
-cat("- Promedio observaciones por persona:", round(nrow(datos_ml)/length(unique(datos_ml$idencuesta)), 1), "\n")
-cat("- Años incluidos:", min(datos_ml$year), "-", max(datos_ml$year), "\n")
-```
-
----
-
-## M1: Modelo Nulo (Random Intercepts) {.smaller}
-
-```{r}
-#| label: m1-null-model
-#| warning: false
-#| message: false
-#| echo: false
-
-# M1: Modelo nulo (solo intercepto aleatorio)
-m1_null <- glmmTMB(protesta_dummy ~ 1 + (1 | idencuesta), 
-                   data = datos_ml, 
-                   family = binomial)
-
-# Extraer componentes de varianza
-var_components_m1 <- VarCorr(m1_null)
-var_between <- as.numeric(var_components_m1$cond$idencuesta[1])  # Varianza between
-var_within <- pi^2/3  # Varianza within para modelo logístico
-
-# Calcular ICC
-icc_m1 <- var_between / (var_between + var_within)
-
-cat("MODELO M1: NULO (Random Intercepts Only)\n")
-cat("==========================================\n")
-cat("Componentes de Varianza:\n")
-cat("- Varianza Between-person (τ²):", round(var_between, 4), "\n")
-cat("- Varianza Within-person (σ²):", round(var_within, 4), "\n")
-cat("- ICC (Correlación Intraclase):", round(icc_m1, 4), "\n\n")
-
-cat("Interpretación del ICC:\n")
-cat("- El", round(icc_m1*100, 1), "% de la varianza en protesta se debe a diferencias between-person\n")
-cat("- El", round((1-icc_m1)*100, 1), "% se debe a variación within-person (temporal)\n")
-cat("- ICC >", round(icc_m1, 2), "justifica el uso de modelos multinivel\n\n")
-
-# Coeficientes
-summary(m1_null)
-```
-
----
-
-## M2: Modelo con Tiempo (factor) {.smaller}
-
-```{r}
-#| label: m2-time-model
-#| warning: false
-#| message: false
-#| echo: false
-
-# M2: Modelo con tiempo como factor
-m2_time <- glmmTMB(protesta_dummy ~ tiempo_factor + (1 | idencuesta), 
-                   data = datos_ml, 
-                   family = binomial)
-
-# Extraer componentes de varianza
-var_components_m2 <- VarCorr(m2_time)
-var_between_m2 <- as.numeric(var_components_m2$cond$idencuesta[1])
-icc_m2 <- var_between_m2 / (var_between_m2 + var_within)
-
-cat("MODELO M2: TIEMPO (Fixed Effects)\n")
-cat("=================================\n")
-cat("Componentes de Varianza:\n")
-cat("- Varianza Between-person (τ²):", round(var_between_m2, 4), "\n")
-cat("- ICC ajustado:", round(icc_m2, 4), "\n\n")
-
-# Coeficientes del modelo
-summary(m2_time)
-
-# Test de significancia del tiempo
-anova(m1_null, m2_time)
-```
-
----
-
-## M3a: Modelo con Educación (continua) {.smaller}
-
-```{r}
-#| label: m3a-education-continuous
-#| warning: false
-#| message: false
-#| echo: false
-
-# M3a: Modelo con educación continua (años)
-m3a_educ_cont <- glmmTMB(protesta_dummy ~ tiempo_factor + educ_years_t1_imp + (1 | idencuesta), 
-                         data = datos_ml, 
-                         family = binomial)
-
-cat("MODELO M3a: EDUCACIÓN CONTINUA\n")
-cat("==============================\n")
-summary(m3a_educ_cont)
-
-# Test comparación con M2
-anova(m2_time, m3a_educ_cont)
-```
-
----
-
-## M3b: Modelo con Educación (categórica t1) {.smaller}
-
-```{r}
-#| label: m3b-education-categorical
-#| warning: false
-#| message: false
-#| echo: false
-
-# M3b: Modelo con educación categórica en t1
-m3b_educ_cat <- glmmTMB(protesta_dummy ~ tiempo_factor + educ_cat_t1_imp + (1 | idencuesta), 
-                        data = datos_ml, 
-                        family = binomial)
-
-cat("MODELO M3b: EDUCACIÓN CATEGÓRICA (t1)\n")
-cat("=====================================\n")
-summary(m3b_educ_cat)
-
-# Test comparación
-anova(m2_time, m3b_educ_cat)
-```
-
----
-
-## M4: Modelo Tiempo × Educación (niveles superiores) {.smaller}
-
-```{r}
-#| label: m4-interaction
-#| warning: false
-#| message: false
-#| echo: false
-
-# M4: Modelo con interacción tiempo x educación superior
-m4_interaction <- glmmTMB(protesta_dummy ~ tiempo_factor * univ_tec + (1 | idencuesta), 
-                          data = datos_ml, 
-                          family = binomial)
-
-cat("MODELO M4: TIEMPO × EDUCACIÓN SUPERIOR\n")
-cat("======================================\n")
-summary(m4_interaction)
-
-# Test comparación
-anova(m3b_educ_cat, m4_interaction)
-```
-
----
-
-## Tabla Comparativa de Modelos {.smaller}
-
-```{r}
-#| label: texreg-table
-#| warning: false
-#| message: false
-#| echo: false
-#| results: asis
-
-# Crear tabla comparativa con texreg
-library(texreg)
-
-# Lista de modelos
-modelos <- list(m1_null, m2_time, m3a_educ_cont, m3b_educ_cat, m4_interaction)
-nombres_modelos <- c("M1: Nulo", "M2: Tiempo", "M3a: Educ. Continua", 
-                     "M3b: Educ. Categórica", "M4: Tiempo × Educación")
-
-# Crear tabla HTML optimizada para RevealJS
-tabla_html <- htmlreg(modelos,
-        custom.model.names = nombres_modelos,
-        caption = "Modelos Multinivel de Efectos Aleatorios - Participación en Protestas",
-        caption.above = TRUE,
-        custom.note = "Fuente: Elaboración propia con datos ELSOC 2016-2023.<br>
-                       Variables dependiente: participación en protestas (dummy).<br>
-                       Errores estándar en paréntesis. * p<0.05, ** p<0.01, *** p<0.001",
-        star.symbol = "*",
-        center = TRUE,
-        doctype = FALSE,
-        html.tag = FALSE,
-        head.tag = FALSE,
-        body.tag = FALSE,
-        digits = 3)
-
-# Agregar CSS personalizado para mejorar la apariencia
-cat('<div style="font-size: 0.7em; margin: 0 auto; max-width: 100%; overflow-x: auto;">')
-cat(tabla_html)
-cat('</div>')
-```
-
----
-
-## Principales Hallazgos: Modelos Multinivel {.smaller}
-
-```{r}
-#| label: hallazgos-principales
-#| warning: false
-#| message: false
-#| echo: false
-
-# Calcular valores predichos del modelo M3b (categórico)
-library(emmeans)
-
-# Medias marginales estimadas por nivel educativo
-emm_educ_ml <- emmeans(m3b_educ_cat, ~ educ_cat_t1_imp, type = "response")
-prob_predichas <- summary(emm_educ_ml, infer = TRUE)  # Agregar infer = TRUE para IC
-
-# Verificar nombres de columnas disponibles
-cat("Columnas disponibles en emmeans:\n")
-print(names(prob_predichas))
-
-# Crear tabla de probabilidades predichas con nombres correctos
-tabla_predicciones <- prob_predichas %>%
-  mutate(
-    `Nivel Educativo` = educ_cat_t1_imp,
-    `Probabilidad Predicha` = sprintf("%.1f%%", prob * 100),
-    # Usar nombres correctos para intervalos de confianza
-    `IC 95%` = if("lower.CL" %in% names(prob_predichas)) {
-      sprintf("[%.1f%%, %.1f%%]", lower.CL * 100, upper.CL * 100)
-    } else if("asymp.LCL" %in% names(prob_predichas)) {
-      sprintf("[%.1f%%, %.1f%%]", asymp.LCL * 100, asymp.UCL * 100)
-    } else {
-      "N/A"
-    },
-    `Cambio vs. Media Completa` = case_when(
-      educ_cat_t1_imp == "Media completa" ~ "Referencia",
-      TRUE ~ {
-        ref_prob <- prob[educ_cat_t1_imp == "Media completa"][1]
-        sprintf("%+.0f%%", (prob / ref_prob - 1) * 100)
-      }
+    educ_cat_unordered = factor(
+      educ_cat_unordered,
+      labels = c(
+        "Media completa o menos",
+        "Téc. sup.incompleta",
+        "Téc. sup.completa",
+        "Univ. incompleta",
+        "Univ. completa"
+      )
     )
-  ) %>%
-  select(`Nivel Educativo`, `Probabilidad Predicha`, `IC 95%`, `Cambio vs. Media Completa`)
-
-# Mostrar tabla
-kbl(tabla_predicciones,
-    caption = "Probabilidades Predichas de Participar en Protestas por Nivel Educativo",
-    align = c("l", "c", "c", "c")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"),
-                full_width = FALSE, font_size = 10) %>%
-  row_spec(which(tabla_predicciones$`Nivel Educativo` == "Media completa"), 
-           background = "#FFF3CD", bold = TRUE) %>%
-  footnote(general = "Basado en Modelo M3b. Controlando por efectos temporales.",
-           number = "IC = Intervalo de Confianza 95%")
-```
-
-### **Hallazgos Clave:**
-
-::: {.incremental style="font-size: 90%;"}
-
-**1. Confirmación H1 - No Linealidad:**
-- **Relación no lineal confirmada**: Saltos distintivos entre niveles educativos
-- **Media incompleta**: 73% menos probabilidad vs. media completa  
-- **Educación superior**: Incrementos sustanciales (Técnica: +101%, Universitaria: +165%, Postgrado: +348%)
-
-**2. Efectos Temporales:**
-- **Estallido 2019**: Peak de participación (+66% vs. 2016)
-- **Post-estallido 2021-2023**: Caída generalizada (-69% a -71% vs. 2016)
-- **Estabilidad relativa**: Educación superior mantiene mayor participación incluso post-estallido
-
-**3. Varianza Multinivel:**
-- **ICC ≈ 40%**: Justifica estructura multinivel (clustering significativo)
-- **Between-person effects**: Educación explica diferencias estables entre individuos
-- **Within-person variation**: Efectos temporales significativos
-
-**4. Implicaciones Teóricas:**
-- **Recursos cívicos**: A mayor educación, más recursos para movilización
-- **Umbrales educativos**: Efectos cualitativos, no solo cuantitativos
-- **Moderación temporal**: Educación superior como factor protector de participación
-
-:::
-
----
-
-## Análisis de Varianza Within-Between {.smaller}
-
-```{r}
-#| label: variance-decomposition
-#| warning: false
-#| message: false
-#| echo: false
-
-# Crear tabla de descomposición de varianza
-descomp_varianza <- data.frame(
-  Modelo = nombres_modelos,
-  `Varianza Between` = c(var_between, var_between_m2, 
-                        as.numeric(VarCorr(m3a_educ_cont)$cond$idencuesta[1]),
-                        as.numeric(VarCorr(m3b_educ_cat)$cond$idencuesta[1]),
-                        as.numeric(VarCorr(m4_interaction)$cond$idencuesta[1])),
-  `ICC` = c(icc_m1, icc_m2,
-           as.numeric(VarCorr(m3a_educ_cont)$cond$idencuesta[1]) / 
-           (as.numeric(VarCorr(m3a_educ_cont)$cond$idencuesta[1]) + var_within),
-           as.numeric(VarCorr(m3b_educ_cat)$cond$idencuesta[1]) / 
-           (as.numeric(VarCorr(m3b_educ_cat)$cond$idencuesta[1]) + var_within),
-           as.numeric(VarCorr(m4_interaction)$cond$idencuesta[1]) / 
-           (as.numeric(VarCorr(m4_interaction)$cond$idencuesta[1]) + var_within))
-)
-
-kbl(descomp_varianza,
-    caption = "Descomposición de Varianza en Modelos Multinivel",
-    col.names = c("Modelo", "Varianza Between (τ²)", "ICC"),
-    digits = 4) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"),
-                full_width = FALSE) %>%
-  footnote(general = "ICC = Correlación Intraclase. Valores más altos indican mayor clustering within-person.",
-           number = "Varianza Within fijada en π²/3 = 3.29 para modelos logísticos.")
-
-cat("\nInterpretación:\n")
-cat("- Varianza Between: Diferencias estables entre personas en su propensión a protestar\n")
-cat("- Varianza Within: Variación temporal within-person en participación\n") 
-cat("- ICC alto (>0.05) confirma estructura multinivel necesaria\n")
-cat("- La educación explica parte de las diferencias between-person\n")
-```
-
----
-
-## Trayectorias Individuales por Educación {.smaller}
-
-```{r}
-#| label: trajectories-plot
-#| fig-cap: "Trayectorias de Participación en Protestas por Nivel Educativo"
-#| warning: false
-#| message: false
-#| echo: false
-
-# Preparar datos para gráfico de trayectorias
-set.seed(123)
-muestra_ids <- sample(unique(datos_ml$idencuesta), 100)  # Muestra 100 individuos
-
-traj_data <- datos_ml %>%
-  filter(idencuesta %in% muestra_ids) %>%
-  select(idencuesta, year, protesta_dummy, educ_cat_t1_imp)
-
-# Calcular promedios por grupo y año
-promedios_grupo <- datos_ml %>%
-  group_by(year, educ_cat_t1_imp) %>%
-  summarise(protesta_promedio = mean(protesta_dummy, na.rm = TRUE),
-            .groups = "drop")
-
-# Gráfico de trayectorias
-p_traj <- ggplot() +
-  # Trayectorias individuales (líneas grises transparentes)
-  geom_line(data = traj_data, 
-            aes(x = year, y = protesta_dummy, group = idencuesta),
-            alpha = 0.1, color = "gray60") +
-  # Promedios por grupo (líneas gruesas coloreadas)
-  geom_line(data = promedios_grupo,
-            aes(x = year, y = protesta_promedio, color = educ_cat_t1_imp),
-            size = 2, alpha = 0.8) +
-  geom_point(data = promedios_grupo,
-             aes(x = year, y = protesta_promedio, color = educ_cat_t1_imp),
-             size = 3) +
-  facet_wrap(~ educ_cat_t1_imp, nrow = 2) +
-  geom_vline(xintercept = 2019, linetype = "dashed", alpha = 0.5) +
-  scale_y_continuous(labels = scales::percent_format(),
-                     limits = c(0, 1)) +
-  scale_color_viridis_d(name = "Educación t1") +
-  labs(title = "Trayectorias de Participación en Protestas por Nivel Educativo",
-       subtitle = "Líneas grises: trayectorias individuales (muestra). Líneas coloreadas: promedios grupales",
-       x = "Año", y = "Probabilidad de Protestar",
-       caption = "Fuente: ELSOC 2016-2023. Muestra aleatoria de 100 individuos.") +
-  theme_minimal() +
-  theme(legend.position = "none",
-        strip.text = element_text(face = "bold", size = 9),
-        plot.title = element_text(face = "bold", size = 12))
-
-print(p_traj)
-```
-
----
-
-## Índice Sumativo de Protesta (Promedio Individual) {.smaller}
-
-```{r}
-#| label: protest-index-analysis
-#| warning: false
-#| message: false
-#| echo: false
-
-# Análisis del índice promedio de protesta
-protesta_resumen <- protesta_promedio %>%
-  left_join(baseline_vars, by = "idencuesta") %>%
-  filter(!is.na(educ_cat_t1)) %>%
-  group_by(educ_cat_t1) %>%
-  summarise(
-    N = n(),
-    `Índice M` = round(mean(protesta_index_mean, na.rm = TRUE), 3),
-    `Índice DE` = round(sd(protesta_index_mean, na.rm = TRUE), 3),
-    `Min` = round(min(protesta_index_mean, na.rm = TRUE), 3),
-    `Max` = round(max(protesta_index_mean, na.rm = TRUE), 3),
-    .groups = "drop"
   )
 
-kbl(protesta_resumen,
-    caption = "Índice Promedio de Participación en Protesta por Nivel Educativo",
-    align = c("l", "c", "c", "c", "c", "c")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"),
-                full_width = FALSE) %>%
-  footnote(general = "Índice calculado como promedio individual across todas las olas.",
-           number = "Rango teórico del índice: 0-2 (suma de participación en marchas y huelgas).")
-
-# Modelo con índice promedio
-modelo_promedio <- lm(protesta_index_mean ~ educ_cat_t1, 
-                     data = protesta_promedio %>% 
-                       left_join(baseline_vars, by = "idencuesta") %>%
-                       filter(!is.na(educ_cat_t1)))
-
-cat("\nModelo Between-Person (Índice Promedio):\n")
-summary(modelo_promedio)
+elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  group_by(educ_cat_unordered, Participacion = factor(protesta_dummy, 
+                                                       labels = c("No participó", "Participó"))) %>%
+  summarise(
+    N = n(),
+    `Viol. Protestas` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
+    `Viol. Estatal` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) %>%
+  knitr::kable(booktabs = TRUE)
 ```
 
 ---
 
-# ¿Qué sigue? {data-background-color="#5f5758"}
+## Patrón Clave en Descriptivos
+
+**Sin participación:**
+- Media o menos: 1.90
+- Universitaria completa: 1.80 (↓ efecto civilizatorio)
+
+**Con participación:**
+- Media o menos: 1.95
+- Universitaria completa: **2.20** (↑ **se invierte**)
+
+→ Educación opera diferencialmente según contexto de acción
 
 ---
 
-## Modelos H2: Movilidad Educacional {.smaller}
+## Descriptivos: Clase × Participación
+```{r}
+#| label: tbl-justificacion-clase
+#| tbl-cap: "Justificación según clase social y participación"
+#| echo: false
+#| warning: false
 
-::: {.incremental}
-- Análisis de interacciones entre educación y movilidad intergeneracional
-- Efectos moderadores de origen socioeconómico familiar
-- Matriz origen-destino educacional
-:::
+elsoc_final_2 %>%
+  filter(!is.na(egp3) & !is.na(protesta_dummy)) %>%
+  group_by(egp3, Participacion = factor(protesta_dummy, 
+                                         labels = c("No participó", "Participó"))) %>%
+  summarise(
+    N = n(),
+    `Viol. Protestas` = round(mean(justif_violencia_protesta, na.rm = TRUE), 2),
+    `Viol. Estatal` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) %>%
+  knitr::kable(booktabs = TRUE)
+```
+
+**Convergencia:** Service class +0.45, Working class +0.20
+→ Diferencias se reducen entre participantes
+
+## Distribución de Participación
+```{r}
+#| label: fig-participacion-distribucion
+#| fig-cap: "Distribución de participación por educación y clase"
+#| fig-height: 5
+#| fig-width: 10
+#| echo: false
+
+# Panel A: Por educación
+plot_part_educ <- elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  group_by(educ_cat_unordered) %>%
+  summarise(
+    Total = n(),
+    Participaron = sum(protesta_dummy),
+    Porcentaje = 100 * Participaron / Total,
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = educ_cat_unordered, y = Porcentaje)) +
+  geom_col(fill = "#0073C2FF", width = 0.7) +
+  geom_text(aes(label = paste0(round(Porcentaje, 1), "%")), 
+            vjust = -0.5, size = 3.5) +
+  labs(title = "Participación por Nivel Educativo",
+       x = "Nivel Educativo", y = "% que Participó") +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ylim(0, 35)
+
+# Panel B: Por clase
+plot_part_clase <- elsoc_final_2 %>%
+  filter(!is.na(egp3) & !is.na(protesta_dummy)) %>%
+  group_by(egp3) %>%
+  summarise(
+    Total = n(),
+    Participaron = sum(protesta_dummy),
+    Porcentaje = 100 * Participaron / Total,
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = egp3, y = Porcentaje)) +
+  geom_col(fill = "#00BA38", width = 0.6) +
+  geom_text(aes(label = paste0(round(Porcentaje, 1), "%")), 
+            vjust = -0.5, size = 3.5) +
+  labs(title = "Participación por Clase Social",
+       x = "Clase Social", y = "% que Participó") +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ylim(0, 35)
+
+plot_part_educ + plot_part_clase
+```
+
+## Evolución Temporal (2016-2023)
+```{r}
+#| label: fig-evolucion-temporal
+#| fig-cap: "Evolución de justificación y participación 2016-2023"
+#| fig-height: 5
+#| fig-width: 10
+#| echo: false
+
+# Panel A: Violencia
+plot_evol_violencia <- elsoc_final_2 %>%
+  group_by(year) %>%
+  summarise(
+    `Viol. en Protestas` = mean(justif_violencia_protesta, na.rm = TRUE),
+    `Viol. Estatal` = mean(justif_violencia_estatal, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  tidyr::pivot_longer(cols = starts_with("Viol"), 
+                      names_to = "Tipo", 
+                      values_to = "Justificacion") %>%
+  ggplot(aes(x = year, y = Justificacion, color = Tipo, group = Tipo)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("Viol. en Protestas" = "#EFC000FF", 
+                                  "Viol. Estatal" = "#0073C2FF")) +
+  labs(title = "Evolución de Justificación", x = "Año",
+       y = "Justificación (1-5)", color = "Tipo") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+# Panel B: Participación
+plot_evol_particip <- elsoc_final_2 %>%
+  group_by(year) %>%
+  summarise(
+    Participacion = 100 * mean(protesta_dummy, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = year, y = Participacion)) +
+  geom_line(linewidth = 1.2, color = "#619CFF") +
+  geom_point(size = 3, color = "#619CFF") +
+  labs(title = "Evolución de Participación", x = "Año",
+       y = "% que Participó") +
+  theme_minimal(base_size = 11)
+
+plot_evol_violencia + plot_evol_particip
+```
+
+**Hallazgo paradójico:** 2019 = nivel MÁS BAJO de justificación
+
+## Correlaciones Clave
+```{r}
+#| label: tbl-correlaciones
+#| tbl-cap: "Correlaciones entre justificación y variables clave"
+#| echo: false
+
+cor_data <- elsoc_final_2 %>%
+  filter(!is.na(justif_violencia_protesta) & !is.na(justif_violencia_estatal)) %>%
+  mutate(
+    educ_num = as.numeric(educ_cat_unordered),
+    edad_std = scale(edad)[,1],
+    mujer_num = as.numeric(mujer)
+  ) %>%
+  dplyr::select(justif_violencia_protesta, justif_violencia_estatal, 
+         educ_num, edad_std, mujer_num, ideologia_std, protesta_dummy) %>%
+  na.omit()
+
+cor_matrix <- cor(cor_data)
+
+cor_table <- data.frame(
+  Variable = c("Educación", "Edad", "Mujer", "Ideología", "Participación"),
+  Viol_Protestas = round(cor_matrix[1, 3:7], 3),
+  Viol_Estatal = round(cor_matrix[2, 3:7], 3)
+)
+
+cor_table %>%
+  knitr::kable(
+    col.names = c("Variable", "Viol. Protestas", "Viol. Estatal"),
+    booktabs = TRUE
+  )
+```
+
+→ Participación: r ≈ 0.20-0.25 con protestas, débil con estatal
+→ Ideología: direcciones opuestas según tipo
+
+## H1: Efecto Paradójico de la Educación
+```{r}
+#| echo: false
+#| include: false
+
+mod_educ_protesta <- glmmTMB(
+  justif_violencia_protesta ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+```
+```{r}
+#| label: fig-modelo-educ-protesta
+#| fig-cap: "Coeficientes Modelo Educación × Participación"
+#| fig-height: 6
+#| fig-width: 8
+#| echo: false
+
+# Extraer coeficientes
+coef_educ <- broom.mixed::tidy(mod_educ_protesta, conf.int = TRUE) %>%
+  filter(effect == "fixed", 
+         !grepl("year", term),
+         term != "(Intercept)") %>%
+  mutate(
+    term = case_when(
+      term == "educ_cat_unorderedTéc. sup.incompleta" ~ "Téc. sup. incompleta",
+      term == "educ_cat_unorderedTéc. sup.completa" ~ "Téc. sup. completa",
+      term == "educ_cat_unorderedUniv. incompleta" ~ "Univ. incompleta",
+      term == "educ_cat_unorderedUniv. completa" ~ "Univ. completa",
+      term == "protesta_dummy" ~ "Participación",
+      term == "edad" ~ "Edad",
+      term == "mujer" ~ "Mujer",
+      term == "ideologia_std" ~ "Ideología",
+      grepl(":", term) ~ gsub("educ_cat_unordered", "", term),
+      TRUE ~ term
+    ),
+    term = gsub(":protesta_dummy", " × Particip.", term),
+    significativo = ifelse(p.value < 0.05, "Sí", "No")
+  )
+
+ggplot(coef_educ, aes(x = estimate, y = reorder(term, estimate), color = significativo)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(size = 3) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2, linewidth = 1) +
+  scale_color_manual(values = c("No" = "gray60", "Sí" = "#EFC000FF")) +
+  labs(
+    title = "Efectos sobre Justificación de Violencia en Protestas",
+    x = "Coeficiente (IC 95%)", y = "",
+    color = "p < 0.05"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
+```
 
 ---
 
-## Mediación H3: Mecanismos {.smaller}
+## H1: Interpretación del Modelo
 
-::: {.incremental}
-- Deprivación relativa como mediador
-- Orientación ideológica como mecanismo
-- Path analysis de efectos indirectos
-:::
+**Efectos principales (no participantes):**
+- Universitaria completa: **-0.11** (efecto civilizatorio)
 
----
+**Interacciones (participantes):**
+- Univ. completa × Protesta: **+0.36***
+- Efecto total: -0.11 + 0.36 = **+0.25**
 
-## Robustez {.smaller}
+**Conclusión H1:** Educación amplifica capacidad de legitimar violencia cuando se participa
 
-::: {.incremental}
-- Modelos con diferentes especificaciones
-- Análisis de sensibilidad
-- Validación con submuestras
-:::
+## H1: Visualización
+```{r}
+#| label: fig-paradoja-educacion
+#| fig-cap: "Efecto paradójico de educación según participación"
+#| fig-height: 5
+#| fig-width: 8
+#| echo: false
 
----
+pred_educ <- ggpredict(mod_educ_protesta, 
+                       terms = c("educ_cat_unordered", "protesta_dummy"))
 
-# Gracias {data-background-color="#5f5758"}
+plot(pred_educ) +
+  labs(
+    title = "Efecto de Educación sobre Justificación de Violencia en Protestas",
+    subtitle = "Según participación en protestas",
+    x = "Nivel Educativo",
+    y = "Justificación de Violencia (predicha)",
+    color = "Participación"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
-Github del proyecto: <https://github.com/renejcanales/protest_effects>
+## H2: Reconfiguración Bidireccional (1/2)
+```{r}
+#| echo: false
+#| include: false
+
+mod_educ_estatal <- glmmTMB(
+  justif_violencia_estatal ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+```
+```{r}
+#| label: fig-modelos-comparativos
+#| fig-cap: "Comparación Modelos: Protestas vs. Estatal"
+#| fig-height: 6
+#| fig-width: 10
+#| echo: false
+
+# Extraer coeficientes de ambos modelos
+coef_protesta <- broom.mixed::tidy(mod_educ_protesta, conf.int = TRUE) %>%
+  filter(effect == "fixed", 
+         !grepl("year", term),
+         term != "(Intercept)") %>%
+  mutate(Modelo = "Violencia en Protestas")
+
+coef_estatal <- broom.mixed::tidy(mod_educ_estatal, conf.int = TRUE) %>%
+  filter(effect == "fixed", 
+         !grepl("year", term),
+         term != "(Intercept)") %>%
+  mutate(Modelo = "Violencia Estatal")
+
+# Combinar
+coef_comparativo <- bind_rows(coef_protesta, coef_estatal) %>%
+  mutate(
+    term = case_when(
+      term == "educ_cat_unorderedTéc. sup.incompleta" ~ "Téc. sup. incompleta",
+      term == "educ_cat_unorderedTéc. sup.completa" ~ "Téc. sup. completa",
+      term == "educ_cat_unorderedUniv. incompleta" ~ "Univ. incompleta",
+      term == "educ_cat_unorderedUniv. completa" ~ "Univ. completa",
+      term == "protesta_dummy" ~ "Participación",
+      term == "edad" ~ "Edad",
+      term == "mujer" ~ "Mujer",
+      term == "ideologia_std" ~ "Ideología",
+      grepl(":", term) ~ gsub("educ_cat_unordered", "", term),
+      TRUE ~ term
+    ),
+    term = gsub(":protesta_dummy", " × Particip.", term),
+    significativo = ifelse(p.value < 0.05, "Sí", "No")
+  )
+
+ggplot(coef_comparativo, aes(x = estimate, y = reorder(term, estimate), 
+                              color = Modelo, shape = significativo)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(size = 3, position = position_dodge(width = 0.5)) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), 
+                 height = 0.3, linewidth = 0.8,
+                 position = position_dodge(width = 0.5)) +
+  scale_color_manual(values = c("Violencia en Protestas" = "#EFC000FF", 
+                                 "Violencia Estatal" = "#0073C2FF")) +
+  scale_shape_manual(values = c("No" = 1, "Sí" = 16)) +
+  labs(
+    title = "Comparación de Efectos: Violencia en Protestas vs. Violencia Estatal",
+    x = "Coeficiente (IC 95%)", y = "",
+    color = "Tipo de Violencia", shape = "p < 0.05"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+```
+
+## H2: Universitarios que Participan
+
+**Interacciones clave:**
+
+| Tipo de violencia | Efecto no participa | Interacción | Efecto participa |
+|-------------------|---------------------|-------------|------------------|
+| **Violencia protestas** | -0.11 | **+0.36*** | **+0.25** |
+| **Violencia estatal** | +0.06 | **-0.18** | **-0.12** |
+
+**Conclusión H2:** Reconfiguración **bidireccional coherente**:
+- ↑ Legitima violencia como protesta
+
+- ↓ Deslegitima violencia como represión
+
+## H2: Visualización Bidireccional
+```{r}
+#| label: fig-bidireccional
+#| fig-cap: "Reconfiguración bidireccional en universitarios"
+#| fig-height: 5
+#| fig-width: 8
+#| echo: false
+
+efectos_bidireccional <- data.frame(
+  Tipo = c("Violencia en\nProtestas", "Violencia\nEstatal"),
+  Efecto_NoParticipa = c(-0.11, 0.06),
+  Efecto_Participa = c(0.25, -0.16)
+)
+
+efectos_long <- tidyr::pivot_longer(efectos_bidireccional, 
+                                     cols = starts_with("Efecto"),
+                                     names_to = "Grupo",
+                                     values_to = "Efecto")
+efectos_long$Grupo <- ifelse(efectos_long$Grupo == "Efecto_NoParticipa",
+                               "No participó", "Participó")
+
+ggplot(efectos_long, aes(x = Tipo, y = Efecto, fill = Grupo)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  scale_fill_manual(values = c("No participó" = "#0073C2FF", 
+                                "Participó" = "#EFC000FF")) +
+  labs(
+    title = "Efecto de Educación Universitaria según Tipo de Violencia",
+    subtitle = "Universitarios participantes legitiman violencia táctica pero critican violencia estatal",
+    x = "", y = "Efecto en Justificación", fill = "Participación"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+## H3: Clase como Moderador (1/2)
+```{r}
+#| echo: false
+#| include: false
+
+mod_clase_protesta <- glmmTMB(
+  justif_violencia_protesta ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+```
+```{r}
+#| label: fig-modelo-clase-protesta
+#| fig-cap: "Coeficientes Modelo Clase × Participación"
+#| fig-height: 6
+#| fig-width: 8
+#| echo: false
+
+# Extraer coeficientes
+coef_clase <- broom.mixed::tidy(mod_clase_protesta, conf.int = TRUE) %>%
+  filter(effect == "fixed", 
+         !grepl("year", term),
+         term != "(Intercept)") %>%
+  mutate(
+    term = case_when(
+      term == "egp3Intermediate class" ~ "Intermediate class",
+      term == "egp3Working class" ~ "Working class",
+      term == "protesta_dummy" ~ "Participación",
+      term == "edad" ~ "Edad",
+      term == "mujer" ~ "Mujer",
+      term == "ideologia_std" ~ "Ideología",
+      term == "egp3Intermediate class:protesta_dummy" ~ "Intermediate × Particip.",
+      term == "egp3Working class:protesta_dummy" ~ "Working × Particip.",
+      TRUE ~ term
+    ),
+    significativo = ifelse(p.value < 0.05, "Sí", "No")
+  )
+
+ggplot(coef_clase, aes(x = estimate, y = reorder(term, estimate), color = significativo)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(size = 3) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2, linewidth = 1) +
+  scale_color_manual(values = c("No" = "gray60", "Sí" = "#00BA38")) +
+  labs(
+    title = "Efectos de Clase Social sobre Justificación de Violencia en Protestas",
+    x = "Coeficiente (IC 95%)", y = "",
+    color = "p < 0.05"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+## H3: Interpretación del Modelo
+
+**Efectos principales (no participantes):**
+- Working class: **+0.09** vs. Service class (mayor predisposición)
+
+**Efectos de participación:**
+- Service class: **+0.36*** (efecto fuerte)
+- Working class: +0.36 - 0.15 = **+0.21** (efecto atenuado)
+- Interacción Working × Protesta: **-0.15**
+
+**Conclusión H3:** Service class mayor transformación, Working class efecto techo
+
+## H3: Visualización
+```{r}
+#| label: fig-clase-protesta
+#| fig-cap: "Efecto de participar según clase social"
+#| fig-height: 5
+#| fig-width: 8
+#| echo: false
+
+pred_clase <- ggpredict(mod_clase_protesta, 
+                        terms = c("protesta_dummy", "egp3"))
+
+plot(pred_clase) +
+  labs(
+    title = "Justificación según Clase Social y Participación",
+    subtitle = "Service class: mayor cambio. Working class: efecto techo",
+    x = "Participación en Protestas",
+    y = "Justificación de Violencia (predicha)",
+    color = "Clase Social"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+## Síntesis de Hallazgos
+
+**H1 confirmada:** Educación tiene efecto **condicional**
+- Sin participación: efecto civilizatorio (-0.11)
+
+- Con participación: amplificador cognitivo (+0.25)
+
+**H2 confirmada:** Reconfiguración **bidireccional**
+- ↑ Justificación violencia de protestas
+
+- ↓ Justificación violencia estatal
+
+**H3 confirmada:** Clase social **modera** cambio
+- Service class: +0.36 (mayor potencial)
+
+- Working class: +0.21 (efecto techo)
+
+## Implicancias Sustantivas
+
+**Transversalidad del estallido explicada por:**
+
+1. **Transformación de sectores educados:** Desarrollaron marcos morales legitimadores mediante participación
+
+2. **Convergencia por clase:** Diferencias estructurales se reducen en contexto de movilización
+
+3. **Selectividad moral:** Distinción sofisticada entre tipos de violencia
+
+**Conclusión:** La movilización **transformó** actitudes de forma diferenciada según posición estructural
