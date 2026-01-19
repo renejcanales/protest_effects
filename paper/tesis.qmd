@@ -1,5 +1,5 @@
 ---
-title: "El impacto del fuego: Un análisis longitudinal de los perfiles de protesta en el ciclo contencioso chileno (2016-2023)"
+title: "Actitudes hacia la violencia política: Educación y Clase Social en el ciclo contencioso chileno (2016-2023)"
 format:
   html: 
     code-fold: true
@@ -7,8 +7,6 @@ format:
     number-sections: true
     code-link: true
     title-block-banner: true
-    theme:
-      - pretty.scss
   pdf: 
     geometry: margin=2cm
     template-partials: 
@@ -22,6 +20,7 @@ format:
         \renewcommand*{\Authands}{, }
         \renewcommand\Affilfont{\small}
     number-sections: true
+    tbl-longtable: false
 editor: source
 author:
   - name: René Canales
@@ -29,23 +28,21 @@ author:
     email: renecanales@uc.cl
     affiliations: Instituto de Sociología, Pontificia Universidad Católica de Chile
 citeproc: true
-abstract: | 
-  \newline
-  **Keywords**: 
 link-citations: true
-linestretch: 1.5       
+linestretch: 1.15       
 mainfont: Times New Roman
-fontsize: 13pt          
+fontsize: 12pt          
 colorlinks: true
 fig-height: 4
 fig-width: 7.5
 ---
 
+
 :::: {.justify}
 
 {{< include 01-introduction.qmd >}}
 
-{{< include 02-antecedentes.qmd >}}
+{{< include 02-antecedents.qmd >}}
 
 {{< include 03-methods.qmd >}}
 
@@ -54,3 +51,8 @@ fig-width: 7.5
 {{< include 05-discussion.qmd >}}
 
 {{< include 06-conclusion.qmd >}}
+
+{{< include 07-references.qmd >}}
+
+{{< include 08-anexos.qmd >}}
+::::

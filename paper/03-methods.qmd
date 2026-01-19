@@ -1,324 +1,153 @@
 # Datos y Métodos
 
-## Métodos
+## Data
 
-**METODOLOGÍA**
+La investigación utiliza los datos del Estudio Longitudinal Social de Chile (ELSOC), una encuesta panel implementada por el Centro de Estudios de Conflicto y Cohesión Social (COES) que recoge información sobre la población adulta urbana del país. La encuesta iene como propósito examinar las actitudes, percepciones y comportamientos de las personas frente a temas  de conflicto y cohesión social. Su diseño de panel permite seguir a los mismos individuos a lo largo del tiempo, ofreciendo una mirada única sobre la evolución de la sociedad chilena. La encuesta se ha aplicado anualmente desde 2016, con excepción de 2020 debido a la pandemia de COVID-19, acumulando siete olas de datos (2016, 2017, 2018, 2019, 2021, 2022 y 2023).
 
-- Pregunta de Investigación: *¿Cómo afecta la educación a la participación en protesta social en Chile, considerando tanto efectos no lineales del nivel educativo como la moderación del origen socioeconómico familiar?*
+ELSOC utiliza un muestreo probabilístico por conglomerados y multietápico, que cubre tanto los principales centros urbanos como ciudades medianas y pequeñas del país. El marco muestral se estratificó proporcionalmente según el tamaño de la población urbana (en seis categorías), seleccionando aleatoriamente hogares dentro de 1.067 manzanas censales. La población objetivo incluye a hombres y mujeres de 18 a 75 años residentes en viviendas particulares.
 
-Preguntas específicas (u objetivos específicos):
+La encuesta se ha aplicado anualmente desde 2016, con excepción de 2020 debido a la pandemia de COVID-19, acumulando siete olas de datos (2016, 2017, 2018, 2019, 2021, 2022 y 2023).
 
-PE1: ¿Existe una relación no lineal entre nivel educativo y participación en protesta?
+Para los análisis de la investigación, y tras aplicar un criterio de inclusión de encuestados que hayan participado en al menos tres olas, se dispone de una muestra analítica de 20.007 observaciones anidadas en 3.666 individuos. La encuesta, sus manuales metodológicos y bases de datos se encuentran disponibles públicamente en el portal de COES [https://coes.cl/elsoc/](https://coes.cl/elsoc/) y en el repositorio de Harvard Dataverse [https://dataverse.harvard.edu/dataverse/elsoc](https://dataverse.harvard.edu/dataverse/elsoc).
 
-PE2: ¿La movilidad educacional ascendente modera la relación entre educación y protesta?
+## Variables
 
-PE3: ¿Los mecanismos de esta moderación operan a través de deprivación relativa, orientación ideológica, o elección de campo disciplinario?
+### Variables dependientes: Justificación de violencia política
 
-**Hipótesis**
+Para la medición de actitudes hacia la violencia política se construyeron dos índices que capturan la justificación de violencia ejercida por diferentes tipos de actores en contextos políticos específicos. Esta distinción entre tipos de violencia según el actor que la ejerce es teóricamente crucial, dado que la hipótesis de reconfiguración bidireccional (H2) predice que la participación en protestas genera legitimación diferenciada: aumenta la justificación de violencia ejercida por manifestantes pero reduce la justificación de violencia ejercida por fuerzas del orden.
 
-**Hipótesis 1** (No linealidad): La relación entre educación y protesta sigue una curva en forma de U, donde:
+El **Índice de Justificación de Violencia en Protestas** (`justif_violencia_protesta`) se compone del promedio de dos ítems que miden el grado de justificación de acciones disruptivas ejercidas por actores sociales en contextos de movilización:
 
-- H1a: Individuos con educación técnica superior participan menos en protestas que aquellos con educación media completa.
+1. Que un grupo de trabajadores en huelga bloquee la calle con barricadas para exigir el cumplimiento de sus derechos laborales 
+2. Que estudiantes lancen piedras a carabineros en una marcha por la educación del país
 
-- H1b: Individuos con educación universitaria participan más en protestas que todos los demás grupos.
+Cada ítem se midió en una escala Likert de 5 puntos desde 1 = "Nunca se justifica" hasta 5 = "Siempre se justifica". El índice se calculó como el promedio aritmético de los cinco ítems cuando el encuestado respondió al menos tres de ellos, resultando en una escala continua de 1 a 5 donde valores más altos indican mayor justificación de violencia en protestas. La consistencia interna del índice es satisfactoria, con un alfa de Cronbach de 0.82 en la muestra analítica, indicando que los ítems capturan un constructo latente común.
 
-- H1c: La participación en protesta es menor en los niveles intermedios de educación técnica.
+Adicionalmente, se relevaron otras variables sobre la justificación de acciones disruptivas/violentas en contextos de protesta, tales como:
 
-**Hipótesis 2** (Movilidad educacional): La movilidad educacional ascendente incrementa la participación en protesta:
+1. Que algunas personas incendien o dañen inmobiliario público para exigir cambios sociales.
+2. Que algunas personas incendien o dañen medios de transporte (metro, microbuses, paraderos) para exigir cambios sociales.
+3. Que algunas personas incendien o dañen negocios y locales comerciales para exigir cambios sociales.
 
-- H2a: Entre individuos con educación universitaria, aquellos con padres de menor educación protestan más que aquellos cuyos padres tienen educación universitaria.
+Estos indicadores, que igualmente reflejan la justificación de la violencia, se encuentran disponibles sólo en la ola del año 2019 y fueron considerados para algunos análisis descriptivos (presentes en los anexos) con el fin de ampliar la perspectiva del fenómeno. 
 
-- H2b: El efecto de la movilidad ascendente es más fuerte que el efecto directo del nivel educativo propio.
+Para el **Índice de Justificación de Violencia Estatal** (`justif_violencia_estatal`): Se compone del promedio de dos ítems que miden justificación de violencia ejercida por Carabineros de Chile (fuerzas de ley y orden) en contextos de control del orden público:
 
-**Hipótesis 3** (Mecanismos mediadores):
+1. Que Carabineros use la violencia para reprimir una manifestación pacífica
+2. Que Carabineros desaloje a la fuerza a las personas que se toman edificios o universidades
 
-- H3a (Deprivación relativa): La movilidad ascendente se asocia con menores ingresos relativos a nivel educativo, lo que incrementa la protesta.
+Cada ítem se midió en la misma escala de 5 puntos. El índice se calculó como el promedio de ambos ítems (requiriendo respuesta en al menos uno), resultando igualmente en una escala continua de 1 a 5. La correlación entre ambos ítems es r = 0.58 (p < 0.001), indicando que miden aspectos relacionados pero distinguibles de actitudes hacia violencia policial.
 
-- H3b (Orientación ideológica): La movilidad ascendente se asocia con posiciones políticas más de izquierda, mediando el efecto sobre protesta.
+Es importante notar que estos dos índices capturan formas conceptualmente distintas de violencia política: violencia "desde abajo" ejercida por actores sociales movilizados versus violencia "desde arriba" ejercida por agentes estatales. Como muestra la matriz de correlación en la Tabla 1, ambos índices están negativamente correlacionados (r = -0.23, p < 0.001), sugiriendo que justificar un tipo de violencia tiende a asociarse con menor justificación del otro tipo, aunque la correlación no es perfecta. Esta distinción empírica valida la estrategia de analizar ambos tipos de violencia por separado.
 
-- H3c (Campo disciplinario): Los móviles ascendentes se concentran en carreras con menor retorno económico y mayor orientación crítica.
+### Variables independientes principales
 
+Para la educación del encuestado se operacionalizó una variable categórica de cinco niveles basada en el nivel educacional más alto alcanzado:
 
-## Datos
+1. Educación media (secundaria) completa o menos
+2. Técnica superior incompleta (estudios terciarios no universitarios iniciados pero no completados)
+3. Técnica superior completa (título técnico profesional o similar)
+4. Universitaria incompleta (estudios universitarios iniciados pero no completados)
+5. Universitaria completa (título universitario de pregrado o posgrado)
 
-**Fuente de Datos**: ELSOC (Estudio Longitudinal Social de Chile):
+Esta categorización se trata como factor no ordenado, utilizando "educación media completa o menos" como categoría de referencia. La decisión de no tratar educación como variable ordinal responde a evidencia previa que sugiere que los efectos de educación sobre actitudes políticas no son necesariamente lineales, y que existen diferencias cualitativas importantes entre educación técnica y universitaria que van más allá de "años de escolaridad" (Nie et al., 1996).
 
-- Panel longitudinal 2016-2023 (7 olas)
+Por su parte, para la **Clase social** se utiliza una versión simplificada del esquema de clases Erikson-Goldthorpe-Portocarrero (EGP), ampliamente utilizado en estudios de estratificación, para conservar un mayor número de casos distribuidos. Basándose en la ocupación principal del encuestado (codificada según ISCO-08) y su situación de empleo, se construyó una variable categórica de tres clases:
 
-- Variables sobre educación propia, parental, participación política, ocupación, ideología
+1. Service class (Clases I-II del esquema EGP): Profesionales, gerentes y administradores de alto nivel, técnicos superiores. Incluye ocupaciones que requieren alta calificación y ejercen autoridad o autonomía significativa.
 
-**Variables**
+2. Intermediate class (Clases III-IV): Empleados no manuales de rutina, trabajadores de pequeña propiedad, trabajadores independientes sin empleados.
 
-- Variable Dependiente: Participación en Protesta (múltiples operacionalizaciones):
+3. Working class (Clases V-VII): Trabajadores manuales calificados, semicalificados y no calificados, tanto de sectores secundarios como terciarios.
 
-Variable principal: Índice aditivo de participación en actividades de protesta en últimos 12 meses:
+Esta clasificación captura diferencias en posición estructural dentro del sistema de producción, niveles típicos de ingresos, seguridad económica, y autonomía laboral. La variable se trata como factor, utilizando "service class" como categoría de referencia para facilitar la interpretación de interacciones.
 
-- Marcha o manifestación autorizada
+Para la **Participación en protestas** se elaboró una variable dicotómica que indica si el encuestado participó en manifestaciones, marchas o protestas durante los últimos 12 meses (1 = Sí participó, 0 = No participó). Esta medición está basada en la pregunta: *"Durante los últimos 12 meses, ¿ha participado en manifestaciones o marchas?"¨*. Esta variable captura participación reportada retrospectivamente y, por tanto, está sujeta a posibles sesgos de recuerdo y deseabilidad social, aunque existe evidencia previa que sugiere que el reporte de participación en protestas tiene razonable validez cuando el período de referencia es relativamente corto (Walgrave & Verhulst, 2011).
 
-- Huelga
+### Variables de Control
 
-- Firma de peticiones
+Todos los modelos incluyen las siguientes variables de control para reducir confusión y mejorar la precisión de las estimaciones:
 
-- Rango: 1-5.
+- Edad: En años al momento de cada ola (variable continua centrada en la media).
 
-**Alternativas**
+- Género: Variable dicotómica (1 = Mujer, 0 = Hombre).
 
-- Variable alternativa: Variable dicotómica (participó/no participó en al menos una forma)
+- Ideología política: Escala de auto-posicionamiento ideológico de 0 (extrema izquierda) a 10 (extrema derecha), estandarizada con media 0 y desviación estándar 1.
 
-- Variable exploratoria: Intensidad de participación (si ELSOC incluye frecuencia)
+- Tiempo: Tendencia temporal lineal (ola codificada como 0-6) para controlar por cambios sistemáticos en las actitudes a lo largo del período de estudio (2016-2023), incluyendo el impacto del estallido social de 2019.
 
-**Variables Independientes Principales**
+## Estrategia Analítica
 
-Nivel Educativo Propio (dos especificaciones):
-Especificación A (categórica - preferida para H1):
+La naturaleza longitudinal de los datos implica que observamos a los mismos individuos en múltiples ocasiones a lo largo del tiempo. Esta estructura de los datos —donde las observaciones individuales de Nivel 1 (mediciones en el tiempo) están anidadas dentro de individuos de Nivel 2— viola uno de los supuestos fundamentales de los modelos de regresión estándar: la independencia de las observaciones (Snijders & Bosker, 2012). Es altamente probable que las respuestas de un mismo individuo en diferentes olas estén correlacionadas, dado que capturan características estables de esa persona (personalidad, valores arraigados, experiencias formativas previas) que afectan sus actitudes de manera consistente a lo largo del tiempo.
 
-- Media incompleta o menos (referencia)
+Ignorar esta dependencia temporal dentro de individuos llevaría a estimaciones sesgadas (errores estándar demasiado pequeños), inflando artificialmente la significancia estadística y conduciendo a conclusiones inválidas (Raudenbush & Bryk, 2002; Gelman & Hill, 2007). En este sentido, los modelos multinivel (también llamados modelos jerárquicos lineales, modelos de efectos mixtos o modelos de componentes de varianza) ofrecen una solución explícita a este problema al modelar tanto la heterogeneidad entre individuos como la dependencia dentro de individuos a lo largo del tiempo (Singer & Willett, 2003). Como señalan Hox et al. (2017), estos modelos permiten descomponer la variación total en sus componentes estructurales y estimar correctamente la incertidumbre de los parámetros en presencia de dependencia intra-grupal.
 
-- Media completa
+La ecuación general del modelo de Nivel 1 (observación en el tiempo) y Nivel 2 (individuo) es:
 
-- Técnica superior incompleta
+**Nivel 1 (intra-individual)**
 
-- Técnica superior completa
+$$y_{tj} = \beta_{0j} + \beta_{1j} X_{tj} + \varepsilon_{tj}$$
 
-- Universitaria incompleta
+donde:
 
-- Universitaria completa
+- $y_{tj}$: Justificación de la violencia para el individuo $j$ en el tiempo $t$.
+- $X_{tj}$: Variables de nivel 1 (tiempo), como participación en protestas, edad, etc.
+- $\varepsilon_{tj}$: Error residual a nivel de observación.
 
-- Postgrado
+**Nivel 2 (inter-individual)**
 
-Justificación: Permite capturar no linealidades y diferencias cualitativas entre trayectorias educativas. La distinción completa/incompleta captura efectos credencialistas.
+$$\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}$$
+$$\beta_{1j} = \gamma_{10}$$
 
+donde:
 
-**Especificación B** (continua):
+- $\gamma_{00}$: Intercepto general (gran media).
+- $\gamma_{01}$: Efecto de predictores de nivel 2 (entre individuos).
+- $\gamma_{10}$: Efecto fijo de predictores de nivel 1 (intra-individuos).
+- $Z_j$: Predictores que no varían en el tiempo (educación, clase social, género).
+- $u_{0j}$: Efecto aleatorio del intercepto para el individuo $j$.
 
-- Años de educación (0-22+)
+**Modelo integrado**
 
-- Útil para análisis de sensibilidad y comparaciones con literatura previa
+$$y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \gamma_{20} t + u_{0j} + \varepsilon_{tj}$$
 
-**Movilidad Educacional** (múltiples operacionalizaciones):
+donde $t$ representa el tiempo (ola de medición, codificada como 0, 1, 2, ..., 6 para las olas 2016-2023). Este modelo descompone la varianza total en dos componentes: varianza entre individuos ($\sigma^2_u$, capturada por los interceptos aleatorios) y varianza dentro de individuos a lo largo del tiempo ($\sigma^2_\varepsilon$, error residual). El coeficiente de correlación intra-clase (ICC) cuantifica la proporción de varianza total atribuible a diferencias entre individuos. El parámetro $\gamma_{20}$ captura la tendencia temporal lineal promedio en la justificación de violencia.
 
-- Operacionalización principal: Movilidad = Educación_propia - max(Educación_padre, Educación_madre)
-Donde educación se mide en años.
+### Modelos con interacción
 
-- Categorización:
+**Interacción entre Educación y Participación**
 
-- Movilidad descendente (diferencia < -2 años)
+Para testear las hipótesis centrales de este estudio, que predicen que los efectos de educación y clase social sobre justificación de violencia son contingentes a la participación en protestas, se estiman modelos que incluyen términos de interacción multiplicativos:
 
-- Sin movilidad (-2 a +2 años)
+$$
+\begin{aligned}
+y_{tj} = \gamma_{00} + \sum_{k=1}^{4} \gamma_{0k} \text{Educación}_{kj} + \gamma_{10} \text{Participación}_{tj} + \sum_{k=1}^{4} \gamma_{1k} (\text{Educación}_{kj} \times \text{Participación}_{tj}) + \\
+\gamma_{20} t + \text{Controles} + u_{0j} + \varepsilon_{tj}
+\end{aligned}
+$$
 
-- Movilidad moderada (+3 a +5 años)
+Dado que educación es una variable categórica con 5 niveles (4 dummies), este modelo estima 4 coeficientes de interacción ($\gamma_{11}, \gamma_{12}, \gamma_{13}, \gamma_{14}$), uno para cada nivel educativo respecto a la categoría de referencia.
 
-- Movilidad alta (>+5 años)
+**Interacción entre Clase y Participación**
 
-Operacionalización alternativa (categórica):
+$$
+\begin{aligned}
+y_{tj} = \gamma_{00} + \sum_{k=1}^{2} \gamma_{0k} \text{Clase}_{kj} + \gamma_{10} \text{Participación}_{tj} + \sum_{k=1}^{2} \gamma_{1k} (\text{Clase}_{kj} \times \text{Participación}_{tj}) + \\
+\gamma_{20} t + \text{Controles} + u_{0j} + \varepsilon_{tj}
+\end{aligned}
+$$
 
-Matriz de origen-destino educativo:
+De manera similar, este modelo estima 2 coeficientes de interacción ($\gamma_{11}$ para intermediate class × participación, $\gamma_{12}$ para working class × participación).
 
-                    | Padres: Bajo | Padres: Medio | Padres: Alto |
---------------------|--------------|---------------|--------------|
-Ego: Bajo           | Inmóvil bajo |  Desc. mod.   | Desc. alta   |
-Ego: Medio-Técnico  | Asc. mod.    | Inmóvil medio | Desc. mod.   |
-Ego: Alto-Univ      | Asc. alta    | Asc. mod.     | Inmóvil alto |
+La interpretación de términos de interacción en modelos multinivel sigue la lógica estándar: el coeficiente de interacción representa cuánto cambia el efecto de la participación en protestas sobre la justificación de violencia al pasar de una categoría educativa (o de clase) a otra. Los gráficos de efectos marginales (predicted values) se utilizan para visualizar estas interacciones de forma intuitiva.
 
+### Elección de la distribución y función de enlace
 
-Variables de Control
+La variable dependiente principal es el índice continuo de justificación de violencia (escala 1-5). Aunque técnicamente esta variable es ordinal (niveles discretos ordenados), su tratamiento como variable continua se justifica por tres razones metodológicas y sustantivas. Primero, los índices promedian respuestas de múltiples ítems (2 para violencia en protestas, 2 para violencia estatal), lo que genera una distribución más continua y aproximadamente normal en la muestra. Segundo, trabajos previos en psicología y ciencias políticas han demostrado que escalas Likert con 5 o más puntos pueden tratarse como continuas sin pérdida sustantiva de información cuando se promedian múltiples ítems (Norman, 2010; Lubke & Muthen, 2004). Tercero, el uso de variables continuas permite interpretar los efectos en términos de cambios promedio en la escala de justificación, lo que resulta más intuitivo y permite capturar gradaciones sutiles en las actitudes.
 
-Nivel individual:
+Por tanto, los modelos principales se estiman mediante Modelos Lineales Generalizados Mixtos (GLMM) con distribución gaussiana (normal) y función de enlace identidad, incorporando interceptos aleatorios por individuo para modelar la estructura jerárquica de los datos. Esta especificación es equivalente a un modelo de regresión lineal multinivel estándar y se estima mediante máxima verosimilitud restringida (REML), que produce estimadores insesgados de los componentes de varianza en muestras finitas (Raudenbush & Bryk, 2002).
 
-Demográficas:
 
-- Edad (continua y cuadrática)
+## Software y replicabilidad
 
-- Sexo (mujer=1)
-
-- Zona (urbano/rural)
-
-
-Socioeconómicas:
-
-- Situación laboral (ocupado, desocupado, inactivo)
-
-- Tipo de empleo (sector público/privado/independiente)
-
-
-Políticas:
-
-- Autoposicionamiento ideológico (0-10, izquierda-derecha)
-
-- Interés en política
-
-- Identificación partidaria
-
-
-Contextuales:
-
-- Año (efectos fijos para capturar ciclo de movilizaciones 2019)
-
-- Región (si tamaño muestral lo permite)
-
-
-
-Variables Mediadoras (para H3)
-
-Deprivación relativa:
-
-- Satisfacción con situación económica personal
-
-- Percepción de justicia distributiva
-
-
-Orientación ideológica:
-
-- Autoposicionamiento izquierda-derecha
-
-- Actitudes redistributivas
-
-- Apoyo a movimientos sociales
-
-
-Campo disciplinario (si disponible):
-
-
-
-3.3 Modelos Estadísticos
-
-Modelo base (Efectos Aleatorios):
-
-Dado que ELSOC es un panel corto con variación limitada en educación intra-individual, un modelo de efectos aleatorios es apropiado:
-
-Protesta_it = $$β₀ + β₁Educación_i + β₂Movilidad_i + 
-              β₃(Educación × Movilidad)_i + 
-              β₄X_it + α_i + ε_it$$
-Donde:
-
-$$i = individuos$$ 
-
-$$t = tiempo$$
-
-$$α_i = efectos \ aleatorios \ individuales$$
-
-$$X_it= vector \ de \ controles$$
-
-$$ε_it = error  \ idiosincrático$$
-
-
-Justificación del modelo RE sobre FE:
-
-- Las variables de interés (educación propia y parental) son time-invariant o casi invariantes
-
-- Interesa el efecto between-individual, no within
-
-- RE permite estimar efectos de variables constantes
-
-- Test de Hausman para verificar consistencia
-
-
-Especificaciones alternativas:
-
-- Pooled OLS con errores estándar robustos clusterizados (sensibilidad)
-
-- Modelos logit/probit de efectos aleatorios (si VD es dicotómica)
-
-- Modelos ordinales (si VD tiene categorías ordenadas de intensidad)
-
-- Modelos multinivel (individuos anidados en regiones/cohortes)
-
-
-**Estrategia Analítica**
-
-Fase 1: Análisis descriptivo
-
-- Tablas cruzadas educación × protesta
-
-- Gráficos de perfiles de participación por nivel educativo
-
-- Matrices de movilidad educacional × protesta
-
-Fase 2: Modelos para H1 (No linealidad)
-
-- Modelo 1: Educación categórica
-
-$$Protesta = β₀ + β₁MediaCompleta + β₂TécnicaInc + β₃TécnicaCom + 
-           β₄UniversitariaInc + β₅UniversitariaCom + β₆Postgrado +
-           Controles + α_i + ε$$
-           
-Post-estimación:
-
-- Tests de Wald para comparaciones entre categorías
-
-- Predicciones marginales y efectos marginales promedio
-
-- Gráficos de coeficientes con intervalos de confianza
-
-Fase 3: Modelos para H2 (Movilidad)
-
-- Modelo 2: Interacción educación × movilidad
-
-$$Protesta = β₀ + β₁Educación + β₂Movilidad + 
-           β₃(Educación × Movilidad) + 
-           Controles + α_i + ε$$
-
-Post-estimación:
-
-- Efectos marginales condicionales de educación a diferentes niveles de movilidad
-
-- Gráficos de interacción con intervalos de confianza
-
-- Análisis de efectos simples (simple slopes)
-
-Modelo 3: Matriz origen-destino
-
-$$Protesta = β₀ + Σ β_j(Origen-Destino)_j + Controles + α_i + ε$$
-
-Con contrastes específicos para comparar diagonales vs. móviles ascendentes.
-
-Fase 4: Análisis de mediación (H3)
-Usando técnica de descomposición de Baron & Kenny (1986) o método KHB (Karlson, Holm & Breen, 2012) para modelos no lineales:
-
-- Paso 1: Movilidad → Protesta (efecto total)
-
-- Paso 2: Movilidad → Mediador
-
-- Paso 3: Movilidad + Mediador → Protesta (efecto directo)
-
-- Efecto indirecto = Efecto total - Efecto directo
-
-Mediadores a examinar:
-
-- Ideología política
-- Campo disciplinario
-
-Fase 5: Análisis de robustez
-
-Especificaciones alternativas de variables:
-
-- VD continua vs. dicotómica
-
-- VI años vs. categorías
-
-- Diferentes umbrales de movilidad
-
-
-Subgrupos:
-
-- Por cohorte etaria
-
-- Por periodo (pre/post estallido social 2019) (?)
-
-- Por sexo
-
-
-Alternativas al modelo RE:
-
-- Pooled OLS
-
-- Between estimator
-
-- Modelo híbrido (Allison, 2009)
-
-
-Sesgo de selección:
-
-- Heckman para participación política general
-
-- Pesos de propensity score para balance en movilidad
+Todos los análisis estadísticos se realizaron en R (versión 4.3.1) utilizando el paquete glmmTMB (Brooks et al., 2017) para la estimación de modelos mixtos generalizados, ggeffects (Lüdecke, 2018) para el cálculo de efectos marginales y predicciones ajustadas, y ggplot2 (Wickham, 2016) para la visualización de resultados. Los scripts de análisis completos, incluyendo código para limpieza de datos, construcción de variables, estimación de modelos y generación de figuras, se encuentran disponibles en un repositorio público de GitHub (https://github.com/renejcanales/protest_effects), garantizando transparencia y replicabilidad computacional completa de los hallazgos reportados.
