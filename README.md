@@ -1,3 +1,3 @@
 # Master Thesis Disertation
 
-[Análisis Modelos](https://renejcanales.github.io/protest_effects/processing/03-analisis-violencia.html)
+[Thesis defense](https://renejcanales.github.io/protest_effects/presentations/dissertation/disssertation_uc.html)
