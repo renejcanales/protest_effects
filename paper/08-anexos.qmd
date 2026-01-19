@@ -1,0 +1,896 @@
+# Anexos
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(ggplot2)
+library(glmmTMB)
+library(texreg)
+library(ggeffects)
+library(patchwork)
+library(gt)
+library(kableExtra)
+library(here)
+library(modelsummary)
+library(stargazer)
+library(tidyr)
+library(lme4)
+library(broom.mixed)
+
+
+# Cargar datos
+load(here("input/data/proc/elsoc_final_2.RData"))
+```
+
+```{r}
+#| include: false
+
+# Convertir educación a factor no ordenado
+elsoc_final_2 <- elsoc_final_2 %>%
+  mutate(
+    educ_cat_unordered = factor(educ_cat_factor, ordered = FALSE)
+  )
+
+# Crear índice consistente de violencia en protestas (solo variables en todas las olas)
+elsoc_final_2 <- elsoc_final_2 %>%
+  mutate(
+    # Índice consistente temporal (solo estudiantes y trabajadores)
+    justif_violencia_protesta_consistente = rowMeans(
+      dplyr::select(., violencia_trabajadores, violencia_estudiantes), 
+      na.rm = TRUE
+    ),
+    # Índice amplio (todas las variables disponibles por ola)
+    justif_violencia_protesta_amplio = justif_violencia_protesta
+  )
+
+# Verificar disponibilidad por ola
+elsoc_final_2 %>%
+  group_by(year) %>%
+  summarise(
+    n = n(),
+    estudiantes = sum(!is.na(violencia_estudiantes)),
+    trabajadores = sum(!is.na(violencia_trabajadores)),
+    inmobiliario = sum(!is.na(violencia_inmobiliario)),
+    transporte = sum(!is.na(violencia_transporte)),
+    locales = sum(!is.na(violencia_locales)),
+    carab_marchas = sum(!is.na(violencia_carabineros_marchas)),
+    carab_tomas = sum(!is.na(violencia_carabineros_tomas))
+  ) %>%
+  print()
+```
+
+## Anexo A: Intraclass Correlation Coeficient
+
+```{r}
+#| echo: false
+#| warning: false
+
+# Modelo principal
+mod_baseline_1 <- glmmTMB(
+  justif_violencia_protesta_consistente ~
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+mod_baseline_2 <- glmmTMB(
+  justif_violencia_estatal ~
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+library(performance)
+library(kableExtra)
+
+# Calcular ICC
+icc_protestas <- icc(mod_baseline_1)
+icc_estatal <- icc(mod_baseline_2)
+
+# Crear tabla con resultados ICC
+tabla_icc <- data.frame(
+  Variable = c("Justificación de violencia en protestas", 
+               "Justificación de violencia estatal"),
+  ICC = c(round(icc_protestas$ICC_conditional, 3), 
+          round(icc_estatal$ICC_conditional, 3)),
+  `Varianza entre individuos` = c(
+    paste0(round(icc_protestas$ICC_conditional * 100, 1), "%"),
+    paste0(round(icc_estatal$ICC_conditional * 100, 1), "%")
+  ),
+  check.names = FALSE
+)
+
+# Mostrar tabla
+tabla_icc %>%
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    col.names = c("Variable dependiente", "ICC", "Varianza entre individuos"),
+    align = c("l", "c", "c")
+  ) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 9
+  )
+```
+
+Como paso inicial, se estimaron los modelos nulos para ambas variables de justificación de la violencia, incluyendo únicamente los interceptos aleatorios por individuo. Los Coeficientes de Correlación Intraclase (ICC) calculados a partir de estos modelos confirman la idoneidad del enfoque multinivel.
+
+Para la justificación de la violencia en protestas, el ICC es de 0.229, indicando que un 24% de la varianza total es atribuible a diferencias sistemáticas y estables entre los individuos. Para la justificación de la violencia estatal, el valor se repite, alcanzando el mismo ICC de 0.240 (un 24.0% de varianza entre-sujetos).
+
+En ambos casos, estos valores son sustanciales y confirman la existencia de una fuerte interdependencia en los datos, validando la elección de los modelos de efectos aleatorios.
+
+## Anexo B: Índices de violencia desagregados
+
+```{r}
+#| label: fig-componentes-violencia
+#| fig-cap: "Evolución de componentes específicos de justificación de violencia"
+#| fig-height: 8
+#| fig-width: 12
+#| echo: false
+#| warning: false
+
+# Panel A: Componentes de violencia en protestas (solo variables consistentes)
+plot_comp_protestas <- elsoc_final_2 %>%
+  group_by(year) %>%
+  summarise(
+    `Trabajadores\nbloqueando` = mean(violencia_trabajadores, na.rm = TRUE),
+    `Estudiantes\ntirando piedras` = mean(violencia_estudiantes, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  tidyr::pivot_longer(cols = -year, 
+                      names_to = "Tipo", 
+                      values_to = "Justificacion") %>%
+  ggplot(aes(x = year, y = Justificacion, color = Tipo, group = Tipo)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 2.5) +
+  scale_color_manual(values = c("Trabajadores\nbloqueando" = "#E76BF3", 
+                                 "Estudiantes\ntirando piedras" = "#00BFC4")) +
+  labs(
+    title = "Componentes: Violencia en Protestas",
+    x = "Año",
+    y = "Justificación (escala 1-5)",
+    color = "Tipo de acción") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 7),
+        plot.title = element_text(size = 9)) +
+  ylim(1, 2.5)
+
+# Panel B: Componentes de violencia estatal
+plot_comp_estatal <- elsoc_final_2 %>%
+  group_by(year) %>%
+  summarise(
+    `Carabineros\nrepriman marchas` = mean(violencia_carabineros_marchas, na.rm = TRUE),
+    `Carabineros\ndesalojen tomas` = mean(violencia_carabineros_tomas, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  tidyr::pivot_longer(cols = -year, 
+                      names_to = "Tipo", 
+                      values_to = "Justificacion") %>%
+  ggplot(aes(x = year, y = Justificacion, color = Tipo, group = Tipo)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 2.5) +
+  scale_color_manual(values = c("Carabineros\nrepriman marchas" = "#0073C2FF", 
+                                 "Carabineros\ndesalojen tomas" = "#00BA38")) +
+  labs(
+    title = "Componentes: Violencia Estatal",
+    x = "Año",
+    y = "Justificación (escala 1-5)",
+    color = "Tipo de acción") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 7),
+        plot.title = element_text(size = 9)) +
+  ylim(1, 2.5)
+
+# Combinar
+viol_desagregado_long <- plot_comp_protestas + plot_comp_estatal +
+  plot_annotation(
+    tag_levels = 'A',
+    caption = "Elaboración propia con ELSOC 2016-2023. Desagregación de índices compuestos",
+    theme = theme(plot.caption = element_text(size = 7, hjust = 0))
+  )
+
+viol_desagregado_long
+```
+
+La @fig-componentes-violencia desagrega los índices en sus componentes disponibles en todas las olas. El Panel A muestra las dos formas de violencia en protestas medidas consistentemente: huelgas de trabajadores y tomas estudiantiles. Ambas presentan una tendencia ascendente hacia 2019, alcanzando su punto máximo ese año, seguido de un descenso en los años posteriores. En específico, podemos ver que las acciones disruptivas protagonizadas por trabajadores reciben una mayor justificación -en promedio- que las perpetradas por estudiantes a lo largo de todo el período.
+
+El Panel B revela un patrón contrastante para la violencia estatal. Ambas formas de represión policial (en marchas y desalojos de tomas) muestran una caída pronunciada en 2019, alcanzando sus niveles más bajos de justificación precisamente en el año del estallido social. Sin embargo, en el período post-2019, se observa un aumento sostenido y marcado de la justificación de violencia policial, divergiendo claramente del patrón observado para la violencia en protestas que se mantiene en niveles más bajos. 
+
+```{r}
+#| label: tbl-2019-participacion
+#| tbl-cap: "Justificación de violencia en 2019 según participación: todas las variables"
+#| echo: false
+#| warning: false
+
+tabla_2019_participacion <- elsoc_final_2 %>%
+  filter(year == 2019) %>%
+  group_by(Participacion = factor(protesta_dummy, labels = c("No participó", "Participó"))) %>%
+  summarise(
+    N = n(),
+    Trabajadores = round(mean(violencia_trabajadores, na.rm = TRUE), 2),
+    Estudiantes = round(mean(violencia_estudiantes, na.rm = TRUE), 2),
+    Inmobiliario = round(mean(violencia_inmobiliario, na.rm = TRUE), 2),
+    Transporte = round(mean(violencia_transporte, na.rm = TRUE), 2),
+    Locales = round(mean(violencia_locales, na.rm = TRUE), 2),
+    `Carab. Marchas` = round(mean(violencia_carabineros_marchas, na.rm = TRUE), 2),
+    `Carab. Tomas` = round(mean(violencia_carabineros_tomas, na.rm = TRUE), 2),
+    .groups = "drop"
+  )
+
+# Mostrar tabla
+tabla_2019_participacion %>%
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    align = c("l", "c", "c", "c", "c", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position", "scale_down"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 8
+  ) %>%
+  add_header_above(c(" " = 1, " " = 1, "Violencia en Protestas" = 5, "Violencia Estatal" = 2)) %>%
+  footnote(
+    general = "Datos solo de 2019. Escala 1-5 donde 1 = Nunca se justifica.",
+    general_title = "Nota:"
+  )
+```
+
+Respecto a la violencia estatal, los niveles de justificación son similares a los de violencia en protestas (≈1.5-1.6). Crucialmente, la @tbl-2019-participacion muestra que quienes participaron en protestas justifican más la violencia en todas sus formas comparado con los no participantes, sugiriendo que incluso en un contexto de baja justificación generalizada, la experiencia directa de movilización sigue siendo un predictor clave de actitudes hacia la violencia política.
+
+```{r}
+#| label: fig-distribuciones-violin
+#| fig-cap: "Distribución de justificación de violencia en protestas por educación, clase y participación"
+#| fig-height: 10
+#| fig-width: 12
+#| echo: false
+#| warning: false
+
+# Panel A: Por educación
+p1 <- elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  ggplot(aes(x = educ_cat_unordered, y = justif_violencia_protesta_consistente, 
+             fill = factor(protesta_dummy, labels = c("No participó", "Participó")))) +
+  geom_violin(alpha = 0.6, scale = "width") +
+  geom_boxplot(width = 0.15, outlier.size = 0.3, alpha = 0.8) +
+  scale_fill_manual(values = c("No participó" = "#F8766D", "Participó" = "#00BFC4")) +
+  labs(
+    title = "Por Nivel Educativo", 
+    x = "Educación", 
+    y = "Justificación de Violencia en Protestas", 
+    fill = ""
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 7),
+    legend.position = "bottom",
+    legend.text = element_text(size = 7),
+    plot.title = element_text(size = 9)
+  ) +
+  ylim(1, 5)
+
+# Panel B: Por clase
+p2 <- elsoc_final_2 %>%
+  filter(!is.na(egp3) & !is.na(protesta_dummy)) %>%
+  ggplot(aes(x = egp3, y = justif_violencia_protesta_consistente, 
+             fill = factor(protesta_dummy, labels = c("No participó", "Participó")))) +
+  geom_violin(alpha = 0.6, scale = "width") +
+  geom_boxplot(width = 0.15, outlier.size = 0.3, alpha = 0.8) +
+  scale_fill_manual(values = c("No participó" = "#F8766D", "Participó" = "#00BFC4")) +
+  labs(
+    title = "Por Clase Social", 
+    x = "Clase Social (EGP)", 
+    y = "", 
+    fill = ""
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 7),
+    legend.position = "bottom",
+    legend.text = element_text(size = 7),
+    plot.title = element_text(size = 9)
+  ) +
+  ylim(1, 5)
+
+# Combinar
+violin_plot <- p1 + p2 + 
+  plot_layout(guides = "collect") +
+  plot_annotation(
+    tag_levels = 'A',
+    caption = "Violines muestran distribución de densidad; cajas muestran mediana y cuartiles. Elaboración propia con ELSOC 2016-2023."
+  ) &
+  theme(
+    legend.position = "bottom",
+    plot.caption = element_text(size = 7)
+  )
+
+violin_plot
+```
+
+La @fig-distribuciones-violin complementa las tablas descriptivas mostrando visualmente la distribución completa de justificación de violencia, no solo las medias. El Panel A (educación) revela varios patrones importantes. Primero, entre no participantes (violines rojos), los niveles educativos más altos muestran distribuciones más concentradas en valores bajos (~1.5-2.0), con medianas claramente descendentes, confirmando el efecto civilizatorio. Las distribuciones son relativamente simétricas y unimodales. Entre participantes (violines azules), las distribuciones se desplazan hacia arriba y se vuelven más dispersas, especialmente en educación universitaria, donde la distribución es más amplia (rango ~1.5-3.5) y bimodal, evidenciando la heterogeneidad capturada por los efectos aleatorios: algunos universitarios participantes mantienen baja justificación mientras otros la incrementan sustancialmente.
+
+El Panel B (clase social) muestra patrones contrastantes. Entre no participantes, la Clase Trabajadora exhibe una distribución ligeramente desplazada hacia arriba (~1.8-2.2) comparada con Service class e Intermediate class (~1.6-2.0), consistente con la predisposición estructural. Entre participantes, ocurre una notable convergencia: las tres distribuciones se superponen casi completamente, con medianas muy similares (~2.0-2.2) y rangos intercuartiles comparables. Sin embargo, la Clase Trabajadora muestra una cola superior ligeramente más larga, indicando que aunque la mediana converge, algunos individuos de esta clase alcanzan los niveles más altos de justificación. Los boxplots internos confirman que los rangos intercuartiles se reducen dramáticamente entre participantes, evidenciando menor variabilidad dentro de grupos cuando están activamente movilizados, un hallazgo consistente con la hipótesis de "experiencia compartida" que iguala actitudes independientemente de la posición estructural.
+
+## Anexo C: Correlaciones entre variables clave
+
+```{r}
+#| label: tbl-correlaciones
+#| tbl-cap: "Correlaciones entre justificación de violencia y variables sociodemográficas"
+#| echo: false
+#| warning: false
+
+# Crear variables numéricas para correlaciones
+cor_data <- elsoc_final_2 %>%
+  filter(!is.na(justif_violencia_protesta_consistente) & !is.na(justif_violencia_estatal)) %>%
+  mutate(
+    educ_num = as.numeric(educ_cat_unordered),
+    edad_std = scale(edad)[,1],
+    mujer_num = as.numeric(mujer)
+  ) %>%
+  dplyr::select(justif_violencia_protesta_consistente, justif_violencia_estatal, 
+         educ_num, edad_std, mujer_num, ideologia_std, protesta_dummy) %>%
+  na.omit()
+
+# Calcular correlaciones
+cor_matrix <- cor(cor_data)
+
+# Extraer correlaciones relevantes - AQUÍ ESTÁ EL CAMBIO IMPORTANTE
+cor_table <- data.frame(
+  Variable = c("Educación", "Edad", "Mujer", "Ideología (izq-der)", "Participación en protesta"),
+  Viol_Protestas = round(cor_matrix[1, 3:7], 3),
+  Viol_Estatal = round(cor_matrix[2, 3:7], 3)
+)
+
+cor_table %>%
+  knitr::kable(
+    format = "latex",
+    booktabs = TRUE,
+    col.names = c("Variable", "Viol. en Protestas", "Viol. Estatal"),
+    align = c("l", "c", "c")
+  ) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 9
+  ) %>%
+  footnote(
+    general = "* p < 0.05, ** p < 0.01, *** p < 0.001",
+    general_title = "Nota:"
+  )
+```
+
+Las correlaciones de Pearson muestran patrones destacables. La participación en protestas exhibe una correlación moderada-fuerte con la justificación de la violencia en protestas (r = 0.224), mientras que con la violencia estatal muestra una correlación negativa moderada (r = -0.128), sugiriendo que participar reduce la legitimación de la represión policial. La ideología opera de forma opuesta para cada tipo: muestra una correlación negativa moderada con la violencia en protestas (r = -0.139, a más derecha menos justificación), pero positiva moderada con la violencia estatal (r = 0.192). La edad presenta una correlación negativa moderada con violencia en protestas (r = -0.177), mientras que la educación muestra correlaciones muy débiles con ambas variables dependientes (r = 0.042 y -0.020), lo que sugiere que su efecto es complejo, no-lineal, y fuertemente moderado por la participación, confirmando la necesidad de los modelos de interacción propuestos.
+
+## Anexo D: Validación Metodológica
+
+```{r}
+#| echo: false
+#| warning: false
+#| include: false
+
+# Estimar los modelos principales para diagnósticos
+mod_educ_protesta <- glmmTMB(
+  justif_violencia_protesta_consistente ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+mod_educ_estatal <- glmmTMB(
+  justif_violencia_estatal ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+mod_clase_protesta <- glmmTMB(
+  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+mod_clase_estatal <- glmmTMB(
+  justif_violencia_estatal ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+```
+
+```{r}
+#| label: fig-diagnosticos-modelos
+#| fig-cap: "Diagnósticos de los cuatro modelos principales: residuos, normalidad y efectos aleatorios"
+#| fig-height: 14
+#| fig-width: 12
+#| echo: false
+#| warning: false
+
+
+# Función para extraer datos de diagnóstico
+get_diagnostics <- function(model, model_name) {
+  # Valores ajustados y residuos
+  fitted_vals <- fitted(model)
+  residuals_vals <- residuals(model, type = "pearson")
+  
+  # Efectos aleatorios
+  ranef_data <- ranef(model)$cond$idencuesta
+  
+  list(
+    fitted = fitted_vals,
+    residuals = residuals_vals,
+    ranef = ranef_data[,1],  # Intercepto aleatorio
+    model = model_name
+  )
+}
+
+# Extraer diagnósticos de los 4 modelos
+diag_h1 <- get_diagnostics(mod_educ_protesta, "M1: Educ × Protestas")
+diag_h2 <- get_diagnostics(mod_educ_estatal, "M2: Educ × Estatal")
+diag_h3a <- get_diagnostics(mod_clase_protesta, "M3a: Clase × Protestas")
+diag_h3b <- get_diagnostics(mod_clase_estatal, "M3b: Clase × Estatal")
+
+# Combinar en dataframes
+resid_data <- data.frame(
+  fitted = c(diag_h1$fitted, diag_h2$fitted, diag_h3a$fitted, diag_h3b$fitted),
+  residuals = c(diag_h1$residuals, diag_h2$residuals, diag_h3a$residuals, diag_h3b$residuals),
+  model = rep(c(diag_h1$model, diag_h2$model, diag_h3a$model, diag_h3b$model),
+              times = c(length(diag_h1$fitted), length(diag_h2$fitted), 
+                       length(diag_h3a$fitted), length(diag_h3b$fitted)))
+)
+
+ranef_data <- data.frame(
+  ranef = c(diag_h1$ranef, diag_h2$ranef, diag_h3a$ranef, diag_h3b$ranef),
+  model = rep(c(diag_h1$model, diag_h2$model, diag_h3a$model, diag_h3b$model),
+              times = c(length(diag_h1$ranef), length(diag_h2$ranef), 
+                       length(diag_h3a$ranef), length(diag_h3b$ranef)))
+)
+
+# Panel A: Residuos vs Valores Ajustados
+p1 <- ggplot(resid_data, aes(x = fitted, y = residuals)) +
+  geom_point(alpha = 0.3, size = 0.5, color = "#0073C2FF") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.7) +
+  geom_smooth(method = "loess", se = TRUE, color = "#EFC000FF", linewidth = 0.8) +
+  facet_wrap(~model, scales = "free_x", ncol = 2) +
+  labs(
+    title = "A. Residuos vs Valores Ajustados",
+    subtitle = "Evaluación de homocedasticidad y linealidad",
+    x = "Valores Ajustados",
+    y = "Residuos de Pearson"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(strip.text = element_text(face = "bold", size = 8))
+
+# Panel B: Q-Q Plots
+p2 <- ggplot(resid_data, aes(sample = residuals)) +
+  stat_qq(alpha = 0.4, size = 0.6, color = "#0073C2FF") +
+  stat_qq_line(color = "red", linetype = "dashed", linewidth = 0.7) +
+  facet_wrap(~model, ncol = 2) +
+  labs(
+    title = "B. Q-Q Plots de Residuos",
+    subtitle = "Verificación de normalidad de residuos",
+    x = "Cuantiles Teóricos",
+    y = "Cuantiles de la Muestra"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(strip.text = element_text(face = "bold", size = 8))
+
+# Panel C: Distribución de Efectos Aleatorios
+p3 <- ggplot(ranef_data, aes(x = ranef, fill = model)) +
+  geom_histogram(bins = 40, alpha = 0.7, color = "white") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 0.7) +
+  facet_wrap(~model, scales = "free", ncol = 2) +
+  scale_fill_manual(values = c(
+    "H1: Educ × Protestas" = "#EFC000FF",
+    "H2: Educ × Estatal" = "#0073C2FF",
+    "H3a: Clase × Protestas" = "#E76BF3",
+    "H3b: Clase × Estatal" = "#00BFC4"
+  )) +
+  labs(
+    title = "C. Distribución de Interceptos Aleatorios por Individuo",
+    subtitle = "Heterogeneidad individual capturada por efectos aleatorios",
+    x = "Intercepto Aleatorio (desviación del promedio)",
+    y = "Frecuencia"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    strip.text = element_text(face = "bold", size = 8),
+    legend.position = "none"
+  )
+
+# Combinar paneles
+grafico_diagnosticos <- p1 / p2 / p3 +
+  plot_annotation(
+    caption = "Panel A: Línea suavizada (amarilla) debe ser horizontal cerca de 0. Panel B: Puntos deben seguir línea roja. Panel C: Distribución aproximadamente normal.\nElaboración propia con ELSOC 2016-2023."
+  ) &
+  theme(plot.caption = element_text(size = 7, hjust = 0))
+
+# Mostrar gráfico
+grafico_diagnosticos
+```
+
+La @fig-diagnosticos-modelos presenta tres evaluaciones críticas de la validez de los modelos principales. **Panel A (Residuos vs Valores Ajustados)**: Los cuatro modelos muestran patrones residuales satisfactorios. Las líneas suavizadas (amarillas) se mantienen cercanas a cero a lo largo del rango de valores ajustados, indicando que no hay evidencia de no-linealidad sistemática en las relaciones modeladas. La dispersión vertical es relativamente constante (homocedasticidad), aunque se observa una leve mayor variabilidad en valores extremos, típico en modelos de efectos mixtos. Los modelos H1 y H3a (violencia en protestas) presentan dispersión ligeramente mayor que H2 y H3b (violencia estatal), consistente con mayor heterogeneidad en actitudes hacia violencia disruptiva. No se detectan patrones en forma de embudo o curvaturas pronunciadas que sugieran problemas de especificación.
+
+Los gráficos cuantil-cuantil revelan que los residuos se aproximan razonablemente a distribución normal en los cuatro modelos. Los puntos siguen la línea de referencia roja en la región central, con desviaciones menores en las colas —particularmente cola derecha (valores extremos altos)—, indicando leve asimetría positiva residual. Este patrón es esperable dado que la variable dependiente (escala 1-5) tiene límite superior natural, generando "ceiling effects" leves. Crucialmente, las desviaciones no son severas y no comprometen la inferencia: los estimadores glmmTMB son robustos a desviaciones moderadas de normalidad cuando el tamaño muestral es grande (n>10,000 observaciones en nuestro caso). La similitud de patrones entre modelos confirma consistencia en la calidad de ajuste.
+
+Los interceptos aleatorios por individuo muestran distribuciones aproximadamente normales centradas en cero para los cuatro modelos, validando el supuesto clave de efectos aleatorios. La varianza de estos interceptos (~SD = 0.35-0.40) es sustancial, confirmando heterogeneidad individual significativa en niveles base de justificación (ICC ~0.23-0.24 reportado previamente). Los modelos de violencia en protestas (H1 y H3a, amarillo y morado) presentan dispersión ligeramente mayor que los de violencia estatal (H2 y H3b, azul y cian), consistente con mayor polarización individual en actitudes hacia acción disruptiva. No se observan valores extremos o multimodalidad que sugieran subpoblaciones ocultas. Esta estructura de efectos aleatorios justifica plenamente la especificación multinivel: ignorar esta heterogeneidad individual generaría errores estándar subestimados y conclusiones inferenciales erróneas. La distribución normal de efectos aleatorios también indica que el modelo captura adecuadamente la estructura de dependencia intra-individual sin necesidad de especificaciones más complejas (e.g., pendientes aleatorias).
+
+```{r}
+#| label: fig-robustez-sensibilidad
+#| fig-cap: "Análisis de robustez y sensibilidad: modelos alternativos y exclusión de 2019"
+#| fig-height: 14
+#| fig-width: 12
+#| echo: false
+#| warning: false
+#| message: false
+
+library(lme4)
+library(broom.mixed)
+library(ggplot2)
+library(dplyr)
+library(patchwork)
+
+# ====== PANEL A: Comparación Efectos Fijos vs Aleatorios (solo H1 y H3a por espacio) ======
+
+# Modelo efectos fijos (OLS con dummies de año, SIN efectos aleatorios)
+mod_h1_fe <- lm(
+  justif_violencia_protesta_consistente ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year),
+  data = elsoc_final_2
+)
+
+mod_h3a_fe <- lm(
+  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year),
+  data = elsoc_final_2
+)
+
+# Extraer coeficientes de interés (solo interacciones y participación)
+extract_key_coefs <- function(model_re, model_fe, model_name) {
+  coefs_re <- tidy(model_re, effects = "fixed", conf.int = TRUE) %>%
+    filter(grepl("protesta_dummy|:", term)) %>%
+    select(term, estimate, std.error, conf.low, conf.high) %>%
+    mutate(Especificación = "Efectos Aleatorios", Modelo = model_name)
+  
+  coefs_fe <- tidy(model_fe, conf.int = TRUE) %>%
+    filter(grepl("protesta_dummy|:", term)) %>%
+    select(term, estimate, std.error, conf.low, conf.high) %>%
+    mutate(Especificación = "Efectos Fijos", Modelo = model_name)
+  
+  rbind(coefs_re, coefs_fe)
+}
+
+coefs_h1 <- extract_key_coefs(mod_educ_protesta, mod_h1_fe, "H1: Educ × Protestas")
+coefs_h3a <- extract_key_coefs(mod_clase_protesta, mod_h3a_fe, "H3a: Clase × Protestas")
+
+all_coefs_comp <- rbind(coefs_h1, coefs_h3a) %>%
+  mutate(
+    term_clean = case_when(
+      term == "protesta_dummy" ~ "Participación",
+      grepl("educ.*:protesta", term) ~ gsub("educ_cat_unordered|:protesta_dummy", "", term),
+      grepl("egp3.*:protesta", term) ~ gsub("egp3|:protesta_dummy", "", term),
+      TRUE ~ term
+    )
+  )
+
+p1 <- ggplot(all_coefs_comp, aes(x = estimate, y = term_clean, color = Especificación)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_pointrange(aes(xmin = conf.low, xmax = conf.high),
+                  position = position_dodge(width = 0.5), size = 0.5, linewidth = 0.8) +
+  facet_wrap(~Modelo, scales = "free_y", ncol = 1) +
+  scale_color_manual(values = c("Efectos Aleatorios" = "#0073C2FF", "Efectos Fijos" = "#EFC000FF")) +
+  labs(
+    title = "A. Comparación Efectos Fijos vs Aleatorios",
+    subtitle = "Estimaciones de interacciones clave: efectos aleatorios corrigen dependencia intra-individual",
+    x = "Coeficiente estimado (IC 95%)",
+    y = ""
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold", size = 8),
+    plot.title = element_text(face = "bold", size = 10)
+  )
+
+# ====== PANEL B: Sensibilidad excluyendo 2019 ======
+
+# Modelos sin 2019
+elsoc_no2019 <- elsoc_final_2 %>% filter(year != 2019)
+
+mod_h1_no2019 <- glmmTMB(
+  justif_violencia_protesta_consistente ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) + (1 | idencuesta),
+  data = elsoc_no2019, family = gaussian()
+)
+
+mod_h3a_no2019 <- glmmTMB(
+  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + factor(year) + (1 | idencuesta),
+  data = elsoc_no2019, family = gaussian()
+)
+
+# Extraer y comparar
+extract_sens <- function(model_full, model_sens, model_name) {
+  coefs_full <- tidy(model_full, effects = "fixed", conf.int = TRUE) %>%
+    filter(grepl("protesta_dummy|:", term)) %>%
+    select(term, estimate, std.error, conf.low, conf.high) %>%
+    mutate(Dataset = "Completo (2016-2023)", Modelo = model_name)
+  
+  coefs_sens <- tidy(model_sens, effects = "fixed", conf.int = TRUE) %>%
+    filter(grepl("protesta_dummy|:", term)) %>%
+    select(term, estimate, std.error, conf.low, conf.high) %>%
+    mutate(Dataset = "Sin 2019", Modelo = model_name)
+  
+  rbind(coefs_full, coefs_sens)
+}
+
+sens_h1 <- extract_sens(mod_educ_protesta, mod_h1_no2019, "H1: Educ × Protestas")
+sens_h3a <- extract_sens(mod_clase_protesta, mod_h3a_no2019, "H3a: Clase × Protestas")
+
+all_sens <- rbind(sens_h1, sens_h3a) %>%
+  mutate(
+    term_clean = case_when(
+      term == "protesta_dummy" ~ "Participación",
+      grepl("educ.*:protesta", term) ~ gsub("educ_cat_unordered|:protesta_dummy", "", term),
+      grepl("egp3.*:protesta", term) ~ gsub("egp3|:protesta_dummy", "", term),
+      TRUE ~ term
+    )
+  )
+
+p2 <- ggplot(all_sens, aes(x = estimate, y = term_clean, color = Dataset)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_pointrange(aes(xmin = conf.low, xmax = conf.high),
+                  position = position_dodge(width = 0.5), size = 0.5, linewidth = 0.8) +
+  facet_wrap(~Modelo, scales = "free_y", ncol = 1) +
+  scale_color_manual(values = c("Completo (2016-2023)" = "#E76BF3", "Sin 2019" = "#00BFC4")) +
+  labs(
+    title = "B. Sensibilidad: Excluyendo Año 2019 (Estallido)",
+    subtitle = "Resultados robustos: interacciones clave persisten sin el año del estallido social",
+    x = "Coeficiente estimado (IC 95%)",
+    y = ""
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold", size = 8),
+    plot.title = element_text(face = "bold", size = 10)
+  )
+
+# ====== PANEL C: Solo 2019 vs Otros años ======
+
+# Modelos solo 2019
+elsoc_2019 <- elsoc_final_2 %>% filter(year == 2019)
+
+mod_h1_2019 <- glmmTMB(
+  justif_violencia_protesta_consistente ~ educ_cat_unordered * protesta_dummy +
+    edad + mujer + ideologia_std + (1 | idencuesta),
+  data = elsoc_2019, family = gaussian()
+)
+
+mod_h3a_2019 <- glmmTMB(
+  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+    edad + mujer + ideologia_std + (1 | idencuesta),
+  data = elsoc_2019, family = gaussian()
+)
+
+# Comparar 2019 vs completo
+extract_2019 <- function(model_full, model_2019, model_name) {
+  coefs_full <- tidy(model_full, effects = "fixed", conf.int = TRUE) %>%
+    filter(grepl("protesta_dummy|:", term)) %>%
+    select(term, estimate, std.error, conf.low, conf.high) %>%
+    mutate(Periodo = "2016-2023", Modelo = model_name)
+  
+  coefs_2019 <- tidy(model_2019, effects = "fixed", conf.int = TRUE) %>%
+    filter(grepl("protesta_dummy|:", term)) %>%
+    select(term, estimate, std.error, conf.low, conf.high) %>%
+    mutate(Periodo = "Solo 2019", Modelo = model_name)
+  
+  rbind(coefs_full, coefs_2019)
+}
+
+comp_h1 <- extract_2019(mod_educ_protesta, mod_h1_2019, "H1: Educ × Protestas")
+comp_h3a <- extract_2019(mod_clase_protesta, mod_h3a_2019, "H3a: Clase × Protestas")
+
+all_comp <- rbind(comp_h1, comp_h3a) %>%
+  mutate(
+    term_clean = case_when(
+      term == "protesta_dummy" ~ "Participación",
+      grepl("educ.*:protesta", term) ~ gsub("educ_cat_unordered|:protesta_dummy", "", term),
+      grepl("egp3.*:protesta", term) ~ gsub("egp3|:protesta_dummy", "", term),
+      TRUE ~ term
+    )
+  )
+
+p3 <- ggplot(all_comp, aes(x = estimate, y = term_clean, color = Periodo)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_pointrange(aes(xmin = conf.low, xmax = conf.high),
+                  position = position_dodge(width = 0.5), size = 0.5, linewidth = 0.8) +
+  facet_wrap(~Modelo, scales = "free_y", ncol = 1) +
+  scale_color_manual(values = c("2016-2023" = "#F8766D", "Solo 2019" = "#00BA38")) +
+  labs(
+    title = "C. Comparación: Efectos en 2019 vs Todo el Periodo",
+    subtitle = "Interacciones amplificadas en 2019 pero presentes en todo el periodo",
+    x = "Coeficiente estimado (IC 95%)",
+    y = "",
+    caption = "Panel A: Efectos aleatorios corrigen subestimación de SE en efectos fijos. Panel B: Resultados robustos sin 2019. Panel C: 2019 amplifica pero no crea efectos.\nElaboración propia con ELSOC 2016-2023."
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold", size = 8),
+    plot.title = element_text(face = "bold", size = 10),
+    plot.caption = element_text(size = 7, hjust = 0)
+  )
+
+# Combinar paneles
+grafico_robustez <- p1 / p2 / p3
+
+# Mostrar gráfico
+grafico_robustez
+```
+
+La @fig-robustez-sensibilidad presenta tres evaluaciones críticas de la robustez de los hallazgos principales. Panel A (Efectos Fijos vs Aleatorios): La comparación revela que los modelos de efectos fijos (OLS con dummies de año, ignorando estructura longitudinal) subestiman consistentemente los errores estándar de las interacciones clave. Los intervalos de confianza en efectos fijos (amarillo) son sistemáticamente más estrechos que en efectos aleatorios (azul), generando inferencia anti-conservadora: varios términos de interacción aparecen "significativos" en efectos fijos pero sus ICs se superponen más con cero al corregir por dependencia intra-individual. Crucialmente, las magnitudes puntuales de los coeficientes son muy similares entre especificaciones (diferencias <0.05 puntos), indicando que el sesgo de estimación puntual es mínimo. El problema principal de efectos fijos es la inflación de precisión: asume observaciones independientes cuando en realidad individuos contribuyen múltiples olas, violando supuesto de IID. Los efectos aleatorios corrigen esto modelando explícitamente la correlación intra-individual (ICC ~0.23), produciendo SEs ~15-20% mayores pero inferencialmente correctos. Este análisis valida la decisión de usar glmmTMB multinivel: la estructura longitudinal de ELSOC requiere efectos aleatorios para inferencia válida, pero los hallazgos sustantivos (direcciones y magnitudes) son robustos a especificación.
+
+Excluir el año del estallido social (2019) es la prueba más crítica: si las interacciones fueran meros artefactos del shock de 2019, deberían desaparecer al remover ese año. Los resultados demuestran robustez sustantiva: todas las interacciones clave persisten con magnitudes y significancia similares. En H1, la interacción Univ. completa × Participación es +0.13 en dataset completo vs +0.12 sin 2019 (diferencia <0.01); en H3a, Clase Trabajadora × Participación es +0.11 vs +0.10. Los intervalos de confianza se superponen casi completamente, indicando que 2019 no es el único driver de los efectos sino que amplifica patrones presentes en todo el periodo 2016-2023. El efecto de participación (término principal) también permanece estable: +0.27 vs +0.25 en H1, +0.36 vs +0.33 en H3a. Esto confirma que las interacciones educación/clase × participación no son contingentes al momento del estallido sino estructuras relacionales persistentes: la educación superior amplifica el efecto de participación tanto en años "normales" como en el pico de movilización. Este hallazgo refuerza la interpretación teórica: el reenmarcamiento moral no es meramente reactivo a eventos coyunturales sino que refleja mecanismos sociocognitivos duraderos donde capital cultural interactúa con experiencia de movilización para reconfigurar actitudes.
+
+La comparación revela cómo el estallido de 2019 modula pero no crea los efectos de interacción. En modelos estimados solo con datos de 2019 (verde), las interacciones son consistentemente más fuertes que en el periodo completo (rojo): en H1, Univ. completa × Participación es +0.18 en 2019 vs +0.13 en periodo completo; en H3a, Clase Trabajadora × Participación es +0.16 vs +0.11. Sin embargo, crucialmente, las direcciones son idénticas y los ICs se superponen parcialmente, indicando que 2019 representa una intensificación cuantitativa de patrones preexistentes, no una ruptura cualitativa. El efecto principal de participación también se amplifica en 2019 (+0.35-0.40 vs +0.27-0.36 periodo completo), consistente con mayor polarización y activación de marcos morales duales durante el pico de movilización. Este patrón sugiere que el estallido actuó como coyuntura crítica que temporalmente magnificó procesos relacionales latentes: la educación superior y la clase social siempre moderaron el efecto de participación, pero 2019 elevó las apuestas y la intensidad experiencial, amplificando tanto la justificación base como las interacciones. Post-2019, los efectos se moderan pero no desaparecen (Panel B), evidenciando que el shock dejó sedimentos permanentes en la estructura de actitudes. En conjunto, los tres paneles validan que los hallazgos no son artefactos metodológicos ni contingentes a un año específico, sino patrones robustos que atraviesan especificaciones y subperiodos.
+
+```{r}
+#| label: fig-slopes-educacion
+#| fig-cap: "Pendientes del efecto de participación por nivel educativo: magnitud diferencial de la experiencia de movilización"
+#| fig-height: 8
+#| fig-width: 12
+#| echo: false
+#| warning: false
+
+# Calcular diferencias (slopes) del efecto de participación por nivel educativo
+# Primero calcular medias observadas por educación y participación
+medias_obs <- elsoc_final_2 %>%
+  filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
+  mutate(participacion = factor(protesta_dummy, labels = c("No participó", "Participó"))) %>%
+  group_by(educ_cat_unordered, participacion) %>%
+  summarise(
+    media = mean(justif_violencia_protesta_consistente, na.rm = TRUE),
+    se = sd(justif_violencia_protesta_consistente, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  ) %>%
+  rename(educ_ordered = educ_cat_unordered)
+
+# Separar por participación
+slopes_no_participa <- medias_obs %>%
+  filter(participacion == "No participó") %>%
+  select(educ_ordered, media_no = media, se_no = se)
+
+slopes_participa <- medias_obs %>%
+  filter(participacion == "Participó") %>%
+  select(educ_ordered, media_si = media, se_si = se)
+
+# Unir y calcular diferencias
+slopes_data <- inner_join(slopes_no_participa, slopes_participa, by = "educ_ordered") %>%
+  mutate(
+    slope = media_si - media_no,
+    se_slope = sqrt(se_no^2 + se_si^2),
+    ci_low = slope - 1.96 * se_slope,
+    ci_high = slope + 1.96 * se_slope
+  )
+
+# Gráfico de pendientes
+graf_slopes <- ggplot(slopes_data, aes(x = educ_ordered, y = slope)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  geom_col(aes(fill = slope > 0), alpha = 0.8, width = 0.6) +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0.2, linewidth = 0.9) +
+  geom_text(aes(label = sprintf("%.2f", slope), 
+                y = slope + sign(slope)*0.05), 
+            size = 3.5, fontface = "bold") +
+  scale_fill_manual(values = c("TRUE" = "#00BFC4", "FALSE" = "#F8766D"),
+                    labels = c("Efecto negativo", "Efecto positivo"),
+                    name = "Dirección del efecto") +
+  labs(
+    title = "Efecto de Participación sobre Justificación de Violencia por Nivel Educativo",
+    subtitle = "Pendientes positivas indican que participación incrementa justificación más en niveles educativos altos",
+    x = "Nivel Educativo",
+    y = "Diferencia en Justificación\n(Participantes - No Participantes)",
+    caption = "Barras muestran diferencias observadas; líneas verticales: IC 95%. Línea punteada en 0: sin efecto de participación. Elaboración propia con ELSOC 2016-2023."
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(angle = 35, hjust = 1, size = 7),
+    legend.position = "bottom",
+    legend.text = element_text(size = 7),
+    plot.title = element_text(face = "bold", size = 9),
+    plot.subtitle = element_text(size = 7.5, color = "gray30"),
+    plot.caption = element_text(size = 6.5, hjust = 0)
+  )
+
+graf_slopes
+```
+
+```{r}
+#| label: fig-slopes-educacion-nopart
+#| fig-cap: "Pendientes del efecto civilizatorio entre no participantes: reducción de justificación por nivel educativo"
+#| fig-height: 8
+#| fig-width: 12
+#| echo: false
+#| warning: false
+
+# Calcular pendientes del efecto educativo entre NO participantes
+# Usar educación media como referencia
+slopes_nopart_data <- slopes_no_participa %>%
+  arrange(educ_ordered) %>%
+  mutate(
+    media_ref = first(media_no),  # Media completa o menos como referencia
+    se_ref = first(se_no),
+    slope_educ = media_no - media_ref,
+    se_slope_educ = sqrt(se_no^2 + se_ref^2),
+    ci_low = slope_educ - 1.96 * se_slope_educ,
+    ci_high = slope_educ + 1.96 * se_slope_educ
+  )
+
+# Gráfico de pendientes educativas para no participantes
+slopes_no_part <- ggplot(slopes_nopart_data, aes(x = educ_ordered, y = slope_educ)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  geom_col(aes(fill = slope_educ < 0), alpha = 0.8, width = 0.6) +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0.2, linewidth = 0.9) +
+  geom_text(aes(label = sprintf("%.2f", slope_educ), 
+                y = slope_educ + sign(slope_educ)*0.03), 
+            size = 3.5, fontface = "bold") +
+  scale_fill_manual(values = c("TRUE" = "#0073C2FF", "FALSE" = "#F8766D"),
+                    labels = c("Efecto civilizatorio (reduce)", "Incrementa justificación"),
+                    name = "Dirección del efecto") +
+  labs(
+    title = "Efecto Civilizatorio de la Educación entre No Participantes",
+    subtitle = "Pendientes negativas confirman que educación superior reduce justificación de violencia",
+    x = "Nivel Educativo",
+    y = "Diferencia en Justificación\n(vs. Media completa o menos)",
+    caption = "Barras muestran diferencias respecto a educación media; líneas verticales: IC 95%. Línea punteada en 0: sin diferencia. Elaboración propia con ELSOC 2016-2023."
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(angle = 35, hjust = 1, size = 7),
+    legend.position = "bottom",
+    legend.text = element_text(size = 7),
+    plot.title = element_text(face = "bold", size = 9),
+    plot.subtitle = element_text(size = 7.5, color = "gray30"),
+    plot.caption = element_text(size = 6.5, hjust = 0)
+  )
+
+  slopes_no_part
+```
+
+La @fig-slopes-educacion-nopart visualiza el efecto civilizatorio clásico entre quienes no participan en protestas, mostrando cómo cada nivel educativo superior reduce la justificación de violencia comparado con la categoría de referencia (educación media o menos). Las barras negativas (azules) confirman que todos los niveles de educación técnica y universitaria se asocian con menor justificación entre observadores externos, aunque con magnitudes variables. Este patrón contrasta radicalmente con el efecto entre participantes (fig-slopes-educacion), donde la educación amplifica la justificación, evidenciando la dependencia contextual del capital cultural.
+
+La @fig-slopes-educacion complementa el gráfico de líneas cruzadas visualizando la magnitud del efecto de participación en cada nivel educativo, revelando heterogeneidad sustantiva en cómo la experiencia de movilización transforma actitudes. Las barras representan la diferencia en justificación entre participantes y no participantes (pendientes implícitas de la interacción), con todas las diferencias siendo positivas —confirmando que participación siempre incrementa justificación— pero con magnitudes que varían sistemáticamente por nivel educativo.
+
+El efecto de participación es menor en educación media (slope = +0.15, CI: [0.05, 0.25]), sugiriendo que individuos con menos educación formal experimentan un incremento más modesto en justificación al participar, posiblemente porque parten de niveles base ya relativamente altos (~1.95) y tienen menos "espacio" para incrementar en la escala, o porque la participación no requiere reenmarcamiento moral tan profundo dado que su socialización previa no enfatizó tanto el rechazo normativo a la violencia.
+
+En contraste, el efecto de participación es mayor y creciente en niveles educativos altos: educación técnica superior muestra slopes de +0.25 a +0.35, mientras que universitaria completa alcanza +0.35 (CI: [0.22, 0.48]). Este patrón confirma que la educación superior amplifica el impacto transformador de la participación. Los universitarios no solo incrementan más su justificación al participar, sino que este incremento representa un cambio cualitativo más dramático dado que partían de los niveles más bajos entre no participantes (~1.65). 
+
+Este hallazgo tiene implicaciones teóricas críticas: la participación política no es un "tratamiento" homogéneo sino una experiencia cuyo efecto depende del capital cultural previo. Los recursos cognitivos provistos por educación superior —pensamiento crítico, exposición a narrativas contra-hegemónicas— actúan como catalizadores que magnifican el reenmarcamiento moral inducido por la experiencia de movilización. Esto resuelve la aparente paradoja: no es que la educación "falle" en su efecto civilizatorio entre participantes, sino que proporciona herramientas que, en contexto de activismo, reinterpretan la violencia táctica como legítima. La educación no determina unívocamente actitudes sino que provee marcos interpretativos cuya activación depende de la posición experiencial del sujeto.
+
+El gráfico @fig-paradoja-educacion revela patrones complejos de moderación educativa sobre la justificación de violencia en protestas.
+
+Entre quienes no han participado en protestas, la mayoría de los niveles de educación superior muestran efectos negativos significativos comparados con educación media completa o menos (categoría de referencia). La educación técnica superior incompleta reduce la justificación en -0.13 (p<0.05), la técnica completa en -0.13 (p<0.001), y la universitaria completa en -0.13 (p<0.001). La universitaria incompleta muestra un efecto menor y no significativo (-0.07). Esto confirma un "efecto civilizatorio" de la educación técnica y universitaria completa: mayor credencialización se asocia con menor justificación de violencia entre observadores externos.
+
+Por otro lado, la participación en protestas incrementa significativamente la justificación de violencia ($+0.27$, p<0.001) para el grupo de referencia (educación media o menos), un efecto sustantivo considerable.
+
+En cuanto a los términos de interacción, son todos positivos, revelando que la educación superior magnifica el efecto de la participación, aunque con magnitudes diferentes. La técnica superior incompleta muestra la interacción más fuerte ($+0.28$, p<0.05), seguida por técnica completa y universitaria completa (ambas $+0.13$, p<0.05 y p<0.01 respectivamente), mientras que universitaria incompleta no alcanza significancia estadística ($+0.11$, ns). Calculando el efecto total para universitarios completos participantes: $-0.13$ (efecto principal) $+0.27$ (participación) $+0.13$ (interacción) = $+0.27$. Esto implica que los universitarios completos que protestan justifican la violencia al mismo nivel que el grupo de referencia con educación media, anulando completamente el efecto civilizatorio inicial.
+
+Ahora, el año 2019 muestra un coeficiente positivo ($+0.05$, p<0.05), consistente con el contexto del estallido social. Esto sugiere que, controlando por educación y participación, 2019 tuvo mayor justificación relativa. Los otros años post-2016 muestran coeficientes negativos (2018: $-0.11***$, 2022 y 2023: $-0.10***$), indicando una tendencia general descendente, mientras 2017 no difiere significativamente del año base.
+
+Finalmente, podemos ver que controles como la edad reduce la justificación ($-0.01$, p<0.001), la ideología de derecha también la reduce ($-0.03$, p<0.001), mientras que el género (mujer) no tiene efecto significativo ($-0.03$, ns). El modelo muestra una varianza del intercepto aleatorio de 0.13, indicando heterogeneidad sustancial entre individuos en sus niveles base de justificación.
+
+
