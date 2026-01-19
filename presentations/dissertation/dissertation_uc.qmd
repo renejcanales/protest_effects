@@ -158,7 +158,7 @@ Comisión: Prof. Nicolás Somma, Prof. Matías Bargsted y Prof. Andrés Biehl
 # Problema de investigación {.xlarge data-background-color="#e4a149"}
 
 
-## Contexto: Estallido Social (El 18 O)
+## **Contexto: Estallido Social (El 18 O)**
 
 ::: {.box-inv-4 .sp-after .fragment style="font-size: 100%;"}
 
@@ -185,7 +185,7 @@ Evidencia reciente (González y Le Foulon, 2020) sugiere que la justificación n
 :::
 
 
-## El problema teórico
+## **El problema teórico**
 
 ::: {.box-inv-4 .sp-after .fragment style="font-size: 110%;"}
 
@@ -206,7 +206,7 @@ En otras palabras, no sonsidera que estos efectos pueden ser **condicionales al 
 
 :::
 
-## El propósito de este trabajo...
+## **El propósito de este trabajo...**
 
 ::::: columns
 ::: {.incremental .highlight-last style="font-size: 110%;"}
@@ -228,7 +228,7 @@ En otras palabras, no sonsidera que estos efectos pueden ser **condicionales al 
 
 # Antecedentes teóricos y empíricos {.xlarge data-background-color="#e4a149"}
 
-## El efecto de la educación
+## **El efecto de la educación**
 
 ::::: columns
 ::: {.column width="50%" .incremental .highlight-last style="font-size: 110%;"}
@@ -253,7 +253,7 @@ En otras palabras, no sonsidera que estos efectos pueden ser **condicionales al 
 :::
 :::::
 
-## De la moderación a legitimación táctica
+## **De la moderación a legitimación táctica**
 
 ::::: columns
 
@@ -269,7 +269,7 @@ La sofisticación cognitiva no conduce necesariamente a la moderación, sino a *
 :::
 :::::
 
-## La Clase Social y la experiencia de conflicto
+## **La Clase Social y la experiencia de conflicto**
 
 ::::: columns
 ::: {.column width="50%" .incremental .highlight-last style="font-size: 110%;"}
@@ -303,7 +303,7 @@ Esto se conceptualiza como **el efecto techo** (Elsässer & Schäfer, 2023)
 
 :::::
 
-## El efecto de la participación: selección y transformación
+## **El efecto de la participación: selección y transformación**
 
 ::::: columns
 ::: {.column width="50%" .incremental .highlight-last style="font-size: 110%;"}
@@ -329,7 +329,7 @@ Esto se conceptualiza como **el efecto techo** (Elsässer & Schäfer, 2023)
 :::
 :::::
 
-## Entonces...
+## **Entonces...**
 
 ::: {.incremental .highlight-last style="font-size: 120%;"}
 
@@ -339,7 +339,7 @@ Esto se conceptualiza como **el efecto techo** (Elsässer & Schäfer, 2023)
 
 :::
 
-## Hipótesis 1: El efecto civilizatorio
+## **Hipótesis 1: El efecto civilizatorio**
 
 ::: {.incremental .highlight-last style="font-size: 120%;"}
 
@@ -351,7 +351,7 @@ Esto se conceptualiza como **el efecto techo** (Elsässer & Schäfer, 2023)
 
 :::
 
-## Hipótesis 2: El efecto techo
+## **Hipótesis 2: El efecto techo**
 
 ::: {.incremental .highlight-last style="font-size: 120%;"}
 
@@ -364,7 +364,7 @@ Esto se conceptualiza como **el efecto techo** (Elsässer & Schäfer, 2023)
 :::
 
 
-## Hipótesis 3: La reconfiguración normativa diferenciada
+## **Hipótesis 3: La reconfiguración normativa diferenciada**
 
 ::: {.incremental .highlight-last style="font-size: 90%;"}
 
@@ -383,10 +383,10 @@ Esto se conceptualiza como **el efecto techo** (Elsässer & Schäfer, 2023)
 - $H_{3d}$: La misma clase de servicio participante muestra **menor justificación de violencia estatal** vs no participantes
 :::
 
-## Lógica de las hipótesis
+## **Lógica de las hipótesis**
 
 ::: {.callout-note icon=false}
-## Marco moral dual
+## **Marco moral dual**
 Las hipótesis H3 capturan una **reconfiguración normativa bidireccional**: 
 
 - ↑ Legitimación de violencia táctica (manifestantes)
@@ -397,7 +397,7 @@ Las hipótesis H3 capturan una **reconfiguración normativa bidireccional**:
 
 # Datos y metodología {.xlarge data-background-color="#e99a24"}
 
-## Datos: Encuesta Longitudinal Social de Chile (ELSOC)
+## **Datos: Encuesta Longitudinal Social de Chile (ELSOC)**
 
 ::: {.incremental .highlight-last style="font-size: 120%;"}
 
@@ -413,7 +413,7 @@ Las hipótesis H3 capturan una **reconfiguración normativa bidireccional**:
 :::
 
 
-## Variable dependiente: Justificación de la Violencia Política
+## **Variable dependiente: Justificación de la Violencia Política**
 
 ::: {.incremental style="font-size: 120%;"}
 - Dos índices diferenciados según tipo de violencia:
@@ -444,7 +444,7 @@ Promedio de 2 ítems:
 :::
 
 
-## Variables independientes principales
+## **Variables independientes principales**
 
 ::: {.box-inv-4 .sp-after style="font-size: 95%;"}
 **Educación (Categórica):** Media o menos (referencia); Técnica superior incompleta/completa; Universitaria incompleta/completa
@@ -462,8 +462,7 @@ Promedio de 2 ítems:
 **Controles:** Edad (centrada en media), Género (1=Mujer), Ideología política (0-10, estandarizada), Tiempo (ola 2016-2023)
 :::
 
-
-## Estrategia analítica
+## **Estrategia analítica**
 
 ::: {.incremental .highlight-last style="font-size: 110%;"}
 
@@ -481,7 +480,7 @@ Promedio de 2 ítems:
 
 :::
 
-## Estrategia analítica
+## **Estrategia analítica**
 
 ::: {.incremental .highlight-last style="font-size: 110%;"}
 
@@ -677,7 +676,7 @@ tabla_clase <- elsoc_final_2 %>%
 
 ```
 
-## Divergencia temporal de la justificación de la violencia (2016–2023)
+## **Divergencia temporal de la justificación de la violencia (2016–2023)**
 
 :::{.fragment style="font-size: 110%;"}
 ```{r}
@@ -692,7 +691,7 @@ diverg_estallido
 
 :::
 
-## Descriptivos: Educación y Participación (Pre vs Post estallido)
+## **Descriptivos: Educación y Participación (Pre vs Post estallido)**
 ```{r}
 #| label: tbl-educ-descriptivos
 #| tbl-width: 15
@@ -723,7 +722,7 @@ kable(tabla_educ_wide,
 ```
 
 
-## Descriptivos: Clase Social y Participación (Pre vs Post estallido)
+## **Descriptivos: Clase Social y Participación (Pre vs Post estallido)**
 
 ```{r}
 #| label: tbl-clase-descriptivos
@@ -752,7 +751,7 @@ kable(tabla_clase_wide,
   add_header_above(c(" " = 1, "Violencia Protestas" = 4, "Violencia Estatal" = 4))
 ```
 
-## Modelos de efectos principales
+## **Modelos de efectos principales**
 
 ::: {.fragment style="font-size: 110%;"}
 
@@ -1175,7 +1174,7 @@ combined_marginal_effects_clase <- (panel_c | panel_d) +
   )
 ```
 
-## Efectos marginales interacción Educación x Participación
+## **Efectos marginales interacción Educación x Participación**
 
 ::: {.fragment style="font-size: 110%;"}
 ```{r}
@@ -1190,7 +1189,7 @@ combined_marginal_effects_educ
 ```
 :::
 
-## Efectos marginales interacción Clase x Participación
+## **Efectos marginales interacción Clase x Participación**
 
 ::: {.fragment style="font-size: 110%;"}
 ```{r}
@@ -1206,7 +1205,7 @@ combined_marginal_effects_clase
 
 :::
 
-## Reconfiguración Bidireccional Educación
+## **Reconfiguración Bidireccional Educación**
 
 :::{.fragment style="font-size: 110%"}
 
@@ -1260,7 +1259,7 @@ ggplot(df_combined, aes(x = participacion, y = predicted,
 
 :::
 
-## Reconfiguración Bidireccional Clase Social
+## **Reconfiguración Bidireccional Clase Social**
 
 :::{.fragment style="font-size: 110%"}
 
@@ -1316,7 +1315,7 @@ ggplot(df_combined_clase, aes(x = participacion, y = predicted,
 
 # Discusión {.xlarge data-background-color="#e4a149"}
 
-## Discusión: Educación, participación y sofisticación cognitiva
+## **Discusión: Educación, participación y sofisticación cognitiva**
 
 :::{.fragment style="font-size: 110%"}
 
@@ -1330,7 +1329,7 @@ ggplot(df_combined_clase, aes(x = participacion, y = predicted,
 
 :::
 
-## Discusión: Clase social y el efecto techo
+## **Discusión: Clase social y el efecto techo**
 
 :::{.fragment style="font-size: 110%"}
 
@@ -1342,7 +1341,7 @@ ggplot(df_combined_clase, aes(x = participacion, y = predicted,
 
 :::
 
-## Discusión: Participación y reconfiguración bidireccional
+## **Discusión: Participación y reconfiguración bidireccional**
 
 :::{.fragment style="font-size: 110%"}
 
@@ -1405,7 +1404,7 @@ Página del proyecto: <https://github.com/renejcanales/protest_effects>
 :::
 
 
-## Referencias 
+## **Referencias**
 
 :::{style="font-size: 50%"}
 
