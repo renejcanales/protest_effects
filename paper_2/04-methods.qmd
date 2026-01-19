@@ -1,5 +1,31 @@
 # Datos y Métodos
 
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = 'center'
+)
+
+library(dplyr)
+library(ggplot2)
+library(glmmTMB)
+library(texreg)
+library(ggeffects)
+library(patchwork)
+library(gt)
+library(kableExtra)
+library(here)
+library(modelsummary)
+library(stargazer)
+
+# Cargar datos
+load(here("input/data/proc/elsoc_final_2.RData"))
+```
+
+
 ## Datos
 
 La investigación se desarrolla a partir de los datos del Estudio Longitudinal Social de Chile (ELSOC), una encuesta panel representativa a nivel nacional que recoge información sobre la población adulta urbana del país. ELSOC, implementado por el Centro de Estudios de Conflicto y Cohesión Social (COES) desde 2016, tiene como propósito examinar las actitudes, percepciones y comportamientos de las personas frente a temas como el conflicto y la cohesión social. Su diseño de panel permite seguir a los mismos individuos a lo largo del tiempo, ofreciendo una mirada única sobre la evolución de la sociedad chilena.
@@ -19,15 +45,20 @@ Gracias a su diseño riguroso y su cobertura, ELSOC constituye una fuente de dat
 
 Para la medición de actitudes hacia la violencia política se construyeron dos índices aditivos que capturan justificación de violencia ejercida por diferentes tipos de actores en contextos políticos específicos. Esta distinción entre tipos de violencia según el actor que la ejerce es teóricamente crucial, dado que la hipótesis de reconfiguración bidireccional (H2) predice que la participación en protestas genera legitimación diferenciada: aumenta la justificación de violencia ejercida por manifestantes pero reduce la justificación de violencia ejercida por fuerzas del orden.
 
-Índice de Justificación de Violencia en Protestas (justif_violencia_protesta): Se compone del promedio de cinco ítems que miden el grado de justificación de acciones violentas o disruptivas ejercidas por actores sociales en contextos de movilización:
+Índice de Justificación de Violencia en Protestas (justif_violencia_protesta): Se compone del promedio de dos ítems que miden el grado de justificación de acciones disruptivas ejercidas por actores sociales en contextos de movilización:
 
-1. Que trabajadores en huelga bloqueen calles como forma de protesta
-2. Que estudiantes tomen o se tomen sus colegios o universidades
-3. Que se tomen de forma violenta inmuebles o edificios
-4. Que se paralicen servicios de transporte con violencia
-5. Que se destruyan locales comerciales en marchas o manifestaciones
+1. Que un grupo de trabajadores en huelga bloquee la calle con barricadas para exigir el cumplimiento de sus derechos laborales 
+2. Que estudiantes lancen piedras a carabineros en una marcha por la educación del país
 
 Cada ítem se midió en una escala Likert de 5 puntos desde 1 = "Nunca se justifica" hasta 5 = "Siempre se justifica". El índice se calculó como el promedio aritmético de los cinco ítems cuando el encuestado respondió al menos tres de ellos, resultando en una escala continua de 1 a 5 donde valores más altos indican mayor justificación de violencia en protestas. La consistencia interna del índice es satisfactoria, con un alfa de Cronbach de 0.82 en la muestra analítica, indicando que los ítems capturan un constructo latente común.
+
+Adicionalmente, se relevaron otras variables sobre la justificación de acciones disruptivas/violentas en contextos de protesta, tales como:
+
+- Que algunas personas incendien o dañen inmobiliario público para exigir cambios sociales.
+- Que algunas personas incendien o dañen medios de transporte (metro, microbuses, paraderos) para exigir cambios sociales.
+- Que algunas personas incendien o dañen negocios y locales comerciales para exigir cambios sociales.
+
+Estos indicadores, que igualmente reflejan la justificación de la violencia, se encuentran disponibles sólo en la ola del año 2019 y fueron considerados para algunos análisis descriptivos (presentes en los anexos) con el fin de ampliar la perspectiva del fenómeno. 
 
 Índice de Justificación de Violencia Estatal (justif_violencia_estatal): Se compone del promedio de dos ítems que miden justificación de violencia ejercida por Carabineros de Chile (fuerzas de ley y orden) en contextos de control del orden público:
 
@@ -127,12 +158,6 @@ La interpretación de términos de interacción en modelos multinivel sigue la l
 La variable dependiente principal es el índice continuo de justificación de violencia (escala 1-5). Aunque técnicamente esta variable es ordinal (niveles discretos ordenados), su tratamiento como continua se justifica por tres razones metodológicas y sustantivas. Primero, los índices promedian respuestas de múltiples ítems (5 para violencia en protestas, 2 para violencia estatal), lo que genera una distribución más continua y aproximadamente normal en la muestra. Segundo, trabajos previos en psicología y ciencias políticas han demostrado que escalas Likert con 5 o más puntos pueden tratarse como continuas sin pérdida sustantiva de información cuando se promedian múltiples ítems (Norman, 2010; Lubke & Muthen, 2004). Tercero, el uso de variables continuas permite interpretar los efectos en términos de cambios promedio en la escala de justificación, lo que resulta más intuitivo y permite capturar gradaciones sutiles en las actitudes.
 
 Por tanto, los modelos principales se estiman mediante Modelos Lineales Generalizados Mixtos (GLMM) con distribución gaussiana (normal) y función de enlace identidad, incorporando interceptos aleatorios por individuo para modelar la estructura jerárquica de los datos. Esta especificación es equivalente a un modelo de regresión lineal multinivel estándar y se estima mediante máxima verosimilitud restringida (REML), que produce estimadores insesgados de los componentes de varianza en muestras finitas (Raudenbush & Bryk, 2002).
-
-## Análisis de Robustez
-
-No obstante, para garantizar que los resultados no dependen críticamente de la operacionalización de la variable dependiente, se implementa una estrategia de análisis de sensibilidad. En los anexos se presentan estimaciones de modelos alternativos donde la variable dependiente se dicotomiza: una variable dummy que toma el valor 1 si el índice de justificación es mayor que 1 (es decir, si el encuestado justifica la violencia en al menos algún grado) y 0 si el índice es exactamente igual a 1 (nunca justifica). Estos modelos se estiman mediante GLMM con distribución binomial y función de enlace logit, manteniendo la misma estructura de interceptos aleatorios individuales y la misma especificación de predictores, controles e interacciones.
-
-Los modelos logit multinivel permiten analizar la probabilidad de justificar la violencia (versus rechazarla completamente) y facilitan la interpretación en términos de odds ratios, pero sacrifican información al colapsar la escala de 5 puntos a una dicotomía. Si los hallazgos principales se replican en ambas especificaciones —modelos lineales con índices continuos y modelos logit con variables dummy— esto incrementa sustancialmente la confianza en la robustez de las conclusiones.
 
 ## Software y replicabilidad
 

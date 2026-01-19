@@ -29,9 +29,10 @@ author:
     email: renecanales@uc.cl
     affiliations: Instituto de Sociología, Pontificia Universidad Católica de Chile
 citeproc: true
+lang: es
 abstract: | 
   \newline
-  **Keywords**: 
+  **Palabras clave**: 
 link-citations: true
 linestretch: 1.5       
 mainfont: Times New Roman
@@ -45,12 +46,16 @@ fig-width: 7.5
 
 {{< include 01-introduction.qmd >}}
 
-{{< include 02-antecedentes.qmd >}}
+{{< include 02-marco.qmd >}}
 
-{{< include 03-methods.qmd >}}
+{{< include 03-antecedentes.qmd >}}
 
-{{< include 04-analisis.qmd >}}
+{{< include 04-methods.qmd >}}
 
-{{< include 05-discussion.qmd >}}
+{{< include 05-analisis.qmd >}}
 
-{{< include 06-conclusion.qmd >}}
+{{< include 06-discussion.qmd >}}
+
+{{< include 07-conclusion.qmd >}}
+
+{{< include 08-anexos.qmd >}}
