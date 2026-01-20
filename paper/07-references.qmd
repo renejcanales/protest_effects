@@ -2,9 +2,7 @@
 
 Acemoglu, D., Johnson, S., Robinson, J. A., & Pierre Yared. (2005). From Education to Democracy? The American Economic Review, 95(2), 44-49. JSTOR.
 
-Adam‐Troian, J., Wagner‐Egger, P., Motyl, M., Arciszewski, T., Imhoff, R., Zimmer, F., Klein, O., Babinska, M., Bangerter, A., Bilewicz, M., Blanuša, N., Bovan, 
-
-K., Bužarovska, R., Cichocka, A., Çelebi, E., Delouvée, S., Douglas, K. M., Dyrendal, A., Gjoneska, B., … Van Prooijen, J. (2021). Investigating the Links Between Cultural Values and Belief in Conspiracy Theories: The Key Roles of Collectivism and Masculinity. Political Psychology, 42(4), 597-618. https://doi.org/10.1111/pops.12716
+Adam-Troian, J., Wagner-Egger, P., Motyl, M., Arciszewski, T., Imhoff, R., Zimmer, F., Klein, O., Babinska, M., Bangerter, A., Bilewicz, M., Blanuša, N., Bovan, K., Bužarovska, R., Cichocka, A., Çelebi, E., Delouvée, S., Douglas, K.M., Dyrendal, A., Gjoneska, B., Graf, S., Gualda, E., Hirschberger, G., Kende, A., Krekó, P., Krouwel, A., Lamberty, P., Mari, S., Milosevic, J., Panasiti, M.S., Pantazi, M., Petkovski, L., Porciello, G., Prims, J.P., Rabelo, A., Schepisi, M., Sutton, R.M., Swami, V., Thórisdóttir, H., Turjačanin, V., Zezelj, I. and van Prooijen, J.-W. (2021), Investigating the Links Between Cultural Values and Belief in Conspiracy Theories: The Key Roles of Collectivism and Masculinity. Political Psychology, 42: 597-618. https://doi.org/10.1111/pops.12716  
 
 Almond, G. A. & Verba, S. (1963). The Civic Culture. Princeton University Press; JSTOR. http://www.jstor.org/stable/j.ctt183pnr2
 
@@ -36,7 +34,7 @@ Bonner, M. D., & Dammert, L. (2022). Constructing police legitimacy during prote
 
 Bottero, W. (2004). Class Identities and the Identity of Class. Sociology, 38(5), 985-1003. https://doi.org/10.1177/0038038504047182
 
-Bourdieu, P. (with Passeron, J.-C., Pasquali, P., Poupeau, F., & Georgiadis, M. de la P.). (2019). La Reproducción: Elementos para una Teoría Del Sistema Educativo. Siglo XXI Editores.
+Bourdieu, P. & Passeron, J.C. (2019). La Reproducción: Elementos para una Teoría Del Sistema Educativo. Siglo XXI Editores.
 
 Branton, R., Martinez-Ebers, V., Carey, T. E., & Matsubayashi, T. (2015). Social Protest and Policy Attitudes: The Case of the 2006 Immigrant Rallies. American Journal of Political Science, 59(2), 390-402. JSTOR.
 
@@ -52,8 +50,6 @@ Castillo, J. C., Miranda, D., & Madero Cabib, I. (2013). Todos somos de clase me
 
 Castillo, J. C., Palacios, D., Joignant, A., & Tham, M. (2015). Inequality, Distributive Justice and Political Participation: An Analysis of the Case of Chile. Bulletin of Latin American Research, 34(4), 486-502. https://doi.org/10.1111/blar.12369
 
-Clark, W. R., & Golder, M. (2006). Understanding interaction models: Improving empirical analyses. Political analysis, 14(1), 63-82.
-
 Converse, P. (1972). Change in the American electorate. The human meaning of social change/Russell Sage Foundation.
 
 Cox, L., González, R., & Le Foulon, C. (2024). The 2019 Chilean Social Upheaval: A Descriptive Approach. Journal of Politics in Latin America, 16(1), 68-89. https://doi.org/10.1177/1866802X231203747
@@ -68,9 +64,9 @@ De Vydt, M., & Ketelaars, P. (2021). Linking consensus to action: Does frame ali
 
 della Porta, D. (Ed.). (2017). Global Diffusion of Protest: Riding the Protest Wave in the Neoliberal Crisis. Amsterdam University Press; JSTOR. http://www.jstor.org/stable/j.ctt1zkjxq0
 
-Della Porta, D. (2018). Radicalization: A Relational Perspective. Annual Review of Political Science, 21(1), 461-474. https://doi.org/10.1146/annurev-polisci-042716-102314
+della Porta, D. (2018). Radicalization: A Relational Perspective. Annual Review of Political Science, 21(1), 461-474. https://doi.org/10.1146/annurev-polisci-042716-102314
 
-Della Porta, D., & Fillieule, O. (2007). Policing Social Protest. En D. A. Snow, S. A. Soule, & H. Kriesi (Eds.), The Blackwell Companion to Social Movements (pp. 217-241). Blackwell Publishing Ltd. https://doi.org/10.1002/9780470999103.ch10
+della Porta, D., & Fillieule, O. (2007). Policing Social Protest. En D. A. Snow, S. A. Soule, & H. Kriesi (Eds.), The Blackwell Companion to Social Movements (pp. 217-241). Blackwell Publishing Ltd. https://doi.org/10.1002/9780470999103.ch10
 
 Dewey, J. (2024). Democracy and Education (N. Tampio, Ed.). Columbia University Press. http://www.jstor.org/stable/10.7312/dewe21010
 
@@ -78,7 +74,7 @@ Disi Pavlic, R., Medel, R. M., Bargsted, M., & Somma, N. M. (2025). Justificatio
 
 Drury, J., & Reicher, S. D. (2018). The Conservative Crowd?: How Participation in Collective Events Transforms Participants’ Understandings of Collective Action. En B. Wagoner, F. M. Moghaddam, & J. Valsiner (Eds.), The Psychology of Radical Social Change (1.a ed., pp. 11-28). Cambridge University Press. https://doi.org/10.1017/9781108377461.003
 
-Donoso, S., & Somma, N. M. (2019). The Manifold Political Consequences of Chile’s Student Movement. En M. Arce & R. Rice (Eds.), Protest and Democracy (pp. 145–172). University of Calgary Press.
+Donoso, S. Somma, N. (2019). “You taught us to give an opinion, now learn how to listen”: The Manifold Political Consequences of Chile’s Student Movement. En Arce, M., Rice, R. (Eds), Protest and democracy (pp. 145-172). Calgary: University of Calgary Press.
 
 Dyrstad, K., & Hillesund, S. (2020). Explaining Support for Political Violence. The Journal of Conflict Resolution, 64(9), 1724-1753. JSTOR.
 
@@ -98,8 +94,6 @@ Gamson, W. A. (2002). Talking politics (Transferred to digital printing). Cambri
 
 Garcés, M. (2019). October 2019: Social Uprising in Neoliberal Chile. Journal of Latin American Cultural Studies, 28(3), 483-491. https://doi.org/10.1080/13569325.2019.1696289
 
-Gelman, A., & Hill, J. (2021). Data analysis using regression and multilevel/hierarchical models (23rd printing). Cambridge Univ. Press.
-
 Gerber, M. M., Carvacho, H., & González, R. (2016). Development and validation of a scale of support for violence in the context of intergroup conflict (SVIC): The case of violence perpetrated by Mapuche people and the police in Chile. International Journal of Intercultural Relations, 51, 61-68. https://doi.org/10.1016/j.ijintrel.2016.01.004
 
 Gerber, M. M., Figueiredo, A., Sáez, L., & Orchard, M. (2023). Legitimidad, Justicia y Justificación de la Violencia Intergrupal entre Carabineros y Manifestantes en Chile. Psykhe (Santiago), 32.
@@ -110,8 +104,6 @@ Gerber, M. M., & Jackson, J. (2017). Justifying violence: Legitimacy, ideology a
 
 Giugni, M. (2004). Social protest and policy change: Ecology, antinuclear, and peace movements in comparative perspective. Rowman & Littlefield.
 
-Gonzalez, R., & Morán, C. L. F. (2020). The 2019–2020 Chilean protests: A first look at their causes and participants. International Journal of Sociology, 50(3), 227-235. https://doi.org/10.1080/00207659.2020.1752499
-
 Goodwin, J., Jasper, J. M., & Polletta, F. (Eds.). (2001). Passionate politics: Emotions and social movements. The University of Chicago Press.
 
 Gubler, J. R., & Selway, J. S. (2012). Horizontal Inequality, Crosscutting Cleavages, and Civil War. Journal of Conflict Resolution, 56(2), 206-232. https://doi.org/10.1177/0022002711431416
@@ -120,7 +112,7 @@ Gutting, R. S. (2020). Contentious Activities, Disrespectful Protesters: Effect 
 
 Hastie, B. (2007). Higher education and sociopolitical orientation: The role of social influence in the liberalisation of students. European Journal of Psychology of Education, 22(3), 259-274. JSTOR.
 
-Hox, J. J., Moerbeek, M., & Schoot, R. van de. (2018). Multilevel analysis: Techniques and applications (Third edition). Routledge, Taylor & Francis Group. https://doi.org/10.4324/9781315650982
+Hox, J. J., Moerbeek, M., & Schoot, R. van de. (2017). Multilevel analysis: Techniques and applications (Third edition). Routledge, Taylor & Francis Group. https://doi.org/10.4324/9781315650982
 
 Hsiao, Y., & Radnitz, S. (2021). Allies or Agitators? How Partisan Identity Shapes Public Opinion about Violent or Nonviolent Protests. Political Communication, 38(4), 479-497. https://doi.org/10.1080/10584609.2020.1793848
 
@@ -166,7 +158,7 @@ Luna, J. P. (2024). Disjointed Polarization in Chile’s Enduring Crisis of Repr
 
 Maguire, E., Barak, M., Wells, W., & Katz, C. (2020). Attitudes towards the Use of Violence against Police among Occupy Wall Street Protesters. Policing: A Journal of Policy and Practice, 14(4), 883-899. https://doi.org/10.1093/police/pay003
 
-Marx, G. T. (1998). Policing Protest (NED-New edition, Vol. 6). University of Minnesota Press; JSTOR. http://www.jstor.org/stable/10.5749/j.ctttv1tv
+Marx, G. T. (1998). Policing Protest: The Control of Mass Demonstrations in Western Democracies (D. della Porta & H. Reiter, Eds.; NED-New edition, Vol. 6). University of Minnesota Press. http://www.jstor.org/stable/10.5749/j.ctttv1tv
 
 Mazumder, S. (2018). The Persistent Effect of U.S. Civil Rights Protests on Political Attitudes. American Journal of Political Science, 62(4), 922-935. https://doi.org/10.1111/ajps.12384
 
@@ -175,8 +167,6 @@ McAdam, D. (1989). The Biographical Consequences of Activism. American Sociologi
 McAdam, D., & Brandt, C. (2009). Assessing the Effects of Voluntary Youth Service: The Case of Teach for America. Social Forces, 88(2), 945-969. https://doi.org/10.1353/sof.0.0279
 
 Medel, R. M., & Somma, N. M. (2022). Represión policial y grupos de protesta en Chile: Un estudio longitudinal. Revista de Sociología, 37(1). https://doi.org/10.5354/0719-529X.2022.68149
-
-Meraviglia, C., & Buis, M. L. (2015). Class, Status, and Education: The Influence of Parental Resources on IEO in Europe, 1893-1987. International Review of Social Research, 5(1), 35-60. https://doi.org/10.1515/irsr-2015-0004
 
 Muller, E. N., & Weede, E. (1990). Cross-National Variation in Political Violence: A Rational Action Approach. Journal of Conflict Resolution, 34(4), 624-651. https://doi.org/10.1177/0022002790034004003
 
@@ -194,9 +184,7 @@ Ortiz, I., Burke, S., Berrada, M., & Saenz Cortés, H. (2022). World Protests: A
 
 Pascarella, E. T., & Terenzini, P. T. (1991). How college affects students (First edition). Jossey-Bass Publishers.
 
-Passy, F., & Monsch, G. (2018). Biographical Consequences of Activism. En D. A. Snow, S. A. Soule, H. Kriesi, & H. J. McCammon (Eds.), The Wiley Blackwell Companion to Social Movements (1.a ed., pp. 499-514). Wiley. https://doi.org/10.1002/9781119168577.ch28
-
-Pavlic, R. D. (2021). The Nearness of Youth. Latin American Politics and Society, 63(1), 72-94. JSTOR.
+Passy, F., & Monsch, G. (2019). Biographical Consequences of Activism. En D. A. Snow, S. A. Soule, H. Kriesi, & H. J. McCammon (Eds.), The Wiley Blackwell Companion to Social Movements (1.a ed., pp. 499-514). Wiley. https://doi.org/10.1002/9781119168577.ch28
 
 Pérez Ahumada, P., & Andrade De La Horra, V. (2021). Clase, política y percepción del conflicto de clases en Chile. Revista Temas Sociológicos, 29, 323-353. https://doi.org/10.29344/07196458.29.2938
 
@@ -225,8 +213,6 @@ Ryan, W. (2010). Blaming the Victim. Knopf Doubleday Publishing Group.
 Saavedra, P., & Drury, J. (2019). Including political context in the psychological analysis of collective action: Development and validation of a measurement scale for subjective political openness. Journal of Social and Political Psychology, 7(2), 665-694. https://doi.org/10.5964/jspp.v7i2.1030
 
 Sabucedo, J.-M., Dono, M., Alzate, M., & Seoane, G. (2018). The Importance of Protesters’ Morals: Moral Obligation as a Key Variable to Understand Collective Action. Frontiers in Psychology, Volume 9-2018. https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2018.00418
-
-Schwabbauer, M. L. (1975). Use of the latent image technique to develop and evaluate problem-solving skills. The American Journal of Medical Technology, 41(12), 457-462.
 
 Siegel, H. (1981). Kohlberg, Moral Adequacy, and the Justification of Educational Interventions. Educational Theory, 31(3-4), 275-284. https://doi.org/10.1111/j.1741-5446.1981.tb00970.x
 
@@ -268,7 +254,7 @@ Tyler, T. R. (2006). Restorative Justice and Procedural Justice: Dealing with Ru
 
 Tyler, T. R., & Blader, S. L. (2003). The Group Engagement Model: Procedural Justice, Social Identity, and Cooperative Behavior. Personality and Social Psychology Review, 7(4), 349-361. https://doi.org/10.1207/S15327957PSPR0704_07
 
-Van Stekelenburg, J., & Klandermans, B. (2013). The social psychology of protest. Current Sociology, 61(5-6), 886-905. https://doi.org/10.1177/0011392113479314
+Klandermans, B. & Van Stekelenburg, J. (2013). The social psychology of protest. Current Sociology, 61(5-6), 886-905. https://doi.org/10.1177/0011392113479314
 
 Varlık, S., Akpınar, S., Akpınar, Ö., & Görünü, R. M. (2025). Education as an antidote to violence and social inequality. Humanities and Social Sciences Communications. https://doi.org/10.1057/s41599-025-06192-x
 

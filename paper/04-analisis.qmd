@@ -30,9 +30,6 @@ load(here("input/data/proc/elsoc_final_2.RData"))
 En el presente apartado se presentan los resultados de los factores que moldean la justificación de la violencia en el contexto de la protesta social en Chile.
 
 ```{r}
-#| warning: false
-#| message: false
-#| echo: false
 #| results: false
 
 
@@ -76,7 +73,7 @@ elsoc_final_2 %>%
 
 ### Justificación de violencia por nivel educativo
 
-Los patrones descriptivos observados en la @tbl-justificacion-educ muestran un patrón relevante. Entre quienes no participan en protestas, un mayor nivel educativo se asocia con una reducción en la justificación de la violencia en manifestaciones, con medias que bajan de aproximadamente 1.90 a 1.80. Sin embargo, esta tendencia se invierte radicalmente para quienes sí participan: aquellos participantes con educación universitaria muestran los niveles más altos de justificación, alcanzando medias en torno a 2.29 y 2.27. Este efecto diferenciado de la educación parece ser específico de la violencia en protestas, ya que, en contraste, la justificación de la violencia estatal exhibe un patrón mucho más estable, con una variación considerablemente menor entre los distintos niveles educativos.
+Los patrones observados en la @tbl-justificacion-educ muestran una tendencia relevante. Entre quienes no participan en protestas, un mayor nivel educativo tenderían a una menor justificación de la violencia por parte de manifestaciones, con medias que bajan de aproximadamente 1.90 a 1.80. Sin embargo, esta tendencia se invierte para quienes sí participan: aquellos participantes con educación universitaria muestran los niveles más altos de justificación, alcanzando medias en torno a 2.29 y 2.27. Este efecto diferenciado de la educación parece ser específico de la violencia en protestas, ya que, en contraste, la justificación de la violencia estatal exhibe un patrón mucho más estable, con una variación considerablemente menor entre los distintos niveles educativos.
 
 ```{r}
 #| label: tbl-justificacion-educ
@@ -124,7 +121,7 @@ tabla_1 <- elsoc_final_2 %>%
     font_size = 9,
     position = "center"
   ) %>%
-  add_header_above(c(" " = 2, " " = 1, "Viol. Protestas" = 2, "Viol. Estatal" = 2)) %>%
+  add_header_above(c(" " = 3, "Viol. Protestas" = 2, "Viol. Estatal" = 2)) %>%
   footnote(
     general = "Elaboración propia a partir de ELSOC (2016-2023). Escala 1-5 donde 1 = Nunca se justifica y 5 = Siempre se justifica",
     threeparttable = TRUE
@@ -168,7 +165,7 @@ tabla_2 <- elsoc_final_2 %>%
     font_size = 9,
     position = "center"
   ) %>%
-  add_header_above(c(" " = 2, " " = 1, "Viol. Protestas" = 2, "Viol. Estatal" = 2)) %>%
+  add_header_above(c(" " = 3, "Viol. Protestas" = 2, "Viol. Estatal" = 2)) %>%
   footnote(
     general = "Escala 1-5 donde 1 = Nunca se justifica y 5 = Siempre se justifica",
     threeparttable = TRUE
@@ -238,7 +235,7 @@ comparacion_data <- elsoc_final_2 %>%
                       names_to = "Tipo", 
                       values_to = "Justificacion")
 
-p3 <- ggplot(comparacion_data, aes(x = year, y = Justificacion, color = Tipo, group = Tipo)) +
+just_viol <- ggplot(comparacion_data, aes(x = year, y = Justificacion, color = Tipo, group = Tipo)) +
   geom_line(linewidth = 1.5) +
   geom_point(size = 3.5) +
   geom_vline(xintercept = 2019, linetype = "dashed", color = "red", alpha = 0.6) +
@@ -263,7 +260,7 @@ p3 <- ggplot(comparacion_data, aes(x = year, y = Justificacion, color = Tipo, gr
   ylim(1.4, 2.1)
 
 # Mostrar gráfico
-p3
+just_viol
 ```
 
 La @fig-participacion-estratificada revela la transformación radical de las jerarquías morales en torno a la violencia política. Pre-2019 (2016-2018), ambas formas de violencia se evaluaban con criterios similares (brecha ±0.05 puntos), reflejando consenso liberal-democrático donde violencia "desde abajo" y "desde arriba" se rechazaban por igual (~1.6-1.7). En 2019, la brecha se invierte dramáticamente: violencia estatal fue justificada ~0.15 puntos más que violencia en protestas, reflejando shock inicial y polarización ante el "caos" percibido. 
@@ -271,12 +268,7 @@ La @fig-participacion-estratificada revela la transformación radical de las jer
 Sin embargo, en el post-2019 (2022-2023) las líneas se cruzan definitivamente: violencia en protestas pasa a ser justificada ~0.10-0.15 puntos más que violencia estatal, y esta brecha se estabiliza. Este es el hallazgo crítico: el estallido generó una reconfiguración permanente de jerarquías morales colectivas, donde violencia táctica disruptiva se normaliza más que represión estatal. Este patrón evidencia la reconfiguración bidireccional: el marco moral dual emergente post-estallido redefine los límites de la acción política legítima según quién ejerce la violencia y en qué contexto.
 
 ```{r}
-#| label: fig-prepost-estallido
-#| fig-cap: "Comparación de justificación de violencia antes (2016-2018) y después (2022-2023) del estallido social por educación, clase y participación"
-#| fig-width: 12
-#| fig-height: 20
-#| echo: false
-#| warning: false
+#| include: false
 
 # Función para calcular medias e IC por grupo y año
 calc_means_ci <- function(data, group_var, tipo_violencia) {
@@ -404,13 +396,32 @@ class_plot <- (p3 / p4) +
     legend.position = "bottom",
     plot.caption = element_text(size = 7)
   )
+```
+
+
+```{r}
+#| label: fig-estallido-1
+#| fig-cap: "Comparación de justificación de violencia antes (2016-2018) y después (2022-2023) del estallido social por educación y participación"
+#| fig-width: 12
+#| fig-height: 20
+
 
 # Mostrar el gráfico
 educ_plot
+```
+
+```{r}
+#| label: fig-estallido-2
+#| fig-cap: "Comparación de justificación de violencia antes (2016-2018) y después (2022-2023) del estallido social por clase y participación"
+#| fig-width: 12
+#| fig-height: 20
+
+
+# Mostrar el gráfico
 class_plot
 ```
 
-La @fig-prepost-estallido presenta la evolución temporal de la justificación de violencia por educación y clase social, comparando año a año los niveles antes (2016-2018) y después (2022-2023) del estallido social de octubre 2019, revelando patrones críticos sobre la permanencia de los efectos del shock político.
+La @fig-estallido-1 y la @fig-estallido-2 presenta la evolución temporal de la justificación de violencia por educación y clase social, comparando año a año los niveles antes (2016-2018) y después (2022-2023) del estallido social de octubre 2019, revelando patrones críticos sobre la permanencia de los efectos del shock político.
 
 Entre no participantes, se observa estabilidad relativa en el periodo pre-2019, con niveles de justificación que oscilan entre ~1.5-1.8 para mayor educación y ~1.7-2.0 para menor educación. En el periodo post-2019 (2022-2023), todos los grupos educativos muestran un incremento moderado: universitarios completos pasan de ~1.5 a ~1.8, mientras educación básica/media se mantiene en el rango ~1.8-2.0. Entre participantes, el patrón muestra convergencia sostenida: desde 2016 hasta 2023, todos los niveles educativos mantienen justificaciones moderadamente altas (~2.0-2.3) con intervalos de confianza superpuestos, indicando que la experiencia de movilización iguala actitudes independientemente del capital cultural. Crucialmente, las brechas entre participantes y no participantes se mantienen consistentes año tras año en el post-2019, evidenciando que el efecto de la participación persiste establemente años después del estallido.
 
@@ -525,6 +536,7 @@ ccoef <- list(
   "educ_cat_unorderedUniv. completa" = "Universitaria Completa",
   "egp3Intermediate class (III+IV)" = "Clase Media (III+IV)",
   "egp3Working class (V+VI+VII)" = "Clase Trabajadora (V+VI+VII)",
+  "protesta_dummy" = "Participa en protestas",
   "edad" = "Edad",
   "mujer" = "Mujer",
   "ideologia_std" = "Ideología",
@@ -535,43 +547,40 @@ ccoef <- list(
   "factor(year)2023" = "2023"
 )
 
-screenreg(list(mod_educ_protesta_main, mod_educ_estatal_main, 
-            mod_clase_protesta_main, mod_clase_estatal_main))
-
 texreg(list(mod_educ_protesta_main, mod_educ_estatal_main, 
             mod_clase_protesta_main, mod_clase_estatal_main),
-       custom.model.names = c("M1", "M2", "M3", "M4"),
-       caption.above = TRUE,
-       caption = "Main effects models for justification of violence",
-       stars = c(0.05, 0.01, 0.001),
+       custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"),
+       stars = c(0.001, 0.01, 0.05),
        omit.coef = "(Intercept)",
        custom.coef.map = ccoef,
        digits = 3,
        groups = list("Educación (Ref.= Media completa o menos)" = 1:4,
-                      "Clase (Ref.= Clase Servicios (I+II))" = 5:9,
-                      "Wave (Ref.= 2016)" = 10:14),
-       custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
-       leading.zero = TRUE,
+                     "Clase (Ref.= Clase Servicios (I+II))" = 5:6,
+                     "Controles" = 7:9,
+                     "Año (Ref.= 2016)" = 10:14),
+       custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
+       leading.zero = FALSE,
        use.packages = FALSE,
        booktabs = TRUE,
-       scalebox = 0.80,
+       dcolumn = FALSE,
+       scalebox = 0.75,
+       include.bic = TRUE,
        include.loglik = FALSE,
-       include.aic = FALSE,
+       include.aic = TRUE,
        center = TRUE,
-       custom.gof.names = c("BIC", "Num. obs.", "Num. groups: individuals"),
-       float.pos = "h")
+       custom.gof.names = c("AIC", "BIC", "Num. obs.", "Num. groups: idencuesta"),
+       reorder.gof = c(3, 4, 1, 2),
+       table.placement = "",
+       label = "",
+       float.pos = "!htbp")
 ```
 
 
+La @tbl-modelos-principales presenta los cuatro modelos principales que guían el análisis de este estudio. Los Modelos 1 y 2 examinan los efectos de educación y participación en protestas sobre dos tipos de violencia (en protestas y estatal), mientras que los modelos 3 y 4 analizan los efectos de clase social y participación para ambos tipos de violencia. Todos los modelos incluyen efectos aleatorios por individuo y controles por edad, género, ideología y año.
 
+Los resultados revelan patrones diferenciados según el tipo de violencia. Para violencia en protestas, la participación muestra un efecto positivo consistente, incrementando la justificación en aproximadamente 0.36 puntos. En contraste, para violencia estatal, el efecto directo de la participación es negativo, aunque altamente significativo, evidenciando que quienes participan en protestas no justifican más la represión policial. 
 
-La @tbl-modelos-principales presenta los cuatro modelos principales que guían el análisis de este estudio. Los modelos M1 y M2 examinan los efectos de educación y participación en protestas sobre dos tipos de violencia (en protestas y estatal), mientras que los modelos M3 y M4 analizan los efectos de clase social y participación para ambos tipos de violencia. Todos los modelos incluyen efectos aleatorios por individuo y controles por edad, género, ideología y año.
-
-Los resultados revelan patrones diferenciados según el tipo de violencia. Para violencia en protestas (M1 y M3), la participación muestra un efecto positivo consistente, incrementando la justificación en aproximadamente 0.27-0.36 puntos. En contraste, para violencia estatal (M2 y M4), la participación no muestra efectos significativos o presenta efectos cercanos a cero, evidenciando que quienes participan en protestas no justifican más la represión policial. 
-
-Respecto a la educación (M1 y M2), se observa el "efecto civilizatorio": niveles educativos más altos se asocian con menor justificación de violencia en protestas. Universitarios completos muestran una reducción de ~0.10 puntos comparado con educación media. Sin embargo, este efecto no se replica para violencia estatal (M2), donde la educación no muestra impactos significativos. La clase social (M3 y M4) sigue un patrón similar: la clase trabajadora muestra mayor justificación de violencia en protestas (~0.06 puntos más que service class), pero no se observan diferencias por clase en la justificación de violencia estatal.
-
-Los controles operan de manera consistente: ideología de derecha reduce justificación de violencia en protestas (~-0.03 por punto en la escala) pero la incrementa para violencia estatal (~+0.05). Las mujeres rechazan más la violencia estatal (~-0.13) sin diferencias en violencia en protestas. El año 2019 muestra el contraste más dramático: incremento moderado en justificación de violencia en protestas pero fuerte caída en justificación de violencia estatal (~-0.40), reflejando el impacto del estallido social en las actitudes hacia la represión policial.
+Los controles operan de manera consistente: ideología de derecha reduce justificación de violencia  en protestas (~-0.03 por punto en la escala) pero la incrementa para violencia estatal (~+0.05). Las mujeres rechazan más la violencia estatal (~-0.13) sin diferencias en violencia en protestas. El año 2019 muestra el contraste más dramático: incremento moderado en justificación de violencia en protestas pero fuerte caída en justificación de violencia estatal (~-0.40), reflejando el impacto del estallido social en las actitudes hacia la represión policial.
 
 ```{r}
 #| label: tbl-modelos-interaccion
@@ -589,7 +598,7 @@ ccoef_int <- list(
   "egp3Intermediate class (III+IV)" = "Clase Media (III+IV)",
   "egp3Service class (I+II)" = "Clase Servicios (I+II)",
   "egp3Working class (V+VI+VII)" = "Clase Trabajadora (V+VI+VII)",
-  "protesta_dummy" = "Protest participation",
+  "protesta_dummy" = "Participa en Protestas",
   "educ_cat_unorderedTéc. sup.incompleta:protesta_dummy" = "Tecnica Incompleta × Protesta",
   "educ_cat_unorderedTéc. sup.completa:protesta_dummy" = "Tecnica Completa × Protesta",
   "educ_cat_unorderedUniv. incompleta:protesta_dummy" = "Universitaria Incompleta × Protesta",
@@ -609,30 +618,35 @@ ccoef_int <- list(
 
 texreg(list(mod_educ_protesta_int, mod_educ_estatal_int, 
             mod_clase_protesta_int, mod_clase_estatal_int),
-       custom.model.names = c("M1b", "M2b", "M3b", "M4b"),
-       caption.above = TRUE,
-       caption = "Interaction models for justification of violence",
-       stars = c(0.05, 0.01, 0.001),
+       custom.model.names = c("Model 1b", "Model 2b", "Model 3b", "Model 4b"),
+       stars = c(0.001, 0.01, 0.05),
        omit.coef = "(Intercept)",
        custom.coef.map = ccoef_int,
        digits = 3,
        groups = list("Educación (Ref.= Media completa o menos)" = 1:4,
-                      "Clase (Ref.= Clase Servicios (I+II))" = 5:6,
-                      "Protesta e interacciones" = 7:11,
-                      "Wave (Ref.= 2016)" = 15:19),
-       custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
-       leading.zero = TRUE,
+                     "Clase (Ref.= Clase Servicios (I+II))" = 5:6,
+                     "Interacciones Educación" = 8:11,
+                     "Interacciones Clase" = 12:13,
+                     "Controles" = 14:16,
+                     "Año (Ref.= 2016)" = 17:20),
+       custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
+       leading.zero = FALSE,
        use.packages = FALSE,
        booktabs = TRUE,
-       scalebox = 0.80,
+       dcolumn = FALSE,
+       scalebox = 0.70,
+       include.bic = TRUE,
        include.loglik = FALSE,
-       include.aic = FALSE,
+       include.aic = TRUE,
        center = TRUE,
-       custom.gof.names = c("BIC", "Num. obs.", "Num. groups: individuals"),
-       float.pos = "h")
+       custom.gof.names = c("AIC", "BIC", "Num. obs.", "Num. groups: idencuesta"),
+       reorder.gof = c(3, 4, 1, 2),
+       table.placement = "",
+       label = "",
+       float.pos = "!htbp")
 ```
 
-Los modelos de la @tbl-modelos-interaccion revelan que el efecto de participación varía significativamente según nivel educativo. Para violencia en protestas, las interacciones entre educación y participación son positivas, indicando que el efecto legitimador de participar es más fuerte entre personas educadas. Un universitario participante incrementa su justificación 0.40 puntos versus 0.27 para educación media, evidenciando la "paradoja educativa": la educación reduce justificación entre no participantes (-0.13***) pero amplifica el efecto de la participación.
+Los modelos de la @tbl-modelos-interaccion revelan que el efecto de participación varía significativamente según nivel educativo. Para violencia en protestas, las interacciones entre educación y participación son positivas, indicando que el efecto legitimador de participar es más fuerte entre personas educadas. Una persona con nivel universitario completo participante incrementa su justificación 0.40 puntos versus 0.27 para educación media, evidenciando la "paradoja educativa": la educación reduce justificación entre no participantes (-0.13***) pero amplifica el efecto de la participación.
 
 Para violencia estatal, el patrón se invierte completamente. Las interacciones son negativas (universitario incompleto: -0.16*; universitario completo: -0.18***), indicando que solo la combinación de educación universitaria + participación genera rechazo significativo a la represión (efecto total: -0.22 puntos). La educación sola (+0.06, ns) o participación sola (-0.04, ns) no bastan; es su interacción la que activa el rechazo diferenciado.
 
@@ -641,7 +655,7 @@ Los modelos de clase muestran interacciones débiles: clase trabajadora reduce e
 La reconfiguración bidireccional (legitimar protestas, rechazar represión) es completa solo entre universitarios participantes, mientras es parcial o ausente entre sectores populares movilizados, confirmando que el marco moral dual requiere la combinación crítica de educación superior y experiencia directa de movilización.
 
 ```{r}
-#| label: fig-efectos-marginales-interaccion
+#| label: fig-efectos-marginales
 #| fig-cap: "Efectos marginales de la participación en protestas sobre justificación de violencia según educación y clase social"
 #| fig-width: 14
 #| fig-height: 10
@@ -939,13 +953,13 @@ combined_marginal_effects <- (panel_a | panel_b) / (panel_c | panel_d) +
 combined_marginal_effects
 ```
 
-La @fig-efectos-marginales-interaccion visualiza los efectos marginales de participación según educación y clase social, permitiendo evaluar directamente las hipótesis sobre efectos diferenciales.
+La @fig-efectos-marginales visualiza los efectos marginales de participación según educación y clase social, permitiendo evaluar directamente las hipótesis sobre efectos diferenciales.
 
-El Panel A confirma H1b y rechaza parcialmente H1a, pues todos los niveles educativos muestran efectos positivos significativos para violencia en protestas, con magnitudes que varían de +0.27 (educación media) a +0.55 (técnico superior incompleto). Crucialmente, el efecto legitimador es más fuerte entre educación técnica-superior (+0.55) y universitaria (+0.40) que entre educación media (+0.27), evidenciando que la educación amplifica (no reduce) el efecto de participación, invirtiendo el efecto civilizatorio entre quienes se movilizan.
+En el Panel A, se observa como todos los niveles educativos muestran efectos positivos significativos para justificación de la violencia en protestas, con magnitudes que varían de +0.27 (educación media) a +0.55 (técnico superior incompleto). Crucialmente, el efecto legitimador es más fuerte entre educación técnica-superior (+0.55) y universitaria (+0.40) que entre educación media (+0.27), evidenciando que la educación amplifica (no reduce) el efecto de participación, invirtiendo el efecto civilizatorio entre quienes se movilizan.
 
-Por otro lado, el Panel B confirma plenamente H3b (rechazo universitario a violencia estatal) solo universitarios muestran efectos negativos significativos para violencia estatal (-0.20 a -0.22), mientras educación media y técnica exhiben efectos nulos (puntos grises en línea roja). Esto valida que el rechazo diferenciado a represión requiere la combinación crítica de capital universitario más participación, confirmando el marco moral dual predicho en H3a-H3b: universitarios participantes legitiman violencia en protestas (+0.40) pero rechazan violencia estatal (-0.22).
+Por otro lado, el Panel B muestra que solo universitarios tienen efectos negativos significativos para justificación de la violencia estatal (-0.20 a -0.22), mientras educación media y técnica exhiben efectos nulos (puntos grises en línea roja). En este sentido, se dice que universitarios participantes tenderían a legitiman violencia en protestas (+0.40) a la vez que rechazan la violencia estatal (-0.22).
 
-Finalmente, los paneles C y D evalúan H2b, H3c y H3d, donde todas las clases presentan efectos positivos para violencia en protestas (service class e intermediate class ~+0.40, working class +0.26), confirmando H2b sobre efecto techo en clase trabajadora (menor incremento que service class). Sin embargo, H3d (service class rechaza violencia estatal) se confirma débilmente, pues, aunque todas las clases muestran efectos negativos (-0.11 a -0.20), las diferencias no son estadísticamente robustas. Esto evidencia que educación supera a clase como moderador crítico del marco moral dual, confirmando la primacía de recursos culturales sobre posición estructural.
+Finalmente, en los paneles C y D todas las clases presentan efectos positivos para violencia en protestas (service class e intermediate class ~+0.40, working class +0.26). Ahora, si bien todas las clases muestran efectos negativos (-0.11 a -0.20), las diferencias no son estadísticamente robustas. Esto evidencia que educación supera a la clase como moderador crítico del marco moral dual, confirmando la primacía de recursos culturales sobre posición estructural.
 
 
 ### El "Efecto Paradoja" de la Educación
@@ -1030,9 +1044,9 @@ La @fig-paradoja-educacion revela la "paradoja educativa" predicha en las hipót
 
 ## Reconfiguración Bidireccional de la justificación de la violencia (Violencia en Protestas vs Violencia Estatal)
 
-Los modelos con interacciones (M1b y M2b) revelan la dinámica bidireccional predicha en H3a-H3b (universitarios) y H3c-H3d(service class). H3a se confirma plenamente: para violencia en protestas, la educación universitaria reduce justificación entre no participantes ($-0.13***$), pero participación genera incremento ($+0.27***$) magnificado por interacciones positivas con educación superior (técnico superior incompleto: $+0.28*$; universitario completo: $+0.13**$), anulando el efecto civilizatorio. H3b se confirma plenamente: para violencia estatal, el patrón se invierte completamente—educación sola ($+0.06$, ns) y participación sola ($-0.04$, ns) no generan efectos, pero sus interacciones negativas producen rechazo significativo entre universitarios (incompleto: $-0.16*$; completo: $-0.18***$), evidenciando que solo la combinación educación universitaria + participación activa el marco crítico hacia represión.
+Los modelos con interacciones (Modelo 1b y Modelo 2b) revelan la dinámica bidireccional predicha en H3a-H3b (universitarios) y H3c-H3d(service class). H3a se confirma plenamente: para violencia en protestas, la educación universitaria reduce justificación entre no participantes ($-0.13***$), pero participación genera incremento ($+0.27***$) magnificado por interacciones positivas con educación superior (técnico superior incompleto: $+0.28*$; universitario completo: $+0.13**$), anulando el efecto civilizatorio. H3b se confirma plenamente: para violencia estatal, el patrón se invierte completamente—educación sola ($+0.06$, ns) y participación sola ($-0.04$, ns) no generan efectos, pero sus interacciones negativas producen rechazo significativo entre universitarios (incompleto: $-0.16*$; completo: $-0.18***$), evidenciando que solo la combinación educación universitaria + participación activa el marco crítico hacia represión.
 
-Los controles confirman el impacto del estallido 2019: incremento moderado en justificación de protestas ($+0.05*$) pero colapso en violencia estatal ($-0.40***$), transformando radicalmente actitudes hacia represión policial. Ideología opera en direcciones opuestas: derecha reduce justificación de protestas ($-0.03***$) pero incrementa la de violencia estatal ($+0.05***$). Las mujeres rechazan más violencia estatal ($-0.13***$) sin diferencias en protestas. Este patrón confirma que la reconfiguración bidireccional predicha en **H3a-H3b** (legitimar protestas, rechazar represión) es completa solo entre quienes combinan educación universitaria con experiencia directa de movilización, cristalizando el marco moral dual sofisticado.
+Los controles confirman el impacto del estallido 2019: incremento moderado en justificación de protestas ($+0.05*$) pero colapso en violencia estatal ($-0.40***$), transformando radicalmente actitudes hacia represión policial. Ideología opera en direcciones opuestas: derecha reduce justificación de protestas ($-0.03***$) pero incrementa la de violencia estatal ($+0.05***$). Las mujeres rechazan más violencia estatal ($-0.13***$) sin diferencias en protestas. Este patrón confirma que la reconfiguración bidireccional predicha en H3a-H3b (legitimar protestas, rechazar represión) es completa solo entre quienes combinan educación universitaria con experiencia directa de movilización, cristalizando el marco moral dual sofisticado.
 
 ```{r}
 #| label: fig-bidireccional-tiempo
@@ -1107,13 +1121,13 @@ ggplot(pred_combined, aes(x = x, y = predicted, color = tipo_violencia, group = 
 
 La @fig-bidireccional-tiempo visualiza la dinámica temporal de la reconfiguración bidireccional predicha en H3a-H3b, mostrando que el marco moral dual requiere tanto educación como participación. Entre no participantes (fila superior), las líneas amarilla (protestas) y azul (estatal) permanecen paralelas y cercanas en todos los niveles educativos, confirmando que sin participación no hay reconfiguración bidireccional pese al efecto civilizatorio universitario (H1a opera pero H3b no se activa).
 
-Entre participantes (fila inferior), emergen tres patrones que permiten evaluar H3a-H3b. Educación media/técnica muestra rechazo parcial de H3a-H3b: elevación de justificación de protestas (+0.27 a +0.55, confirmando H3a) pero sin rechazo significativo a violencia estatal (rechazando H3b), evidenciando legitimación táctica sin marco crítico hacia represión. Técnico superior incompleto alcanza la mayor radicalización en protestas (>2.2 en 2019, $+0.28*$) pero mantiene líneas paralelas, confirmando que capital técnico sin socialización universitaria no genera la diferenciación normativa predicha en H3b.
+Entre participantes (fila inferior), emergen tres patrnoes que permiten evaluar H3a-H3b. Educación media/técnica muestra rechazo parcial de H3a-H3b: elevación de justificación de protestas (+0.27 a +0.55, confirmando H3a) pero sin rechazo significativo a violencia estatal (rechazando H3b), evidenciando legitimación táctica sin marco crítico hacia represión. Técnico superior incompleto alcanza la mayor radicalización en protestas (>2.2 en 2019, $+0.28*$) pero mantiene líneas paralelas, confirmando que capital técnico sin socialización universitaria no genera la diferenciación normativa predicha en H3b.
 
 El marco dual completo predicho en H3a-H3b se confirma exclusivamente en universitarios participantes: (1) línea amarilla elevada sostenida (~2.0-2.1), anulando el efecto civilizatorio y confirmando H3a; (2) colapso dramático de línea azul en 2019 desde ~1.75 a ~1.35, el nivel más bajo de la figura ($-0.40***$), confirmando H3b; (3) divergencia máxima post-2019 con brecha de ~0.7 puntos, evidenciando permanencia del marco dual. Este patrón confirma que H3a y H3b se cumplen conjuntamente solo bajo la combinación crítica de educación universitaria + experiencia de movilización, cristalizando el marco normativo dual sofisticado.
 
 # La Clase Social como Moderador Estructural
 
-Tomando a la Clase de Servicio (Service class, categorías I+II del esquema EGP) como referencia, los resultados del M3 muestran que la Clase Intermedia (categorías III+IV, profesionales de rutina y pequeños propietarios) no difiere significativamente de la Clase de Servicio entre no participantes (-0.01, ns), sugiriendo actitudes iniciales similares. En contraste, H2a se confirma: la Clase Trabajadora (categorías V+VI+VII, trabajadores manuales calificados y no calificados) exhibe un nivel basal significativamente más alto de justificación (+0.09, p<0.01), evidenciando una "predisposición estructural" consistente con su mayor exposición a conflictos socioeconómicos y experiencias cotidianas de precariedad.
+Tomando a la Clase de Servicio (Service class, categorías I+II del esquema EGP) como referencia, los resultados del Modelo 3 muestran que la Clase Intermedia (categorías III+IV, profesionales de rutina y pequeños propietarios) no difiere significativamente de la Clase de Servicio entre no participantes (-0.01, ns), sugiriendo actitudes iniciales similares. En contraste, H2a se confirma: la Clase Trabajadora (categorías V+VI+VII, trabajadores manuales calificados y no calificados) exhibe un nivel basal significativamente más alto de justificación (+0.09, p<0.01), evidenciando una "predisposición estructural" consistente con su mayor exposición a conflictos socioeconómicos y experiencias cotidianas de precariedad.
 
 El efecto de la participación opera de manera marcadamente diferencial según clase social, permitiendo evaluar H2b (efecto techo en clase trabajadora) y H3c (service class incrementa justificación al participar). H3c se confirma: para la Clase de Servicio, participar en protestas genera un incremento dramático en la justificación de violencia (+0.36, p<0.001), el cambio más pronunciado entre todas las clases. La Clase Intermedia muestra un patrón casi idéntico, con una interacción no significativa (+0.02, ns), indicando que su efecto total es similar al de la Clase de Servicio (+0.36). H2b se confirma: la Clase Trabajadora exhibe una interacción negativa significativa (-0.15, p<0.01), atenuando sustancialmente el efecto de la participación. El efecto neto para esta clase es +0.21 (0.36 - 0.15), aproximadamente 40% menor que el experimentado por las clases de servicio e intermedia, evidenciando el "efecto techo" predicho.
 
@@ -1155,7 +1169,7 @@ Primero, entre quienes no participan (izquierda), se observa una clara estratifi
 
 Segundo, la participación genera pendientes marcadamente diferentes que validan ambas hipótesis. La Clase de Servicio e Intermedia exhiben las pendientes más pronunciadas, con incrementos dramáticos de aproximadamente 0.36 puntos al participar, saltando desde ~1.80 hasta ~2.15-2.17, confirmando H3c (service class incrementa justificación al participar). Este "salto cognitivo" sugiere que individuos con mayor capital cultural y posiciones ocupacionales privilegiadas experimentan una transformación radical al enfrentarse directamente con la movilización. En contraste, la Clase Trabajadora muestra una pendiente visiblemente más atenuada, incrementando solo 0.21 puntos (desde ~1.88 hasta ~2.09), consistente con el "efecto techo" donde predisposiciones estructurales previas ya incorporaban mayor tolerancia a la violencia política, limitando el margen de incremento.
 
-Tercero, entre participantes, las tres líneas terminan muy próximas (~2.09-2.17), con intervalos de confianza que se superponen sustancialmente. La brecha inicial de 0.09 puntos entre Clase Trabajadora y Clase de Servicio (H2a) prácticamente desaparece entre manifestantes, donde todas las clases justifican la violencia en niveles similares. Este patrón de convergencia contrasta radicalmente con el modelo educativo (M1), donde la participación amplificaba las diferencias, generando divergencia. Aquí, la experiencia compartida de movilización "iguala" las diferencias de clase, sugiriendo que la posición estructural pierde poder predictivo cuando ambos grupos están inmersos en el mismo contexto de acción colectiva, mientras el capital cultural (educación) magnifica sus efectos diferenciales precisamente en ese mismo contexto.
+Tercero, entre participantes, las tres líneas terminan muy próximas (~2.09-2.17), con intervalos de confianza que se superponen sustancialmente. La brecha inicial de 0.09 puntos entre Clase Trabajadora y Clase de Servicio (H2a) prácticamente desaparece entre manifestantes, donde todas las clases justifican la violencia en niveles similares. Este patrón de convergencia contrasta radicalmente con el modelo educativo (Modelo 1), donde la participación amplificaba las diferencias, generando divergencia. Aquí, la experiencia compartida de movilización "iguala" las diferencias de clase, sugiriendo que la posición estructural pierde poder predictivo cuando ambos grupos están inmersos en el mismo contexto de acción colectiva, mientras el capital cultural (educación) magnifica sus efectos diferenciales precisamente en ese mismo contexto.
 
 ```{r}
 #| label: fig-clase-estatal
@@ -1269,6 +1283,6 @@ La @fig-clase-tiempo desagrega temporalmente los efectos de clase sobre la justi
 
 Entre participantes (fila inferior), emergen patrones diferenciados por clase que validan las hipótesis. Pues, muestra la divergencia bidireccional más pronunciada con línea amarilla elevada (~2.00-2.20, confirmando H3c: incremento al participar) y colapso dramático de línea azul en 2019 (desde ~1.80 a ~1.35, el nivel más bajo), generando brecha de ~0.7-0.8 puntos (confirmando H3d: rechazo a violencia estatal). La Clase Intermedia presenta patrón similar pero menos extremo (línea azul cae a ~1.50-1.60), validando parcialmente ambas hipótesis.
 
-La Clase Trabajadora revela el contraste crítico. Aunque converge con otras clases en protestas (~2.00-2.10, validando convergencia post-participación de **H2b**), su línea azul cae moderadamente a ~1.50-1.60 y crucialmente re-converge en 2022-2023 (~1.80-1.90), prácticamente igualando ambos tipos de violencia. Este patrón de convergencia rechaza H3d para working class, evidenciando que el rechazo sostenido a violencia estatal no se mantiene en el tiempo entre sectores populares.
+La Clase Trabajadora revela el contraste crítico. Aunque converge con otras clases en protestas (~2.00-2.10, validando convergencia post-participación de H2b), su línea azul cae moderadamente a ~1.50-1.60 y crucialmente re-converge en 2022-2023 (~1.80-1.90), prácticamente igualando ambos tipos de violencia. Este patrón de convergencia rechaza H3d para working class, evidenciando que el rechazo sostenido a violencia estatal no se mantiene en el tiempo entre sectores populares.
 
 

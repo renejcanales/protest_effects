@@ -5,7 +5,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  12pt,
+  13pt,
 ]{article}
 \usepackage{xcolor}
 \usepackage[margin=2cm]{geometry}
@@ -123,6 +123,8 @@
 \usepackage{makecell}
 \usepackage{xcolor}
 \usepackage[noblocks]{authblk}
+\usepackage{array}
+\usepackage{threeparttable}
 \renewcommand*{\Authsep}{, }
 \renewcommand*{\Authand}{, }
 \renewcommand*{\Authands}{, }
@@ -172,7 +174,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Actitudes hacia la violencia política: Educación y Clase Social en el ciclo contencioso chileno (2016-2023)},
+  pdftitle={Actitudes hacia la violencia política en el ciclo contencioso chileno: Un ánálisis longitudinal desde la educación y la clase social},
   pdfauthor={René Canales},
   colorlinks=true,
   linkcolor={blue},
@@ -182,8 +184,8 @@
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{Actitudes hacia la violencia política: Educación y Clase Social
-en el ciclo contencioso chileno (2016-2023)}
+\title{Actitudes hacia la violencia política en el ciclo contencioso
+chileno: Un ánálisis longitudinal desde la educación y la clase social}
 
 
   \author{René Canales}
@@ -192,12 +194,38 @@ en el ciclo contencioso chileno (2016-2023)}
                   Católica de Chile
               }
       
-\date{}
+\date{January, 2026}
 \begin{document}
 \maketitle
+\begin{abstract}
+El estallido social chileno de octubre 2019 generó una paradoja: ¿por
+qué las clases medias educadas legitimaron violencia disruptiva,
+contrario a su tradicional moderación democrática? Utilizando datos
+longitudinales de ELSOC (2016-2023, 20.007 observaciones/3.666
+individuos), este estudio desafía el ``efecto civilizatorio'' de la
+educación mediante modelos multinivel. Los hallazgos revelan que la
+educación opera como amplificador cognitivo condicional: reduce la
+justificación de violencia entre no participantes, pero la incrementa
+dramáticamente entre manifestantes. Los universitarios movilizados
+alcanzan los niveles más altos, invirtiendo completamente el efecto
+civilizatorio. El análisis evidencia una ``reconfiguración
+bidireccional'': los participantes educados legitiman violencia de
+protesta mientras rechazan violencia estatal, desarrollando marcos
+morales duales sofisticados. La clase social modera estructuralmente
+estos efectos: la clase trabajadora exhibe ``efecto techo'' (alta
+tolerancia basal), mientras la clase de servicio experimenta ``salto
+cognitivo'' radical, convergiendo con sectores populares. Estos
+hallazgos iluminan cómo la transversalidad del movimiento chileno
+emergió de la transformación actitudinal de sectores profesionales que,
+mediante participación, rearticularon marcos morales legitimando la
+transgresión normativa como expresión política válida, contribuyendo a
+literaturas sobre educación política, desigualdad y socialización..
+\newline \textbf{Keywords}: Actitudes hacia la violencia · Protestas ·
+Estratificación · · Chile
+\end{abstract}
 
 
-\setstretch{1.15}
+\setstretch{1.5}
 \section{Introducción}\label{introducciuxf3n}
 
 El 18 de octubre de 2019 marcó un antes y un después en la historia
@@ -218,7 +246,7 @@ pública (Rivera et al., 2025).
 La reacción estatal fue, igualmente, excepcional: el gobierno liderado
 por el entonces presidente Sebastián Piñera, decretó estado de
 emergencia llamando al despliegue de militares en las calles por primera
-vez desde el retorno a la democracia (Somma et al., 2020; Thaler et al.,
+vez desde el retorno a la democracia (Somma et al., 2021; Thaler et al.,
 2023). La represión produjo más de 8.000 víctimas de violencia policial,
 más de 400 casos de trauma ocular y al menos 34 muertes, configurando
 ---según Amnistía Internacional--- la crisis de derechos humanos más
@@ -267,7 +295,7 @@ violencia.
 
 Una segunda limitación conceptual se relaciona con cómo la literatura
 sobre desigualdad y conflicto ha tratado los efectos de la clase social
-(Tilly, 1999; Stewart, 2002; Østby, 2013). Buena parte de ese enfoque ha
+(Tilly, 1999; Stewart, 2005; Østby, 2013). Buena parte de ese enfoque ha
 privilegiado mediciones agregadas que no capturan cómo la posición de
 clase estructuran experiencias cotidianas diferenciadas de injusticia,
 exposición a coerción y acceso a recursos interpretativos (Lindh \&
@@ -281,7 +309,7 @@ represión. Estas dimensiones explican por qué la participación en
 protesta no opera de modo uniforme sobre las actitudes, sino que activa
 potenciales de cambio diferenciales anclados en trayectorias y
 repertorios (Pérez-Ahumada, 2023; Pérez-Ahumada \& Andrade, 2021;
-McAdam, 1989; Tarrow, 1991; Snow \& Benford, 1988; Gurr, 2000).
+McAdam, 1989; Tarrow, 1998; Snow \& Benford, 1988; Gurr, 2000).
 
 En este marco, se esperaría que la clase trabajadora ingresara a los
 ciclos contenciosos con niveles relativamente altos y más estables de
@@ -375,12 +403,12 @@ violencia}\label{justificaciuxf3n-de-la-violencia}
 La justificación de la violencia en contextos de protesta constituye un
 fenómeno complejo, que se vale de una distinción importante entre las
 actitudes hacia la violencia ejercida por manifestantes como aquella
-empleada por las fuerzas de agentes del Estado (Della Porta et al.,
-1998; Disi Pavlic et al., 2025), las cuales son distintas pero no
-necesariamente excluyentes. En este apartado, se examinan los marcos que
-explican cómo los ciudadanos evalúan y justifican diferentes formas de
-violencia en el contexto de movilizaciones sociales, considerando tanto
-los determinantes estructurales de estas actitudes como las experiencias
+empleada por las fuerzas de agentes del Estado (Marx, 1998; Disi Pavlic
+et al., 2025), las cuales son distintas pero no necesariamente
+excluyentes. En este apartado, se examinan los marcos que explican cómo
+los ciudadanos evalúan y justifican diferentes formas de violencia en el
+contexto de movilizaciones sociales, considerando tanto los
+determinantes estructurales de estas actitudes como las experiencias
 transformadoras derivadas de la participación política y la exposición a
 eventos contenciosos.
 
@@ -391,10 +419,10 @@ La literatura sobre política contenciosa ha documentado extensamente
 cómo ciertos sectores de la ciudadanía pueden llegar a justificar el uso
 de tácticas violentas por parte de manifestantes como respuesta a
 condiciones de la percepción de injusticia en la protesta (Goodwin,
-2001; Tilly, 1995). Estudios muestran que, en gran medida, la exposición
+2001; Tilly, 1998). Estudios muestran que, en gran medida, la exposición
 a la represión puede incrementar significativamente la disposición de
 las personas a justificar la violencia contra las fuerzas policiales
-(Della Porta, 2018; Disi Pavlic et al., 2025; Earl et al., 2003; Gerber
+(Della Porta, 2018; Disi Pavlic et al., 2025; Earl et al., 2022; Gerber
 et al., 2023).
 
 En esta línea, la teoría de la reactancia psicológica (Brehm, 1966)
@@ -437,7 +465,7 @@ exclusión'': la clausura de canales institucionales de expresión empuja
 a sectores previamente moderados hacia la justificación de tácticas más
 transgresivas.
 
-Por otro lado, hay estudios (Tyler \& Blader, 2000; Tyler, 2006) que se
+Por otro lado, hay estudios (Tyler \& Blader, 2003; Tyler, 2006) que se
 inclinan por la teoría de la justicia procedimental como marco sólido
 para explicar actitudes hacia la violencia policial y la de
 manifestantes, al centrar la evaluación en la equidad de los procesos
@@ -445,7 +473,7 @@ más que en sus resultados. Su legitimidad se ancla en ciertas
 dimensiones ---voz, neutralidad, trato respetuoso y confiabilidad---
 que, en contextos de protesta, se asocian con mayor aceptación de la
 acción policial y menor apoyo a la violencia contra autoridades (Jackson
-et al., 2012; Sunshine \& Tyler, 2003); a la inversa, la injusticia
+et al., 2013; Sunshine \& Tyler, 2003); a la inversa, la injusticia
 percibida erosiona la legitimidad y eleva la justificación de la
 resistencia (Gerber \& Jackson, 2017).
 
@@ -456,7 +484,7 @@ un predictor robusto entre quienes apoyaban tácticas confrontacionales.
 Donde interacciones con la policía pueden llevar incluso a previamente
 no violentos a enmarcar la violencia como autodefensa o represalia
 (Tyler et al., 2018; Drury \& Reicher, 2018; Saavedra \& Drury, 2019).
-Zhu \& Chou (2024) muestran en el caso de Hong Kong, cómo la baja
+Zhu \& Chou (2025) muestran en el caso de Hong Kong, cómo la baja
 percepción de justicia procedimental incrementó el apoyo público a la
 violencia de manifestantes al fomentar la identificación con
 protestantes militantes.
@@ -488,7 +516,7 @@ prácticas que preservan el orden social existente (Pratto et al., 1994).
 En contextos de protesta, altos niveles de SDO se asocian con apoyo a la
 represión policial y con un rechazo sistemático a la violencia de
 protesta, entendida como una amenaza a jerarquías consideradas legítimas
-(Krause, 2022; Onursal et al., 2023). De forma complementaria, el RWA
+(Krause, 2009; Onursal et al., 2023). De forma complementaria, el RWA
 ---caracterizado por sumisión a la autoridad, convencionalismo y
 agresión autoritaria--- se vincula con mayor tolerancia al uso de la
 fuerza por parte de autoridades y oposición a protestas que emplean
@@ -496,18 +524,18 @@ tácticas disruptivas o confrontacionales (Altemeyer, 1998; Jost et al.,
 2003). Finalmente, las creencias en un mundo justo y la tendencia a
 culpabilizar a las víctimas operan como mecanismos cognitivos que
 refuerzan la justificación de la violencia estatal (Lerner, 1980; Ryan,
-1976). Estas creencias favorecen atribuciones causales sesgadas que
+2010). Estas creencias favorecen atribuciones causales sesgadas que
 responsabilizan a los manifestantes por la represión sufrida,
 minimizando la responsabilidad institucional y la desproporción del uso
 de la fuerza, especialmente cuando las víctimas pertenecen a grupos
 estigmatizados o las protestas adoptan repertorios transgresivos (Gerber
-et al., 2016; Arthur \& Case, 1994; Thompson et al., 2023).
+et al., 2016; Arthur \& Case, 1994; Thompson et al., 2004).
 
 \subsubsection{Razonamiento Motivado, Ideología Política y el Efecto de
 Actitud
 Previa}\label{razonamiento-motivado-ideologuxeda-poluxedtica-y-el-efecto-de-actitud-previa}
 
-El enfoque de razonamiento motivado (Taber \& Lodge, 2006) ofrece un
+El enfoque de razonamiento motivado (Taber \& Lodge, 2012) ofrece un
 marco integrador para comprender cómo las predisposiciones ideológicas y
 las identidades grupales estructuran las respuestas ciudadanas frente a
 eventos de protesta y policiamiento. En contraste con los modelos
@@ -525,7 +553,7 @@ incongruente, aun cuando sea objetivamente válida (Taber \& Lodge,
 orientaciones ideológicas interpretan de forma divergente los mismos
 eventos: la violencia policial o de protesta puede ser vista como
 legítima o ilegítima dependiendo del grado de simpatía con el movimiento
-social (Hsiao \& Radnitz, 2020; Gutting, 2020). La evidencia empírica
+social (Hsiao \& Radnitz, 2021; Gutting, 2020). La evidencia empírica
 muestra que estas dinámicas se intensifican según el nivel de
 estructuración ideológica. Estudios en el contexto del estallido social
 chileno indican que personas de izquierda aumentaron su tolerancia hacia
@@ -571,17 +599,16 @@ Diferenciales}\label{el-policing-estilos-consecuencias-y-efectos-diferenciales}
 
 El policing de protestas se refiere al conjunto de estrategias, tácticas
 y tecnologías empleadas por fuerzas policiales para gestionar, controlar
-o suprimir manifestaciones públicas (Della Porta \& Reiter, 1998; Disi
-Pavlic et al., 2025; Earl \& Soule, 2006). La literatura identifica dos
-grandes enfoques: el manejo negociado, que privilegia la comunicación,
-la tolerancia a disrupciones menores y el uso mínimo de la fuerza, y el
-modelo de fuerza escalada, basado en la demostración coercitiva,
-arrestos preventivos y baja tolerancia a desviaciones (Della Porta \&
-Fillieule, 2004). Recientemente se ha propuesto distinguir entre
-policing activo ---intervención directa con agentes químicos,
-proyectiles y detenciones masivas--- y policing pasivo ---monitoreo,
-facilitación de derechos y contención selectiva (Disi Pavlic et al.,
-2025).
+o suprimir manifestaciones públicas (Marx, 1998; Disi Pavlic et al.,
+2025). La literatura identifica dos grandes enfoques: el manejo
+negociado, que privilegia la comunicación, la tolerancia a disrupciones
+menores y el uso mínimo de la fuerza, y el modelo de fuerza escalada,
+basado en la demostración coercitiva, arrestos preventivos y baja
+tolerancia a desviaciones (Della Porta \& Fillieule, 2007).
+Recientemente se ha propuesto distinguir entre policing activo
+---intervención directa con agentes químicos, proyectiles y detenciones
+masivas--- y policing pasivo ---monitoreo, facilitación de derechos y
+contención selectiva (Disi Pavlic et al., 2025).
 
 La adopción de uno u otro enfoque responde a determinantes políticos e
 institucionales: la seguridad electoral del gobierno (Aytaç et al.,
@@ -611,12 +638,12 @@ políticas}\label{educaciuxf3n-y-actitudes-poluxedticas}
 
 La relación entre la educación y la participación política es uno de los
 hallazgos más consistentes y documentados en las ciencias sociales
-(Berinsky \& Lenz, 2011; Persson, 2013; Verba et al., 1995). Durante
+(Berinsky \& Lenz, 2011; Persson, 2015; Verba et al., 1995). Durante
 décadas, la investigación ha demostrado una correlación robusta: los
 ciudadanos con niveles más altos de educación formal tienden a
 participar más en política, ya sea votando o involucrándose en
 diferentes actividades cívicas (Wolfinger \& Rosenstone, 1980; Persson,
-2013). Sin embargo, la naturaleza de esta relación, así como las
+2015). Sin embargo, la naturaleza de esta relación, así como las
 actitudes que se manifiestan, es un debate que sigue dando de qué
 hablar.
 
@@ -647,13 +674,13 @@ No obstante, este modelo presupone condiciones de igualdad estructural
 que raramente existen. En sociedades donde el acceso a bienes, derechos
 y oportunidades se encuentra profundamente estratificado, la educación
 no opera sobre un terreno neutro, sino dentro de un campo desigual de
-reconocimiento. Las instituciones educativas reproducen jerarquías
-culturales y económicas (Bourdieu \& Passeron, 1970), y con ello también
-distribuyen desigualmente la confianza en el orden político. Por tanto,
-la relación entre educación y justificación de la violencia no puede
-entenderse sin considerar el contexto de desigualdad estructural que
-moldea las expectativas de justicia y los límites de la acción legítima
-(Castillo et al., 2015).
+reconocimiento (Acemoglu et al.; 2005). Las instituciones educativas
+reproducen jerarquías culturales y económicas (Bourdieu \& Passeron,
+1970), y con ello también distribuyen desigualmente la confianza en el
+orden político. Por tanto, la relación entre educación y justificación
+de la violencia no puede entenderse sin considerar el contexto de
+desigualdad estructural que moldea las expectativas de justicia y los
+límites de la acción legítima (Castillo et al., 2015).
 
 A pesar de su influencia, el modelo del ``efecto civilizatorio'' de la
 educación enfrenta limitaciones empíricas y conceptuales relevantes. El
@@ -667,14 +694,14 @@ proxy'', según la cual la asociación entre educación y actitudes
 políticas es en gran medida espuria y refleja procesos de autoselección
 vinculados a factores preadultos como la clase social de origen, la
 socialización política temprana y rasgos cognitivos o disposicionales
-(Persson, 2013; Langton \& Jennings, 1968).
+(Persson, 2015; Langton \& Jennings, 1968).
 
 La evidencia contemporánea respalda esta revisión crítica. Estudios que
 emplean paneles, pareo y experimentos naturales muestran que los efectos
 causales directos de la educación sobre actitudes políticas son
 limitados, y que la mayor parte de la brecha entre graduados y no
 graduados se explica por autoselección (Kam \& Palmer, 2008; Tenn, 2007;
-Berinsky \& Lenz, 2011; Fryer, 2022). Además, el modelo civilizatorio ha
+Berinsky \& Lenz, 2011; Fryer, 2023). Además, el modelo civilizatorio ha
 tendido a centrarse en actitudes abstractas, ignorando que la educación
 no reduce de forma consistente el apoyo a la violencia política en
 contextos específicos. Evidencia contraintuitiva ---como la presencia de
@@ -689,13 +716,13 @@ educación puede dejar de operar como mecanismo de integración y
 transformarse en un recurso de elaboración moral. Más que inhibir la
 violencia, permite articular justificaciones sofisticadas que la
 enmarcan como respuesta excepcional frente a un orden percibido como
-estructuralmente injusto (Della Porta, 2013; Jasper, 2018). El resultado
+estructuralmente injusto (Della Porta, 2017; Jasper, 1998). El resultado
 es una relación no lineal entre educación y actitudes hacia la
 violencia: mientras los sectores más educados tienden a justificarla
 mediante marcos normativos universales, los menos educados pueden
 normalizarla desde la experiencia cotidiana de violencia estructural y
 simbólica, sin una mediación ideológica explícita (Wacquant, 2008;
-Smolski, 2019; Varlik et al., 2025).
+Smolski, 2021; Varlik et al., 2025).
 
 \subsubsection{Educación como
 amplificador}\label{educaciuxf3n-como-amplificador}
@@ -780,8 +807,8 @@ activar marcos de ``autodefensa legítima'' o ``resistencia necesaria''
 que permanecen latentes en quienes sólo reflexionan sobre la protesta
 desde fuera. La investigación sobre radicalización muestra que la
 experiencia personal con la represión estatal es un predictor
-significativo del apoyo a tácticas más confrontacionales (Della Porta \&
-Reiter, 1998; Earl et al., 2003).
+significativo del apoyo a tácticas más confrontacionales (Marx, 1998;
+Earl et al., 2003).
 
 En segundo lugar, el contexto de protesta expone a los individuos a
 narrativas de justificación más sofisticadas. En estos espacios circulan
@@ -789,7 +816,7 @@ marcos ideológicos elaborados que distinguen, por ejemplo, entre
 ``violencia contra la propiedad'' y ``violencia contra personas'', entre
 ``violencia como primer recurso'' y ``violencia como respuesta'', o
 entre ``violencia estatal estructural'' y ``violencia de resistencia''
-(Tilly, 2003; Gamson, 1992). Estos marcos no son simples
+(Tilly, 2003; Gamson, 2002). Estos marcos no son simples
 racionalizaciones, sino construcciones ideológicas complejas que
 requieren precisamente el tipo de sofisticación cognitiva que la
 educación proporciona para ser internalizadas y aplicadas. Como
@@ -1015,7 +1042,7 @@ biográfico en que se suspenden temporalmente las jerarquías normativas y
 emergen nuevas formas de sentido. Estas experiencias no solo alteran los
 marcos interpretativos de los participantes, sino que pueden redefinir
 su identidad política y su evaluación moral del uso de la violencia
-(Giugni, 2004; Vestergren et al., 2017).
+(Giugni, 2004; Vestergren et al., 2018).
 
 \subsubsection{De selección a
 socialización}\label{de-selecciuxf3n-a-socializaciuxf3n}
@@ -1121,9 +1148,9 @@ filtrado por las disposiciones y capitales previos de los individuos.
 Una dimensión particularmente relevante de esta heterogeneidad se
 refiere a la temporalidad de los efectos. Evidencia reciente sobre el
 caso chileno sugiere que la exposición a la violencia política tiene
-efectos diferenciados según el momento en que se miden. Rivera (2025),
-en su estudio sobre el estallido social chileno, encuentra que la
-exposición directa a la represión policial genera un incremento
+efectos diferenciados según el momento en que se miden. Rivera y autores
+(2025), en su estudio sobre el estallido social chileno, encuentra que
+la exposición directa a la represión policial genera un incremento
 significativo en la justificación de la violencia política en el corto
 plazo, particularmente entre manifestantes que experimentaron formas
 intensas de coerción estatal. Sin embargo, este efecto tiende a
@@ -1306,7 +1333,7 @@ percepción de antagonismo: quienes se ubican en posiciones subordinadas
 (como trabajadores no calificados) y quienes experimentan una mayor
 privación económica subjetiva perciben un conflicto de clases
 significativamente más intenso que las élites (Pérez-Ahumada \& Andrade,
-2021). Durante el estallido de 2019, esta latencia conflictiva se activó
+2023). Durante el estallido de 2019, esta latencia conflictiva se activó
 y desbordó los límites tradicionales. La composición de la protesta mutó
 drásticamente: disminuyó la presencia de organizaciones formales (como
 sindicatos y federaciones estudiantiles) y aumentó la participación de
@@ -1521,7 +1548,7 @@ Esta variable captura participación reportada retrospectivamente y, por
 tanto, está sujeta a posibles sesgos de recuerdo y deseabilidad social,
 aunque existe evidencia previa que sugiere que el reporte de
 participación en protestas tiene razonable validez cuando el período de
-referencia es relativamente corto (Walgrave \& Verhulst, 2011).
+referencia es relativamente corto (Walgrave \& Wouters, 2014).
 
 \subsubsection{Variables de Control}\label{variables-de-control}
 
@@ -1726,19 +1753,18 @@ Descriptivos}\label{estaduxedsticos-descriptivos}
 \subsubsection{Justificación de violencia por nivel
 educativo}\label{justificaciuxf3n-de-violencia-por-nivel-educativo}
 
-Los patrones descriptivos observados en la
-Table~\ref{tbl-justificacion-educ} muestran un patrón relevante. Entre
-quienes no participan en protestas, un mayor nivel educativo se asocia
-con una reducción en la justificación de la violencia en
-manifestaciones, con medias que bajan de aproximadamente 1.90 a 1.80.
-Sin embargo, esta tendencia se invierte radicalmente para quienes sí
-participan: aquellos participantes con educación universitaria muestran
-los niveles más altos de justificación, alcanzando medias en torno a
-2.29 y 2.27. Este efecto diferenciado de la educación parece ser
-específico de la violencia en protestas, ya que, en contraste, la
-justificación de la violencia estatal exhibe un patrón mucho más
-estable, con una variación considerablemente menor entre los distintos
-niveles educativos.
+Los patrones observados en la Table~\ref{tbl-justificacion-educ}
+muestran una tendencia relevante. Entre quienes no participan en
+protestas, un mayor nivel educativo tenderían a una menor justificación
+de la violencia por parte de manifestaciones, con medias que bajan de
+aproximadamente 1.90 a 1.80. Sin embargo, esta tendencia se invierte
+para quienes sí participan: aquellos participantes con educación
+universitaria muestran los niveles más altos de justificación,
+alcanzando medias en torno a 2.29 y 2.27. Este efecto diferenciado de la
+educación parece ser específico de la violencia en protestas, ya que, en
+contraste, la justificación de la violencia estatal exhibe un patrón
+mucho más estable, con una variación considerablemente menor entre los
+distintos niveles educativos.
 
 \begin{table}
 
@@ -1753,7 +1779,7 @@ nivel educativo y participación en protestas}
 \begin{threeparttable}
 \begin{tabular}{llccccc}
 \toprule
-\multicolumn{2}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{2}{c}{Viol. Protestas} & \multicolumn{2}{c}{Viol. Estatal} \\
+\multicolumn{3}{c}{ } & \multicolumn{2}{c}{Viol. Protestas} & \multicolumn{2}{c}{Viol. Estatal} \\
 \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7}
 Educación & Participación & N & Media & DE & Media & DE\\
 \midrule
@@ -1809,7 +1835,7 @@ clase social y participación en protestas}
 \begin{threeparttable}
 \begin{tabular}{llccccc}
 \toprule
-\multicolumn{2}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{2}{c}{Viol. Protestas} & \multicolumn{2}{c}{Viol. Estatal} \\
+\multicolumn{3}{c}{ } & \multicolumn{2}{c}{Viol. Protestas} & \multicolumn{2}{c}{Viol. Estatal} \\
 \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7}
 Clase Social & Participación & N & Media & DE & Media & DE\\
 \midrule
@@ -1837,11 +1863,11 @@ Working class (V+VI+VII) & Participó & 572 & 2.19 & 1.02 & 1.55 & 0.83\\
 Participación en protestas
 (2016-2023)}\label{evoluciuxf3n-temporal-justificaciuxf3n-de-la-violencia-y-participaciuxf3n-en-protestas-2016-2023}
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-evolucion-temporal-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-evolucion-temporal-1.pdf}
 
 }
 
@@ -1860,11 +1886,11 @@ mantiene en niveles ligeramente superiores a los observados antes del
 2019 hasta su caída entre 2021 y 2023, donde reporta su promedio más
 bajo en todo el ciclo reportado.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-participacion-estratificada-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-participacion-estratificada-1.pdf}
 
 }
 
@@ -1894,71 +1920,119 @@ Este patrón evidencia la reconfiguración bidireccional: el marco moral
 dual emergente post-estallido redefine los límites de la acción política
 legítima según quién ejerce la violencia y en qué contexto.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-prepost-estallido-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-estallido-1-1.pdf}
 
 }
 
-\caption{\label{fig-prepost-estallido}Comparación de justificación de
+\caption{\label{fig-estallido-1}Comparación de justificación de
 violencia antes (2016-2018) y después (2022-2023) del estallido social
-por educación, clase y participación}
+por educación y participación}
 
 \end{figure}%
 
-La Figure~\ref{fig-prepost-estallido} compara los niveles de
-justificación de violencia antes (2016-2018) y después (2022-2023) del
-estallido social de octubre 2019, revelando patrones críticos sobre la
-permanencia de los efectos del shock político.
+\begin{figure}[H]
 
-Entre no participantes, se observa un incremento generalizado post-2019
-en todos los niveles educativos y clases sociales, aunque de magnitud
-variable. Los grupos de mayor educación (universitaria completa)
-incrementan justificación de \textasciitilde1.5 a \textasciitilde1.8,
-mientras que educación básica/media se mantiene relativamente estable
-(\textasciitilde1.8-2.0). La Service class muestra el incremento más
-pronunciado (\textasciitilde1.6 a \textasciitilde1.9), sugiriendo que el
-estallido erosionó parcialmente el efecto civilizatorio incluso entre
-quienes no participaron directamente. Entre participantes, el patrón es
-más homogéneo: todos los grupos convergen hacia niveles moderadamente
-altos (\textasciitilde2.0-2.3) en el post-2019, con intervalos de
-confianza superpuestos, indicando que la experiencia de movilización
-iguala actitudes independientemente de capital cultural o posición
-estructural. Crucialmente, las brechas entre participantes y no
-participantes se mantienen en el periodo post-2019, evidenciando que el
-efecto de la participación no es meramente temporal sino que persiste
-años después del estallido.
+\centering{
 
-El patrón es radicalmente distinto en los paneles siguientes. Entre no
-participantes, hay un incremento dramático en la justificación de
-violencia policial post-2019, especialmente visible en grupos de mayor
-educación (universitaria: \textasciitilde1.3 a \textasciitilde2.0) y
-Service class (\textasciitilde1.3 a \textasciitilde1.9). Este es el
-hallazgo más crítico: el estallido no solo no generó rechazo permanente
-a la represión estatal, sino que normalizó su justificación incluso
-entre sectores privilegiados. Entre participantes, el patrón se invierte
-completamente: todos los grupos educativos y de clase muestran descensos
-en justificación post-2019 (de \textasciitilde1.8-2.0 pre-2019 a
-\textasciitilde1.5-1.7 post-2019), con la única excepción de
-universitarios completos que mantienen niveles bajos estables
-(\textasciitilde1.4). Esto confirma que la experiencia directa de
-represión durante el estallido generó un efecto de ``deslegitimación
-experiencial'' permanente entre manifestantes.
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-estallido-2-1.pdf}
+
+}
+
+\caption{\label{fig-estallido-2}Comparación de justificación de
+violencia antes (2016-2018) y después (2022-2023) del estallido social
+por clase y participación}
+
+\end{figure}%
+
+La Figure~\ref{fig-estallido-1} y la Figure~\ref{fig-estallido-2}
+presenta la evolución temporal de la justificación de violencia por
+educación y clase social, comparando año a año los niveles antes
+(2016-2018) y después (2022-2023) del estallido social de octubre 2019,
+revelando patrones críticos sobre la permanencia de los efectos del
+shock político.
+
+Entre no participantes, se observa estabilidad relativa en el periodo
+pre-2019, con niveles de justificación que oscilan entre
+\textasciitilde1.5-1.8 para mayor educación y \textasciitilde1.7-2.0
+para menor educación. En el periodo post-2019 (2022-2023), todos los
+grupos educativos muestran un incremento moderado: universitarios
+completos pasan de \textasciitilde1.5 a \textasciitilde1.8, mientras
+educación básica/media se mantiene en el rango \textasciitilde1.8-2.0.
+Entre participantes, el patrón muestra convergencia sostenida: desde
+2016 hasta 2023, todos los niveles educativos mantienen justificaciones
+moderadamente altas (\textasciitilde2.0-2.3) con intervalos de confianza
+superpuestos, indicando que la experiencia de movilización iguala
+actitudes independientemente del capital cultural. Crucialmente, las
+brechas entre participantes y no participantes se mantienen consistentes
+año tras año en el post-2019, evidenciando que el efecto de la
+participación persiste establemente años después del estallido.
+
+El contraste revela que entre los no participantes, se observa un salto
+dramático entre 2018 y 2022 en todos los grupos educativos:
+universitarios completos pasan de \textasciitilde1.3-1.5 (2016-2018) a
+\textasciitilde1.9-2.0 (2022-2023). Este es el hallazgo más crítico: el
+estallido no generó rechazo permanente a la represión estatal, sino que
+normalizó su justificación incluso entre sectores privilegiados, y esta
+normalización se mantiene estable en 2022 y 2023. Entre participantes,
+el patrón se invierte completamente: todos los grupos educativos
+muestran descensos sostenidos post-2019, pasando de
+\textasciitilde1.8-2.0 (2016-2018) a \textasciitilde1.5-1.7 (2022-2023),
+con universitarios completos manteniendo niveles bajos estables
+(\textasciitilde1.4). La trayectoria año a año confirma que la
+experiencia directa de represión durante el estallido generó un efecto
+de ``deslegitimación experiencial'' permanente entre manifestantes,
+observable consistentemente en ambos años post-estallido.
+
+Los patrones de clase replican la convergencia observada en educación,
+pero con matices importantes. Entre no participantes, la Service class
+(I+II) mantiene niveles consistentemente bajos (\textasciitilde1.6-1.7)
+en todos los años, mientras que Intermediate y Working class oscilan en
+rangos ligeramente superiores (\textasciitilde1.7-1.9). Crucialmente, no
+se observan incrementos dramáticos post-2019 entre no participantes de
+ninguna clase, sugiriendo que la posición estructural de clase modera el
+impacto del estallido sobre actitudes hacia violencia disruptiva. Entre
+participantes, se replica el patrón de convergencia: todas las clases
+sociales convergen hacia niveles moderadamente altos
+(\textasciitilde2.0-2.3) tanto en el pre como en el post-2019, con
+intervalos de confianza superpuestos. Esto confirma que la experiencia
+de participación iguala actitudes independientemente de la posición de
+clase, aunque las diferencias entre participantes y no participantes se
+mantienen estables año tras año.
+
+Los patrones de clase contrastan marcadamente con los observados en
+educación. Entre no participantes, todas las clases sociales muestran
+niveles relativamente estables tanto en el pre-2019
+(\textasciitilde1.9-2.1) como en el post-2019 (\textasciitilde1.9-2.0),
+sin los incrementos dramáticos observados en grupos de mayor educación.
+Este hallazgo es crítico: mientras la educación predice fuertemente la
+normalización de represión estatal post-estallido entre no
+participantes, la clase social no lo hace. Entre participantes, el
+patrón de deslegitimación se mantiene: todas las clases sociales
+muestran descensos sostenidos post-2019, pasando de
+\textasciitilde1.7-1.9 (2016-2018) a \textasciitilde1.5-1.7 (2022-2023),
+confirmando que la experiencia directa de represión genera rechazo
+permanente independientemente de la posición estructural.
 
 Los datos revelan que el estallido de 2019 no fue un shock temporal sino
 un punto de inflexión permanente que reconfiguró estructuralmente los
-marcos morales duales. La divergencia entre participantes y no
-participantes se amplifica en el post-2019: mientras participantes
+marcos morales duales. La visualización año por año demuestra que la
+divergencia entre participantes y no participantes no es fluctuación
+transitoria sino polarización estable: mientras participantes
 desarrollan rechazo duradero a violencia estatal pero mantienen
 justificación de violencia en protestas, no participantes experimentan
-el proceso inverso ---mayor tolerancia a represión estatal y leve
-incremento en aceptación de violencia disruptiva---. Esto cristaliza la
-hipótesis de reconfiguración bidireccional: el estallido no homogeneizó
-actitudes sino que polarizó marcos morales en función de la experiencia
-de participación, y estos marcos permanecen estables 3-4 años después
-del evento crítico.
+patrones divergentes según capital cultural. Crucialmente, educación y
+clase no operan de manera idéntica: la educación predice fuertemente la
+normalización de represión estatal post-estallido entre no
+participantes, mientras que la clase social no muestra este efecto. Esto
+sugiere que el capital cultural (educación) y la posición estructural
+(clase) median diferencialmente los efectos del shock político sobre
+marcos morales. Estos marcos permanecen estables 3-4 años después del
+evento crítico, cristalizando la hipótesis de polarización bidireccional
+permanente con efectos diferenciados por tipo de capital.
 
 \subsection{Estadísticos
 exploratorios}\label{estaduxedsticos-exploratorios}
@@ -1970,52 +2044,61 @@ justificación de violencia}
 
 \centering{
 
-\caption{Main effects models for justification of violence}
 \begin{center}
-\scalebox{0.8}{
+\scalebox{0.75}{
 \begin{tabular}{l c c c c}
 \toprule
- & M1 & M2 & M3 & M4 \\
+ & Modelo 1 & Modelo 2 & Modelo 3 & Modelo 4 \\
 \midrule
-Wave (Ref.= 2016)                 &                &                &                &                \\
-                                  &                &                &                &                \\
-\quad Tecnica Incompleta          & $-0.096$       & $0.106$        &                &                \\
-                                  & $(0.050)$      & $(0.059)$      &                &                \\
-\quad Tecnica Incompleta          & $-0.121^{***}$ & $0.030$        &                &                \\
-                                  & $(0.025)$      & $(0.029)$      &                &                \\
-\quad Universitaria Incompleta    & $-0.054$       & $0.011$        &                &                \\
-                                  & $(0.038)$      & $(0.044)$      &                &                \\
-\quad Universitaria Incompleta    & $-0.105^{***}$ & $0.023$        &                &                \\
-                                  & $(0.025)$      & $(0.029)$      &                &                \\
-\quad Intermediate class (III+IV) &                &                & $-0.010$       & $-0.012$       \\
-                                  &                &                & $(0.026)$      & $(0.029)$      \\
-Protest participation             & $0.357^{***}$  & $-0.133^{***}$ & $0.357^{***}$  & $-0.139^{***}$ \\
-                                  & $(0.020)$      & $(0.023)$      & $(0.023)$      & $(0.026)$      \\
-Age                               & $-0.009^{***}$ & $0.004^{***}$  & $-0.008^{***}$ & $0.003^{**}$   \\
-                                  & $(0.001)$      & $(0.001)$      & $(0.001)$      & $(0.001)$      \\
-Woman                             & $-0.028$       & $-0.133^{***}$ & $-0.012$       & $-0.155^{***}$ \\
-                                  & $(0.018)$      & $(0.021)$      & $(0.021)$      & $(0.025)$      \\
-Ideology (standardized)           & $-0.028^{***}$ & $0.055^{***}$  & $-0.036^{***}$ & $0.057^{***}$  \\
-                                  & $(0.003)$      & $(0.004)$      & $(0.004)$      & $(0.004)$      \\
-Wave 2017                         & $-0.043$       & $-0.107^{***}$ & $-0.042$       & $-0.066^{*}$   \\
-                                  & $(0.023)$      & $(0.026)$      & $(0.029)$      & $(0.032)$      \\
-Wave 2018                         & $-0.108^{***}$ & $0.011$        & $-0.095^{***}$ & $0.038$        \\
-                                  & $(0.021)$      & $(0.024)$      & $(0.026)$      & $(0.029)$      \\
-Wave 2019                         & $0.049^{*}$    & $-0.401^{***}$ & $0.064^{*}$    & $-0.358^{***}$ \\
-                                  & $(0.021)$      & $(0.024)$      & $(0.027)$      & $(0.030)$      \\
-Wave 2022                         & $-0.101^{***}$ & $-0.128^{***}$ & $-0.090^{**}$  & $-0.095^{**}$  \\
-                                  & $(0.023)$      & $(0.026)$      & $(0.028)$      & $(0.031)$      \\
-Wave 2023                         & $-0.099^{***}$ & $-0.002$       & $-0.072^{**}$  & $0.000$        \\
-                                  & $(0.023)$      & $(0.026)$      & $(0.027)$      & $(0.030)$      \\
+Educación (Ref.= Media completa o menos) &               &               &               &               \\
+                                         &               &               &               &               \\
+\quad Tecnica Incompleta                 & $-.096$       & $.106$        &               &               \\
+                                         & $(.050)$      & $(.059)$      &               &               \\
+\quad Tecnica Completa                   & $-.121^{***}$ & $.030$        &               &               \\
+                                         & $(.025)$      & $(.029)$      &               &               \\
+\quad Universitaria Incompleta           & $-.054$       & $.011$        &               &               \\
+                                         & $(.038)$      & $(.044)$      &               &               \\
+\quad Universitaria Completa             & $-.105^{***}$ & $.023$        &               &               \\
+                                         & $(.025)$      & $(.029)$      &               &               \\
+Clase (Ref.= Clase Servicios (I+II))     &               &               &               &               \\
+                                         &               &               &               &               \\
+\quad Clase Media (III+IV)               &               &               & $-.010$       & $-.012$       \\
+                                         &               &               & $(.026)$      & $(.029)$      \\
+\quad Clase Trabajadora (V+VI+VII)       &               &               & $.065^{*}$    & $-.035$       \\
+                                         &               &               & $(.027)$      & $(.031)$      \\
+Controles                                &               &               &               &               \\
+                                         &               &               &               &               \\
+\quad Participa en protestas             & $.357^{***}$  & $-.133^{***}$ & $.357^{***}$  & $-.139^{***}$ \\
+                                         & $(.020)$      & $(.023)$      & $(.023)$      & $(.026)$      \\
+\quad Edad                               & $-.009^{***}$ & $.004^{***}$  & $-.008^{***}$ & $.003^{**}$   \\
+                                         & $(.001)$      & $(.001)$      & $(.001)$      & $(.001)$      \\
+\quad Mujer                              & $-.028$       & $-.133^{***}$ & $-.012$       & $-.155^{***}$ \\
+                                         & $(.018)$      & $(.021)$      & $(.021)$      & $(.025)$      \\
+Año (Ref.= 2016)                         &               &               &               &               \\
+                                         &               &               &               &               \\
+\quad Ideología                          & $-.028^{***}$ & $.055^{***}$  & $-.036^{***}$ & $.057^{***}$  \\
+                                         & $(.003)$      & $(.004)$      & $(.004)$      & $(.004)$      \\
+\quad 2017                               & $-.043$       & $-.107^{***}$ & $-.042$       & $-.066^{*}$   \\
+                                         & $(.023)$      & $(.026)$      & $(.029)$      & $(.032)$      \\
+\quad 2018                               & $-.108^{***}$ & $.011$        & $-.095^{***}$ & $.038$        \\
+                                         & $(.021)$      & $(.024)$      & $(.026)$      & $(.029)$      \\
+\quad 2019                               & $.049^{*}$    & $-.401^{***}$ & $.064^{*}$    & $-.358^{***}$ \\
+                                         & $(.021)$      & $(.024)$      & $(.027)$      & $(.030)$      \\
+\quad 2022                               & $-.101^{***}$ & $-.128^{***}$ & $-.090^{**}$  & $-.095^{**}$  \\
+                                         & $(.023)$      & $(.026)$      & $(.028)$      & $(.031)$      \\
+2023                                     & $-.099^{***}$ & $-.002$       & $-.072^{**}$  & $.000$        \\
+                                         & $(.023)$      & $(.026)$      & $(.027)$      & $(.030)$      \\
 \midrule
-BIC                               & $15110$        & $15103$        & $10462$        & $10459$        \\
-Num. obs.                         & $3383$         & $3383$         & $2594$         & $2594$         \\
-Num. groups: individuals          & $0.134$        & $0.197$        & $0.133$        & $0.205$        \\
+Num. obs.                                & $3383$        & $3383$        & $2594$        & $2594$        \\
+Num. groups: idencuesta                  & $.134$        & $.197$        & $.133$        & $.205$        \\
+AIC                                      & $36296.693$   & $40375.594$   & $25095.000$   & $27525.053$   \\
+BIC                                      & $15110$       & $15103$       & $10462$       & $10459$       \\
 \bottomrule
-\multicolumn{5}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.}}
+\multicolumn{5}{l}{\scriptsize{*** p < 0.001; ** p < 0.01; * p < 0.05}}
 \end{tabular}
 }
-\label{table:coefficients}
+\caption{Statistical models}
+\label{}
 \end{center}
 
 }
@@ -2023,31 +2106,20 @@ Num. groups: individuals          & $0.134$        & $0.197$        & $0.133$   
 \end{table}%
 
 La Table~\ref{tbl-modelos-principales} presenta los cuatro modelos
-principales que guían el análisis de este estudio. Los modelos M1 y M2
+principales que guían el análisis de este estudio. Los Modelos 1 y 2
 examinan los efectos de educación y participación en protestas sobre dos
-tipos de violencia (en protestas y estatal), mientras que los modelos M3
-y M4 analizan los efectos de clase social y participación para ambos
+tipos de violencia (en protestas y estatal), mientras que los modelos 3
+y 4 analizan los efectos de clase social y participación para ambos
 tipos de violencia. Todos los modelos incluyen efectos aleatorios por
 individuo y controles por edad, género, ideología y año.
 
 Los resultados revelan patrones diferenciados según el tipo de
-violencia. Para violencia en protestas (M1 y M3), la participación
-muestra un efecto positivo consistente, incrementando la justificación
-en aproximadamente 0.27-0.36 puntos. En contraste, para violencia
-estatal (M2 y M4), la participación no muestra efectos significativos o
-presenta efectos cercanos a cero, evidenciando que quienes participan en
-protestas no justifican más la represión policial.
-
-Respecto a la educación (M1 y M2), se observa el ``efecto
-civilizatorio'': niveles educativos más altos se asocian con menor
-justificación de violencia en protestas. Universitarios completos
-muestran una reducción de \textasciitilde0.10 puntos comparado con
-educación media. Sin embargo, este efecto no se replica para violencia
-estatal (M2), donde la educación no muestra impactos significativos. La
-clase social (M3 y M4) sigue un patrón similar: la clase trabajadora
-muestra mayor justificación de violencia en protestas
-(\textasciitilde0.06 puntos más que service class), pero no se observan
-diferencias por clase en la justificación de violencia estatal.
+violencia. Para violencia en protestas, la participación muestra un
+efecto positivo consistente, incrementando la justificación en
+aproximadamente 0.36 puntos. En contraste, para violencia estatal, el
+efecto directo de la participación es negativo, aunque altamente
+significativo, evidenciando que quienes participan en protestas no
+justifican más la represión policial.
 
 Los controles operan de manera consistente: ideología de derecha reduce
 justificación de violencia en protestas (\textasciitilde-0.03 por punto
@@ -2067,62 +2139,77 @@ justificación de violencia}
 
 \centering{
 
-\caption{Interaction models for justification of violence}
 \begin{center}
-\scalebox{0.8}{
+\scalebox{0.7}{
 \begin{tabular}{l c c c c}
 \toprule
- & M1b & M2b & M3b & M4b \\
+ & Model 1b & Model 2b & Model 3b & Model 4b \\
 \midrule
-Wave (Ref.= 2016)                  &                &                &                &                \\
-                                   &                &                &                &                \\
-\quad Tecnica Incompleta           & $-0.133^{*}$   & $0.095$        &                &                \\
-                                   & $(0.053)$      & $(0.062)$      &                &                \\
-\quad Tecnica Incompleta           & $-0.134^{***}$ & $0.032$        &                &                \\
-                                   & $(0.026)$      & $(0.031)$      &                &                \\
-\quad Universitaria Incompleta     & $-0.067$       & $0.038$        &                &                \\
-                                   & $(0.041)$      & $(0.048)$      &                &                \\
-\quad Universitaria Incompleta     & $-0.126^{***}$ & $0.059$        &                &                \\
-                                   & $(0.026)$      & $(0.031)$      &                &                \\
-\quad Intermediate class (III+IV)  &                &                & $-0.012$       & $-0.035$       \\
-                                   &                &                & $(0.029)$      & $(0.033)$      \\
-Protest participation              & $0.265^{***}$  & $-0.042$       & $0.387^{***}$  & $-0.200^{***}$ \\
-                                   & $(0.035)$      & $(0.040)$      & $(0.043)$      & $(0.048)$      \\
-Tecnica Incompleta × Protest       & $0.281^{*}$    & $0.021$        &                &                \\
-                                   & $(0.111)$      & $(0.127)$      &                &                \\
-Tecnica Incompleta × Protest       & $0.129^{*}$    & $-0.063$       &                &                \\
-                                   & $(0.056)$      & $(0.064)$      &                &                \\
-Universitaria Incompleta × Protest & $0.109$        & $-0.159^{*}$   &                &                \\
-                                   & $(0.068)$      & $(0.078)$      &                &                \\
-Universitaria Incompleta × Protest & $0.133^{**}$   & $-0.183^{***}$ &                &                \\
-                                   & $(0.048)$      & $(0.055)$      &                &                \\
-Intermediate class × Protest       &                &                & $0.030$        & $0.090$        \\
-                                   &                &                & $(0.053)$      & $(0.060)$      \\
-Age                                & $-0.009^{***}$ & $0.004^{***}$  & $-0.008^{***}$ & $0.003^{**}$   \\
-                                   & $(0.001)$      & $(0.001)$      & $(0.001)$      & $(0.001)$      \\
-Woman                              & $-0.028$       & $-0.133^{***}$ & $-0.011$       & $-0.155^{***}$ \\
-                                   & $(0.018)$      & $(0.021)$      & $(0.021)$      & $(0.025)$      \\
-Ideology (standardized)            & $-0.027^{***}$ & $0.055^{***}$  & $-0.036^{***}$ & $0.057^{***}$  \\
-                                   & $(0.003)$      & $(0.004)$      & $(0.004)$      & $(0.004)$      \\
-Wave 2017                          & $-0.043$       & $-0.107^{***}$ & $-0.042$       & $-0.066^{*}$   \\
-                                   & $(0.023)$      & $(0.026)$      & $(0.029)$      & $(0.032)$      \\
-Wave 2018                          & $-0.108^{***}$ & $0.011$        & $-0.094^{***}$ & $0.038$        \\
-                                   & $(0.021)$      & $(0.024)$      & $(0.026)$      & $(0.029)$      \\
-Wave 2019                          & $0.049^{*}$    & $-0.402^{***}$ & $0.065^{*}$    & $-0.359^{***}$ \\
-                                   & $(0.021)$      & $(0.024)$      & $(0.027)$      & $(0.030)$      \\
-Wave 2022                          & $-0.101^{***}$ & $-0.129^{***}$ & $-0.089^{**}$  & $-0.096^{**}$  \\
-                                   & $(0.023)$      & $(0.026)$      & $(0.028)$      & $(0.031)$      \\
-Wave 2023                          & $-0.098^{***}$ & $-0.005$       & $-0.071^{**}$  & $-0.001$       \\
-                                   & $(0.023)$      & $(0.026)$      & $(0.027)$      & $(0.030)$      \\
+Educación (Ref.= Media completa o menos)  &               &               &               &               \\
+                                          &               &               &               &               \\
+\quad Tecnica Incompleta                  & $-.133^{*}$   & $.095$        &               &               \\
+                                          & $(.053)$      & $(.062)$      &               &               \\
+\quad Tecnica Completa                    & $-.134^{***}$ & $.032$        &               &               \\
+                                          & $(.026)$      & $(.031)$      &               &               \\
+\quad Universitaria Incompleta            & $-.067$       & $.038$        &               &               \\
+                                          & $(.041)$      & $(.048)$      &               &               \\
+\quad Universitaria Completa              & $-.126^{***}$ & $.059$        &               &               \\
+                                          & $(.026)$      & $(.031)$      &               &               \\
+Clase (Ref.= Clase Servicios (I+II))      &               &               &               &               \\
+                                          &               &               &               &               \\
+\quad Clase Media (III+IV)                &               &               & $-.012$       & $-.035$       \\
+                                          &               &               & $(.029)$      & $(.033)$      \\
+\quad Clase Trabajadora (V+VI+VII)        &               &               & $.087^{**}$   & $-.054$       \\
+                                          &               &               & $(.030)$      & $(.034)$      \\
+Participa en Protestas                    & $.265^{***}$  & $-.042$       & $.387^{***}$  & $-.200^{***}$ \\
+                                          & $(.035)$      & $(.040)$      & $(.043)$      & $(.048)$      \\
+Interacciones Educación                   &               &               &               &               \\
+                                          &               &               &               &               \\
+\quad Tecnica Incompleta × Protesta       & $.281^{*}$    & $.021$        &               &               \\
+                                          & $(.111)$      & $(.127)$      &               &               \\
+\quad Tecnica Completa × Protesta         & $.129^{*}$    & $-.063$       &               &               \\
+                                          & $(.056)$      & $(.064)$      &               &               \\
+\quad Universitaria Incompleta × Protesta & $.109$        & $-.159^{*}$   &               &               \\
+                                          & $(.068)$      & $(.078)$      &               &               \\
+\quad Universitaria Completa × Protesta   & $.133^{**}$   & $-.183^{***}$ &               &               \\
+                                          & $(.048)$      & $(.055)$      &               &               \\
+Interacciones Clase                       &               &               &               &               \\
+                                          &               &               &               &               \\
+\quad Clase Media × Protesta              &               &               & $.030$        & $.090$        \\
+                                          &               &               & $(.053)$      & $(.060)$      \\
+\quad Clase Trabajadora x Protesta        &               &               & $-.132^{*}$   & $.071$        \\
+                                          &               &               & $(.057)$      & $(.064)$      \\
+Controles                                 &               &               &               &               \\
+                                          &               &               &               &               \\
+\quad Age                                 & $-.009^{***}$ & $.004^{***}$  & $-.008^{***}$ & $.003^{**}$   \\
+                                          & $(.001)$      & $(.001)$      & $(.001)$      & $(.001)$      \\
+\quad Woman                               & $-.028$       & $-.133^{***}$ & $-.011$       & $-.155^{***}$ \\
+                                          & $(.018)$      & $(.021)$      & $(.021)$      & $(.025)$      \\
+\quad Ideología                           & $-.027^{***}$ & $.055^{***}$  & $-.036^{***}$ & $.057^{***}$  \\
+                                          & $(.003)$      & $(.004)$      & $(.004)$      & $(.004)$      \\
+Año (Ref.= 2016)                          &               &               &               &               \\
+                                          &               &               &               &               \\
+\quad 2017                                & $-.043$       & $-.107^{***}$ & $-.042$       & $-.066^{*}$   \\
+                                          & $(.023)$      & $(.026)$      & $(.029)$      & $(.032)$      \\
+\quad 2018                                & $-.108^{***}$ & $.011$        & $-.094^{***}$ & $.038$        \\
+                                          & $(.021)$      & $(.024)$      & $(.026)$      & $(.029)$      \\
+\quad 2019                                & $.049^{*}$    & $-.402^{***}$ & $.065^{*}$    & $-.359^{***}$ \\
+                                          & $(.021)$      & $(.024)$      & $(.027)$      & $(.030)$      \\
+\quad 2022                                & $-.101^{***}$ & $-.129^{***}$ & $-.089^{**}$  & $-.096^{**}$  \\
+                                          & $(.023)$      & $(.026)$      & $(.028)$      & $(.031)$      \\
+2023                                      & $-.098^{***}$ & $-.005$       & $-.071^{**}$  & $-.001$       \\
+                                          & $(.023)$      & $(.026)$      & $(.027)$      & $(.030)$      \\
 \midrule
-BIC                                & $15110$        & $15103$        & $10462$        & $10459$        \\
-Num. obs.                          & $3383$         & $3383$         & $2594$         & $2594$         \\
-Num. groups: individuals           & $0.133$        & $0.197$        & $0.133$        & $0.205$        \\
+Num. obs.                                 & $3383$        & $3383$        & $2594$        & $2594$        \\
+Num. groups: idencuesta                   & $.133$        & $.197$        & $.133$        & $.205$        \\
+AIC                                       & $36291.927$   & $40370.252$   & $25087.930$   & $27526.711$   \\
+BIC                                       & $15110$       & $15103$       & $10462$       & $10459$       \\
 \bottomrule
-\multicolumn{5}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.}}
+\multicolumn{5}{l}{\scriptsize{*** p < 0.001; ** p < 0.01; * p < 0.05}}
 \end{tabular}
 }
-\label{table:coefficients}
+\caption{Statistical models}
+\label{}
 \end{center}
 
 }
@@ -2133,11 +2220,11 @@ Los modelos de la Table~\ref{tbl-modelos-interaccion} revelan que el
 efecto de participación varía significativamente según nivel educativo.
 Para violencia en protestas, las interacciones entre educación y
 participación son positivas, indicando que el efecto legitimador de
-participar es más fuerte entre personas educadas. Un universitario
-participante incrementa su justificación 0.40 puntos versus 0.27 para
-educación media, evidenciando la ``paradoja educativa'': la educación
-reduce justificación entre no participantes (-0.13***) pero amplifica el
-efecto de la participación.
+participar es más fuerte entre personas educadas. Una persona con nivel
+universitario completo participante incrementa su justificación 0.40
+puntos versus 0.27 para educación media, evidenciando la ``paradoja
+educativa'': la educación reduce justificación entre no participantes
+(-0.13***) pero amplifica el efecto de la participación.
 
 Para violencia estatal, el patrón se invierte completamente. Las
 interacciones son negativas (universitario incompleto: -0.16\emph{;
@@ -2159,62 +2246,56 @@ es parcial o ausente entre sectores populares movilizados, confirmando
 que el marco moral dual requiere la combinación crítica de educación
 superior y experiencia directa de movilización.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-efectos-marginales-interaccion-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-efectos-marginales-1.pdf}
 
 }
 
-\caption{\label{fig-efectos-marginales-interaccion}Efectos marginales de
-la participación en protestas sobre justificación de violencia según
+\caption{\label{fig-efectos-marginales}Efectos marginales de la
+participación en protestas sobre justificación de violencia según
 educación y clase social}
 
 \end{figure}%
 
-La Figure~\ref{fig-efectos-marginales-interaccion} visualiza los efectos
-marginales de participación según educación y clase social, permitiendo
-evaluar directamente las hipótesis sobre efectos diferenciales.
+La Figure~\ref{fig-efectos-marginales} visualiza los efectos marginales
+de participación según educación y clase social, permitiendo evaluar
+directamente las hipótesis sobre efectos diferenciales.
 
-El Panel A confirma H1b y rechaza parcialmente H1a, pues todos los
-niveles educativos muestran efectos positivos significativos para
-violencia en protestas, con magnitudes que varían de +0.27 (educación
-media) a +0.55 (técnico superior incompleto). Crucialmente, el efecto
-legitimador es más fuerte entre educación técnica-superior (+0.55) y
-universitaria (+0.40) que entre educación media (+0.27), evidenciando
-que la educación amplifica (no reduce) el efecto de participación,
-invirtiendo el efecto civilizatorio entre quienes se movilizan.
+En el Panel A, se observa como todos los niveles educativos muestran
+efectos positivos significativos para justificación de la violencia en
+protestas, con magnitudes que varían de +0.27 (educación media) a +0.55
+(técnico superior incompleto). Crucialmente, el efecto legitimador es
+más fuerte entre educación técnica-superior (+0.55) y universitaria
+(+0.40) que entre educación media (+0.27), evidenciando que la educación
+amplifica (no reduce) el efecto de participación, invirtiendo el efecto
+civilizatorio entre quienes se movilizan.
 
-Por otro lado, el Panel B confirma plenamente H3b (rechazo universitario
-a violencia estatal) solo universitarios muestran efectos negativos
-significativos para violencia estatal (-0.20 a -0.22), mientras
-educación media y técnica exhiben efectos nulos (puntos grises en línea
-roja). Esto valida que el rechazo diferenciado a represión requiere la
-combinación crítica de capital universitario más participación,
-confirmando el marco moral dual predicho en H3a-H3b: universitarios
-participantes legitiman violencia en protestas (+0.40) pero rechazan
-violencia estatal (-0.22).
+Por otro lado, el Panel B muestra que solo universitarios tienen efectos
+negativos significativos para justificación de la violencia estatal
+(-0.20 a -0.22), mientras educación media y técnica exhiben efectos
+nulos (puntos grises en línea roja). En este sentido, se dice que
+universitarios participantes tenderían a legitiman violencia en
+protestas (+0.40) a la vez que rechazan la violencia estatal (-0.22).
 
-Finalmente, los paneles C y D evalúan H2b, H3c y H3d, donde todas las
-clases presentan efectos positivos para violencia en protestas (service
-class e intermediate class \textasciitilde+0.40, working class +0.26),
-confirmando H2b sobre efecto techo en clase trabajadora (menor
-incremento que service class). Sin embargo, H3d (service class rechaza
-violencia estatal) se confirma débilmente, pues, aunque todas las clases
-muestran efectos negativos (-0.11 a -0.20), las diferencias no son
-estadísticamente robustas. Esto evidencia que educación supera a clase
-como moderador crítico del marco moral dual, confirmando la primacía de
-recursos culturales sobre posición estructural.
+Finalmente, en los paneles C y D todas las clases presentan efectos
+positivos para violencia en protestas (service class e intermediate
+class \textasciitilde+0.40, working class +0.26). Ahora, si bien todas
+las clases muestran efectos negativos (-0.11 a -0.20), las diferencias
+no son estadísticamente robustas. Esto evidencia que educación supera a
+la clase como moderador crítico del marco moral dual, confirmando la
+primacía de recursos culturales sobre posición estructural.
 
 \subsubsection{El ``Efecto Paradoja'' de la
 Educación}\label{el-efecto-paradoja-de-la-educaciuxf3n}
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-paradoja-educacion-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-paradoja-educacion-1.pdf}
 
 }
 
@@ -2244,20 +2325,21 @@ movilización.
 violencia (Violencia en Protestas vs Violencia
 Estatal)}\label{reconfiguraciuxf3n-bidireccional-de-la-justificaciuxf3n-de-la-violencia-violencia-en-protestas-vs-violencia-estatal}
 
-Los modelos con interacciones (M1b y M2b) revelan la dinámica
-bidireccional predicha en H3a-H3b (universitarios) y H3c-H3d(service
-class). H3a se confirma plenamente: para violencia en protestas, la
-educación universitaria reduce justificación entre no participantes
-(\(-0.13***\)), pero participación genera incremento (\(+0.27***\))
-magnificado por interacciones positivas con educación superior (técnico
-superior incompleto: \(+0.28*\); universitario completo: \(+0.13**\)),
-anulando el efecto civilizatorio. H3b se confirma plenamente: para
-violencia estatal, el patrón se invierte completamente---educación sola
-(\(+0.06\), ns) y participación sola (\(-0.04\), ns) no generan efectos,
-pero sus interacciones negativas producen rechazo significativo entre
-universitarios (incompleto: \(-0.16*\); completo: \(-0.18***\)),
-evidenciando que solo la combinación educación universitaria +
-participación activa el marco crítico hacia represión.
+Los modelos con interacciones (Modelo 1b y Modelo 2b) revelan la
+dinámica bidireccional predicha en H3a-H3b (universitarios) y
+H3c-H3d(service class). H3a se confirma plenamente: para violencia en
+protestas, la educación universitaria reduce justificación entre no
+participantes (\(-0.13***\)), pero participación genera incremento
+(\(+0.27***\)) magnificado por interacciones positivas con educación
+superior (técnico superior incompleto: \(+0.28*\); universitario
+completo: \(+0.13**\)), anulando el efecto civilizatorio. H3b se
+confirma plenamente: para violencia estatal, el patrón se invierte
+completamente---educación sola (\(+0.06\), ns) y participación sola
+(\(-0.04\), ns) no generan efectos, pero sus interacciones negativas
+producen rechazo significativo entre universitarios (incompleto:
+\(-0.16*\); completo: \(-0.18***\)), evidenciando que solo la
+combinación educación universitaria + participación activa el marco
+crítico hacia represión.
 
 Los controles confirman el impacto del estallido 2019: incremento
 moderado en justificación de protestas (\(+0.05*\)) pero colapso en
@@ -2266,16 +2348,16 @@ hacia represión policial. Ideología opera en direcciones opuestas:
 derecha reduce justificación de protestas (\(-0.03***\)) pero incrementa
 la de violencia estatal (\(+0.05***\)). Las mujeres rechazan más
 violencia estatal (\(-0.13***\)) sin diferencias en protestas. Este
-patrón confirma que la reconfiguración bidireccional predicha en
-\textbf{H3a-H3b} (legitimar protestas, rechazar represión) es completa
-solo entre quienes combinan educación universitaria con experiencia
-directa de movilización, cristalizando el marco moral dual sofisticado.
+patrón confirma que la reconfiguración bidireccional predicha en H3a-H3b
+(legitimar protestas, rechazar represión) es completa solo entre quienes
+combinan educación universitaria con experiencia directa de
+movilización, cristalizando el marco moral dual sofisticado.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-bidireccional-tiempo-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-bidireccional-tiempo-1.pdf}
 
 }
 
@@ -2294,7 +2376,7 @@ educativos, confirmando que sin participación no hay reconfiguración
 bidireccional pese al efecto civilizatorio universitario (H1a opera pero
 H3b no se activa).
 
-Entre participantes (fila inferior), emergen tres patrones que permiten
+Entre participantes (fila inferior), emergen tres patrnoes que permiten
 evaluar H3a-H3b. Educación media/técnica muestra rechazo parcial de
 H3a-H3b: elevación de justificación de protestas (+0.27 a +0.55,
 confirmando H3a) pero sin rechazo significativo a violencia estatal
@@ -2321,11 +2403,11 @@ sofisticado.
 Estructural}\label{la-clase-social-como-moderador-estructural}
 
 Tomando a la Clase de Servicio (Service class, categorías I+II del
-esquema EGP) como referencia, los resultados del M3 muestran que la
-Clase Intermedia (categorías III+IV, profesionales de rutina y pequeños
-propietarios) no difiere significativamente de la Clase de Servicio
-entre no participantes (-0.01, ns), sugiriendo actitudes iniciales
-similares. En contraste, H2a se confirma: la Clase Trabajadora
+esquema EGP) como referencia, los resultados del Modelo 3 muestran que
+la Clase Intermedia (categorías III+IV, profesionales de rutina y
+pequeños propietarios) no difiere significativamente de la Clase de
+Servicio entre no participantes (-0.01, ns), sugiriendo actitudes
+iniciales similares. En contraste, H2a se confirma: la Clase Trabajadora
 (categorías V+VI+VII, trabajadores manuales calificados y no
 calificados) exhibe un nivel basal significativamente más alto de
 justificación (+0.09, p\textless0.01), evidenciando una ``predisposición
@@ -2368,11 +2450,11 @@ aleatorio (varianza=0.11) es ligeramente menor que en el modelo
 educativo, indicando que la clase social captura algo menos de
 heterogeneidad individual.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-clase-protesta-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-clase-protesta-1.pdf}
 
 }
 
@@ -2415,7 +2497,7 @@ superponen sustancialmente. La brecha inicial de 0.09 puntos entre Clase
 Trabajadora y Clase de Servicio (H2a) prácticamente desaparece entre
 manifestantes, donde todas las clases justifican la violencia en niveles
 similares. Este patrón de convergencia contrasta radicalmente con el
-modelo educativo (M1), donde la participación amplificaba las
+modelo educativo (Modelo 1), donde la participación amplificaba las
 diferencias, generando divergencia. Aquí, la experiencia compartida de
 movilización ``iguala'' las diferencias de clase, sugiriendo que la
 posición estructural pierde poder predictivo cuando ambos grupos están
@@ -2423,11 +2505,11 @@ inmersos en el mismo contexto de acción colectiva, mientras el capital
 cultural (educación) magnifica sus efectos diferenciales precisamente en
 ese mismo contexto.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-clase-estatal-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-clase-estatal-1.pdf}
 
 }
 
@@ -2485,11 +2567,11 @@ clase trabajadora).
 \subsubsection{Evolución temporal del efecto de
 clase}\label{evoluciuxf3n-temporal-del-efecto-de-clase}
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-clase-tiempo-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-clase-tiempo-1.pdf}
 
 }
 
@@ -2521,12 +2603,12 @@ ambas hipótesis.
 
 La Clase Trabajadora revela el contraste crítico. Aunque converge con
 otras clases en protestas (\textasciitilde2.00-2.10, validando
-convergencia post-participación de \textbf{H2b}), su línea azul cae
-moderadamente a \textasciitilde1.50-1.60 y crucialmente re-converge en
-2022-2023 (\textasciitilde1.80-1.90), prácticamente igualando ambos
-tipos de violencia. Este patrón de convergencia rechaza H3d para working
-class, evidenciando que el rechazo sostenido a violencia estatal no se
-mantiene en el tiempo entre sectores populares.
+convergencia post-participación de H2b), su línea azul cae moderadamente
+a \textasciitilde1.50-1.60 y crucialmente re-converge en 2022-2023
+(\textasciitilde1.80-1.90), prácticamente igualando ambos tipos de
+violencia. Este patrón de convergencia rechaza H3d para working class,
+evidenciando que el rechazo sostenido a violencia estatal no se mantiene
+en el tiempo entre sectores populares.
 
 \section{Discusión}\label{discusiuxf3n}
 
@@ -2930,15 +3012,18 @@ Acemoglu, D., Johnson, S., Robinson, J. A., \& Pierre Yared. (2005).
 From Education to Democracy? The American Economic Review, 95(2), 44-49.
 JSTOR.
 
-Adam‐Troian, J., Wagner‐Egger, P., Motyl, M., Arciszewski, T., Imhoff,
+Adam-Troian, J., Wagner-Egger, P., Motyl, M., Arciszewski, T., Imhoff,
 R., Zimmer, F., Klein, O., Babinska, M., Bangerter, A., Bilewicz, M.,
-Blanuša, N., Bovan,
-
-K., Bužarovska, R., Cichocka, A., Çelebi, E., Delouvée, S., Douglas, K.
-M., Dyrendal, A., Gjoneska, B., \ldots{} Van Prooijen, J. (2021).
-Investigating the Links Between Cultural Values and Belief in Conspiracy
-Theories: The Key Roles of Collectivism and Masculinity. Political
-Psychology, 42(4), 597-618. https://doi.org/10.1111/pops.12716
+Blanuša, N., Bovan, K., Bužarovska, R., Cichocka, A., Çelebi, E.,
+Delouvée, S., Douglas, K.M., Dyrendal, A., Gjoneska, B., Graf, S.,
+Gualda, E., Hirschberger, G., Kende, A., Krekó, P., Krouwel, A.,
+Lamberty, P., Mari, S., Milosevic, J., Panasiti, M.S., Pantazi, M.,
+Petkovski, L., Porciello, G., Prims, J.P., Rabelo, A., Schepisi, M.,
+Sutton, R.M., Swami, V., Thórisdóttir, H., Turjačanin, V., Zezelj, I.
+and van Prooijen, J.-W. (2021), Investigating the Links Between Cultural
+Values and Belief in Conspiracy Theories: The Key Roles of Collectivism
+and Masculinity. Political Psychology, 42: 597-618.
+https://doi.org/10.1111/pops.12716
 
 Almond, G. A. \& Verba, S. (1963). The Civic Culture. Princeton
 University Press; JSTOR. http://www.jstor.org/stable/j.ctt183pnr2
@@ -3001,9 +3086,8 @@ Society, 32(5), 629-645. https://doi.org/10.1080/10439463.2021.1957887
 Bottero, W. (2004). Class Identities and the Identity of Class.
 Sociology, 38(5), 985-1003. https://doi.org/10.1177/0038038504047182
 
-Bourdieu, P. (with Passeron, J.-C., Pasquali, P., Poupeau, F., \&
-Georgiadis, M. de la P.). (2019). La Reproducción: Elementos para una
-Teoría Del Sistema Educativo. Siglo XXI Editores.
+Bourdieu, P. \& Passeron, J.C. (2019). La Reproducción: Elementos para
+una Teoría Del Sistema Educativo. Siglo XXI Editores.
 
 Branton, R., Martinez-Ebers, V., Carey, T. E., \& Matsubayashi, T.
 (2015). Social Protest and Policy Attitudes: The Case of the 2006
@@ -3036,9 +3120,6 @@ Inequality, Distributive Justice and Political Participation: An
 Analysis of the Case of Chile. Bulletin of Latin American Research,
 34(4), 486-502. https://doi.org/10.1111/blar.12369
 
-Clark, W. R., \& Golder, M. (2006). Understanding interaction models:
-Improving empirical analyses. Political analysis, 14(1), 63-82.
-
 Converse, P. (1972). Change in the American electorate. The human
 meaning of social change/Russell Sage Foundation.
 
@@ -3068,11 +3149,11 @@ della Porta, D. (Ed.). (2017). Global Diffusion of Protest: Riding the
 Protest Wave in the Neoliberal Crisis. Amsterdam University Press;
 JSTOR. http://www.jstor.org/stable/j.ctt1zkjxq0
 
-Della Porta, D. (2018). Radicalization: A Relational Perspective. Annual
+della Porta, D. (2018). Radicalization: A Relational Perspective. Annual
 Review of Political Science, 21(1), 461-474.
 https://doi.org/10.1146/annurev-polisci-042716-102314
 
-Della Porta, D., \& Fillieule, O. (2007). Policing Social Protest. En D.
+della Porta, D., \& Fillieule, O. (2007). Policing Social Protest. En D.
 A. Snow, S. A. Soule, \& H. Kriesi (Eds.), The Blackwell Companion to
 Social Movements (pp.~217-241). Blackwell Publishing
 Ltd.~https://doi.org/10.1002/9780470999103.ch10
@@ -3092,9 +3173,10 @@ J. Valsiner (Eds.), The Psychology of Radical Social Change (1.a ed.,
 pp.~11-28). Cambridge University Press.
 https://doi.org/10.1017/9781108377461.003
 
-Donoso, S., \& Somma, N. M. (2019). The Manifold Political Consequences
-of Chile's Student Movement. En M. Arce \& R. Rice (Eds.), Protest and
-Democracy (pp.~145--172). University of Calgary Press.
+Donoso, S. Somma, N. (2019). ``You taught us to give an opinion, now
+learn how to listen'': The Manifold Political Consequences of Chile's
+Student Movement. En Arce, M., Rice, R. (Eds), Protest and democracy
+(pp.~145-172). Calgary: University of Calgary Press.
 
 Dyrstad, K., \& Hillesund, S. (2020). Explaining Support for Political
 Violence. The Journal of Conflict Resolution, 64(9), 1724-1753. JSTOR.
@@ -3130,9 +3212,6 @@ Garcés, M. (2019). October 2019: Social Uprising in Neoliberal Chile.
 Journal of Latin American Cultural Studies, 28(3), 483-491.
 https://doi.org/10.1080/13569325.2019.1696289
 
-Gelman, A., \& Hill, J. (2021). Data analysis using regression and
-multilevel/hierarchical models (23rd printing). Cambridge Univ. Press.
-
 Gerber, M. M., Carvacho, H., \& González, R. (2016). Development and
 validation of a scale of support for violence in the context of
 intergroup conflict (SVIC): The case of violence perpetrated by Mapuche
@@ -3157,11 +3236,6 @@ Giugni, M. (2004). Social protest and policy change: Ecology,
 antinuclear, and peace movements in comparative perspective. Rowman \&
 Littlefield.
 
-Gonzalez, R., \& Morán, C. L. F. (2020). The 2019--2020 Chilean
-protests: A first look at their causes and participants. International
-Journal of Sociology, 50(3), 227-235.
-https://doi.org/10.1080/00207659.2020.1752499
-
 Goodwin, J., Jasper, J. M., \& Polletta, F. (Eds.). (2001). Passionate
 politics: Emotions and social movements. The University of Chicago
 Press.
@@ -3179,7 +3253,7 @@ Hastie, B. (2007). Higher education and sociopolitical orientation: The
 role of social influence in the liberalisation of students. European
 Journal of Psychology of Education, 22(3), 259-274. JSTOR.
 
-Hox, J. J., Moerbeek, M., \& Schoot, R. van de. (2018). Multilevel
+Hox, J. J., Moerbeek, M., \& Schoot, R. van de. (2017). Multilevel
 analysis: Techniques and applications (Third edition). Routledge, Taylor
 \& Francis Group. https://doi.org/10.4324/9781315650982
 
@@ -3278,8 +3352,9 @@ the Use of Violence against Police among Occupy Wall Street Protesters.
 Policing: A Journal of Policy and Practice, 14(4), 883-899.
 https://doi.org/10.1093/police/pay003
 
-Marx, G. T. (1998). Policing Protest (NED-New edition, Vol. 6).
-University of Minnesota Press; JSTOR.
+Marx, G. T. (1998). Policing Protest: The Control of Mass Demonstrations
+in Western Democracies (D. della Porta \& H. Reiter, Eds.; NED-New
+edition, Vol. 6). University of Minnesota Press.
 http://www.jstor.org/stable/10.5749/j.ctttv1tv
 
 Mazumder, S. (2018). The Persistent Effect of U.S. Civil Rights Protests
@@ -3296,11 +3371,6 @@ Youth Service: The Case of Teach for America. Social Forces, 88(2),
 Medel, R. M., \& Somma, N. M. (2022). Represión policial y grupos de
 protesta en Chile: Un estudio longitudinal. Revista de Sociología,
 37(1). https://doi.org/10.5354/0719-529X.2022.68149
-
-Meraviglia, C., \& Buis, M. L. (2015). Class, Status, and Education: The
-Influence of Parental Resources on IEO in Europe, 1893-1987.
-International Review of Social Research, 5(1), 35-60.
-https://doi.org/10.1515/irsr-2015-0004
 
 Muller, E. N., \& Weede, E. (1990). Cross-National Variation in
 Political Violence: A Rational Action Approach. Journal of Conflict
@@ -3333,13 +3403,10 @@ https://doi.org/10.1177/2233865913490937
 Pascarella, E. T., \& Terenzini, P. T. (1991). How college affects
 students (First edition). Jossey-Bass Publishers.
 
-Passy, F., \& Monsch, G. (2018). Biographical Consequences of Activism.
+Passy, F., \& Monsch, G. (2019). Biographical Consequences of Activism.
 En D. A. Snow, S. A. Soule, H. Kriesi, \& H. J. McCammon (Eds.), The
 Wiley Blackwell Companion to Social Movements (1.a ed., pp.~499-514).
 Wiley. https://doi.org/10.1002/9781119168577.ch28
-
-Pavlic, R. D. (2021). The Nearness of Youth. Latin American Politics and
-Society, 63(1), 72-94. JSTOR.
 
 Pérez Ahumada, P., \& Andrade De La Horra, V. (2021). Clase, política y
 percepción del conflicto de clases en Chile. Revista Temas Sociológicos,
@@ -3402,10 +3469,6 @@ Sabucedo, J.-M., Dono, M., Alzate, M., \& Seoane, G. (2018). The
 Importance of Protesters' Morals: Moral Obligation as a Key Variable to
 Understand Collective Action. Frontiers in Psychology, Volume 9-2018.
 https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2018.00418
-
-Schwabbauer, M. L. (1975). Use of the latent image technique to develop
-and evaluate problem-solving skills. The American Journal of Medical
-Technology, 41(12), 457-462.
 
 Siegel, H. (1981). Kohlberg, Moral Adequacy, and the Justification of
 Educational Interventions. Educational Theory, 31(3-4), 275-284.
@@ -3489,8 +3552,8 @@ Procedural Justice, Social Identity, and Cooperative Behavior.
 Personality and Social Psychology Review, 7(4), 349-361.
 https://doi.org/10.1207/S15327957PSPR0704\_07
 
-Van Stekelenburg, J., \& Klandermans, B. (2013). The social psychology
-of protest. Current Sociology, 61(5-6), 886-905.
+Klandermans, B. \& Van Stekelenburg, J. (2013). The social psychology of
+protest. Current Sociology, 61(5-6), 886-905.
 https://doi.org/10.1177/0011392113479314
 
 Varlık, S., Akpınar, S., Akpınar, Ö., \& Görünü, R. M. (2025). Education
@@ -3586,11 +3649,11 @@ los modelos de efectos aleatorios.
 \subsection{Anexo B: Índices de violencia
 desagregados}\label{anexo-b-uxedndices-de-violencia-desagregados}
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-componentes-violencia-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-componentes-violencia-1.pdf}
 
 }
 
@@ -3654,11 +3717,11 @@ los no participantes, sugiriendo que incluso en un contexto de baja
 justificación generalizada, la experiencia directa de movilización sigue
 siendo un predictor clave de actitudes hacia la violencia política.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-distribuciones-violin-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-distribuciones-violin-1.pdf}
 
 }
 
@@ -3703,18 +3766,17 @@ posición estructural.
 \subsection{Anexo C: Correlaciones entre variables
 clave}\label{anexo-c-correlaciones-entre-variables-clave}
 
-\begin{table}
+\begingroup\fontsize{9}{11}\selectfont
+
+\begin{longtable}[t]{llcc}
 
 \caption{\label{tbl-correlaciones}Correlaciones entre justificación de
 violencia y variables sociodemográficas}
 
-\centering{
+\tabularnewline
 
-\centering\begingroup\fontsize{9}{11}\selectfont
-
-\begin{tabular}{llcc}
 \toprule
-  & Variable & Viol. en Protestas & Viol. Estatal\\
+ & Variable & Viol. en Protestas & Viol. Estatal\\
 \midrule
 \cellcolor{gray!10}{educ\_num} & \cellcolor{gray!10}{Educación} & \cellcolor{gray!10}{0.042} & \cellcolor{gray!10}{-0.020}\\
 edad\_std & Edad & -0.177 & 0.075\\
@@ -3724,12 +3786,10 @@ ideologia\_std & Ideología (izq-der) & -0.139 & 0.192\\
 \bottomrule
 \multicolumn{4}{l}{\rule{0pt}{1em}\textit{Nota:}}\\
 \multicolumn{4}{l}{\rule{0pt}{1em}* p < 0.05, ** p < 0.01, *** p < 0.001}\\
-\end{tabular}
+
+\end{longtable}
+
 \endgroup{}
-
-}
-
-\end{table}%
 
 Las correlaciones de Pearson muestran patrones destacables. La
 participación en protestas exhibe una correlación moderada-fuerte con la
@@ -3749,11 +3809,11 @@ confirmando la necesidad de los modelos de interacción propuestos.
 \subsection{Anexo D: Validación
 Metodológica}\label{anexo-d-validaciuxf3n-metodoluxf3gica}
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-diagnosticos-modelos-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-diagnosticos-modelos-1.pdf}
 
 }
 
@@ -3809,11 +3869,11 @@ adecuadamente la estructura de dependencia intra-individual sin
 necesidad de especificaciones más complejas (e.g., pendientes
 aleatorias).
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-robustez-sensibilidad-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-robustez-sensibilidad-1.pdf}
 
 }
 
@@ -3889,11 +3949,11 @@ tres paneles validan que los hallazgos no son artefactos metodológicos
 ni contingentes a un año específico, sino patrones robustos que
 atraviesan especificaciones y subperiodos.
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-slopes-educacion-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-slopes-educacion-1.pdf}
 
 }
 
@@ -3903,11 +3963,11 @@ experiencia de movilización}
 
 \end{figure}%
 
-\begin{figure}
+\begin{figure}[H]
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{tesis_files/figure-pdf/fig-slopes-educacion-nopart-1.pdf}}
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{tesis_files/figure-pdf/fig-slopes-educacion-nopart-1.pdf}
 
 }
 

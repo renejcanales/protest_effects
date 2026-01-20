@@ -352,7 +352,6 @@ cor_table <- data.frame(
 
 cor_table %>%
   knitr::kable(
-    format = "latex",
     booktabs = TRUE,
     col.names = c("Variable", "Viol. en Protestas", "Viol. Estatal"),
     align = c("l", "c", "c")
@@ -537,6 +536,8 @@ Los interceptos aleatorios por individuo muestran distribuciones aproximadamente
 #| echo: false
 #| warning: false
 #| message: false
+#| error: false
+#| cache: true
 
 library(lme4)
 library(broom.mixed)
@@ -675,17 +676,22 @@ p2 <- ggplot(all_sens, aes(x = estimate, y = term_clean, color = Dataset)) +
 # Modelos solo 2019
 elsoc_2019 <- elsoc_final_2 %>% filter(year == 2019)
 
-mod_h1_2019 <- glmmTMB(
-  justif_violencia_protesta_consistente ~ educ_cat_unordered * protesta_dummy +
-    edad + mujer + ideologia_std + (1 | idencuesta),
-  data = elsoc_2019, family = gaussian()
-)
+# Usar modelos más simples para 2019 (OLS) para evitar problemas de convergencia con un solo año
+mod_h1_2019 <- tryCatch({
+  lm(
+    justif_violencia_protesta_consistente ~ educ_cat_unordered * protesta_dummy +
+      edad + mujer + ideologia_std,
+    data = elsoc_2019
+  )
+}, error = function(e) NULL)
 
-mod_h3a_2019 <- glmmTMB(
-  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
-    edad + mujer + ideologia_std + (1 | idencuesta),
-  data = elsoc_2019, family = gaussian()
-)
+mod_h3a_2019 <- tryCatch({
+  lm(
+    justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+      edad + mujer + ideologia_std,
+    data = elsoc_2019
+  )
+}, error = function(e) NULL)
 
 # Comparar 2019 vs completo
 extract_2019 <- function(model_full, model_2019, model_name) {
@@ -694,12 +700,16 @@ extract_2019 <- function(model_full, model_2019, model_name) {
     select(term, estimate, std.error, conf.low, conf.high) %>%
     mutate(Periodo = "2016-2023", Modelo = model_name)
   
-  coefs_2019 <- tidy(model_2019, effects = "fixed", conf.int = TRUE) %>%
-    filter(grepl("protesta_dummy|:", term)) %>%
-    select(term, estimate, std.error, conf.low, conf.high) %>%
-    mutate(Periodo = "Solo 2019", Modelo = model_name)
-  
-  rbind(coefs_full, coefs_2019)
+  if (!is.null(model_2019)) {
+    coefs_2019 <- tidy(model_2019, conf.int = TRUE) %>%
+      filter(grepl("protesta_dummy|:", term)) %>%
+      select(term, estimate, std.error, conf.low, conf.high) %>%
+      mutate(Periodo = "Solo 2019", Modelo = model_name)
+    
+    rbind(coefs_full, coefs_2019)
+  } else {
+    coefs_full
+  }
 }
 
 comp_h1 <- extract_2019(mod_educ_protesta, mod_h1_2019, "H1: Educ × Protestas")
