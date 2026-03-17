@@ -52,16 +52,6 @@ Para la educación del encuestado se operacionalizó una variable categórica de
 
 Esta categorización se trata como factor no ordenado, utilizando "educación media completa o menos" como categoría de referencia. La decisión de no tratar educación como variable ordinal responde a evidencia previa que sugiere que los efectos de educación sobre actitudes políticas no son necesariamente lineales, y que existen diferencias cualitativas importantes entre educación técnica y universitaria que van más allá de "años de escolaridad" (Nie et al., 1996).
 
-Por su parte, para la **Clase social** se utiliza una versión simplificada del esquema de clases Erikson-Goldthorpe-Portocarrero (EGP), ampliamente utilizado en estudios de estratificación, para conservar un mayor número de casos distribuidos. Basándose en la ocupación principal del encuestado (codificada según ISCO-08) y su situación de empleo, se construyó una variable categórica de tres clases:
-
-1. Service class (Clases I-II del esquema EGP): Profesionales, gerentes y administradores de alto nivel, técnicos superiores. Incluye ocupaciones que requieren alta calificación y ejercen autoridad o autonomía significativa.
-
-2. Intermediate class (Clases III-IV): Empleados no manuales de rutina, trabajadores de pequeña propiedad, trabajadores independientes sin empleados.
-
-3. Working class (Clases V-VII): Trabajadores manuales calificados, semicalificados y no calificados, tanto de sectores secundarios como terciarios.
-
-Esta clasificación captura diferencias en posición estructural dentro del sistema de producción, niveles típicos de ingresos, seguridad económica, y autonomía laboral. La variable se trata como factor, utilizando "service class" como categoría de referencia para facilitar la interpretación de interacciones.
-
 Para la **Participación en protestas** se elaboró una variable dicotómica que indica si el encuestado participó en manifestaciones, marchas o protestas durante los últimos 12 meses (1 = Sí participó, 0 = No participó). Esta medición está basada en la pregunta: *"Durante los últimos 12 meses, ¿ha participado en manifestaciones o marchas?"¨*. Esta variable captura participación reportada retrospectivamente y, por tanto, está sujeta a posibles sesgos de recuerdo y deseabilidad social, aunque existe evidencia previa que sugiere que el reporte de participación en protestas tiene razonable validez cuando el período de referencia es relativamente corto (Walgrave & Wouters, 2014).
 
 ### Variables de Control
@@ -104,20 +94,20 @@ donde:
 - $\gamma_{00}$: Intercepto general (gran media).
 - $\gamma_{01}$: Efecto de predictores de nivel 2 (entre individuos).
 - $\gamma_{10}$: Efecto fijo de predictores de nivel 1 (intra-individuos).
-- $Z_j$: Predictores que no varían en el tiempo (educación, clase social, género).
+- $Z_j$: Predictores que no varían en el tiempo (educación, género).
 - $u_{0j}$: Efecto aleatorio del intercepto para el individuo $j$.
 
 **Modelo integrado**
 
 $$y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \gamma_{20} t + u_{0j} + \varepsilon_{tj}$$
 
-donde $t$ representa el tiempo (ola de medición, codificada como 0, 1, 2, ..., 6 para las olas 2016-2023). Este modelo descompone la varianza total en dos componentes: varianza entre individuos ($\sigma^2_u$, capturada por los interceptos aleatorios) y varianza dentro de individuos a lo largo del tiempo ($\sigma^2_\varepsilon$, error residual). El coeficiente de correlación intra-clase (ICC) cuantifica la proporción de varianza total atribuible a diferencias entre individuos. El parámetro $\gamma_{20}$ captura la tendencia temporal lineal promedio en la justificación de violencia.
+donde $t$ representa el tiempo (ola de medición, codificada como 0, 1, 2, ..., 6 para las olas 2016-2023). Este modelo descompone la varianza total en dos componentes: varianza entre individuos ($\sigma^2_u$, capturada por los interceptos aleatorios) y varianza dentro de individuos a lo largo del tiempo ($\sigma^2_\varepsilon$, error residual). El coeficiente de correlación intraclúster (ICC) cuantifica la proporción de varianza total atribuible a diferencias entre individuos. El parámetro $\gamma_{20}$ captura la tendencia temporal lineal promedio en la justificación de violencia.
 
 ### Modelos con interacción
 
 **Interacción entre Educación y Participación**
 
-Para testear las hipótesis centrales de este estudio, que predicen que los efectos de educación y clase social sobre justificación de violencia son contingentes a la participación en protestas, se estiman modelos que incluyen términos de interacción multiplicativos:
+Para testear las hipótesis centrales de este estudio, que predicen que los efectos de educación sobre justificación de violencia son contingentes a la participación en protestas, se estiman modelos que incluyen términos de interacción multiplicativos:
 
 $$
 \begin{aligned}
@@ -128,18 +118,7 @@ $$
 
 Dado que educación es una variable categórica con 5 niveles (4 dummies), este modelo estima 4 coeficientes de interacción ($\gamma_{11}, \gamma_{12}, \gamma_{13}, \gamma_{14}$), uno para cada nivel educativo respecto a la categoría de referencia.
 
-**Interacción entre Clase y Participación**
-
-$$
-\begin{aligned}
-y_{tj} = \gamma_{00} + \sum_{k=1}^{2} \gamma_{0k} \text{Clase}_{kj} + \gamma_{10} \text{Participación}_{tj} + \sum_{k=1}^{2} \gamma_{1k} (\text{Clase}_{kj} \times \text{Participación}_{tj}) + \\
-\gamma_{20} t + \text{Controles} + u_{0j} + \varepsilon_{tj}
-\end{aligned}
-$$
-
-De manera similar, este modelo estima 2 coeficientes de interacción ($\gamma_{11}$ para intermediate class × participación, $\gamma_{12}$ para working class × participación).
-
-La interpretación de términos de interacción en modelos multinivel sigue la lógica estándar: el coeficiente de interacción representa cuánto cambia el efecto de la participación en protestas sobre la justificación de violencia al pasar de una categoría educativa (o de clase) a otra. Los gráficos de efectos marginales (predicted values) se utilizan para visualizar estas interacciones de forma intuitiva.
+La interpretación de términos de interacción en modelos multinivel sigue la lógica estándar: el coeficiente de interacción representa cuánto cambia el efecto de la participación en protestas sobre la justificación de violencia al pasar de una categoría educativa a otra. Los gráficos de efectos marginales (predicted values) se utilizan para visualizar estas interacciones de forma intuitiva.
 
 ### Elección de la distribución y función de enlace
 

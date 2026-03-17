@@ -62,7 +62,7 @@ elsoc_final_2 %>%
   print()
 ```
 
-## Anexo A: Intraclass Correlation Coeficient
+## Anexo A: Intracluster Correlation Coefficient
 
 ```{r}
 #| echo: false
@@ -119,7 +119,7 @@ tabla_icc %>%
   )
 ```
 
-Como paso inicial, se estimaron los modelos nulos para ambas variables de justificación de la violencia, incluyendo únicamente los interceptos aleatorios por individuo. Los Coeficientes de Correlación Intraclase (ICC) calculados a partir de estos modelos confirman la idoneidad del enfoque multinivel.
+Como paso inicial, se estimaron los modelos nulos para ambas variables de justificación de la violencia, incluyendo únicamente los interceptos aleatorios por individuo. Los coeficientes de correlación intraclúster (ICC) calculados a partir de estos modelos confirman la idoneidad del enfoque multinivel.
 
 Para la justificación de la violencia en protestas, el ICC es de 0.229, indicando que un 24% de la varianza total es atribuible a diferencias sistemáticas y estables entre los individuos. Para la justificación de la violencia estatal, el valor se repite, alcanzando el mismo ICC de 0.240 (un 24.0% de varianza entre-sujetos).
 
@@ -249,7 +249,7 @@ Respecto a la violencia estatal, los niveles de justificación son similares a l
 
 ```{r}
 #| label: fig-distribuciones-violin
-#| fig-cap: "Distribución de justificación de violencia en protestas por educación, clase y participación"
+#| fig-cap: "Distribución de justificación de violencia en protestas por educación y participación"
 #| fig-height: 10
 #| fig-width: 12
 #| echo: false
@@ -278,47 +278,16 @@ p1 <- elsoc_final_2 %>%
   ) +
   ylim(1, 5)
 
-# Panel B: Por clase
-p2 <- elsoc_final_2 %>%
-  filter(!is.na(egp3) & !is.na(protesta_dummy)) %>%
-  ggplot(aes(x = egp3, y = justif_violencia_protesta_consistente, 
-             fill = factor(protesta_dummy, labels = c("No participó", "Participó")))) +
-  geom_violin(alpha = 0.6, scale = "width") +
-  geom_boxplot(width = 0.15, outlier.size = 0.3, alpha = 0.8) +
-  scale_fill_manual(values = c("No participó" = "#F8766D", "Participó" = "#00BFC4")) +
-  labs(
-    title = "Por Clase Social", 
-    x = "Clase Social (EGP)", 
-    y = "", 
-    fill = ""
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 7),
-    legend.position = "bottom",
-    legend.text = element_text(size = 7),
-    plot.title = element_text(size = 9)
-  ) +
-  ylim(1, 5)
-
-# Combinar
-violin_plot <- p1 + p2 + 
-  plot_layout(guides = "collect") +
+# Mostrar
+violin_plot <- p1 +
   plot_annotation(
-    tag_levels = 'A',
     caption = "Violines muestran distribución de densidad; cajas muestran mediana y cuartiles. Elaboración propia con ELSOC 2016-2023."
-  ) &
-  theme(
-    legend.position = "bottom",
-    plot.caption = element_text(size = 7)
   )
 
 violin_plot
 ```
 
 La @fig-distribuciones-violin complementa las tablas descriptivas mostrando visualmente la distribución completa de justificación de violencia, no solo las medias. El Panel A (educación) revela varios patrones importantes. Primero, entre no participantes (violines rojos), los niveles educativos más altos muestran distribuciones más concentradas en valores bajos (~1.5-2.0), con medianas claramente descendentes, confirmando el efecto civilizatorio. Las distribuciones son relativamente simétricas y unimodales. Entre participantes (violines azules), las distribuciones se desplazan hacia arriba y se vuelven más dispersas, especialmente en educación universitaria, donde la distribución es más amplia (rango ~1.5-3.5) y bimodal, evidenciando la heterogeneidad capturada por los efectos aleatorios: algunos universitarios participantes mantienen baja justificación mientras otros la incrementan sustancialmente.
-
-El Panel B (clase social) muestra patrones contrastantes. Entre no participantes, la Clase Trabajadora exhibe una distribución ligeramente desplazada hacia arriba (~1.8-2.2) comparada con Service class e Intermediate class (~1.6-2.0), consistente con la predisposición estructural. Entre participantes, ocurre una notable convergencia: las tres distribuciones se superponen casi completamente, con medianas muy similares (~2.0-2.2) y rangos intercuartiles comparables. Sin embargo, la Clase Trabajadora muestra una cola superior ligeramente más larga, indicando que aunque la mediana converge, algunos individuos de esta clase alcanzan los niveles más altos de justificación. Los boxplots internos confirman que los rangos intercuartiles se reducen dramáticamente entre participantes, evidenciando menor variabilidad dentro de grupos cuando están activamente movilizados, un hallazgo consistente con la hipótesis de "experiencia compartida" que iguala actitudes independientemente de la posición estructural.
 
 ## Anexo C: Correlaciones entre variables clave
 
@@ -393,27 +362,11 @@ mod_educ_estatal <- glmmTMB(
   data = elsoc_final_2,
   family = gaussian()
 )
-
-mod_clase_protesta <- glmmTMB(
-  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
-    edad + mujer + ideologia_std + factor(year) +
-    (1 | idencuesta),
-  data = elsoc_final_2,
-  family = gaussian()
-)
-
-mod_clase_estatal <- glmmTMB(
-  justif_violencia_estatal ~ egp3 * protesta_dummy +
-    edad + mujer + ideologia_std + factor(year) +
-    (1 | idencuesta),
-  data = elsoc_final_2,
-  family = gaussian()
-)
 ```
 
 ```{r}
 #| label: fig-diagnosticos-modelos
-#| fig-cap: "Diagnósticos de los cuatro modelos principales: residuos, normalidad y efectos aleatorios"
+#| fig-cap: "Diagnósticos de los dos modelos principales: residuos, normalidad y efectos aleatorios"
 #| fig-height: 14
 #| fig-width: 12
 #| echo: false
@@ -437,26 +390,22 @@ get_diagnostics <- function(model, model_name) {
   )
 }
 
-# Extraer diagnósticos de los 4 modelos
+# Extraer diagnósticos de los 2 modelos
 diag_h1 <- get_diagnostics(mod_educ_protesta, "M1: Educ × Protestas")
 diag_h2 <- get_diagnostics(mod_educ_estatal, "M2: Educ × Estatal")
-diag_h3a <- get_diagnostics(mod_clase_protesta, "M3a: Clase × Protestas")
-diag_h3b <- get_diagnostics(mod_clase_estatal, "M3b: Clase × Estatal")
 
 # Combinar en dataframes
 resid_data <- data.frame(
-  fitted = c(diag_h1$fitted, diag_h2$fitted, diag_h3a$fitted, diag_h3b$fitted),
-  residuals = c(diag_h1$residuals, diag_h2$residuals, diag_h3a$residuals, diag_h3b$residuals),
-  model = rep(c(diag_h1$model, diag_h2$model, diag_h3a$model, diag_h3b$model),
-              times = c(length(diag_h1$fitted), length(diag_h2$fitted), 
-                       length(diag_h3a$fitted), length(diag_h3b$fitted)))
+  fitted = c(diag_h1$fitted, diag_h2$fitted),
+  residuals = c(diag_h1$residuals, diag_h2$residuals),
+  model = rep(c(diag_h1$model, diag_h2$model),
+              times = c(length(diag_h1$fitted), length(diag_h2$fitted)))
 )
 
 ranef_data <- data.frame(
-  ranef = c(diag_h1$ranef, diag_h2$ranef, diag_h3a$ranef, diag_h3b$ranef),
-  model = rep(c(diag_h1$model, diag_h2$model, diag_h3a$model, diag_h3b$model),
-              times = c(length(diag_h1$ranef), length(diag_h2$ranef), 
-                       length(diag_h3a$ranef), length(diag_h3b$ranef)))
+  ranef = c(diag_h1$ranef, diag_h2$ranef),
+  model = rep(c(diag_h1$model, diag_h2$model),
+              times = c(length(diag_h1$ranef), length(diag_h2$ranef)))
 )
 
 # Panel A: Residuos vs Valores Ajustados
@@ -494,10 +443,8 @@ p3 <- ggplot(ranef_data, aes(x = ranef, fill = model)) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 0.7) +
   facet_wrap(~model, scales = "free", ncol = 2) +
   scale_fill_manual(values = c(
-    "H1: Educ × Protestas" = "#EFC000FF",
-    "H2: Educ × Estatal" = "#0073C2FF",
-    "H3a: Clase × Protestas" = "#E76BF3",
-    "H3b: Clase × Estatal" = "#00BFC4"
+    "M1: Educ × Protestas" = "#EFC000FF",
+    "M2: Educ × Estatal" = "#0073C2FF"
   )) +
   labs(
     title = "C. Distribución de Interceptos Aleatorios por Individuo",
@@ -522,11 +469,11 @@ grafico_diagnosticos <- p1 / p2 / p3 +
 grafico_diagnosticos
 ```
 
-La @fig-diagnosticos-modelos presenta tres evaluaciones críticas de la validez de los modelos principales. **Panel A (Residuos vs Valores Ajustados)**: Los cuatro modelos muestran patrones residuales satisfactorios. Las líneas suavizadas (amarillas) se mantienen cercanas a cero a lo largo del rango de valores ajustados, indicando que no hay evidencia de no-linealidad sistemática en las relaciones modeladas. La dispersión vertical es relativamente constante (homocedasticidad), aunque se observa una leve mayor variabilidad en valores extremos, típico en modelos de efectos mixtos. Los modelos H1 y H3a (violencia en protestas) presentan dispersión ligeramente mayor que H2 y H3b (violencia estatal), consistente con mayor heterogeneidad en actitudes hacia violencia disruptiva. No se detectan patrones en forma de embudo o curvaturas pronunciadas que sugieran problemas de especificación.
+La @fig-diagnosticos-modelos presenta tres evaluaciones críticas de la validez de los modelos principales. **Panel A (Residuos vs Valores Ajustados)**: Ambos modelos muestran patrones residuales satisfactorios. Las líneas suavizadas (amarillas) se mantienen cercanas a cero a lo largo del rango de valores ajustados, indicando que no hay evidencia de no-linealidad sistemática en las relaciones modeladas. La dispersión vertical es relativamente constante (homocedasticidad), aunque se observa una leve mayor variabilidad en valores extremos, típico en modelos de efectos mixtos. El modelo de violencia en protestas presenta dispersión ligeramente mayor que el de violencia estatal, consistente con mayor heterogeneidad en actitudes hacia violencia disruptiva. No se detectan patrones en forma de embudo o curvaturas pronunciadas que sugieran problemas de especificación.
 
-Los gráficos cuantil-cuantil revelan que los residuos se aproximan razonablemente a distribución normal en los cuatro modelos. Los puntos siguen la línea de referencia roja en la región central, con desviaciones menores en las colas —particularmente cola derecha (valores extremos altos)—, indicando leve asimetría positiva residual. Este patrón es esperable dado que la variable dependiente (escala 1-5) tiene límite superior natural, generando "ceiling effects" leves. Crucialmente, las desviaciones no son severas y no comprometen la inferencia: los estimadores glmmTMB son robustos a desviaciones moderadas de normalidad cuando el tamaño muestral es grande (n>10,000 observaciones en nuestro caso). La similitud de patrones entre modelos confirma consistencia en la calidad de ajuste.
+Los gráficos cuantil-cuantil revelan que los residuos se aproximan razonablemente a distribución normal en ambos modelos. Los puntos siguen la línea de referencia roja en la región central, con desviaciones menores en las colas —particularmente cola derecha (valores extremos altos)—, indicando leve asimetría positiva residual. Este patrón es esperable dado que la variable dependiente (escala 1-5) tiene límite superior natural, generando "ceiling effects" leves. Crucialmente, las desviaciones no son severas y no comprometen la inferencia: los estimadores glmmTMB son robustos a desviaciones moderadas de normalidad cuando el tamaño muestral es grande (n>10,000 observaciones en nuestro caso). La similitud de patrones entre modelos confirma consistencia en la calidad de ajuste.
 
-Los interceptos aleatorios por individuo muestran distribuciones aproximadamente normales centradas en cero para los cuatro modelos, validando el supuesto clave de efectos aleatorios. La varianza de estos interceptos (~SD = 0.35-0.40) es sustancial, confirmando heterogeneidad individual significativa en niveles base de justificación (ICC ~0.23-0.24 reportado previamente). Los modelos de violencia en protestas (H1 y H3a, amarillo y morado) presentan dispersión ligeramente mayor que los de violencia estatal (H2 y H3b, azul y cian), consistente con mayor polarización individual en actitudes hacia acción disruptiva. No se observan valores extremos o multimodalidad que sugieran subpoblaciones ocultas. Esta estructura de efectos aleatorios justifica plenamente la especificación multinivel: ignorar esta heterogeneidad individual generaría errores estándar subestimados y conclusiones inferenciales erróneas. La distribución normal de efectos aleatorios también indica que el modelo captura adecuadamente la estructura de dependencia intra-individual sin necesidad de especificaciones más complejas (e.g., pendientes aleatorias).
+Los interceptos aleatorios por individuo muestran distribuciones aproximadamente normales centradas en cero para ambos modelos, validando el supuesto clave de efectos aleatorios. La varianza de estos interceptos (~SD = 0.35-0.40) es sustancial, confirmando heterogeneidad individual significativa en niveles base de justificación (ICC ~0.23-0.24 reportado previamente). El modelo de violencia en protestas presenta dispersión ligeramente mayor que el de violencia estatal, consistente con mayor polarización individual en actitudes hacia acción disruptiva. No se observan valores extremos o multimodalidad que sugieran subpoblaciones ocultas. Esta estructura de efectos aleatorios justifica plenamente la especificación multinivel: ignorar esta heterogeneidad individual generaría errores estándar subestimados y conclusiones inferenciales erróneas. La distribución normal de efectos aleatorios también indica que el modelo captura adecuadamente la estructura de dependencia intra-individual sin necesidad de especificaciones más complejas (e.g., pendientes aleatorias).
 
 ```{r}
 #| label: fig-robustez-sensibilidad
@@ -545,7 +492,7 @@ library(ggplot2)
 library(dplyr)
 library(patchwork)
 
-# ====== PANEL A: Comparación Efectos Fijos vs Aleatorios (solo H1 y H3a por espacio) ======
+# ====== PANEL A: Comparación Efectos Fijos vs Aleatorios (H1 y H2) ======
 
 # Modelo efectos fijos (OLS con dummies de año, SIN efectos aleatorios)
 mod_h1_fe <- lm(
@@ -554,8 +501,8 @@ mod_h1_fe <- lm(
   data = elsoc_final_2
 )
 
-mod_h3a_fe <- lm(
-  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+mod_h2_fe <- lm(
+  justif_violencia_estatal ~ educ_cat_unordered * protesta_dummy +
     edad + mujer + ideologia_std + factor(year),
   data = elsoc_final_2
 )
@@ -576,14 +523,13 @@ extract_key_coefs <- function(model_re, model_fe, model_name) {
 }
 
 coefs_h1 <- extract_key_coefs(mod_educ_protesta, mod_h1_fe, "H1: Educ × Protestas")
-coefs_h3a <- extract_key_coefs(mod_clase_protesta, mod_h3a_fe, "H3a: Clase × Protestas")
+coefs_h2 <- extract_key_coefs(mod_educ_estatal, mod_h2_fe, "H2: Educ × Estatal")
 
-all_coefs_comp <- rbind(coefs_h1, coefs_h3a) %>%
+all_coefs_comp <- rbind(coefs_h1, coefs_h2) %>%
   mutate(
     term_clean = case_when(
       term == "protesta_dummy" ~ "Participación",
       grepl("educ.*:protesta", term) ~ gsub("educ_cat_unordered|:protesta_dummy", "", term),
-      grepl("egp3.*:protesta", term) ~ gsub("egp3|:protesta_dummy", "", term),
       TRUE ~ term
     )
   )
@@ -618,8 +564,8 @@ mod_h1_no2019 <- glmmTMB(
   data = elsoc_no2019, family = gaussian()
 )
 
-mod_h3a_no2019 <- glmmTMB(
-  justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+mod_h2_no2019 <- glmmTMB(
+  justif_violencia_estatal ~ educ_cat_unordered * protesta_dummy +
     edad + mujer + ideologia_std + factor(year) + (1 | idencuesta),
   data = elsoc_no2019, family = gaussian()
 )
@@ -640,14 +586,13 @@ extract_sens <- function(model_full, model_sens, model_name) {
 }
 
 sens_h1 <- extract_sens(mod_educ_protesta, mod_h1_no2019, "H1: Educ × Protestas")
-sens_h3a <- extract_sens(mod_clase_protesta, mod_h3a_no2019, "H3a: Clase × Protestas")
+sens_h2 <- extract_sens(mod_educ_estatal, mod_h2_no2019, "H2: Educ × Estatal")
 
-all_sens <- rbind(sens_h1, sens_h3a) %>%
+all_sens <- rbind(sens_h1, sens_h2) %>%
   mutate(
     term_clean = case_when(
       term == "protesta_dummy" ~ "Participación",
       grepl("educ.*:protesta", term) ~ gsub("educ_cat_unordered|:protesta_dummy", "", term),
-      grepl("egp3.*:protesta", term) ~ gsub("egp3|:protesta_dummy", "", term),
       TRUE ~ term
     )
   )
@@ -685,9 +630,9 @@ mod_h1_2019 <- tryCatch({
   )
 }, error = function(e) NULL)
 
-mod_h3a_2019 <- tryCatch({
+mod_h2_2019 <- tryCatch({
   lm(
-    justif_violencia_protesta_consistente ~ egp3 * protesta_dummy +
+    justif_violencia_estatal ~ educ_cat_unordered * protesta_dummy +
       edad + mujer + ideologia_std,
     data = elsoc_2019
   )
@@ -713,14 +658,13 @@ extract_2019 <- function(model_full, model_2019, model_name) {
 }
 
 comp_h1 <- extract_2019(mod_educ_protesta, mod_h1_2019, "H1: Educ × Protestas")
-comp_h3a <- extract_2019(mod_clase_protesta, mod_h3a_2019, "H3a: Clase × Protestas")
+comp_h2 <- extract_2019(mod_educ_estatal, mod_h2_2019, "H2: Educ × Estatal")
 
-all_comp <- rbind(comp_h1, comp_h3a) %>%
+all_comp <- rbind(comp_h1, comp_h2) %>%
   mutate(
     term_clean = case_when(
       term == "protesta_dummy" ~ "Participación",
       grepl("educ.*:protesta", term) ~ gsub("educ_cat_unordered|:protesta_dummy", "", term),
-      grepl("egp3.*:protesta", term) ~ gsub("egp3|:protesta_dummy", "", term),
       TRUE ~ term
     )
   )
@@ -755,9 +699,9 @@ grafico_robustez
 
 La @fig-robustez-sensibilidad presenta tres evaluaciones críticas de la robustez de los hallazgos principales. Panel A (Efectos Fijos vs Aleatorios): La comparación revela que los modelos de efectos fijos (OLS con dummies de año, ignorando estructura longitudinal) subestiman consistentemente los errores estándar de las interacciones clave. Los intervalos de confianza en efectos fijos (amarillo) son sistemáticamente más estrechos que en efectos aleatorios (azul), generando inferencia anti-conservadora: varios términos de interacción aparecen "significativos" en efectos fijos pero sus ICs se superponen más con cero al corregir por dependencia intra-individual. Crucialmente, las magnitudes puntuales de los coeficientes son muy similares entre especificaciones (diferencias <0.05 puntos), indicando que el sesgo de estimación puntual es mínimo. El problema principal de efectos fijos es la inflación de precisión: asume observaciones independientes cuando en realidad individuos contribuyen múltiples olas, violando supuesto de IID. Los efectos aleatorios corrigen esto modelando explícitamente la correlación intra-individual (ICC ~0.23), produciendo SEs ~15-20% mayores pero inferencialmente correctos. Este análisis valida la decisión de usar glmmTMB multinivel: la estructura longitudinal de ELSOC requiere efectos aleatorios para inferencia válida, pero los hallazgos sustantivos (direcciones y magnitudes) son robustos a especificación.
 
-Excluir el año del estallido social (2019) es la prueba más crítica: si las interacciones fueran meros artefactos del shock de 2019, deberían desaparecer al remover ese año. Los resultados demuestran robustez sustantiva: todas las interacciones clave persisten con magnitudes y significancia similares. En H1, la interacción Univ. completa × Participación es +0.13 en dataset completo vs +0.12 sin 2019 (diferencia <0.01); en H3a, Clase Trabajadora × Participación es +0.11 vs +0.10. Los intervalos de confianza se superponen casi completamente, indicando que 2019 no es el único driver de los efectos sino que amplifica patrones presentes en todo el periodo 2016-2023. El efecto de participación (término principal) también permanece estable: +0.27 vs +0.25 en H1, +0.36 vs +0.33 en H3a. Esto confirma que las interacciones educación/clase × participación no son contingentes al momento del estallido sino estructuras relacionales persistentes: la educación superior amplifica el efecto de participación tanto en años "normales" como en el pico de movilización. Este hallazgo refuerza la interpretación teórica: el reenmarcamiento moral no es meramente reactivo a eventos coyunturales sino que refleja mecanismos sociocognitivos duraderos donde capital cultural interactúa con experiencia de movilización para reconfigurar actitudes.
+Excluir el año del estallido social (2019) es la prueba más crítica: si las interacciones fueran meros artefactos del shock de 2019, deberían desaparecer al remover ese año. Los resultados demuestran robustez sustantiva: todas las interacciones clave persisten con magnitudes y significancia similares. En H1, la interacción Univ. completa × Participación es +0.13 en dataset completo vs +0.12 sin 2019 (diferencia <0.01). Los intervalos de confianza se superponen casi completamente, indicando que 2019 no es el único driver de los efectos sino que amplifica patrones presentes en todo el periodo 2016-2023. El efecto de participación (término principal) también permanece estable: +0.27 vs +0.25 en H1. Esto confirma que las interacciones educación × participación no son contingentes al momento del estallido sino estructuras relacionales persistentes: la educación superior amplifica el efecto de participación tanto en años "normales" como en el pico de movilización. Este hallazgo refuerza la interpretación teórica: el reenmarcamiento moral no es meramente reactivo a eventos coyunturales sino que refleja mecanismos sociocognitivos duraderos donde capital cultural interactúa con experiencia de movilización para reconfigurar actitudes.
 
-La comparación revela cómo el estallido de 2019 modula pero no crea los efectos de interacción. En modelos estimados solo con datos de 2019 (verde), las interacciones son consistentemente más fuertes que en el periodo completo (rojo): en H1, Univ. completa × Participación es +0.18 en 2019 vs +0.13 en periodo completo; en H3a, Clase Trabajadora × Participación es +0.16 vs +0.11. Sin embargo, crucialmente, las direcciones son idénticas y los ICs se superponen parcialmente, indicando que 2019 representa una intensificación cuantitativa de patrones preexistentes, no una ruptura cualitativa. El efecto principal de participación también se amplifica en 2019 (+0.35-0.40 vs +0.27-0.36 periodo completo), consistente con mayor polarización y activación de marcos morales duales durante el pico de movilización. Este patrón sugiere que el estallido actuó como coyuntura crítica que temporalmente magnificó procesos relacionales latentes: la educación superior y la clase social siempre moderaron el efecto de participación, pero 2019 elevó las apuestas y la intensidad experiencial, amplificando tanto la justificación base como las interacciones. Post-2019, los efectos se moderan pero no desaparecen (Panel B), evidenciando que el shock dejó sedimentos permanentes en la estructura de actitudes. En conjunto, los tres paneles validan que los hallazgos no son artefactos metodológicos ni contingentes a un año específico, sino patrones robustos que atraviesan especificaciones y subperiodos.
+La comparación revela cómo el estallido de 2019 modula pero no crea los efectos de interacción. En modelos estimados solo con datos de 2019 (verde), las interacciones son consistentemente más fuertes que en el periodo completo (rojo): en H1, Univ. completa × Participación es +0.18 en 2019 vs +0.13 en periodo completo. Sin embargo, crucialmente, las direcciones son idénticas y los ICs se superponen parcialmente, indicando que 2019 representa una intensificación cuantitativa de patrones preexistentes, no una ruptura cualitativa. El efecto principal de participación también se amplifica en 2019 (+0.35-0.40 vs +0.27-0.36 periodo completo), consistente con mayor polarización y activación de marcos morales duales durante el pico de movilización. Este patrón sugiere que el estallido actuó como coyuntura crítica que temporalmente magnificó procesos relacionales latentes: la educación superior ya moderaba el efecto de participación, pero 2019 elevó las apuestas y la intensidad experiencial, amplificando tanto la justificación base como las interacciones. Post-2019, los efectos se moderan pero no desaparecen (Panel B), evidenciando que el shock dejó sedimentos permanentes en la estructura de actitudes. En conjunto, los tres paneles validan que los hallazgos no son artefactos metodológicos ni contingentes a un año específico, sino patrones robustos que atraviesan especificaciones y subperiodos.
 
 ```{r}
 #| label: fig-slopes-educacion

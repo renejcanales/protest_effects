@@ -1,0 +1,90 @@
+---
+title: "Actitudes hacia la violencia política en el ciclo contencioso chileno: Un ánálisis longitudinal desde la educación y la participación"
+date: today
+date-format: "MMMM, YYYY"
+format:
+  html: 
+    latex-environment: true
+    code-fold: true
+    html-math-method: katex
+    number-sections: true
+    code-link: true
+    title-block-banner: true
+    theme:
+      - pretty.scss
+  pdf: 
+    pdf-engine: xelatex
+    geometry: margin=2cm
+    template-partials: 
+      - title.tex
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \usepackage{array}
+        \usepackage{colortbl}
+        \usepackage{threeparttable}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+    number-sections: true
+editor: source
+author: René Canales & Daniel Miranda
+abstract: | 
+ El estallido social chileno de octubre 2019 generó una paradoja: ¿por qué las clases medias educadas legitimaron violencia disruptiva, contrario a su tradicional moderación democrática? Utilizando datos longitudinales de ELSOC (2016-2023, 20.007 observaciones/3.666 individuos), este estudio desafía el "efecto civilizatorio" de la educación mediante modelos multinivel. Los hallazgos revelan que la educación opera como amplificador cognitivo condicional: reduce la justificación de violencia entre no participantes, pero la incrementa dramáticamente entre manifestantes. Los universitarios movilizados alcanzan los niveles más altos, invirtiendo completamente el efecto civilizatorio. El análisis evidencia una "reconfiguración bidireccional": los participantes educados legitiman violencia de protesta mientras rechazan violencia estatal, desarrollando marcos morales duales sofisticados. Estos hallazgos iluminan cómo la transversalidad del movimiento chileno emergió de la transformación actitudinal de sectores profesionales que, mediante participación, rearticularon marcos morales legitimando la transgresión normativa como expresión política válida, contribuyendo a literaturas sobre educación política, desigualdad y socialización.
+  \newline
+ **Keywords**: Actitudes hacia la violencia · Protestas · Estratificación · · Chile
+link-citations: true
+linestretch: 1.5
+mainfont: Times New Roman
+fontsize: 13pt          
+colorlinks: true
+fig-height: 4
+fig-width: 7.5
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo=FALSE, 
+                      warning = FALSE,
+                      message = FALSE, 
+                      cache = TRUE,
+                      out.width = '85%',
+                      fig.pos= "H")
+options(scipen=999)
+options(kableExtra.auto_format = FALSE)
+options(knitr.kable.NA = '')
+options(knitr.graphics.error = FALSE)
+Sys.setlocale("LC_ALL", "ES_ES.UTF-8")
+table_format = if (knitr::is_html_output()) {
+   #conditional instructions for kable
+   "html" #if html set "html" in format
+ } else if (knitr::is_latex_output()) {
+   "latex"#if latex set "latex" in format
+ }
+
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+
+```
+
+
+:::: {.justify}
+
+{{< include 01-introduction.qmd >}}
+
+{{< include 02-antecedents.qmd >}}
+
+{{< include 03-methods.qmd >}}
+
+{{< include 04-analisis.qmd >}}
+
+{{< include 05-discussion.qmd >}}
+
+{{< include 06-conclusion.qmd >}}
+
+{{< include 07-references.qmd >}}
+
+::::
+
+{{< include 08-anexos.qmd >}}
