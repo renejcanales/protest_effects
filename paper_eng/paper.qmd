@@ -30,6 +30,8 @@ format:
         \renewcommand\Affilfont{\small}
     number-sections: true
 editor: source
+bibliography: "input/bib/protest-effect.bib"
+csl: "input/bib/chicago.csl"
 author: René Canales & Daniel Miranda
 abstract: | 
  El estallido social chileno de octubre 2019 generó una paradoja: ¿por qué las clases medias educadas legitimaron violencia disruptiva, contrario a su tradicional moderación democrática? Utilizando datos longitudinales de ELSOC (2016-2023, 20.007 observaciones/3.666 individuos), este estudio desafía el "efecto civilizatorio" de la educación mediante modelos multinivel. Los hallazgos revelan que la educación opera como amplificador cognitivo condicional: reduce la justificación de violencia entre no participantes, pero la incrementa dramáticamente entre manifestantes. Los universitarios movilizados alcanzan los niveles más altos, invirtiendo completamente el efecto civilizatorio. El análisis evidencia una "reconfiguración bidireccional": los participantes educados legitiman violencia de protesta mientras rechazan violencia estatal, desarrollando marcos morales duales sofisticados. Estos hallazgos iluminan cómo la transversalidad del movimiento chileno emergió de la transformación actitudinal de sectores profesionales que, mediante participación, rearticularon marcos morales legitimando la transgresión normativa como expresión política válida, contribuyendo a literaturas sobre educación política, desigualdad y socialización.
