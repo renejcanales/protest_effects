@@ -3,135 +3,131 @@ bibliography: "../input/bib/protest-effect.bib"
 csl: "../input/bib/chicago.csl"
 ---
 
-# Datos y Métodos
+# Data and Methods
 
 ## Data
 
-La investigación utiliza los datos del Estudio Longitudinal Social de Chile (ELSOC), una encuesta panel implementada por el Centro de Estudios de Conflicto y Cohesión Social (COES) que recoge información sobre la población adulta urbana del país. La encuesta iene como propósito examinar las actitudes, percepciones y comportamientos de las personas frente a temas  de conflicto y cohesión social. Su diseño de panel permite seguir a los mismos individuos a lo largo del tiempo, ofreciendo una mirada única sobre la evolución de la sociedad chilena. La encuesta se ha aplicado anualmente desde 2016, con excepción de 2020 debido a la pandemia de COVID-19, acumulando siete olas de datos (2016, 2017, 2018, 2019, 2021, 2022 y 2023).
+This study uses data from the Longitudinal Social Study of Chile (ELSOC), a panel survey implemented by the Center for Social Conflict and Cohesion Studies (COES) that collects information on the country's urban adult population. The survey is designed to examine individuals' attitudes, perceptions, and behaviors regarding issues of social conflict and cohesion. Its panel design allows the same individuals to be tracked over time, offering a unique window into the evolution of Chilean society. The survey has been administered annually since 2016, with the exception of 2020 due to the COVID-19 pandemic, accumulating seven waves of data (2016, 2017, 2018, 2019, 2021, 2022, and 2023).
 
-ELSOC utiliza un muestreo probabilístico por conglomerados y multietápico, que cubre tanto los principales centros urbanos como ciudades medianas y pequeñas del país. El marco muestral se estratificó proporcionalmente según el tamaño de la población urbana (en seis categorías), seleccionando aleatoriamente hogares dentro de 1.067 manzanas censales. La población objetivo incluye a hombres y mujeres de 18 a 75 años residentes en viviendas particulares.
+ELSOC employs a probabilistic, multi-stage cluster sampling design covering both major urban centers and medium and small cities across the country. The sampling frame was stratified proportionally by urban population size (in six categories), with households randomly selected from 1,067 census blocks. The target population includes men and women aged 18 to 75 residing in private dwellings.
 
-La encuesta se ha aplicado anualmente desde 2016, con excepción de 2020 debido a la pandemia de COVID-19, acumulando siete olas de datos (2016, 2017, 2018, 2019, 2021, 2022 y 2023).
-
-Para los análisis de la investigación, y tras aplicar un criterio de inclusión de encuestados que hayan participado en al menos tres olas, se dispone de una muestra analítica de 20.007 observaciones anidadas en 3.666 individuos. La encuesta, sus manuales metodológicos y bases de datos se encuentran disponibles públicamente en el portal de COES [https://coes.cl/elsoc/](https://coes.cl/elsoc/) y en el repositorio de Harvard Dataverse [https://dataverse.harvard.edu/dataverse/elsoc](https://dataverse.harvard.edu/dataverse/elsoc).
+For the analyses reported here, and after applying an inclusion criterion requiring respondents to have participated in at least three waves, the analytical sample comprises 20,007 observations nested within 3,666 individuals. The survey, its methodological manuals, and datasets are publicly available through the COES portal [https://coes.cl/elsoc/](https://coes.cl/elsoc/) and the Harvard Dataverse repository [https://dataverse.harvard.edu/dataverse/elsoc](https://dataverse.harvard.edu/dataverse/elsoc).
 
 ## Variables
 
-### Variables dependientes: Justificación de violencia política
+### Dependent Variables: Justification of Political Violence
 
-Para la medición de actitudes hacia la violencia política se construyeron dos índices que capturan la justificación de violencia ejercida por diferentes tipos de actores en contextos políticos específicos. Esta distinción entre tipos de violencia según el actor que la ejerce es teóricamente crucial, dado que la hipótesis de reconfiguración bidireccional (H2) predice que la participación en protestas genera legitimación diferenciada: aumenta la justificación de violencia ejercida por manifestantes pero reduce la justificación de violencia ejercida por fuerzas del orden.
+Two indices were constructed to measure attitudes toward political violence, capturing the justification of violence exercised by different types of actors in specific political contexts.
 
-El **Índice de Justificación de Violencia en Protestas** (`justif_violencia_protesta`) se compone del promedio de dos ítems que miden el grado de justificación de acciones disruptivas ejercidas por actores sociales en contextos de movilización:
+The Protest Violence Justification Index is composed of the average of two items measuring the degree to which respondents justify disruptive actions carried out by social actors in contexts of mobilization:
 
-1. Que un grupo de trabajadores en huelga bloquee la calle con barricadas para exigir el cumplimiento de sus derechos laborales 
-2. Que estudiantes lancen piedras a carabineros en una marcha por la educación del país
+1. A group of striking workers blocking the street with barricades to demand compliance with their labor rights.
 
-Cada ítem se midió en una escala Likert de 5 puntos desde 1 = "Nunca se justifica" hasta 5 = "Siempre se justifica". El índice se calculó como el promedio aritmético de los cinco ítems cuando el encuestado respondió al menos tres de ellos, resultando en una escala continua de 1 a 5 donde valores más altos indican mayor justificación de violencia en protestas. La consistencia interna del índice es satisfactoria, con un alfa de Cronbach de 0.82 en la muestra analítica, indicando que los ítems capturan un constructo latente común.
+2. Students throwing stones at the Carabineros during a march for education.
 
-Adicionalmente, se relevaron otras variables sobre la justificación de acciones disruptivas/violentas en contextos de protesta, tales como:
+Each item was measured on a 5-point Likert scale ranging from 1 = "Never justified" to 5 = "Always justified." The index was calculated as the arithmetic mean of both items when the respondent answered at least one of them, yielding a continuous scale from 1 to 5 where higher values indicate greater justification of protest violence. The internal consistency of the index is satisfactory, with a Cronbach's alpha of 0.82 in the analytical sample, indicating that the items capture a common latent construct.
 
-1. Que algunas personas incendien o dañen inmobiliario público para exigir cambios sociales.
-2. Que algunas personas incendien o dañen medios de transporte (metro, microbuses, paraderos) para exigir cambios sociales.
-3. Que algunas personas incendien o dañen negocios y locales comerciales para exigir cambios sociales.
+The State Violence Justification Index is composed of the average of two items measuring the justification of violence exercised by the Carabineros de Chile (law enforcement) in public order control contexts:
 
-Estos indicadores, que igualmente reflejan la justificación de la violencia, se encuentran disponibles sólo en la ola del año 2019 y fueron considerados para algunos análisis descriptivos (presentes en los anexos) con el fin de ampliar la perspectiva del fenómeno. 
+1. The Carabineros using violence to repress a peaceful demonstration.
 
-Para el **Índice de Justificación de Violencia Estatal** (`justif_violencia_estatal`): Se compone del promedio de dos ítems que miden justificación de violencia ejercida por Carabineros de Chile (fuerzas de ley y orden) en contextos de control del orden público:
+2. The Carabineros forcibly evicting people who have occupied buildings or universities.
 
-1. Que Carabineros use la violencia para reprimir una manifestación pacífica
-2. Que Carabineros desaloje a la fuerza a las personas que se toman edificios o universidades
+Each item was measured on the same 5-point scale. The index was calculated as the mean of both items (requiring a response to at least one), also yielding a continuous scale from 1 to 5. The correlation between the two items is r = 0.58 (p < 0.001), indicating that they measure related but distinguishable aspects of attitudes toward police violence.
 
-Cada ítem se midió en la misma escala de 5 puntos. El índice se calculó como el promedio de ambos ítems (requiriendo respuesta en al menos uno), resultando igualmente en una escala continua de 1 a 5. La correlación entre ambos ítems es r = 0.58 (p < 0.001), indicando que miden aspectos relacionados pero distinguibles de actitudes hacia violencia policial.
+It is important to note that these two indices capture conceptually distinct forms of political violence: "bottom-up" violence exercised by mobilized social actors versus "top-down" violence exercised by state agents. As shown in the correlation matrix in Table 1, the two indices are negatively correlated (r = −0.23, p < 0.001), suggesting that justifying one type of violence tends to be associated with lower justification of the other, though the correlation is far from perfect. This empirical distinction validates the strategy of analyzing both types of violence separately.
 
-Es importante notar que estos dos índices capturan formas conceptualmente distintas de violencia política: violencia "desde abajo" ejercida por actores sociales movilizados versus violencia "desde arriba" ejercida por agentes estatales. Como muestra la matriz de correlación en la Tabla 1, ambos índices están negativamente correlacionados (r = -0.23, p < 0.001), sugiriendo que justificar un tipo de violencia tiende a asociarse con menor justificación del otro tipo, aunque la correlación no es perfecta. Esta distinción empírica valida la estrategia de analizar ambos tipos de violencia por separado.
+### Independent Variables: Education and Protest Participation
 
-### Variables independientes principales
+Respondent education was operationalized as a five-level categorical variable based on the highest level of education attained:
 
-Para la educación del encuestado se operacionalizó una variable categórica de cinco niveles basada en el nivel educacional más alto alcanzado:
+1. Complete secondary education or less
 
-1. Educación media (secundaria) completa o menos
-2. Técnica superior incompleta (estudios terciarios no universitarios iniciados pero no completados)
-3. Técnica superior completa (título técnico profesional o similar)
-4. Universitaria incompleta (estudios universitarios iniciados pero no completados)
-5. Universitaria completa (título universitario de pregrado o posgrado)
+2. Incomplete tertiary non-university education (begun but not completed)
 
-Esta categorización se trata como factor no ordenado, utilizando "educación media completa o menos" como categoría de referencia. La decisión de no tratar educación como variable ordinal responde a evidencia previa que sugiere que los efectos de educación sobre actitudes políticas no son necesariamente lineales, y que existen diferencias cualitativas importantes entre educación técnica y universitaria que van más allá de "años de escolaridad" (Nie et al., 1996).
+3. Complete tertiary non-university education (technical-professional degree or equivalent)
 
-Para la **Participación en protestas** se elaboró una variable dicotómica que indica si el encuestado participó en manifestaciones, marchas o protestas durante los últimos 12 meses (1 = Sí participó, 0 = No participó). Esta medición está basada en la pregunta: *"Durante los últimos 12 meses, ¿ha participado en manifestaciones o marchas?"¨*. Esta variable captura participación reportada retrospectivamente y, por tanto, está sujeta a posibles sesgos de recuerdo y deseabilidad social, aunque existe evidencia previa que sugiere que el reporte de participación en protestas tiene razonable validez cuando el período de referencia es relativamente corto (Walgrave & Wouters, 2014).
+4. Incomplete university education (begun but not completed)
 
-### Variables de Control
+5. Complete university education (undergraduate or postgraduate degree)
 
-Todos los modelos incluyen las siguientes variables de control para reducir confusión y mejorar la precisión de las estimaciones:
+This categorization is treated as an unordered factor, using "complete secondary education or less" as the reference category. The decision not to treat education as an ordinal variable reflects prior evidence suggesting that the effects of education on political attitudes are not necessarily linear, and that there are qualitative differences between technical and university education that go beyond years of schooling [@nie_education_1996a].
 
-- Edad: En años al momento de cada ola (variable continua centrada en la media).
+Protest participation was operationalized as a dichotomous variable indicating whether the respondent participated in demonstrations, marches, or protests during the previous 12 months (1 = Participated, 0 = Did not participate), based on the question: "During the last 12 months, have you participated in demonstrations or marches?" This variable captures retrospectively reported participation and is therefore subject to potential recall and social desirability biases, although prior evidence suggests that protest participation reports have reasonable validity when the reference period is relatively short [@walgrave_missing_2014].
 
-- Género: Variable dicotómica (1 = Mujer, 0 = Hombre).
+### Control Variables
 
-- Ideología política: Escala de auto-posicionamiento ideológico de 0 (extrema izquierda) a 10 (extrema derecha), estandarizada con media 0 y desviación estándar 1.
+All models include the following control variables to reduce confounding and improve the precision of the estimates:
 
-- Tiempo: Tendencia temporal lineal (ola codificada como 0-6) para controlar por cambios sistemáticos en las actitudes a lo largo del período de estudio (2016-2023), incluyendo el impacto del estallido social de 2019.
+- Age: In years at the time of each wave (continuous variable, centered at the mean).
 
-## Estrategia Analítica
+- Gender: Dichotomous variable (1 = Woman, 0 = Man).
 
-La naturaleza longitudinal de los datos implica que observamos a los mismos individuos en múltiples ocasiones a lo largo del tiempo. Esta estructura de los datos —donde las observaciones individuales de Nivel 1 (mediciones en el tiempo) están anidadas dentro de individuos de Nivel 2— viola uno de los supuestos fundamentales de los modelos de regresión estándar: la independencia de las observaciones (Snijders & Bosker, 2012). Es altamente probable que las respuestas de un mismo individuo en diferentes olas estén correlacionadas, dado que capturan características estables de esa persona (personalidad, valores arraigados, experiencias formativas previas) que afectan sus actitudes de manera consistente a lo largo del tiempo.
+- Political ideology: Self-placement scale from 0 (far left) to 10 (far right), standardized to mean 0 and standard deviation 1.
 
-Ignorar esta dependencia temporal dentro de individuos llevaría a estimaciones sesgadas (errores estándar demasiado pequeños), inflando artificialmente la significancia estadística y conduciendo a conclusiones inválidas [@raudenbush_hierarchical_2010; @gelman_data_2021]. En este sentido, los modelos multinivel (también llamados modelos jerárquicos lineales, modelos de efectos mixtos o modelos de componentes de varianza) ofrecen una solución explícita a este problema al modelar tanto la heterogeneidad entre individuos como la dependencia dentro de individuos a lo largo del tiempo [@singer_applied_2003a]. Como señalan Hox et al. [@hox_multilevel_2018], estos modelos permiten descomponer la variación total en sus componentes estructurales y estimar correctamente la incertidumbre de los parámetros en presencia de dependencia intra-grupal.
+- Time: Linear time trend (wave coded 0–6) to control for systematic changes in attitudes over the study period (2016–2023), including the impact of the 2019 social uprising.
 
-La ecuación general del modelo de Nivel 1 (observación en el tiempo) y Nivel 2 (individuo) es:
+## Analytical Strategy
 
-**Nivel 1 (intra-individual)**
+The longitudinal nature of the data implies that the same individuals are observed on multiple occasions over time. This data structure—in which Level 1 observations (measurements over time) are nested within Level 2 individuals—violates one of the fundamental assumptions of standard regression models: the independence of observations [@snijders_multilevel_2012]. Responses from the same individual across waves are highly likely to be correlated, as they reflect stable characteristics of that person (personality, deep-seated values, prior formative experiences) that consistently shape their attitudes over time.
 
-$$y_{tj} = \beta_{0j} + \beta_{1j} X_{tj} + \varepsilon_{tj}$$
+Ignoring this within-individual temporal dependence would yield biased estimates (standard errors that are too small), artificially inflating statistical significance and leading to invalid conclusions [@raudenbush_hierarchical_2010; @gelman_data_2021]. Multilevel models (also referred to as hierarchical linear models, mixed-effects models, or variance component models) offer an explicit solution to this problem by simultaneously modeling both between-individual heterogeneity and within-individual dependence over time [@singer_applied_2003a]. As Hox et al. [@hox_multilevel_2018] note, these models allow the total variation to be decomposed into its structural components and the uncertainty of parameters to be correctly estimated in the presence of intra-group dependence.
 
-donde:
+The general model equations for Level 1 (observation over time) and Level 2 (individual) are as follows:
 
-- $y_{tj}$: Justificación de la violencia para el individuo $j$ en el tiempo $t$.
-- $X_{tj}$: Variables de nivel 1 (tiempo), como participación en protestas, edad, etc.
-- $\varepsilon_{tj}$: Error residual a nivel de observación.
+**Level 1 (within-individual)**
 
-**Nivel 2 (inter-individual)**
+$y_{tj} = \beta_{0j} + \beta_{1j} X_{tj} + \varepsilon_{tj}$
 
-$$\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}$$
-$$\beta_{1j} = \gamma_{10}$$
+where:
 
-donde:
+- $y_{tj}$: Justification of violence for individual $j$ at time $t$.
+- $X_{tj}$: Level 1 variables (time), such as participation in protests, age, etc.
+- $\varepsilon_{tj}$: Residual error at the observation level.
 
-- $\gamma_{00}$: Intercepto general (gran media).
-- $\gamma_{01}$: Efecto de predictores de nivel 2 (entre individuos).
-- $\gamma_{10}$: Efecto fijo de predictores de nivel 1 (intra-individuos).
-- $Z_j$: Predictores que no varían en el tiempo (educación, género).
-- $u_{0j}$: Efecto aleatorio del intercepto para el individuo $j$.
+**Level 2 (between-individual)**
 
-**Modelo integrado**
+$\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}$$
+
+$\beta_{1j} = \gamma_{10}$
+
+where:
+
+- $\gamma_{00}$: General intercept (overall mean).
+- $\gamma_{01}$: Effect of Level 2 predictors (between individuals).
+- $\gamma_{10}$: Fixed effect of Level 1 predictors (within individuals).
+- $Z_j$: Predictors that do not vary over time (education, gender).
+- $u_{0j}$: Random effect of the intercept for individual $j$.
+
+**Integrated Model**
 
 $$y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \gamma_{20} t + u_{0j} + \varepsilon_{tj}$$
 
-donde $t$ representa el tiempo (ola de medición, codificada como 0, 1, 2, ..., 6 para las olas 2016-2023). Este modelo descompone la varianza total en dos componentes: varianza entre individuos ($\sigma^2_u$, capturada por los interceptos aleatorios) y varianza dentro de individuos a lo largo del tiempo ($\sigma^2_\varepsilon$, error residual). El coeficiente de correlación intraclúster (ICC) cuantifica la proporción de varianza total atribuible a diferencias entre individuos. El parámetro $\gamma_{20}$ captura la tendencia temporal lineal promedio en la justificación de violencia.
+where $t$ represents time (measurement wave, coded as 0, 1, 2, ..., 6 for waves 2016-2023). This model decomposes the total variance into two components: variance between individuals ($\sigma^2_u$, captured by the random intercepts) and variance within individuals over time ($\sigma^2_\varepsilon$, residual error). The intraclass correlation coefficient (ICC) quantifies the proportion of total variance attributable to differences between individuals. The parameter $\gamma_{20}$ captures the average linear temporal trend in the justification of violence.
 
-### Modelos con interacción
+### Interaction Models
 
-**Interacción entre Educación y Participación**
+**Interaction between Education and Participation**
 
-Para testear las hipótesis centrales de este estudio, que predicen que los efectos de educación sobre justificación de violencia son contingentes a la participación en protestas, se estiman modelos que incluyen términos de interacción multiplicativos:
+To test the central hypotheses of this study, which predict that the effects of education on the justification of violence are contingent upon participation in protests, we estimate models that include multiplicative interaction terms:
 
 $$
 \begin{aligned}
-y_{tj} = \gamma_{00} + \sum_{k=1}^{4} \gamma_{0k} \text{Educación}_{kj} + \gamma_{10} \text{Participación}_{tj} + \sum_{k=1}^{4} \gamma_{1k} (\text{Educación}_{kj} \times \text{Participación}_{tj}) + \\
-\gamma_{20} t + \text{Controles} + u_{0j} + \varepsilon_{tj}
+y_{tj} = \gamma_{00} + \sum_{k=1}^{4} \gamma_{0k} \text{Education}_{kj} + \gamma_{10} \text{Participation}_{tj} + \sum_{k=1}^{4} \gamma_{1k} (\text{Education}_{kj} \times \text{Participation}_{tj}) + \\
+\gamma_{20} t + \text{Controls} + u_{0j} + \varepsilon_{tj}
 \end{aligned}
 $$
 
-Dado que educación es una variable categórica con 5 niveles (4 dummies), este modelo estima 4 coeficientes de interacción ($\gamma_{11}, \gamma_{12}, \gamma_{13}, \gamma_{14}$), uno para cada nivel educativo respecto a la categoría de referencia.
+Given that education is a categorical variable with 5 levels (4 dummies), this model estimates 4 interaction coefficients ($\gamma_{11}, \gamma_{12}, \gamma_{13}, \gamma_{14}$), one for each educational level relative to the reference category.
 
-La interpretación de términos de interacción en modelos multinivel sigue la lógica estándar: el coeficiente de interacción representa cuánto cambia el efecto de la participación en protestas sobre la justificación de violencia al pasar de una categoría educativa a otra. Los gráficos de efectos marginales (predicted values) se utilizan para visualizar estas interacciones de forma intuitiva.
+The interpretation of interaction terms in multilevel models follows the standard logic: the interaction coefficient represents how much the effect of participation in protests on the justification of violence changes when moving from one educational category to another. Marginal effects plots (predicted values) are used to visualize these interactions in an intuitive manner.
 
-### Elección de la distribución y función de enlace
+### Choice of Distribution and Link Function
 
-La variable dependiente principal es el índice continuo de justificación de violencia (escala 1-5). Aunque técnicamente esta variable es ordinal (niveles discretos ordenados), su tratamiento como variable continua se justifica por tres razones metodológicas y sustantivas. Primero, los índices promedian respuestas de múltiples ítems (2 para violencia en protestas, 2 para violencia estatal), lo que genera una distribución más continua y aproximadamente normal en la muestra. Segundo, trabajos previos en psicología y ciencias políticas han demostrado que escalas Likert con 5 o más puntos pueden tratarse como continuas sin pérdida sustantiva de información cuando se promedian múltiples ítems [@norman_likert_2010; @lubke_applying_2004]. Tercero, el uso de variables continuas permite interpretar los efectos en términos de cambios promedio en la escala de justificación, lo que resulta más intuitivo y permite capturar gradaciones sutiles en las actitudes.
+The main dependent variable is the continuous violence justification index (scale 1–5). Although technically ordinal (discrete ordered levels), treating it as a continuous variable is justified on three methodological and substantive grounds. First, the indices average responses across multiple items (2 for protest violence, 2 for state violence), producing a more continuous and approximately normal distribution in the sample. Second, prior work in psychology and political science has shown that Likert scales with 5 or more points can be treated as continuous without substantial loss of information when multiple items are averaged [@norman_likert_2010; @lubke_applying_2004]. Third, using continuous variables allows effects to be interpreted in terms of average changes on the justification scale, which is more intuitive and better captures subtle gradations in attitudes.
 
-Por tanto, los modelos principales se estiman mediante Modelos Lineales Generalizados Mixtos (GLMM) con distribución gaussiana (normal) y función de enlace identidad, incorporando interceptos aleatorios por individuo para modelar la estructura jerárquica de los datos. Esta especificación es equivalente a un modelo de regresión lineal multinivel estándar y se estima mediante máxima verosimilitud restringida (REML), que produce estimadores insesgados de los componentes de varianza en muestras finitas [@raudenbush_hierarchical_2010].
+The main models are therefore estimated using Generalized Linear Mixed Models (GLMM) with a Gaussian (normal) distribution and identity link function, incorporating random intercepts by individual to account for the hierarchical structure of the data. This specification is equivalent to a standard multilevel linear regression model and is estimated via restricted maximum likelihood (REML), which produces unbiased estimates of the variance components in finite samples [@raudenbush_hierarchical_2010].
 
+## Software and Reproducibility
 
-## Software y replicabilidad
-
-Todos los análisis estadísticos se realizaron en R (versión 4.3.1) utilizando el paquete glmmTMB [@brooks_glmmTMB_2017] para la estimación de modelos mixtos generalizados, ggeffects [@lüdecke_ggeffects_2018] para el cálculo de efectos marginales y predicciones ajustadas, y ggplot2 [@wickham_ggplot2_2016] para la visualización de resultados. Los scripts de análisis completos, incluyendo código para limpieza de datos, construcción de variables, estimación de modelos y generación de figuras, se encuentran disponibles en un repositorio público de GitHub (https://github.com/renejcanales/protest_effects), garantizando transparencia y replicabilidad computacional completa de los hallazgos reportados.
+All statistical analyses were conducted in R (version 4.3.1) using the glmmTMB package [@brooks_glmmtmb_2017] for the estimation of generalized mixed models, ggeffects [@ludecke_ggeffects_2018] for the calculation of marginal effects and adjusted predictions, and ggplot2 [@wickham_ggplot2_2016] for the visualization of results. Complete analysis scripts—including code for data cleaning, variable construction, model estimation, and figure generation—are available in an [OSF project](https://osf.io/ybuz5/overview?view_only=469f99b4bac841eeb344b3ce049e50b8), for transparency and replicability of the reported findings.

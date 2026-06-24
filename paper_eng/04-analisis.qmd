@@ -21,38 +21,38 @@ library(modelsummary)
 library(stargazer)
 library(tidyr)
 
-# Cargar datos
+# Load data
 load(here("input/data/proc/elsoc_final_2.RData"))
 ```
 
-# Resultados
+# Results
 
-En el presente apartado se presentan los resultados de los factores que moldean la justificación de la violencia en el contexto de la protesta social en Chile.
+This section presents the findings on the factors shaping the justification of violence in the context of social protest in Chile.
 
 ```{r}
 #| results: false
 
 
-# Paso 1: Convertir a factor no ordenado
+# 1st Step: Convert to non-ordered factor
 elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
     educ_cat_unordered = factor(educ_cat_factor, ordered = FALSE),
     movilidad_cat_unordered = factor(movilidad_cat_factor, ordered = FALSE)
   )
 
-# Paso 2: Crear índice consistente de violencia en protestas (solo variables en todas las olas)
+# 2nd Step: Create consistent index of violence in protests (only variables in all waves)
 elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
-    # Índice consistente temporal (solo estudiantes y trabajadores)
+    # Consistent temporal index (students and workers only)
     justif_violencia_protesta_consistente = rowMeans(
-      dplyr::select(., violencia_trabajadores, violencia_estudiantes), 
+      dplyr::select(., violencia_trabajadores, violencia_estudiantes),
       na.rm = TRUE
     ),
-    # Índice amplio (todas las variables disponibles por ola)
+    # Broad index (all variables available per wave)
     justif_violencia_protesta_amplio = justif_violencia_protesta
   )
 
-# Verificar disponibilidad por ola
+# Check availability per wave
 elsoc_final_2 %>%
   group_by(year) %>%
   summarise(
@@ -69,49 +69,49 @@ elsoc_final_2 %>%
 
 ```
 
-## Estadísticos Descriptivos
+## Descriptive Statistics
 
-### Justificación de violencia por nivel educativo
+### Justification of Violence by Education Level
 
-Los patrones observados en la @tbl-justificacion-educ muestran una tendencia relevante. Entre quienes no participan en protestas, un mayor nivel educativo tenderían a una menor justificación de la violencia por parte de manifestaciones, con medias que bajan de aproximadamente 1.90 a 1.80. Sin embargo, esta tendencia se invierte para quienes sí participan: aquellos participantes con educación universitaria muestran los niveles más altos de justificación, alcanzando medias en torno a 2.29 y 2.27. Este efecto diferenciado de la educación parece ser específico de la violencia en protestas, ya que, en contraste, la justificación de la violencia estatal exhibe un patrón mucho más estable, con una variación considerablemente menor entre los distintos niveles educativos.
+The patterns observed in @tbl-justificacion-educ reveal a notable trend. Among non-participants, higher education levels tend to be associated with lower justification of protest violence, with means declining from approximately 1.90 to 1.80. However, this trend reverses among those who do participate: participants with university education display the highest justification levels, reaching means around 2.29 and 2.27. This differentiated effect of education appears to be specific to protest violence, as, by contrast, the justification of state violence shows a much more stable pattern, with considerably smaller variation across educational levels.
 
 ```{r}
 #| label: tbl-justificacion-educ
-#| tbl-cap: "Justificación de violencia según nivel educativo y participación en protestas"
+#| tbl-cap: "Justification of violence by education level and protest participation"
 #| echo: false
 #| warning: false
 #| results: asis
 
-# Redefinir los labels del factor:
+# Redefine factor labels:
 elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
     educ_cat_unordered = factor(
       educ_cat_unordered,
       labels = c(
-        "Media completa o menos",
-        "Téc. sup.incompleta",
-        "Téc. sup.completa",
-        "Univ. incompleta",
-        "Univ. completa"
+        "High School or less",
+        "Technical College incomplete",
+        "Technical College complete",
+        "University incomplete",
+        "University complete"
       )
     )
   )
 
-# Crear y mostrar tabla
+# Create and display table
 tabla_1 <- elsoc_final_2 %>%
   filter(!is.na(educ_cat_unordered) & !is.na(protesta_dummy)) %>%
-  group_by(educ_cat_unordered, Participacion = factor(protesta_dummy, 
-                                                       labels = c("No participó", "Participó"))) %>%
+  group_by(educ_cat_unordered, Participation = factor(protesta_dummy,
+                                                       labels = c("Yes", "No"))) %>%
   summarise(
     N = n(),
-    `Viol. Protestas` = round(mean(justif_violencia_protesta_consistente, na.rm = TRUE), 2),
-    `DE` = round(sd(justif_violencia_protesta_consistente, na.rm = TRUE), 2),
-    `Viol. Estatal` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
-    `DE ` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
+    `Protest Violence` = round(mean(justif_violencia_protesta_consistente, na.rm = TRUE), 2),
+    `SD` = round(sd(justif_violencia_protesta_consistente, na.rm = TRUE), 2),
+    `State Violence` = round(mean(justif_violencia_estatal, na.rm = TRUE), 2),
+    `SD ` = round(sd(justif_violencia_estatal, na.rm = TRUE), 2),
     .groups = "drop"
   ) %>%
   knitr::kable(
-    col.names = c("Educación", "Participación", "N", "Media", "DE", "Media", "DE"),
+    col.names = c("Education", "Participation", "N", "Mean", "SD", "Mean", "SD"),
     align = c("l", "l", "c", "c", "c", "c", "c"),
     format = "latex",
     booktabs = TRUE
@@ -121,9 +121,9 @@ tabla_1 <- elsoc_final_2 %>%
     font_size = 9,
     position = "center"
   ) %>%
-  add_header_above(c(" " = 3, "Viol. Protestas" = 2, "Viol. Estatal" = 2)) %>%
+  add_header_above(c(" " = 3, "Protest Violence" = 2, "State Violence" = 2)) %>%
   footnote(
-    general = "Elaboración propia a partir de ELSOC (2016-2023). Escala 1-5 donde 1 = Nunca se justifica y 5 = Siempre se justifica",
+    general = "Compiled by the author based on ELSOC (2016–2023). Scale of 1–5, where 1 = Never justified and 5 = Always justified",
     threeparttable = TRUE
   )
 
@@ -131,79 +131,79 @@ tabla_1
 ```
 
 
-### Evolución temporal: Justificación de la Violencia y Participación en protestas  (2016-2023)
+### Temporal Evolution: Justification of Violence and Protest Participation (2016–2023)
 
 ```{r}
 #| label: fig-evolucion-temporal
-#| fig-cap: "Evolución de la participación en protestas 2016-2023"
+#| fig-cap: "Evolution of protest participation 2016–2023"
 #| fig-width: 12
 #| fig-height: 7
 #| echo: false
 
-# Panel Participación
+# Participation Panel
 plot_evol_particip <- elsoc_final_2 %>%
   group_by(year) %>%
   summarise(
-    Participacion = 100 * mean(protesta_dummy, na.rm = TRUE),
+    Participation = 100 * mean(protesta_dummy, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  ggplot(aes(x = year, y = Participacion)) +
+  ggplot(aes(x = year, y = Participation)) +
   geom_vline(xintercept = 2019, linetype = "dashed", color = "red", alpha = 0.6) +
   geom_line(linewidth = 1.2, color = "#619CFF") +
   geom_point(size = 2.5, color = "#619CFF") +
   labs(
-    title = "Evolución de Participación en Protestas",
-    x = "Año",
-    y = "% que Participó") +
+    title = "Protest Participation Over Time",
+    x = "Year",
+    y = "% who Participated") +
   theme_minimal(base_size = 16)
 
-# Combinar
+# Combine
 grafico_evolucion <- plot_evol_particip +
   plot_annotation(
     tag_levels = 'A',
-    caption = "Elaboración propia con ELSOC 2016-2023. Nota: 2019 = Estallido social",
+    caption = "Compiled by the author based on ELSOC 2016-2023. Note: 2019 = Social Outbreak",
     theme = theme(plot.caption = element_text(size = 11))
   )
 
-# Mostrar gráfico
+# Display plot
 grafico_evolucion
 ```
 
-El análisis de los patrones temporales de la @fig-evolucion-temporal muestra un resultado coherente con el contexto del ciclo de protesta observado. Para el 2019 -año del estallido social- se registra el promedio más alto de participación en protestas, reflejando la intensidad de la movilización. En el período post-2019. Y, aunque disminuye desde su punto álgido en ese periodo, se mantiene en niveles ligeramente superiores a los observados antes del 2019 hasta su caída entre 2021 y 2023, donde reporta su promedio más bajo en todo el ciclo reportado. 
+The temporal pattern analysis of @fig-evolucion-temporal shows a result consistent with the observed protest cycle context. In 2019 — the year of the social outbreak — the highest average protest participation rate is recorded, reflecting the intensity of mobilization. In the post-2019 period, although participation declines from its peak, it remains at slightly higher levels than those observed before 2019, until its fall between 2021 and 2023, where it reaches its lowest average across the entire reported cycle.
 
 ```{r}
 #| label: fig-participacion-estratificada
-#| fig-cap: "Composición sociodemográfica de participantes en protestas por año: cambios estructurales post-estallido. Elaboración propia a partir de ELSOC."
+#| fig-cap: "Sociodemographic composition of protest participants by year: structural changes post-outbreak. Compiled by the author based on ELSOC."
 #| fig-width: 12
 #| fig-height: 18
 #| echo: false
 #| warning: false
 
-# Panel: Comparación directa Protestas vs Estatal por año
+# Panel: Direct comparison Protest vs State violence by year
 comparacion_data <- elsoc_final_2 %>%
   group_by(year) %>%
   summarise(
-    `Viol. en Protestas` = mean(justif_violencia_protesta_consistente, na.rm = TRUE),
-    `Viol. Estatal` = mean(justif_violencia_estatal, na.rm = TRUE),
+    `Protest Violence` = mean(justif_violencia_protesta_consistente, na.rm = TRUE),
+    `State Violence` = mean(justif_violencia_estatal, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  tidyr::pivot_longer(cols = starts_with("Viol"), 
-                      names_to = "Tipo", 
-                      values_to = "Justificacion")
+  tidyr::pivot_longer(cols = c("Protest Violence", "State Violence"),
+                      names_to = "Type",
+                      values_to = "Justification")
 
-just_viol <- ggplot(comparacion_data, aes(x = year, y = Justificacion, color = Tipo, group = Tipo)) +
+just_viol <- ggplot(comparacion_data, aes(x = year, y = Justification, color = Type, group = Type)) +
   geom_line(linewidth = 1.5) +
   geom_point(size = 3.5) +
   geom_vline(xintercept = 2019, linetype = "dashed", color = "red", alpha = 0.6) +
-  scale_color_manual(values = c("Viol. en Protestas" = "#EFC000FF", 
-                                  "Viol. Estatal" = "#0073C2FF"),
-                     name = "Tipo de violencia") +
+  scale_color_manual(values = c("Protest Violence" = "#EFC000FF",
+                                  "State Violence" = "#0073C2FF"),
+                     name = "Type of Violence") +
   labs(
-    title = "Divergencia entre Justificación de Violencia en Protestas y Violencia Estatal",
-    subtitle = "Líneas cruzadas post-2019 revelan inversión de jerarquías morales: protestas más legitimadas que represión",
-    x = "Año",
-    y = "Justificación (escala 1-5)",
-    caption = "Línea roja: estallido 2019. Elaboración propia con ELSOC 2016-2023."
+    title = "Divergence between Justification of Violence in Protests and State Violence",
+    subtitle = "Crossed lines post-2019 reveal inversion of moral hierarchies: protests more legitimized than repression",
+    x = "Year",
+    y = "Justification (scale 1-5)",
+    caption = "Red line: 2019 social outbreak. Compiled by the author based on ELSOC 2016–2023."
   ) +
   theme_minimal(base_size = 15) +
   theme(
@@ -215,18 +215,18 @@ just_viol <- ggplot(comparacion_data, aes(x = year, y = Justificacion, color = T
   ) +
   ylim(1.4, 2.1)
 
-# Mostrar gráfico
+# Display plot
 just_viol
 ```
 
-La @fig-participacion-estratificada revela la transformación radical de las jerarquías morales en torno a la violencia política. Pre-2019 (2016-2018), ambas formas de violencia se evaluaban con criterios similares (brecha ±0.05 puntos), reflejando consenso liberal-democrático donde violencia "desde abajo" y "desde arriba" se rechazaban por igual (~1.6-1.7). En 2019, la brecha se invierte dramáticamente: violencia estatal fue justificada ~0.15 puntos más que violencia en protestas, reflejando shock inicial y polarización ante el "caos" percibido. 
+@fig-participacion-estratificada reveals the radical transformation of moral hierarchies around political violence. Pre-2019 (2016–2018), both forms of violence were evaluated with similar criteria (gap of ±0.05 points), reflecting liberal-democratic consensus where violence "from below" and "from above" were equally rejected (~1.6–1.7). In 2019, the gap reverses dramatically: state violence was justified ~0.15 points more than protest violence, reflecting the initial shock and polarization in response to perceived "chaos."
 
-Sin embargo, en el post-2019 (2022-2023) las líneas se cruzan definitivamente: violencia en protestas pasa a ser justificada ~0.10-0.15 puntos más que violencia estatal, y esta brecha se estabiliza. Este es el hallazgo crítico: el estallido generó una reconfiguración permanente de jerarquías morales colectivas, donde violencia táctica disruptiva se normaliza más que represión estatal. Este patrón evidencia la reconfiguración bidireccional: el marco moral dual emergente post-estallido redefine los límites de la acción política legítima según quién ejerce la violencia y en qué contexto.
+However, in the post-2019 period (2022–2023), the lines cross definitively: protest violence is justified ~0.10–0.15 points more than state violence, and this gap stabilizes. This is the critical finding: the outbreak generated a permanent reconfiguration of collective moral hierarchies, in which disruptive tactical violence is normalized more than state repression. This pattern evidences the bidirectional reconfiguration: the emerging dual moral framework post-outbreak redefines the boundaries of legitimate political action depending on who exercises violence and in what context.
 
 ```{r}
 #| include: false
 
-# Función para calcular medias e IC por grupo y año
+# Function to calculate means and CIs by group and year
 calc_means_ci <- function(data, group_var, tipo_violencia) {
   data %>%
     filter(!is.na(year) & year != 2019 & !is.na(!!sym(group_var)) & !is.na(protesta_dummy)) %>%
@@ -240,25 +240,25 @@ calc_means_ci <- function(data, group_var, tipo_violencia) {
     mutate(
       ci_low = mean - 1.96 * se,
       ci_high = mean + 1.96 * se,
-      participacion = factor(protesta_dummy, 
+      participation = factor(protesta_dummy,
                             levels = c(0, 1),
-                            labels = c("No participó", "Participó"))
+                            labels = c("Did not participate", "Participated"))
     )
 }
 
-# Panel Educación × Violencia en Protestas
+# Panel Education × Protest Violence
 data_educ_prot <- calc_means_ci(elsoc_final_2, "educ_cat_unordered", "justif_violencia_protesta_consistente")
 
-p1 <- ggplot(data_educ_prot, aes(x = educ_cat_unordered, y = mean, color = participacion, group = participacion)) +
+p1 <- ggplot(data_educ_prot, aes(x = educ_cat_unordered, y = mean, color = participation, group = participation)) +
   geom_point(position = position_dodge(width = 0.5), size = 2.5) +
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), 
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high),
                 position = position_dodge(width = 0.5), width = 0.2, linewidth = 0.8) +
   geom_line(position = position_dodge(width = 0.5), linewidth = 1) +
   facet_wrap(~year, ncol = 3) +
-  scale_color_manual(values = c("No participó" = "#F8766D", "Participó" = "#00BFC4")) +
-  labs(title = "Educación × Violencia en Protestas",
-       x = "Nivel Educativo",
-       y = "Justificación (escala 1-5)",
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
+  labs(title = "Education × Protest Violence",
+       x = "Education Level",
+       y = "Justification (scale 1-5)",
        color = "") +
   theme_minimal(base_size = 15) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
@@ -267,19 +267,19 @@ p1 <- ggplot(data_educ_prot, aes(x = educ_cat_unordered, y = mean, color = parti
         strip.text = element_text(face = "bold", size = 12)) +
   ylim(1, 3)
 
-# Panel Educación × Violencia Estatal
+# Panel Education × State Violence
 data_educ_est <- calc_means_ci(elsoc_final_2, "educ_cat_unordered", "justif_violencia_estatal")
 
-p2 <- ggplot(data_educ_est, aes(x = educ_cat_unordered, y = mean, color = participacion, group = participacion)) +
+p2 <- ggplot(data_educ_est, aes(x = educ_cat_unordered, y = mean, color = participation, group = participation)) +
   geom_point(position = position_dodge(width = 0.5), size = 2.5) +
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), 
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high),
                 position = position_dodge(width = 0.5), width = 0.2, linewidth = 0.8) +
   geom_line(position = position_dodge(width = 0.5), linewidth = 1) +
   facet_wrap(~year, ncol = 3) +
-  scale_color_manual(values = c("No participó" = "#F8766D", "Participó" = "#00BFC4")) +
-  labs(title = "Educación × Violencia Estatal",
-       x = "Nivel Educativo",
-       y = "Justificación (escala 1-5)",
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
+  labs(title = "Education × State Violence",
+       x = "Education Level",
+       y = "Justification (scale 1-5)",
        color = "") +
   theme_minimal(base_size = 15) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
@@ -288,12 +288,12 @@ p2 <- ggplot(data_educ_est, aes(x = educ_cat_unordered, y = mean, color = partic
         strip.text = element_text(face = "bold", size = 12)) +
   ylim(1, 3)
 
-# Combinar los 2 paneles según educación
+# Combine the 2 panels by education
 educ_plot <- (p1 / p2) +
   plot_layout(guides = "collect") +
   plot_annotation(
     tag_levels = 'A',
-    caption = "Puntos muestran medias; barras muestran IC 95%. Se excluye 2019 (año del estallido). Elaboración propia con ELSOC."
+    caption = "Points show means; bars show 95% CI. Year 2019 (social outbreak) excluded. Compiled by the author based on ELSOC."
   ) &
   theme(
     legend.position = "bottom",
@@ -304,35 +304,35 @@ educ_plot <- (p1 / p2) +
 
 ```{r}
 #| label: fig-estallido-1
-#| fig-cap: "Comparación de justificación de violencia antes (2016-2018) y después (2022-2023) del estallido social por educación y participación"
+#| fig-cap: "Comparison of violence justification before (2016–2018) and after (2022–2023) the social outbreak by education and participation"
 #| fig-width: 12
 #| fig-height: 20
 
 
-# Mostrar el gráfico
+# Display plot
 educ_plot
 ```
 
-La @fig-estallido-1 presenta la evolución temporal de la justificación de violencia por educación, comparando año a año los niveles antes (2016-2018) y después (2022-2023) del estallido social de octubre 2019, revelando patrones críticos sobre la permanencia de los efectos del shock político.
+@fig-estallido-1 presents the temporal evolution of violence justification by education, comparing year-by-year levels before (2016–2018) and after (2022–2023) the October 2019 social outbreak, revealing critical patterns about the persistence of the political shock effects.
 
-Entre no participantes, se observa estabilidad relativa en el periodo pre-2019, con niveles de justificación que oscilan entre ~1.5-1.8 para mayor educación y ~1.7-2.0 para menor educación. En el periodo post-2019 (2022-2023), todos los grupos educativos muestran un incremento moderado: universitarios completos pasan de ~1.5 a ~1.8, mientras educación básica/media se mantiene en el rango ~1.8-2.0. Entre participantes, el patrón muestra convergencia sostenida: desde 2016 hasta 2023, todos los niveles educativos mantienen justificaciones moderadamente altas (~2.0-2.3) con intervalos de confianza superpuestos, indicando que la experiencia de movilización iguala actitudes independientemente del capital cultural. Crucialmente, las brechas entre participantes y no participantes se mantienen consistentes año tras año en el post-2019, evidenciando que el efecto de la participación persiste establemente años después del estallido.
+Among non-participants, relative stability is observed in the pre-2019 period, with justification levels oscillating between ~1.5–1.8 for higher education and ~1.7–2.0 for lower education. In the post-2019 period (2022–2023), all educational groups show a moderate increase: university completers rise from ~1.5 to ~1.8, while basic/secondary education remains in the ~1.8–2.0 range. Among participants, the pattern shows sustained convergence: from 2016 to 2023, all educational levels maintain moderately high justifications (~2.0–2.3) with overlapping confidence intervals, indicating that the experience of mobilization equalizes attitudes regardless of cultural capital. Crucially, the gaps between participants and non-participants remain consistent year after year in the post-2019 period, showing that the participation effect persists stably years after the outbreak.
 
-El contraste revela que entre los no participantes, se observa un salto dramático entre 2018 y 2022 en todos los grupos educativos: universitarios completos pasan de ~1.3-1.5 (2016-2018) a ~1.9-2.0 (2022-2023). Este es el hallazgo más crítico: el estallido no generó rechazo permanente a la represión estatal, sino que normalizó su justificación incluso entre sectores privilegiados, y esta normalización se mantiene estable en 2022 y 2023. Entre participantes, el patrón se invierte completamente: todos los grupos educativos muestran descensos sostenidos post-2019, pasando de ~1.8-2.0 (2016-2018) a ~1.5-1.7 (2022-2023), con universitarios completos manteniendo niveles bajos estables (~1.4). La trayectoria año a año confirma que la experiencia directa de represión durante el estallido generó un efecto de "deslegitimación experiencial" permanente entre manifestantes, observable consistentemente en ambos años post-estallido.
+The contrast reveals that among non-participants, a dramatic jump is observed between 2018 and 2022 across all educational groups: university completers go from ~1.3–1.5 (2016–2018) to ~1.9–2.0 (2022–2023). This is the most critical finding: the outbreak did not generate permanent rejection of state repression, but rather normalized its justification even among privileged sectors, and this normalization remains stable in 2022 and 2023. Among participants, the pattern reverses completely: all educational groups show sustained declines post-2019, going from ~1.8–2.0 (2016–2018) to ~1.5–1.7 (2022–2023), with university completers maintaining consistently low levels (~1.4). The year-by-year trajectory confirms that direct experience of repression during the outbreak generated a permanent "experiential delegitimization" effect among demonstrators, consistently observable in both post-outbreak years.
 
-Los datos revelan que el estallido de 2019 no fue un shock temporal sino un punto de inflexión permanente que reconfiguró estructuralmente los marcos morales duales. La visualización año por año demuestra que la divergencia entre participantes y no participantes no es fluctuación transitoria sino polarización estable: mientras participantes desarrollan rechazo duradero a violencia estatal pero mantienen justificación de violencia en protestas, no participantes experimentan patrones divergentes según capital cultural. Estos marcos permanecen estables 3-4 años después del evento crítico, cristalizando la hipótesis de polarización bidireccional permanente.
+The data reveal that the 2019 outbreak was not a temporary shock but a permanent inflection point that structurally reconfigured dual moral frameworks. The year-by-year visualization demonstrates that the divergence between participants and non-participants is not transient fluctuation but stable polarization: while participants develop lasting rejection of state violence yet maintain justification of protest violence, non-participants experience divergent patterns depending on cultural capital. These frameworks remain stable 3–4 years after the critical event, crystallizing the hypothesis of permanent bidirectional polarization.
 
 
-## Estadísticos exploratorios
+## Exploratory Statistics
 
 ```{r}
 #| echo: false
 #| include: false
 
 # ============================================
-# MODELOS DE EDUCACIÓN
+# EDUCATION MODELS
 # ============================================
 
-# Modelo 1a: Educación - Efectos principales para Violencia en Protestas
+# Model 1a: Education - Main effects for Protest Violence
 mod_educ_protesta_main <- glmmTMB(
   justif_violencia_protesta_consistente ~ educ_cat_unordered + protesta_dummy +
     edad + mujer + ideologia_std + factor(year) +
@@ -341,7 +341,7 @@ mod_educ_protesta_main <- glmmTMB(
   family = gaussian()
 )
 
-# Modelo 1b: Educación × Protesta para Violencia en Protestas (con interacción)
+# Model 1b: Education × Protest for Protest Violence (with interaction)
 mod_educ_protesta_int <- glmmTMB(
   justif_violencia_protesta_consistente ~ educ_cat_unordered * protesta_dummy +
     edad + mujer + ideologia_std + factor(year) +
@@ -350,7 +350,7 @@ mod_educ_protesta_int <- glmmTMB(
   family = gaussian()
 )
 
-# Modelo 2a: Educación - Efectos principales para Violencia Estatal
+# Model 2a: Education - Main effects for State Violence
 mod_educ_estatal_main <- glmmTMB(
   justif_violencia_estatal ~ educ_cat_unordered + protesta_dummy +
     edad + mujer + ideologia_std + factor(year) +
@@ -359,7 +359,7 @@ mod_educ_estatal_main <- glmmTMB(
   family = gaussian()
 )
 
-# Modelo 2b: Educación × Protesta para Violencia Estatal (con interacción)
+# Model 2b: Education × Protest for State Violence (with interaction)
 mod_educ_estatal_int <- glmmTMB(
   justif_violencia_estatal ~ educ_cat_unordered * protesta_dummy +
     edad + mujer + ideologia_std + factor(year) +
@@ -371,21 +371,21 @@ mod_educ_estatal_int <- glmmTMB(
 
 ```{r}
 #| label: tbl-modelos-principales
-#| tbl-cap: "Modelos principales de justificación de violencia"
+#| tbl-cap: "Main models of violence justification"
 #| echo: false
 #| warning: false
 #| results: asis
 
 # Custom coefficient map
 ccoef <- list(
-  "educ_cat_unorderedTéc. sup.incompleta" = "Tecnica Incompleta",
-  "educ_cat_unorderedTéc. sup.completa" = "Tecnica Completa",
-  "educ_cat_unorderedUniv. incompleta" = "Universitaria Incompleta",
-  "educ_cat_unorderedUniv. completa" = "Universitaria Completa",
-  "protesta_dummy" = "Participa en protestas",
-  "edad" = "Edad",
-  "mujer" = "Mujer",
-  "ideologia_std" = "Ideología",
+  "educ_cat_unorderedTechnical College incomplete" = "Technical College incomplete",
+  "educ_cat_unorderedTechnical College complete" = "Technical College complete",
+  "educ_cat_unorderedUniversity incomplete" = "University incomplete",
+  "educ_cat_unorderedUniversity complete" = "University complete",
+  "protesta_dummy" = "Protest participation",
+  "edad" = "Age",
+  "mujer" = "Woman",
+  "ideologia_std" = "Ideology",
   "factor(year)2017" = "2017",
   "factor(year)2018" = "2018",
   "factor(year)2019" = "2019",
@@ -394,14 +394,14 @@ ccoef <- list(
 )
 
 texreg(list(mod_educ_protesta_main, mod_educ_estatal_main),
-    custom.model.names = c("Modelo 1", "Modelo 2"),
+    custom.model.names = c("Model 1", "Model 2"),
        stars = c(0.001, 0.01, 0.05),
        omit.coef = "(Intercept)",
        custom.coef.map = ccoef,
        digits = 3,
-       groups = list("Educación (Ref.= Media completa o menos)" = 1:4,
-         "Controles" = 5:8,
-         "Año (Ref.= 2016)" = 9:13),
+       groups = list("Education (Ref. = High School or less)" = 1:4,
+         "Controls" = 5:8,
+         "Year (Ref. = 2016)" = 9:13),
        custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
        leading.zero = FALSE,
        use.packages = FALSE,
@@ -420,33 +420,33 @@ texreg(list(mod_educ_protesta_main, mod_educ_estatal_main),
 ```
 
 
-La @tbl-modelos-principales presenta dos modelos principales que guían el análisis de este estudio. El Modelo 1 examina los efectos de educación y participación en protestas sobre violencia en protestas, y el Modelo 2 evalúa esos mismos efectos sobre violencia estatal. Ambos modelos incluyen efectos aleatorios por individuo y controles por edad, género, ideología y año.
+@tbl-modelos-principales presents two main models guiding the analysis of this study. Model 1 examines the effects of education and protest participation on protest violence justification, and Model 2 evaluates those same effects on state violence justification. Both models include random effects by individual and controls for age, gender, ideology, and year.
 
-Los resultados revelan patrones diferenciados según el tipo de violencia. Para violencia en protestas, la participación muestra un efecto positivo consistente, incrementando la justificación en aproximadamente 0.36 puntos. En contraste, para violencia estatal, el efecto directo de la participación es negativo, aunque altamente significativo, evidenciando que quienes participan en protestas no justifican más la represión policial. 
+The results reveal differentiated patterns depending on the type of violence. For protest violence, participation shows a consistent positive effect, increasing justification by approximately 0.36 points. By contrast, for state violence, the direct effect of participation is negative and highly significant, showing that protest participants do not more readily justify police repression.
 
-Los controles operan de manera consistente: ideología de derecha reduce justificación de violencia  en protestas (~-0.03 por punto en la escala) pero la incrementa para violencia estatal (~+0.05). Las mujeres rechazan más la violencia estatal (~-0.13) sin diferencias en violencia en protestas. El año 2019 muestra el contraste más dramático: incremento moderado en justificación de violencia en protestas pero fuerte caída en justificación de violencia estatal (~-0.40), reflejando el impacto del estallido social en las actitudes hacia la represión policial.
+The controls operate consistently: right-wing ideology reduces justification of protest violence (~-0.03 per point on the scale) but increases it for state violence (~+0.05). Women reject state violence more (~-0.13) with no differences on protest violence. The year 2019 shows the most dramatic contrast: a moderate increase in protest violence justification but a sharp fall in state violence justification (~-0.40), reflecting the impact of the social outbreak on attitudes toward police repression.
 
 ```{r}
 #| label: tbl-modelos-interaccion
-#| tbl-cap: "Modelos de interacción para justificación de violencia"
+#| tbl-cap: "Interaction models for violence justification"
 #| echo: false
 #| warning: false
 #| results: asis
 
 # Custom coefficient map for interaction models
 ccoef_int <- list(
-  "educ_cat_unorderedTéc. sup.incompleta" = "Tecnica Incompleta",
-  "educ_cat_unorderedTéc. sup.completa" = "Tecnica Completa",
-  "educ_cat_unorderedUniv. incompleta" = "Universitaria Incompleta",
-  "educ_cat_unorderedUniv. completa" = "Universitaria Completa",
-  "protesta_dummy" = "Participa en Protestas",
-  "educ_cat_unorderedTéc. sup.incompleta:protesta_dummy" = "Tecnica Incompleta × Protesta",
-  "educ_cat_unorderedTéc. sup.completa:protesta_dummy" = "Tecnica Completa × Protesta",
-  "educ_cat_unorderedUniv. incompleta:protesta_dummy" = "Universitaria Incompleta × Protesta",
-  "educ_cat_unorderedUniv. completa:protesta_dummy" = "Universitaria Completa × Protesta",
+  "educ_cat_unorderedTechnical College incomplete" = "Technical College incomplete",
+  "educ_cat_unorderedTechnical College complete" = "Technical College complete",
+  "educ_cat_unorderedUniversity incomplete" = "University incomplete",
+  "educ_cat_unorderedUniversity complete" = "University complete",
+  "protesta_dummy" = "Protest participation",
+  "educ_cat_unorderedTechnical College incomplete:protesta_dummy" = "Technical College incomplete × Protest",
+  "educ_cat_unorderedTechnical College complete:protesta_dummy" = "Technical College complete × Protest",
+  "educ_cat_unorderedUniversity incomplete:protesta_dummy" = "University incomplete × Protest",
+  "educ_cat_unorderedUniversity complete:protesta_dummy" = "University complete × Protest",
   "edad" = "Age",
   "mujer" = "Woman",
-  "ideologia_std" = "Ideología",
+  "ideologia_std" = "Ideology",
   "factor(year)2017" = "2017",
   "factor(year)2018" = "2018",
   "factor(year)2019" = "2019",
@@ -460,10 +460,10 @@ texreg(list(mod_educ_protesta_int, mod_educ_estatal_int),
        omit.coef = "(Intercept)",
        custom.coef.map = ccoef_int,
        digits = 3,
-       groups = list("Educación (Ref.= Media completa o menos)" = 1:4,
-         "Interacciones Educación" = 6:9,
-         "Controles" = 10:12,
-         "Año (Ref.= 2016)" = 13:17),
+       groups = list("Education (Ref. = High School or less)" = 1:4,
+         "Education Interactions" = 6:9,
+         "Controls" = 10:12,
+         "Year (Ref. = 2016)" = 13:17),
        custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
        leading.zero = FALSE,
        use.packages = FALSE,
@@ -481,126 +481,126 @@ texreg(list(mod_educ_protesta_int, mod_educ_estatal_int),
        float.pos = "!htbp")
 ```
 
-Los modelos de la @tbl-modelos-interaccion revelan que el efecto de participación varía significativamente según nivel educativo. Para violencia en protestas, las interacciones entre educación y participación son positivas, indicando que el efecto legitimador de participar es más fuerte entre personas educadas. Una persona con nivel universitario completo participante incrementa su justificación 0.40 puntos versus 0.27 para educación media, evidenciando la "paradoja educativa": la educación reduce justificación entre no participantes (-0.13***) pero amplifica el efecto de la participación.
+The models in @tbl-modelos-interaccion reveal that the effect of participation varies significantly by education level. For protest violence, the interactions between education and participation are positive, indicating that the legitimizing effect of participating is stronger among more educated individuals. A person with complete university education who participates increases their justification by 0.40 points versus 0.27 for secondary education, evidencing the "educational paradox": education reduces justification among non-participants (-0.13***) but amplifies the effect of participation.
 
-Para violencia estatal, el patrón se invierte completamente. Las interacciones son negativas (universitario incompleto: -0.16*; universitario completo: -0.18***), indicando que solo la combinación de educación universitaria + participación genera rechazo significativo a la represión (efecto total: -0.22 puntos). La educación sola (+0.06, ns) o participación sola (-0.04, ns) no bastan; es su interacción la que activa el rechazo diferenciado.
+For state violence, the pattern reverses completely. The interactions are negative (university incomplete: -0.16*; university complete: -0.18***), indicating that only the combination of university education + participation generates significant rejection of repression (total effect: -0.22 points). Education alone (+0.06, ns) or participation alone (-0.04, ns) are insufficient; it is their interaction that activates the differentiated rejection.
 
-La reconfiguración bidireccional (legitimar protestas, rechazar represión) es más nítida entre universitarios participantes, confirmando que el marco moral dual requiere la combinación crítica de educación superior y experiencia directa de movilización.
+The bidirectional reconfiguration (legitimizing protests, rejecting repression) is clearest among university-educated participants, confirming that the dual moral framework requires the critical combination of higher education and direct experience of mobilization.
 
 ```{r}
 #| label: fig-efectos-marginales
-#| fig-cap: "Efectos marginales de la participación en protestas sobre justificación de violencia según educación"
+#| fig-cap: "Marginal effects of protest participation on violence justification by education"
 #| fig-width: 14
 #| fig-height: 10
 #| echo: false
 #| warning: false
 
 # ===================================================================
-# PANEL A: Efecto marginal de participación según EDUCACIÓN 
-# para Violencia en PROTESTAS
+# PANEL A: Marginal effect of participation by EDUCATION
+# for PROTEST Violence
 # ===================================================================
 
-# Calcular efectos marginales manualmente
-# Efecto marginal = β_protesta + β_interacción * nivel_educación
+# Calculate marginal effects manually
+# Marginal effect = β_protest + β_interaction * education_level
 
-# Extraer coeficientes del modelo
+# Extract model coefficients
 coef_educ_prot <- fixef(mod_educ_protesta_int)$cond
 
-# Efecto marginal base (educación media = categoría de referencia)
+# Base marginal effect (secondary education = reference category)
 me_base <- coef_educ_prot["protesta_dummy"]
 
-# Efectos marginales para cada nivel educativo
+# Marginal effects for each education level
 me_data_educ_prot <- data.frame(
-  educacion = c("Media o menos", "Téc. sup.\nincompleta", "Téc. sup.\ncompleta", 
-                "Univ.\nincompleta", "Univ.\ncompleta"),
+  education = c("High School\nor less", "Tech. College\nincomplete", "Tech. College\ncomplete",
+                "University\nincomplete", "University\ncomplete"),
   me = c(
-    me_base,  # Media (referencia)
-    me_base + coef_educ_prot["educ_cat_unorderedTéc. sup.incompleta:protesta_dummy"],  # Téc inc
-    me_base + coef_educ_prot["educ_cat_unorderedTéc. sup.completa:protesta_dummy"],     # Téc comp
-    me_base + coef_educ_prot["educ_cat_unorderedUniv. incompleta:protesta_dummy"],      # Univ inc
-    me_base + coef_educ_prot["educ_cat_unorderedUniv. completa:protesta_dummy"]         # Univ comp
+    me_base,  # Secondary (reference)
+    me_base + coef_educ_prot["educ_cat_unorderedTechnical College incomplete:protesta_dummy"],
+    me_base + coef_educ_prot["educ_cat_unorderedTechnical College complete:protesta_dummy"],
+    me_base + coef_educ_prot["educ_cat_unorderedUniversity incomplete:protesta_dummy"],
+    me_base + coef_educ_prot["educ_cat_unorderedUniversity complete:protesta_dummy"]
   )
 )
 
-# Calcular errores estándar aproximados usando vcov
+# Calculate approximate standard errors using vcov
 vcov_mat <- vcov(mod_educ_protesta_int)$cond
 
-# SE para categoría de referencia (solo varianza de protesta_dummy)
+# SE for reference category (variance of protesta_dummy only)
 se_base <- sqrt(vcov_mat["protesta_dummy", "protesta_dummy"])
 
-# Para interacciones: SE = sqrt(Var(β1) + Var(β2) + 2*Cov(β1,β2))
+# For interactions: SE = sqrt(Var(β1) + Var(β2) + 2*Cov(β1,β2))
 se_tec_inc <- sqrt(
   vcov_mat["protesta_dummy", "protesta_dummy"] +
-  vcov_mat["educ_cat_unorderedTéc. sup.incompleta:protesta_dummy", 
-           "educ_cat_unorderedTéc. sup.incompleta:protesta_dummy"] +
-  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedTéc. sup.incompleta:protesta_dummy"]
+  vcov_mat["educ_cat_unorderedTechnical College incomplete:protesta_dummy",
+           "educ_cat_unorderedTechnical College incomplete:protesta_dummy"] +
+  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedTechnical College incomplete:protesta_dummy"]
 )
 
 se_tec_comp <- sqrt(
   vcov_mat["protesta_dummy", "protesta_dummy"] +
-  vcov_mat["educ_cat_unorderedTéc. sup.completa:protesta_dummy", 
-           "educ_cat_unorderedTéc. sup.completa:protesta_dummy"] +
-  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedTéc. sup.completa:protesta_dummy"]
+  vcov_mat["educ_cat_unorderedTechnical College complete:protesta_dummy",
+           "educ_cat_unorderedTechnical College complete:protesta_dummy"] +
+  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedTechnical College complete:protesta_dummy"]
 )
 
 se_univ_inc <- sqrt(
   vcov_mat["protesta_dummy", "protesta_dummy"] +
-  vcov_mat["educ_cat_unorderedUniv. incompleta:protesta_dummy", 
-           "educ_cat_unorderedUniv. incompleta:protesta_dummy"] +
-  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedUniv. incompleta:protesta_dummy"]
+  vcov_mat["educ_cat_unorderedUniversity incomplete:protesta_dummy",
+           "educ_cat_unorderedUniversity incomplete:protesta_dummy"] +
+  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedUniversity incomplete:protesta_dummy"]
 )
 
 se_univ_comp <- sqrt(
   vcov_mat["protesta_dummy", "protesta_dummy"] +
-  vcov_mat["educ_cat_unorderedUniv. completa:protesta_dummy", 
-           "educ_cat_unorderedUniv. completa:protesta_dummy"] +
-  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedUniv. completa:protesta_dummy"]
+  vcov_mat["educ_cat_unorderedUniversity complete:protesta_dummy",
+           "educ_cat_unorderedUniversity complete:protesta_dummy"] +
+  2 * vcov_mat["protesta_dummy", "educ_cat_unorderedUniversity complete:protesta_dummy"]
 )
 
 me_data_educ_prot$se <- c(se_base, se_tec_inc, se_tec_comp, se_univ_inc, se_univ_comp)
 me_data_educ_prot$ci_low <- me_data_educ_prot$me - 1.96 * me_data_educ_prot$se
 me_data_educ_prot$ci_high <- me_data_educ_prot$me + 1.96 * me_data_educ_prot$se
-me_data_educ_prot$significativo <- !(me_data_educ_prot$ci_low < 0 & me_data_educ_prot$ci_high > 0)
+me_data_educ_prot$significant <- !(me_data_educ_prot$ci_low < 0 & me_data_educ_prot$ci_high > 0)
 
-# Reordenar niveles
-me_data_educ_prot$educacion <- factor(me_data_educ_prot$educacion, 
-                                       levels = c("Media o menos", "Téc. sup.\nincompleta", 
-                                                  "Téc. sup.\ncompleta", "Univ.\nincompleta", 
-                                                  "Univ.\ncompleta"))
+# Reorder levels
+me_data_educ_prot$education <- factor(me_data_educ_prot$education,
+                                       levels = c("High School\nor less", "Tech. College\nincomplete",
+                                                  "Tech. College\ncomplete", "University\nincomplete",
+                                                  "University\ncomplete"))
 
-# Gráfico Panel A
-panel_a <- ggplot(me_data_educ_prot, aes(x = educacion, y = me)) +
+# Panel A plot
+panel_a <- ggplot(me_data_educ_prot, aes(x = education, y = me)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.8) +
-  geom_point(aes(color = significativo), size = 3.5) +
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high, color = significativo), 
+  geom_point(aes(color = significant), size = 3.5) +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high, color = significant),
                 width = 0.2, linewidth = 1) +
-  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#00BFC4"), 
+  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#00BFC4"),
                      guide = "none") +
-  labs(title = "A) Violencia en Protestas: Efecto Marginal de Participación\n por Educación",
-       x = "Nivel Educativo",
-       y = "Efecto Marginal de Participación\n(cambio en justificación)") +
+  labs(title = "A) Protest Violence: Marginal Effect of Participation\nby Education",
+       x = "Education Level",
+       y = "Marginal Effect of Participation\n(change in justification)") +
   theme_minimal(base_size = 14) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size = 11),
         plot.title = element_text(size = 12, face = "bold"),
         panel.grid.minor = element_blank())
 
 # ===================================================================
-# PANEL B: Efecto marginal de participación según EDUCACIÓN 
-# para Violencia ESTATAL
+# PANEL B: Marginal effect of participation by EDUCATION
+# for STATE Violence
 # ===================================================================
 
 coef_educ_est <- fixef(mod_educ_estatal_int)$cond
 me_base_est <- coef_educ_est["protesta_dummy"]
 
 me_data_educ_est <- data.frame(
-  educacion = c("Media o menos", "Téc. sup.\nincompleta", "Téc. sup.\ncompleta", 
-                "Univ.\nincompleta", "Univ.\ncompleta"),
+  education = c("High School\nor less", "Tech. College\nincomplete", "Tech. College\ncomplete",
+                "University\nincomplete", "University\ncomplete"),
   me = c(
     me_base_est,
-    me_base_est + coef_educ_est["educ_cat_unorderedTéc. sup.incompleta:protesta_dummy"],
-    me_base_est + coef_educ_est["educ_cat_unorderedTéc. sup.completa:protesta_dummy"],
-    me_base_est + coef_educ_est["educ_cat_unorderedUniv. incompleta:protesta_dummy"],
-    me_base_est + coef_educ_est["educ_cat_unorderedUniv. completa:protesta_dummy"]
+    me_base_est + coef_educ_est["educ_cat_unorderedTechnical College incomplete:protesta_dummy"],
+    me_base_est + coef_educ_est["educ_cat_unorderedTechnical College complete:protesta_dummy"],
+    me_base_est + coef_educ_est["educ_cat_unorderedUniversity incomplete:protesta_dummy"],
+    me_base_est + coef_educ_est["educ_cat_unorderedUniversity complete:protesta_dummy"]
   )
 )
 
@@ -609,109 +609,109 @@ se_base_est <- sqrt(vcov_mat_est["protesta_dummy", "protesta_dummy"])
 
 se_tec_inc_est <- sqrt(
   vcov_mat_est["protesta_dummy", "protesta_dummy"] +
-  vcov_mat_est["educ_cat_unorderedTéc. sup.incompleta:protesta_dummy", 
-               "educ_cat_unorderedTéc. sup.incompleta:protesta_dummy"] +
-  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedTéc. sup.incompleta:protesta_dummy"]
+  vcov_mat_est["educ_cat_unorderedTechnical College incomplete:protesta_dummy",
+               "educ_cat_unorderedTechnical College incomplete:protesta_dummy"] +
+  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedTechnical College incomplete:protesta_dummy"]
 )
 
 se_tec_comp_est <- sqrt(
   vcov_mat_est["protesta_dummy", "protesta_dummy"] +
-  vcov_mat_est["educ_cat_unorderedTéc. sup.completa:protesta_dummy", 
-               "educ_cat_unorderedTéc. sup.completa:protesta_dummy"] +
-  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedTéc. sup.completa:protesta_dummy"]
+  vcov_mat_est["educ_cat_unorderedTechnical College complete:protesta_dummy",
+               "educ_cat_unorderedTechnical College complete:protesta_dummy"] +
+  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedTechnical College complete:protesta_dummy"]
 )
 
 se_univ_inc_est <- sqrt(
   vcov_mat_est["protesta_dummy", "protesta_dummy"] +
-  vcov_mat_est["educ_cat_unorderedUniv. incompleta:protesta_dummy", 
-               "educ_cat_unorderedUniv. incompleta:protesta_dummy"] +
-  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedUniv. incompleta:protesta_dummy"]
+  vcov_mat_est["educ_cat_unorderedUniversity incomplete:protesta_dummy",
+               "educ_cat_unorderedUniversity incomplete:protesta_dummy"] +
+  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedUniversity incomplete:protesta_dummy"]
 )
 
 se_univ_comp_est <- sqrt(
   vcov_mat_est["protesta_dummy", "protesta_dummy"] +
-  vcov_mat_est["educ_cat_unorderedUniv. completa:protesta_dummy", 
-               "educ_cat_unorderedUniv. completa:protesta_dummy"] +
-  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedUniv. completa:protesta_dummy"]
+  vcov_mat_est["educ_cat_unorderedUniversity complete:protesta_dummy",
+               "educ_cat_unorderedUniversity complete:protesta_dummy"] +
+  2 * vcov_mat_est["protesta_dummy", "educ_cat_unorderedUniversity complete:protesta_dummy"]
 )
 
 me_data_educ_est$se <- c(se_base_est, se_tec_inc_est, se_tec_comp_est, se_univ_inc_est, se_univ_comp_est)
 me_data_educ_est$ci_low <- me_data_educ_est$me - 1.96 * me_data_educ_est$se
 me_data_educ_est$ci_high <- me_data_educ_est$me + 1.96 * me_data_educ_est$se
-me_data_educ_est$significativo <- !(me_data_educ_est$ci_low < 0 & me_data_educ_est$ci_high > 0)
+me_data_educ_est$significant <- !(me_data_educ_est$ci_low < 0 & me_data_educ_est$ci_high > 0)
 
-me_data_educ_est$educacion <- factor(me_data_educ_est$educacion, 
-                                      levels = c("Media o menos", "Téc. sup.\nincompleta", 
-                                                 "Téc. sup.\ncompleta", "Univ.\nincompleta", 
-                                                 "Univ.\ncompleta"))
+me_data_educ_est$education <- factor(me_data_educ_est$education,
+                                      levels = c("High School\nor less", "Tech. College\nincomplete",
+                                                 "Tech. College\ncomplete", "University\nincomplete",
+                                                 "University\ncomplete"))
 
-panel_b <- ggplot(me_data_educ_est, aes(x = educacion, y = me)) +
+panel_b <- ggplot(me_data_educ_est, aes(x = education, y = me)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.8) +
-  geom_point(aes(color = significativo), size = 3.5) +
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high, color = significativo), 
+  geom_point(aes(color = significant), size = 3.5) +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high, color = significant),
                 width = 0.2, linewidth = 1) +
-  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#619CFF"), 
+  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#619CFF"),
                      guide = "none") +
-  labs(title = "B) Violencia Estatal: Efecto Marginal de Participación\n por Educación",
-       x = "Nivel Educativo",
-       y = "Efecto Marginal de Participación\n(cambio en justificación)") +
+  labs(title = "B) State Violence: Marginal Effect of Participation\nby Education",
+       x = "Education Level",
+       y = "Marginal Effect of Participation\n(change in justification)") +
   theme_minimal(base_size = 14) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size = 11),
         plot.title = element_text(size = 12, face = "bold"),
         panel.grid.minor = element_blank())
 
-# Combinar paneles
+# Combine panels
 combined_marginal_effects <- (panel_a | panel_b) +
   plot_annotation(
-    caption = "Efectos marginales con IC 95%. Línea roja indica efecto nulo. Puntos grises: no significativos. \nEfecto marginal = cambio en justificación al participar vs no participar, condicionado por educación. Elaboración propia con ELSOC.",
+    caption = "Marginal effects with 95% CI. Red line indicates null effect. Grey points: non-significant.\nMarginal effect = change in justification from participating vs. not participating, conditioned by education. Compiled by the author based on ELSOC.",
     theme = theme(plot.caption = element_text(size = 9, hjust = 0))
   )
 
 combined_marginal_effects
 ```
 
-La @fig-efectos-marginales visualiza los efectos marginales de participación según educación, permitiendo evaluar directamente las hipótesis sobre efectos diferenciales.
+@fig-efectos-marginales visualizes the marginal effects of participation by education, allowing direct evaluation of the hypotheses about differential effects.
 
-En el Panel A, se observa como todos los niveles educativos muestran efectos positivos significativos para justificación de la violencia en protestas, con magnitudes que varían de +0.27 (educación media) a +0.55 (técnico superior incompleto). Crucialmente, el efecto legitimador es más fuerte entre educación técnica-superior (+0.55) y universitaria (+0.40) que entre educación media (+0.27), evidenciando que la educación amplifica (no reduce) el efecto de participación, invirtiendo el efecto civilizatorio entre quienes se movilizan.
+In Panel A, all education levels show significant positive effects on protest violence justification, with magnitudes ranging from +0.27 (secondary education) to +0.55 (technical college incomplete). Crucially, the legitimizing effect is stronger among technical college (+0.55) and university (+0.40) education than among secondary education (+0.27), showing that education amplifies (rather than reduces) the effect of participation, inverting the civilizing effect among those who mobilize.
 
-Por otro lado, el Panel B muestra que solo universitarios tienen efectos negativos significativos para justificación de la violencia estatal (-0.20 a -0.22), mientras educación media y técnica exhiben efectos nulos (puntos grises en línea roja). En este sentido, universitarios participantes tenderían a legitimar violencia en protestas (+0.40) a la vez que rechazan la violencia estatal (-0.22).
+Panel B shows that only university-educated individuals have significant negative effects on state violence justification (-0.20 to -0.22), while secondary and technical education show null effects (grey points on the red line). University-educated participants thus tend to legitimize protest violence (+0.40) while simultaneously rejecting state violence (-0.22).
 
 
-### El "Efecto Paradoja" de la Educación
+### The Education "Paradox Effect"
 
 ```{r}
 #| label: fig-paradoja-educacion
-#| fig-cap: "Análisis de interacción: Educación × Participación en Protestas"
+#| fig-cap: "Interaction analysis: Education × Protest Participation"
 #| fig-width: 12
 #| fig-height: 9
 #| echo: false
 #| warning: false
 
-# Generar predicciones del modelo de educación con interacciones
-pred_df <- ggpredict(mod_educ_protesta_int, 
+# Generate predictions from the education model with interactions
+pred_df <- ggpredict(mod_educ_protesta_int,
                      terms = c("educ_cat_unordered", "protesta_dummy")) %>%
   as.data.frame() %>%
-  rename(participacion = group) %>%
-  mutate(participacion = factor(participacion, 
+  rename(participation = group) %>%
+  mutate(participation = factor(participation,
                                  levels = c("0", "1"),
-                                 labels = c("No participó", "Participó")))
+                                 labels = c("Did not participate", "Participated")))
 
-# Panel A: Predicciones
-panel_a <- ggplot(pred_df, aes(x = x, y = predicted, 
-                                color = participacion, group = participacion, 
-                                fill = participacion)) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), 
+# Panel A: Predictions
+panel_a <- ggplot(pred_df, aes(x = x, y = predicted,
+                                color = participation, group = participation,
+                                fill = participation)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
               alpha = 0.2, color = NA) +
   geom_line(linewidth = 1) +
   geom_point(size = 2.5) +
-  scale_color_manual(values = c("No participó" = "#F8766D", "Participó" = "#00BFC4")) +
-  scale_fill_manual(values = c("No participó" = "#F8766D", "Participó" = "#00BFC4")) +
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
+  scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
   labs(
-    title = "A) Valores Predichos",
-    x = "Nivel Educativo",
-    y = "Justificación (predicha)",
-    color = "Participación",
-    fill = "Participación"
+    title = "A) Predicted Values",
+    x = "Education Level",
+    y = "Justification (predicted)",
+    color = "Participation",
+    fill = "Participation"
   ) +
   theme_minimal(base_size = 15) +
   theme(
@@ -721,22 +721,22 @@ panel_a <- ggplot(pred_df, aes(x = x, y = predicted,
     plot.title = element_text(size = 13, face = "bold")
   )
 
-# Panel B: Magnitud de la interacción
+# Panel B: Interaction magnitude
 interaction_df <- pred_df %>%
-  select(x, participacion, predicted) %>%
-  pivot_wider(names_from = participacion, values_from = predicted) %>%
-  mutate(Diferencia = `Participó` - `No participó`)
+  select(x, participation, predicted) %>%
+  pivot_wider(names_from = participation, values_from = predicted) %>%
+  mutate(Difference = `Participated` - `Did not participate`)
 
-panel_b <- ggplot(interaction_df, aes(x = x, y = Diferencia)) +
+panel_b <- ggplot(interaction_df, aes(x = x, y = Difference)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.6) +
   geom_col(fill = "#619CFF", alpha = 0.7, width = 0.6) +
-  geom_text(aes(label = round(Diferencia, 2)), 
-            vjust = ifelse(interaction_df$Diferencia > 0, -0.5, 1.5),
+  geom_text(aes(label = round(Difference, 2)),
+            vjust = ifelse(interaction_df$Difference > 0, -0.5, 1.5),
             size = 2.5) +
   labs(
-    title = "B) Magnitud de la Interacción",
-    x = "Nivel Educativo",
-    y = "Diferencia\n(Participó - No Participó)"
+    title = "B) Interaction Magnitude",
+    x = "Education Level",
+    y = "Difference\n(Participated - Did not participate)"
   ) +
   theme_minimal(base_size = 15) +
   theme(
@@ -744,83 +744,83 @@ panel_b <- ggplot(interaction_df, aes(x = x, y = Diferencia)) +
     plot.title = element_text(size = 13, face = "bold")
   )
 
-# Combinar
+# Combine
 plot_final <- panel_a / panel_b +
   plot_annotation(
-    caption = "Panel A muestra efectos por grupo; Panel B cuantifica la interacción. Elaboración propia con ELSOC 2016-2023.",
+    caption = "Panel A shows effects by group; Panel B quantifies the interaction. Compiled by the author based on ELSOC 2016–2023.",
     theme = theme(plot.caption = element_text(size = 7, hjust = 0))
   )
 
-# Mostrar gráfico
+# Display plot
 plot_final
 ```
 
-La @fig-paradoja-educacion revela la "paradoja educativa" predicha en las hipótesis H1a y H1b. El Panel A muestra que la educación reduce la justificación de violencia entre observadores externos (línea roja descendente de ~1.95 en educación media a ~1.75 en universitaria completa), consistente con el efecto civilizatorio. Sin embargo, la educación invierte su efecto (línea azul ascendente de ~2.20 en educación media a ~2.35 en técnico superior incompleto, luego ~2.30 en universitaria completa), evidenciando que personas más educadas elaboran marcos ideológicos que legitiman la violencia táctica en contextos de movilización. El Panel B cuantifica esta inversión: la magnitud de la interacción es máxima en técnico superior incompleto (+0.55) y universitaria incompleta (+0.45), confirmando que la "paradoja" es más pronunciada en niveles educativos medios-altos donde convergen capital cultural y experiencia de movilización.
+@fig-paradoja-educacion reveals the "educational paradox" predicted in hypotheses H1a and H1b. Panel A shows that education reduces violence justification among external observers (descending red line from ~1.95 at secondary education to ~1.75 at university complete), consistent with the civilizing effect. However, education inverts its effect among participants (ascending blue line from ~2.20 at secondary education to ~2.35 at technical college incomplete, then ~2.30 at university complete), showing that more educated individuals construct ideological frameworks that legitimize tactical violence in mobilization contexts. Panel B quantifies this inversion: the interaction magnitude is highest at technical college incomplete (+0.55) and university incomplete (+0.45), confirming that the "paradox" is most pronounced at mid-to-upper education levels where cultural capital and mobilization experience converge.
 
-## Reconfiguración Bidireccional de la justificación de la violencia (Violencia en Protestas vs Violencia Estatal)
+## Bidirectional Reconfiguration of Violence Justification (Protest Violence vs. State Violence)
 
-Los modelos con interacciones (Modelo 1b y Modelo 2b) revelan la dinámica bidireccional predicha en H2a-H2b (universitarios). H2a se confirma plenamente: para violencia en protestas, la educación universitaria reduce justificación entre no participantes ($-0.13***$), pero participación genera incremento ($+0.27***$) magnificado por interacciones positivas con educación superior (técnico superior incompleto: $+0.28*$; universitario completo: $+0.13**$), anulando el efecto civilizatorio. H2b se confirma plenamente: para violencia estatal, el patrón se invierte completamente: educación sola ($+0.06$, ns) y participación sola ($-0.04$, ns) no generan efectos, pero sus interacciones negativas producen rechazo significativo entre universitarios (incompleto: $-0.16*$; completo: $-0.18***$), evidenciando que solo la combinación educación universitaria + participación activa el marco crítico hacia represión.
+The interaction models (Model 1b and Model 2b) reveal the bidirectional dynamic predicted in H2a–H2b (university-educated). H2a is fully confirmed: for protest violence, university education reduces justification among non-participants ($-0.13***$), but participation generates an increase ($+0.27***$) magnified by positive interactions with higher education (technical college incomplete: $+0.28*$; university complete: $+0.13**$), nullifying the civilizing effect. H2b is fully confirmed: for state violence, the pattern reverses completely: education alone ($+0.06$, ns) and participation alone ($-0.04$, ns) generate no effects, but their negative interactions produce significant rejection among university-educated individuals (incomplete: $-0.16*$; complete: $-0.18***$), showing that only the combination of university education + participation activates the critical framework toward repression.
 
-Los controles confirman el impacto del estallido 2019: incremento moderado en justificación de protestas ($+0.05*$) pero colapso en violencia estatal ($-0.40***$), transformando radicalmente actitudes hacia represión policial. Ideología opera en direcciones opuestas: derecha reduce justificación de protestas ($-0.03***$) pero incrementa la de violencia estatal ($+0.05***$). Las mujeres rechazan más violencia estatal ($-0.13***$) sin diferencias en protestas. Este patrón confirma que la reconfiguración bidireccional predicha en H2a-H2b (legitimar protestas, rechazar represión) es completa solo entre quienes combinan educación universitaria con experiencia directa de movilización, cristalizando el marco moral dual sofisticado.
+The controls confirm the impact of the 2019 outbreak: moderate increase in protest justification ($+0.05*$) but collapse in state violence ($-0.40***$), radically transforming attitudes toward police repression. Ideology operates in opposite directions: right-wing ideology reduces justification of protests ($-0.03***$) but increases that of state violence ($+0.05***$). Women reject state violence more ($-0.13***$) with no differences in protests. This pattern confirms that the bidirectional reconfiguration predicted in H2a–H2b (legitimizing protests, rejecting repression) is complete only among those who combine university education with direct experience of mobilization, crystallizing the sophisticated dual moral framework.
 
 ```{r}
 #| label: fig-bidireccional-tiempo
-#| fig-cap: "Evolución temporal de la reconfiguración bidireccional según educación y participación (2016-2023)"
+#| fig-cap: "Temporal evolution of bidirectional reconfiguration by education and participation (2016–2023)"
 #| fig-width: 12
 #| fig-height: 14
 #| dpi: 300
 #| echo: false
 #| warning: false
 
-# Obtener predicciones para violencia en protestas
-pred_protestas_tiempo <- ggpredict(mod_educ_protesta_int, 
-                                   terms = c("year", "protesta_dummy", "educ_cat_unordered [Media completa o menos, Téc. sup.incompleta, Téc. sup.completa, Univ. completa]"),
+# Get predictions for protest violence
+pred_protestas_tiempo <- ggpredict(mod_educ_protesta_int,
+                                   terms = c("year", "protesta_dummy", "educ_cat_unordered [High School or less, Technical College incomplete, Technical College complete, University complete]"),
                                    typical = "mean")
 
-# Obtener predicciones para violencia estatal
-pred_estatal_tiempo <- ggpredict(mod_educ_estatal_int, 
-                                 terms = c("year", "protesta_dummy", "educ_cat_unordered [Media completa o menos, Téc. sup.incompleta, Téc. sup.completa, Univ. completa]"),
+# Get predictions for state violence
+pred_estatal_tiempo <- ggpredict(mod_educ_estatal_int,
+                                 terms = c("year", "protesta_dummy", "educ_cat_unordered [High School or less, Technical College incomplete, Technical College complete, University complete]"),
                                  typical = "mean")
 
-# Convertir a dataframes
+# Convert to dataframes
 pred_protestas_df <- as.data.frame(pred_protestas_tiempo)
-pred_protestas_df$tipo_violencia <- "Violencia en Protestas"
-pred_protestas_df$participacion <- factor(pred_protestas_df$group, 
-                                          labels = c("No participó", "Participó"))
-pred_protestas_df$educacion <- pred_protestas_df$facet
+pred_protestas_df$violence_type <- "Protest Violence"
+pred_protestas_df$participation <- factor(pred_protestas_df$group,
+                                          labels = c("Did not participate", "Participated"))
+pred_protestas_df$education <- pred_protestas_df$facet
 
 pred_estatal_df <- as.data.frame(pred_estatal_tiempo)
-pred_estatal_df$tipo_violencia <- "Violencia Estatal"
-pred_estatal_df$participacion <- factor(pred_estatal_df$group, 
-                                        labels = c("No participó", "Participó"))
-pred_estatal_df$educacion <- pred_estatal_df$facet
+pred_estatal_df$violence_type <- "State Violence"
+pred_estatal_df$participation <- factor(pred_estatal_df$group,
+                                        labels = c("Did not participate", "Participated"))
+pred_estatal_df$education <- pred_estatal_df$facet
 
-# Combinar ambos datasets
+# Combine both datasets
 pred_combined <- rbind(pred_protestas_df, pred_estatal_df)
 
-# Crear gráfico con facetas por educación y participación
-ggplot(pred_combined, aes(x = x, y = predicted, color = tipo_violencia, group = tipo_violencia)) +
+# Create plot with facets by education and participation
+ggplot(pred_combined, aes(x = x, y = predicted, color = violence_type, group = violence_type)) +
   geom_line(linewidth = 1.2) +
   geom_point(size = 2.5) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = tipo_violencia), 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = violence_type),
               alpha = 0.15, color = NA) +
-  facet_grid(participacion ~ educacion, 
+  facet_grid(participation ~ education,
              labeller = labeller(
-               participacion = c("No participó" = "No Participantes", 
-                                "Participó" = "Participantes")
+               participation = c("Did not participate" = "Non-Participants",
+                                "Participated" = "Participants")
              )) +
-  scale_color_manual(values = c("Violencia en Protestas" = "#EFC000FF", 
-                                 "Violencia Estatal" = "#0073C2FF")) +
-  scale_fill_manual(values = c("Violencia en Protestas" = "#EFC000FF", 
-                                "Violencia Estatal" = "#0073C2FF")) +
+  scale_color_manual(values = c("Protest Violence" = "#EFC000FF",
+                                 "State Violence" = "#0073C2FF")) +
+  scale_fill_manual(values = c("Protest Violence" = "#EFC000FF",
+                                "State Violence" = "#0073C2FF")) +
   geom_vline(xintercept = 2019, linetype = "dashed", color = "red", alpha = 0.5) +
   labs(
-    title = "Reconfiguración Bidireccional: Evolución Temporal por Educación y Participación",
-    x = "Año",
-    y = "Justificación de Violencia (predicha)",
-    color = "Tipo de Violencia",
-    fill = "Tipo de Violencia",
-    caption = "Línea roja punteada: 2019 (Estallido social). Áreas sombreadas: IC 95%. Otros predictores en valores medios.\nElaboración propia con ELSOC 2016-2023."
+    title = "Bidirectional Reconfiguration: Temporal Evolution by Education and Participation",
+    x = "Year",
+    y = "Predicted Violence Justification",
+    color = "Type of Violence",
+    fill = "Type of Violence",
+    caption = "Dashed red line: 2019 (social outbreak). Shaded areas: 95% CI. Other predictors at mean values.\nCompiled by the author based on ELSOC 2016–2023."
   ) +
   theme_minimal(base_size = 10) +
   theme(
@@ -834,10 +834,8 @@ ggplot(pred_combined, aes(x = x, y = predicted, color = tipo_violencia, group = 
   ylim(1.3, 2.4)
 ```
 
-La @fig-bidireccional-tiempo visualiza la dinámica temporal de la reconfiguración bidireccional predicha en H2a-H2b, mostrando que el marco moral dual requiere tanto educación como participación. Entre no participantes (fila superior), las líneas amarilla (protestas) y azul (estatal) permanecen paralelas y cercanas en todos los niveles educativos, confirmando que sin participación no hay reconfiguración bidireccional pese al efecto civilizatorio universitario (H1a opera pero H2b no se activa).
+@fig-bidireccional-tiempo visualizes the temporal dynamics of the bidirectional reconfiguration predicted in H2a–H2b, showing that the dual moral framework requires both education and participation. Among non-participants (top row), the yellow (protests) and blue (state) lines remain parallel and close across all education levels, confirming that without participation there is no bidirectional reconfiguration despite the university civilizing effect (H1a operates but H2b is not activated).
 
-Entre participantes (fila inferior), emergen tres patrnoes que permiten evaluar H2a-H2b. Educación media/técnica muestra rechazo parcial de H2a-H2b: elevación de justificación de protestas (+0.27 a +0.55, confirmando H2a) pero sin rechazo significativo a violencia estatal (rechazando H2b), evidenciando legitimación táctica sin marco crítico hacia represión. Técnico superior incompleto alcanza la mayor radicalización en protestas (>2.2 en 2019, $+0.28*$) pero mantiene líneas paralelas, confirmando que capital técnico sin socialización universitaria no genera la diferenciación normativa predicha en H2b.
+Among participants (bottom row), three patterns emerge for evaluating H2a–H2b. Secondary/technical education shows partial rejection of H2a–H2b: elevated protest violence justification (+0.27 to +0.55, confirming H2a) but without significant rejection of state violence (rejecting H2b), evidencing tactical legitimization without a critical framework toward repression. Technical college incomplete reaches the highest radicalization on protests (>2.2 in 2019, $+0.28*$) but maintains parallel lines, confirming that technical capital without university socialization does not generate the normative differentiation predicted in H2b.
 
-El marco dual completo predicho en H2a-H2b se confirma exclusivamente en universitarios participantes: (1) línea amarilla elevada sostenida (~2.0-2.1), anulando el efecto civilizatorio y confirmando H2a; (2) colapso dramático de línea azul en 2019 desde ~1.75 a ~1.35, el nivel más bajo de la figura ($-0.40***$), confirmando H2b; (3) divergencia máxima post-2019 con brecha de ~0.7 puntos, evidenciando permanencia del marco dual. Este patrón confirma que H2a y H2b se cumplen conjuntamente solo bajo la combinación crítica de educación universitaria + experiencia de movilización, cristalizando el marco normativo dual sofisticado.
-
-
+The complete dual framework predicted in H2a–H2b is confirmed exclusively among university-educated participants: (1) a sustained elevated yellow line (~2.0–2.1), nullifying the civilizing effect and confirming H2a; (2) a dramatic collapse of the blue line in 2019 from ~1.75 to ~1.35, the lowest level in the figure ($-0.40***$), confirming H2b; (3) maximum post-2019 divergence with a gap of ~0.7 points, evidencing the permanence of the dual framework. This pattern confirms that H2a and H2b are jointly satisfied only under the critical combination of university education + mobilization experience, crystallizing the sophisticated dual normative framework.

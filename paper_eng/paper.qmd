@@ -1,5 +1,5 @@
 ---
-title: "Actitudes hacia la violencia política en el ciclo contencioso chileno: Un ánálisis longitudinal desde la educación y la participación"
+title: "Attitudes towards political violence in Chile’s cycle of political conflict: A longitudinal analysis focusing on education and participation"
 date: today
 date-format: "MMMM, YYYY"
 format:
@@ -32,11 +32,27 @@ format:
 editor: source
 bibliography: "input/bib/protest-effect.bib"
 csl: "input/bib/chicago.csl"
-author: René Canales & Daniel Miranda
+author:
+  - name: René Canales-Sellés
+    orcid: 0009-0002-4299-2725
+    email: renecanales@uc.cl 
+    affiliations:
+      - ref: 1
+  - name: Daniel Miranda
+    corresponding: true
+    orcid: 0000-0002-3143-8502
+    email: danmiranda@uchile.cl
+    affiliations:
+      - ref: 2
+affiliations: 
+  - id: 1
+    name: Bremen International Graduate School of Social Sciences, University of Bremen
+  - id: 2
+    name: Department of Psychology, University of Chile
 abstract: | 
- El estallido social chileno de octubre 2019 generó una paradoja: ¿por qué las clases medias educadas legitimaron violencia disruptiva, contrario a su tradicional moderación democrática? Utilizando datos longitudinales de ELSOC (2016-2023, 20.007 observaciones/3.666 individuos), este estudio desafía el "efecto civilizatorio" de la educación mediante modelos multinivel. Los hallazgos revelan que la educación opera como amplificador cognitivo condicional: reduce la justificación de violencia entre no participantes, pero la incrementa dramáticamente entre manifestantes. Los universitarios movilizados alcanzan los niveles más altos, invirtiendo completamente el efecto civilizatorio. El análisis evidencia una "reconfiguración bidireccional": los participantes educados legitiman violencia de protesta mientras rechazan violencia estatal, desarrollando marcos morales duales sofisticados. Estos hallazgos iluminan cómo la transversalidad del movimiento chileno emergió de la transformación actitudinal de sectores profesionales que, mediante participación, rearticularon marcos morales legitimando la transgresión normativa como expresión política válida, contribuyendo a literaturas sobre educación política, desigualdad y socialización.
-  \newline
- **Keywords**: Actitudes hacia la violencia · Protestas · Estratificación · · Chile
+ The Chilean social unrest of October 2019 poses a paradox for political theory: Why did highly educated sectors—typically associated with democratic moderation—legitimize forms of disruptive violence? Using longitudinal data from ELSOC (2016–2023; 20,007 observations, 3,666 individuals), this article examines the relationship between educational attainment, participation in protests, and the justification of violence through multilevel models. The results challenge the "civilizing effect" of education: among non-participants, higher education reduces the justification of violence; among protesters, it significantly increases it. Mobilized university students exhibit the highest levels, reversing the expected effect. This pattern reflects a moral duality: educated participants reject state violence while legitimizing protest violence, thereby developing differentiated normative frameworks. These findings explain how the cross-sectional nature of the Chilean movement emerged from the rearticulation of moral frameworks across professional sectors, with implications for the study of nonviolent radicalization, political socialization, and the legitimacy of transgression in democracies with structural inequality. 
+
+ **Keywords**: Protests · Violence · Stratification · Attitudes · Chile
 link-citations: true
 linestretch: 1.5
 mainfont: Times New Roman
@@ -83,10 +99,8 @@ conflicts_prefer(dplyr::filter)
 
 {{< include 05-discussion.qmd >}}
 
-{{< include 06-conclusion.qmd >}}
+# References
 
-{{< include 07-references.qmd >}}
-
+::: {#refs}
+:::
 ::::
-
-{{< include 08-anexos.qmd >}}
