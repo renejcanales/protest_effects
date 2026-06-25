@@ -155,7 +155,7 @@ plot_evol_particip <- elsoc_final_2 %>%
     title = "Protest Participation Over Time",
     x = "Year",
     y = "% who Participated") +
-  theme_minimal(base_size = 16)
+  theme_minimal(base_size = 14)
 
 # Combine
 grafico_evolucion <- plot_evol_particip +
@@ -200,7 +200,6 @@ just_viol <- ggplot(comparacion_data, aes(x = year, y = Justification, color = T
                      name = "Type of Violence") +
   labs(
     title = "Divergence between Justification of Violence in Protests and State Violence",
-    subtitle = "Crossed lines post-2019 reveal inversion of moral hierarchies: protests more legitimized than repression",
     x = "Year",
     y = "Justification (scale 1-5)",
     caption = "Red line: 2019 social outbreak. Compiled by the author based on ELSOC 2016–2023."
@@ -574,9 +573,9 @@ panel_a <- ggplot(me_data_educ_prot, aes(x = education, y = me)) +
   geom_point(aes(color = significant), size = 3.5) +
   geom_errorbar(aes(ymin = ci_low, ymax = ci_high, color = significant),
                 width = 0.2, linewidth = 1) +
-  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#00BFC4"),
+  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#2C7BB6"),
                      guide = "none") +
-  labs(title = "A) Protest Violence: Marginal Effect of Participation\nby Education",
+  labs(title = "Protest Violence",
        x = "Education Level",
        y = "Marginal Effect of Participation\n(change in justification)") +
   theme_minimal(base_size = 14) +
@@ -650,9 +649,9 @@ panel_b <- ggplot(me_data_educ_est, aes(x = education, y = me)) +
   geom_point(aes(color = significant), size = 3.5) +
   geom_errorbar(aes(ymin = ci_low, ymax = ci_high, color = significant),
                 width = 0.2, linewidth = 1) +
-  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#619CFF"),
+  scale_color_manual(values = c("FALSE" = "gray50", "TRUE" = "#2C7BB6"),
                      guide = "none") +
-  labs(title = "B) State Violence: Marginal Effect of Participation\nby Education",
+  labs(title = "State Violence",
        x = "Education Level",
        y = "Marginal Effect of Participation\n(change in justification)") +
   theme_minimal(base_size = 14) +
@@ -663,6 +662,7 @@ panel_b <- ggplot(me_data_educ_est, aes(x = education, y = me)) +
 # Combine panels
 combined_marginal_effects <- (panel_a | panel_b) +
   plot_annotation(
+    tag_levels = 'A',
     caption = "Marginal effects with 95% CI. Red line indicates null effect. Grey points: non-significant.\nMarginal effect = change in justification from participating vs. not participating, conditioned by education. Compiled by the author based on ELSOC.",
     theme = theme(plot.caption = element_text(size = 9, hjust = 0))
   )
@@ -707,7 +707,7 @@ panel_a <- ggplot(pred_df, aes(x = x, y = predicted,
   scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
   scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
   labs(
-    title = "A) Predicted Values",
+    title = "Predicted Values",
     x = "Education Level",
     y = "Justification (predicted)",
     color = "Participation",
@@ -729,12 +729,12 @@ interaction_df <- pred_df %>%
 
 panel_b <- ggplot(interaction_df, aes(x = x, y = Difference)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.6) +
-  geom_col(fill = "#619CFF", alpha = 0.7, width = 0.6) +
+  geom_col(fill = "#4A4A4A", alpha = 0.7, width = 0.6) +
   geom_text(aes(label = round(Difference, 2)),
             vjust = ifelse(interaction_df$Difference > 0, -0.5, 1.5),
             size = 2.5) +
   labs(
-    title = "B) Interaction Magnitude",
+    title = "Interaction Magnitude",
     x = "Education Level",
     y = "Difference\n(Participated - Did not participate)"
   ) +
@@ -747,6 +747,7 @@ panel_b <- ggplot(interaction_df, aes(x = x, y = Difference)) +
 # Combine
 plot_final <- panel_a / panel_b +
   plot_annotation(
+    tag_levels = 'A',
     caption = "Panel A shows effects by group; Panel B quantifies the interaction. Compiled by the author based on ELSOC 2016–2023.",
     theme = theme(plot.caption = element_text(size = 7, hjust = 0))
   )
@@ -822,14 +823,14 @@ ggplot(pred_combined, aes(x = x, y = predicted, color = violence_type, group = v
     fill = "Type of Violence",
     caption = "Dashed red line: 2019 (social outbreak). Shaded areas: 95% CI. Other predictors at mean values.\nCompiled by the author based on ELSOC 2016–2023."
   ) +
-  theme_minimal(base_size = 10) +
+  theme_minimal(base_size = 13) +
   theme(
     legend.position = "bottom",
-    legend.text = element_text(size = 8),
-    strip.text = element_text(face = "bold", size = 9),
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
-    axis.text.y = element_text(size = 8),
-    plot.caption = element_text(size = 7)
+    legend.text = element_text(size = 10),
+    strip.text = element_text(face = "bold", size = 11),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10),
+    plot.caption = element_text(size = 8)
   ) +
   ylim(1.3, 2.4)
 ```
