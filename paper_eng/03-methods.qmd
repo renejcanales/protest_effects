@@ -77,7 +77,9 @@ The general model equations for Level 1 (observation over time) and Level 2 (ind
 
 **Level 1 (within-individual)**
 
-$y_{tj} = \beta_{0j} + \beta_{1j} X_{tj} + \varepsilon_{tj}$
+$$
+y_{tj} = \beta_{0j} + \beta_{1j} X_{tj} + \varepsilon_{tj}
+$$
 
 where:
 
@@ -87,9 +89,13 @@ where:
 
 **Level 2 (between-individual)**
 
-$\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}$$
+$$
+\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}
+$$
 
-$\beta_{1j} = \gamma_{10}$
+$$
+\beta_{1j} = \gamma_{10}
+$$
 
 where:
 
@@ -101,7 +107,9 @@ where:
 
 **Integrated Model**
 
-$$y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \gamma_{20} t + u_{0j} + \varepsilon_{tj}$$
+$$
+y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \gamma_{20} t + u_{0j} + \varepsilon_{tj}
+$$
 
 where $t$ represents time (measurement wave, coded as 0, 1, 2, ..., 6 for waves 2016-2023). This model decomposes the total variance into two components: variance between individuals ($\sigma^2_u$, captured by the random intercepts) and variance within individuals over time ($\sigma^2_\varepsilon$, residual error). The intraclass correlation coefficient (ICC) quantifies the proportion of total variance attributable to differences between individuals. The parameter $\gamma_{20}$ captures the average linear temporal trend in the justification of violence.
 

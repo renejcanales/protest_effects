@@ -681,9 +681,9 @@ Panel B shows that only university-educated individuals have significant negativ
 
 ```{r}
 #| label: fig-paradoja-educacion
-#| fig-cap: "Interaction analysis: Education × Protest Participation"
+#| fig-cap: "Predicted values of violence justification by education and participation type"
 #| fig-width: 12
-#| fig-height: 9
+#| fig-height: 6
 #| echo: false
 #| warning: false
 
@@ -707,7 +707,7 @@ panel_a <- ggplot(pred_df, aes(x = x, y = predicted,
   scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
   scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
   labs(
-    title = "Predicted Values",
+    title = "Protest Violence",
     x = "Education Level",
     y = "Justification (predicted)",
     color = "Participation",
@@ -721,42 +721,56 @@ panel_a <- ggplot(pred_df, aes(x = x, y = predicted,
     plot.title = element_text(size = 13, face = "bold")
   )
 
-# Panel B: Interaction magnitude
-interaction_df <- pred_df %>%
-  select(x, participation, predicted) %>%
-  pivot_wider(names_from = participation, values_from = predicted) %>%
-  mutate(Difference = `Participated` - `Did not participate`)
+# Panel B: Predicted values for state violence
+pred_df_est <- ggpredict(mod_educ_estatal_int,
+                         terms = c("educ_cat_unordered", "protesta_dummy")) %>%
+  as.data.frame() %>%
+  rename(participation = group) %>%
+  mutate(participation = factor(participation,
+                                 levels = c("0", "1"),
+                                 labels = c("Did not participate", "Participated")))
 
-panel_b <- ggplot(interaction_df, aes(x = x, y = Difference)) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.6) +
-  geom_col(fill = "#4A4A4A", alpha = 0.7, width = 0.6) +
-  geom_text(aes(label = round(Difference, 2)),
-            vjust = ifelse(interaction_df$Difference > 0, -0.5, 1.5),
-            size = 2.5) +
+panel_b <- ggplot(pred_df_est, aes(x = x, y = predicted,
+                                    color = participation, group = participation,
+                                    fill = participation)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
+              alpha = 0.2, color = NA) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2.5) +
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
+  scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
   labs(
-    title = "Interaction Magnitude",
+    title = "State Violence",
     x = "Education Level",
-    y = "Difference\n(Participated - Did not participate)"
+    y = "Justification (predicted)",
+    color = "Participation",
+    fill = "Participation"
   ) +
   theme_minimal(base_size = 15) +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    legend.position = "bottom",
+    legend.text = element_text(size = 11),
     plot.title = element_text(size = 13, face = "bold")
   )
 
-# Combine
-plot_final <- panel_a / panel_b +
+# Combine side by side with shared legend
+plot_final <- (panel_a | panel_b) +
+  plot_layout(guides = "collect") +
   plot_annotation(
     tag_levels = 'A',
-    caption = "Panel A shows effects by group; Panel B quantifies the interaction. Compiled by the author based on ELSOC 2016–2023.",
+    caption = "Predicted values with 95% CI. Shaded areas: confidence intervals. Other predictors at mean values. Compiled by the author based on ELSOC 2016–2023.",
     theme = theme(plot.caption = element_text(size = 7, hjust = 0))
-  )
+  ) &
+  theme(legend.position = "bottom")
 
 # Display plot
 plot_final
 ```
 
-@fig-paradoja-educacion reveals the "educational paradox" predicted in hypotheses H1a and H1b. Panel A shows that education reduces violence justification among external observers (descending red line from ~1.95 at secondary education to ~1.75 at university complete), consistent with the civilizing effect. However, education inverts its effect among participants (ascending blue line from ~2.20 at secondary education to ~2.35 at technical college incomplete, then ~2.30 at university complete), showing that more educated individuals construct ideological frameworks that legitimize tactical violence in mobilization contexts. Panel B quantifies this inversion: the interaction magnitude is highest at technical college incomplete (+0.55) and university incomplete (+0.45), confirming that the "paradox" is most pronounced at mid-to-upper education levels where cultural capital and mobilization experience converge.
+@fig-paradoja-educacion reveals both the "educational paradox" (H1a–H1b) and the bidirectional reconfiguration (H2a–H2b) through direct comparison of violence types. Panel A shows the paradox for protest violence: among non-participants, higher education reduces justification (descending red line from ~1.95 at secondary education to ~1.75 at university complete), consistent with the civilizing effect. Among participants, however, education inverts its effect (ascending blue line from ~2.20 at secondary education to ~2.35 at technical college incomplete), showing that mobilization experience overrides the inhibitory effect of cultural capital and amplifies the legitimization of tactical violence.
+
+Panel B reveals the contrasting pattern for state violence, confirming H2a–H2b. Among non-participants, both lines remain nearly parallel across education levels with no meaningful gradient, indicating that education alone does not generate a critical framework toward repression. Among participants, the blue line declines markedly at university levels — the only educational group for which participation generates significant rejection of state violence (university complete: −0.18***; university incomplete: −0.16*). Read together, the two panels confirm the bidirectionality of the reconfiguration: university-educated participants simultaneously legitimize protest violence and reject state violence, crystallizing the dual moral framework predicted in H2a–H2b.
 
 ## Bidirectional Reconfiguration of Violence Justification (Protest Violence vs. State Violence)
 
