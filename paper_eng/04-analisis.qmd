@@ -173,7 +173,7 @@ The temporal pattern analysis of @fig-evolucion-temporal shows a result consiste
 
 ```{r}
 #| label: fig-participacion-estratificada
-#| fig-cap: "Sociodemographic composition of protest participants by year: structural changes post-outbreak. Compiled by the author based on ELSOC."
+#| fig-cap: "Temporal divergence between protest violence and state violence justification (2016–2023)"
 #| fig-width: 12
 #| fig-height: 18
 #| echo: false
@@ -192,11 +192,17 @@ comparacion_data <- elsoc_final_2 %>%
                       values_to = "Justification")
 
 just_viol <- ggplot(comparacion_data, aes(x = year, y = Justification, color = Type, group = Type)) +
-  geom_line(linewidth = 1.5) +
-  geom_point(size = 3.5) +
+  geom_line(aes(linetype = Type), linewidth = 1.5) +
+  geom_point(aes(shape = Type), size = 3.5) +
   geom_vline(xintercept = 2019, linetype = "dashed", color = "red", alpha = 0.6) +
   scale_color_manual(values = c("Protest Violence" = "#EFC000FF",
                                   "State Violence" = "#0073C2FF"),
+                     name = "Type of Violence") +
+  scale_linetype_manual(values = c("Protest Violence" = "solid",
+                                    "State Violence" = "dashed"),
+                        name = "Type of Violence") +
+  scale_shape_manual(values = c("Protest Violence" = 16,
+                                 "State Violence" = 17),
                      name = "Type of Violence") +
   labs(
     title = "Divergence between Justification of Violence in Protests and State Violence",
@@ -218,18 +224,22 @@ just_viol <- ggplot(comparacion_data, aes(x = year, y = Justification, color = T
 just_viol
 ```
 
-@fig-participacion-estratificada reveals the radical transformation of moral hierarchies around political violence. Pre-2019 (2016–2018), both forms of violence were evaluated with similar criteria (gap of ±0.05 points), reflecting liberal-democratic consensus where violence "from below" and "from above" were equally rejected (~1.6–1.7). In 2019, the gap reverses dramatically: state violence was justified ~0.15 points more than protest violence, reflecting the initial shock and polarization in response to perceived "chaos."
+@fig-participacion-estratificada reveals changes in the relative position of moral hierarchies around political violence. Pre-2019 (2016–2018), both forms of violence were evaluated with similar levels (gap of ±0.05 points), consistent with a broad consensus in which both types were comparably rejected (~1.6–1.7). In 2019, the gap reverses: state violence was justified ~0.15 points more than protest violence, reflecting the initial polarization in response to the conflict context.
 
-However, in the post-2019 period (2022–2023), the lines cross definitively: protest violence is justified ~0.10–0.15 points more than state violence, and this gap stabilizes. This is the critical finding: the outbreak generated a permanent reconfiguration of collective moral hierarchies, in which disruptive tactical violence is normalized more than state repression. This pattern evidences the bidirectional reconfiguration: the emerging dual moral framework post-outbreak redefines the boundaries of legitimate political action depending on who exercises violence and in what context.
+In the post-2019 period (2022–2023), the lines cross: protest violence is justified ~0.10–0.15 points more than state violence, and this gap remains relatively stable. This pattern is consistent with a lasting reconfiguration of moral hierarchies, in which disruptive tactical violence is evaluated more leniently than state repression. This asymmetry is consistent with the bidirectional reconfiguration hypothesis: the post-outbreak period is characterized by differential normative assessments depending on who exercises violence and in what context.
 
 ```{r}
 #| include: false
 
-# Function to calculate means and CIs by group and year
+# Function to calculate means and CIs by group and period (pre/post 2019)
 calc_means_ci <- function(data, group_var, tipo_violencia) {
   data %>%
     filter(!is.na(year) & year != 2019 & !is.na(!!sym(group_var)) & !is.na(protesta_dummy)) %>%
-    group_by(year, !!sym(group_var), protesta_dummy) %>%
+    mutate(period = factor(
+      ifelse(year < 2019, "Pre-2019\n(2016–2018)", "Post-2019\n(2022–2023)"),
+      levels = c("Pre-2019\n(2016–2018)", "Post-2019\n(2022–2023)")
+    )) %>%
+    group_by(period, !!sym(group_var), protesta_dummy) %>%
     summarise(
       mean = mean(!!sym(tipo_violencia), na.rm = TRUE),
       se = sd(!!sym(tipo_violencia), na.rm = TRUE) / sqrt(n()),
@@ -249,16 +259,17 @@ calc_means_ci <- function(data, group_var, tipo_violencia) {
 data_educ_prot <- calc_means_ci(elsoc_final_2, "educ_cat_unordered", "justif_violencia_protesta_consistente")
 
 p1 <- ggplot(data_educ_prot, aes(x = educ_cat_unordered, y = mean, color = participation, group = participation)) +
-  geom_point(position = position_dodge(width = 0.5), size = 2.5) +
+  geom_point(aes(shape = participation), position = position_dodge(width = 0.5), size = 2.5) +
   geom_errorbar(aes(ymin = ci_low, ymax = ci_high),
                 position = position_dodge(width = 0.5), width = 0.2, linewidth = 0.8) +
-  geom_line(position = position_dodge(width = 0.5), linewidth = 1) +
-  facet_wrap(~year, ncol = 3) +
-  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
-  labs(title = "Education × Protest Violence",
+  geom_line(aes(linetype = participation), position = position_dodge(width = 0.5), linewidth = 1) +
+  facet_wrap(~period, ncol = 2) +
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4"), name = "") +
+  scale_linetype_manual(values = c("Did not participate" = "dashed", "Participated" = "solid"), name = "") +
+  scale_shape_manual(values = c("Did not participate" = 17, "Participated" = 16), name = "") +
+  labs(title = "Protest Violence",
        x = "Education Level",
-       y = "Justification (scale 1-5)",
-       color = "") +
+       y = "Justification (scale 1-5)") +
   theme_minimal(base_size = 15) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
         legend.position = "bottom",
@@ -270,16 +281,17 @@ p1 <- ggplot(data_educ_prot, aes(x = educ_cat_unordered, y = mean, color = parti
 data_educ_est <- calc_means_ci(elsoc_final_2, "educ_cat_unordered", "justif_violencia_estatal")
 
 p2 <- ggplot(data_educ_est, aes(x = educ_cat_unordered, y = mean, color = participation, group = participation)) +
-  geom_point(position = position_dodge(width = 0.5), size = 2.5) +
+  geom_point(aes(shape = participation), position = position_dodge(width = 0.5), size = 2.5) +
   geom_errorbar(aes(ymin = ci_low, ymax = ci_high),
                 position = position_dodge(width = 0.5), width = 0.2, linewidth = 0.8) +
-  geom_line(position = position_dodge(width = 0.5), linewidth = 1) +
-  facet_wrap(~year, ncol = 3) +
-  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
-  labs(title = "Education × State Violence",
+  geom_line(aes(linetype = participation), position = position_dodge(width = 0.5), linewidth = 1) +
+  facet_wrap(~period, ncol = 2) +
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4"), name = "") +
+  scale_linetype_manual(values = c("Did not participate" = "dashed", "Participated" = "solid"), name = "") +
+  scale_shape_manual(values = c("Did not participate" = 17, "Participated" = 16), name = "") +
+  labs(title = "State Violence",
        x = "Education Level",
-       y = "Justification (scale 1-5)",
-       color = "") +
+       y = "Justification (scale 1-5)") +
   theme_minimal(base_size = 15) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
         legend.position = "bottom",
@@ -292,7 +304,7 @@ educ_plot <- (p1 / p2) +
   plot_layout(guides = "collect") +
   plot_annotation(
     tag_levels = 'A',
-    caption = "Points show means; bars show 95% CI. Year 2019 (social outbreak) excluded. Compiled by the author based on ELSOC."
+    caption = "Points show means; bars show 95% CI. Periods aggregate 2016–2018 (pre) and 2022–2023 (post). Year 2019 excluded. Compiled by the author based on ELSOC."
   ) &
   theme(
     legend.position = "bottom",
@@ -305,20 +317,16 @@ educ_plot <- (p1 / p2) +
 #| label: fig-estallido-1
 #| fig-cap: "Comparison of violence justification before (2016–2018) and after (2022–2023) the social outbreak by education and participation"
 #| fig-width: 12
-#| fig-height: 20
+#| fig-height: 12
 
 
 # Display plot
 educ_plot
 ```
 
-@fig-estallido-1 presents the temporal evolution of violence justification by education, comparing year-by-year levels before (2016–2018) and after (2022–2023) the October 2019 social outbreak, revealing critical patterns about the persistence of the political shock effects.
+@fig-estallido-1 presents the direct comparison of violence justification by education and participation status between the pre-2019 period (2016–2018) and the post-2019 period (2022–2023), providing evidence on the permanent character of the political shock.
 
-Among non-participants, relative stability is observed in the pre-2019 period, with justification levels oscillating between ~1.5–1.8 for higher education and ~1.7–2.0 for lower education. In the post-2019 period (2022–2023), all educational groups show a moderate increase: university completers rise from ~1.5 to ~1.8, while basic/secondary education remains in the ~1.8–2.0 range. Among participants, the pattern shows sustained convergence: from 2016 to 2023, all educational levels maintain moderately high justifications (~2.0–2.3) with overlapping confidence intervals, indicating that the experience of mobilization equalizes attitudes regardless of cultural capital. Crucially, the gaps between participants and non-participants remain consistent year after year in the post-2019 period, showing that the participation effect persists stably years after the outbreak.
-
-The contrast reveals that among non-participants, a dramatic jump is observed between 2018 and 2022 across all educational groups: university completers go from ~1.3–1.5 (2016–2018) to ~1.9–2.0 (2022–2023). This is the most critical finding: the outbreak did not generate permanent rejection of state repression, but rather normalized its justification even among privileged sectors, and this normalization remains stable in 2022 and 2023. Among participants, the pattern reverses completely: all educational groups show sustained declines post-2019, going from ~1.8–2.0 (2016–2018) to ~1.5–1.7 (2022–2023), with university completers maintaining consistently low levels (~1.4). The year-by-year trajectory confirms that direct experience of repression during the outbreak generated a permanent "experiential delegitimization" effect among demonstrators, consistently observable in both post-outbreak years.
-
-The data reveal that the 2019 outbreak was not a temporary shock but a permanent inflection point that structurally reconfigured dual moral frameworks. The year-by-year visualization demonstrates that the divergence between participants and non-participants is not transient fluctuation but stable polarization: while participants develop lasting rejection of state violence yet maintain justification of protest violence, non-participants experience divergent patterns depending on cultural capital. These frameworks remain stable 3–4 years after the critical event, crystallizing the hypothesis of permanent bidirectional polarization.
+Panel A (protest violence) shows that among non-participants all educational groups register a moderate increase post-2019, while among participants all levels maintain consistently elevated justifications (~2.0–2.3) with overlapping confidence intervals — mobilization experience equalizes attitudes regardless of cultural capital, and the gap between participants and non-participants remains stable across both periods, confirming that the participation effect persists years after the outbreak. Panel B (state violence) reveals a more dramatic shift: among non-participants a substantial increase is observed post-2019 across all educational groups, reflecting the normalization of repression justification even among more educated sectors. Among participants, the pattern reverses — all groups show lower justifications post-2019, with university completers maintaining consistently low levels throughout. The pre/post contrast confirms that the 2019 outbreak generated a permanent inflection point that structurally reconfigured dual moral frameworks, with divergent trajectories stable 3–4 years after the critical event.
 
 
 ## Exploratory Statistics
@@ -392,8 +400,10 @@ ccoef <- list(
   "factor(year)2023" = "2023"
 )
 
-texreg(list(mod_educ_protesta_main, mod_educ_estatal_main),
-    custom.model.names = c("Model 1", "Model 2"),
+{
+  .tex <- capture.output(
+    texreg(list(mod_educ_protesta_main, mod_educ_estatal_main),
+       custom.model.names = c("Model 1", "Model 2"),
        stars = c(0.001, 0.01, 0.05),
        omit.coef = "(Intercept)",
        custom.coef.map = ccoef,
@@ -406,16 +416,25 @@ texreg(list(mod_educ_protesta_main, mod_educ_estatal_main),
        use.packages = FALSE,
        booktabs = TRUE,
        dcolumn = FALSE,
-      scalebox = 0.8,
-       include.bic = TRUE,
+       scalebox = 0.8,
+       include.bic = FALSE,
        include.loglik = FALSE,
        include.aic = TRUE,
        center = TRUE,
-       custom.gof.names = c("AIC", "BIC", "Num. obs.", "Num. groups: idencuesta"),
-       reorder.gof = c(3, 4, 1, 2),
+       custom.gof.names = c("AIC", "Num. obs.", "Num. groups: idencuesta", "Var: idencuesta"),
+       reorder.gof = c(3, 4, 2, 1, 5),
+       custom.gof.rows = list("BIC" = c(BIC(mod_educ_protesta_main), BIC(mod_educ_estatal_main))),
+       caption = NULL,
        table.placement = "",
        label = "",
        float.pos = "!htbp")
+  )
+  cat(.tex[!grepl("\\begin{table",  .tex, fixed = TRUE) &
+           !grepl("\\end{table}",   .tex, fixed = TRUE) &
+           !grepl("\\begin{center}", .tex, fixed = TRUE) &
+           !grepl("\\end{center}",  .tex, fixed = TRUE)],
+      sep = "\n")
+}
 ```
 
 
@@ -453,8 +472,10 @@ ccoef_int <- list(
   "factor(year)2023" = "2023"
 )
 
-texreg(list(mod_educ_protesta_int, mod_educ_estatal_int),
-    custom.model.names = c("Model 1b", "Model 2b"),
+{
+  .tex <- capture.output(
+    texreg(list(mod_educ_protesta_int, mod_educ_estatal_int),
+       custom.model.names = c("Model 1b", "Model 2b"),
        stars = c(0.001, 0.01, 0.05),
        omit.coef = "(Intercept)",
        custom.coef.map = ccoef_int,
@@ -468,23 +489,144 @@ texreg(list(mod_educ_protesta_int, mod_educ_estatal_int),
        use.packages = FALSE,
        booktabs = TRUE,
        dcolumn = FALSE,
-      scalebox = 0.8,
-       include.bic = TRUE,
+       scalebox = 0.8,
+       include.bic = FALSE,
        include.loglik = FALSE,
        include.aic = TRUE,
        center = TRUE,
-       custom.gof.names = c("AIC", "BIC", "Num. obs.", "Num. groups: idencuesta"),
-       reorder.gof = c(3, 4, 1, 2),
+       custom.gof.names = c("AIC", "Num. obs.", "Num. groups: idencuesta", "Var: idencuesta"),
+       reorder.gof = c(3, 4, 2, 1, 5),
+       custom.gof.rows = list("BIC" = c(BIC(mod_educ_protesta_int), BIC(mod_educ_estatal_int))),
+       caption = NULL,
        table.placement = "",
        label = "",
        float.pos = "!htbp")
+  )
+  cat(.tex[!grepl("\\begin{table",  .tex, fixed = TRUE) &
+           !grepl("\\end{table}",   .tex, fixed = TRUE) &
+           !grepl("\\begin{center}", .tex, fixed = TRUE) &
+           !grepl("\\end{center}",  .tex, fixed = TRUE)],
+      sep = "\n")
+}
 ```
 
 The models in @tbl-modelos-interaccion reveal that the effect of participation varies significantly by education level. For protest violence, the interactions between education and participation are positive, indicating that the legitimizing effect of participating is stronger among more educated individuals. A person with complete university education who participates increases their justification by 0.40 points versus 0.27 for secondary education, evidencing the "educational paradox": education reduces justification among non-participants (-0.13***) but amplifies the effect of participation.
 
 For state violence, the pattern reverses completely. The interactions are negative (university incomplete: -0.16*; university complete: -0.18***), indicating that only the combination of university education + participation generates significant rejection of repression (total effect: -0.22 points). Education alone (+0.06, ns) or participation alone (-0.04, ns) are insufficient; it is their interaction that activates the differentiated rejection.
 
-The bidirectional reconfiguration (legitimizing protests, rejecting repression) is clearest among university-educated participants, confirming that the dual moral framework requires the critical combination of higher education and direct experience of mobilization.
+The bidirectional reconfiguration (legitimizing protests, rejecting repression) is clearest among university-educated participants, consistent with the dual moral framework requiring both higher education and direct mobilization experience.
+
+### Disentangling Selection from Socialization: A Within-Between Analysis
+
+A key interpretive challenge in the models above is that the participation effect may reflect selection (individuals with pre-existing radical attitudes self-select into protests) rather than socialization (participation itself transforms attitudes). The random-intercept models above control for stable individual differences but do not directly decompose the participation effect into these two components. To address this, we estimate a within-between (REWB) model [@bell_explaining_2015a] that decomposes protest participation into: (a) the within-person component — deviations from each individual's mean participation across waves, capturing attitudinal change associated with varying participation over time — and (b) the between-person component — each individual's mean participation, capturing stable propensity to participate and thereby indexing potential selection bias.
+
+```{r}
+#| include: false
+
+# ============================================================
+# REWB: Within-between decomposition of participation effect
+# ============================================================
+
+elsoc_final_2 <- elsoc_final_2 %>%
+  group_by(idencuesta) %>%
+  mutate(
+    protesta_mean   = mean(protesta_dummy, na.rm = TRUE),
+    protesta_within = protesta_dummy - protesta_mean
+  ) %>%
+  ungroup()
+
+# REWB Model 3a: Protest violence
+mod_rewb_protesta <- glmmTMB(
+  justif_violencia_protesta_consistente ~
+    educ_cat_unordered +
+    protesta_within +
+    protesta_mean +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+
+# REWB Model 3b: State violence
+mod_rewb_estatal <- glmmTMB(
+  justif_violencia_estatal ~
+    educ_cat_unordered +
+    protesta_within +
+    protesta_mean +
+    edad + mujer + ideologia_std + factor(year) +
+    (1 | idencuesta),
+  data = elsoc_final_2,
+  family = gaussian()
+)
+```
+
+```{r}
+#| label: tbl-modelos-rewb
+#| tbl-cap: "Within-between models: decomposing participation into within- and between-person components"
+#| echo: false
+#| warning: false
+#| results: asis
+
+ccoef_rewb <- list(
+  "educ_cat_unorderedTechnical College incomplete" = "Technical College incomplete",
+  "educ_cat_unorderedTechnical College complete"   = "Technical College complete",
+  "educ_cat_unorderedUniversity incomplete"        = "University incomplete",
+  "educ_cat_unorderedUniversity complete"          = "University complete",
+  "protesta_within"                                = "Participation (within-person)",
+  "protesta_mean"                                  = "Participation (between-person mean)",
+  "edad"                                           = "Age",
+  "mujer"                                          = "Woman",
+  "ideologia_std"                                  = "Ideology",
+  "factor(year)2017"                               = "2017",
+  "factor(year)2018"                               = "2018",
+  "factor(year)2019"                               = "2019",
+  "factor(year)2022"                               = "2022",
+  "factor(year)2023"                               = "2023"
+)
+
+{
+  .tex <- capture.output(
+    texreg(list(mod_rewb_protesta, mod_rewb_estatal),
+       custom.model.names = c("Model 3a", "Model 3b"),
+       stars = c(0.001, 0.01, 0.05),
+       omit.coef = "(Intercept)",
+       custom.coef.map = ccoef_rewb,
+       digits = 3,
+       groups = list(
+         "Education (Ref. = High School or less)" = 1:4,
+         "Participation (decomposed)"             = 5:6,
+         "Controls"                               = 7:9,
+         "Year (Ref. = 2016)"                     = 10:14
+       ),
+       custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05. Within-person = deviation from individual mean; Between-person = individual mean across waves.",
+       leading.zero = FALSE,
+       use.packages = FALSE,
+       booktabs = TRUE,
+       dcolumn = FALSE,
+       scalebox = 0.8,
+       include.bic = FALSE,
+       include.loglik = FALSE,
+       include.aic = TRUE,
+       center = TRUE,
+       custom.gof.names = c("AIC", "Num. obs.", "Num. groups: idencuesta", "Var: idencuesta"),
+       reorder.gof = c(3, 4, 2, 1, 5),
+       custom.gof.rows = list("BIC" = c(BIC(mod_rewb_protesta), BIC(mod_rewb_estatal))),
+       caption = NULL,
+       table.placement = "",
+       label = "",
+       float.pos = "!htbp")
+  )
+  cat(.tex[!grepl("\\begin{table",  .tex, fixed = TRUE) &
+           !grepl("\\end{table}",   .tex, fixed = TRUE) &
+           !grepl("\\begin{center}", .tex, fixed = TRUE) &
+           !grepl("\\end{center}",  .tex, fixed = TRUE)],
+      sep = "\n")
+}
+```
+
+@tbl-modelos-rewb decomposes the participation effect into within- and between-person components. For protest violence (Model 3a), both components are statistically significant. The within-person coefficient (β = .252, *p* < .001) indicates that individuals show higher justification in waves where they participate relative to their own non-participating waves — consistent with a socialization process. The between-person coefficient is substantially larger (β = .686, *p* < .001), indicating that individuals who participate more frequently across waves already hold considerably higher baseline justifications — consistent with selection. Both mechanisms thus operate simultaneously for protest violence, though the selection component explains the larger share.
+
+For state violence (Model 3b), the decomposition reveals a different pattern. The within-person coefficient (β = −.044, *p* = ns) is not significant, while the between-person coefficient is significant and substantially negative (β = −.432, *p* < .001). This suggests that the negative association between participation and state violence justification documented in Models 1–2 reflects predominantly pre-existing attitudinal differences rather than within-person change produced by participation itself: individuals who participate more frequently across waves already show lower state violence justification, consistent with a selection-dominant process. These results qualify the interpretation of H2b — the observed pattern appears driven primarily by the sorting of attitudinally distinct individuals into protest, rather than by experiential moral reframing generated by participation.
 
 ```{r}
 #| label: fig-efectos-marginales
@@ -672,9 +814,9 @@ combined_marginal_effects
 
 @fig-efectos-marginales visualizes the marginal effects of participation by education, allowing direct evaluation of the hypotheses about differential effects.
 
-In Panel A, all education levels show significant positive effects on protest violence justification, with magnitudes ranging from +0.27 (secondary education) to +0.55 (technical college incomplete). Crucially, the legitimizing effect is stronger among technical college (+0.55) and university (+0.40) education than among secondary education (+0.27), showing that education amplifies (rather than reduces) the effect of participation, inverting the civilizing effect among those who mobilize.
+In Panel A, all education levels show significant positive associations between participation and protest violence justification, with magnitudes ranging from +0.27 (secondary education) to +0.55 (technical college incomplete). The association is stronger among technical college (+0.55) and university (+0.40) than among secondary education (+0.27), indicating that education amplifies the effect of participation rather than dampening it — a pattern at odds with the civilizing effect hypothesis among those who mobilize.
 
-Panel B shows that only university-educated individuals have significant negative effects on state violence justification (-0.20 to -0.22), while secondary and technical education show null effects (grey points on the red line). University-educated participants thus tend to legitimize protest violence (+0.40) while simultaneously rejecting state violence (-0.22).
+Panel B shows that only university-educated individuals have significant negative marginal effects on state violence justification (−0.20 to −0.22), while secondary and technical education show null effects (grey points on the red line). University-educated participants thus show higher protest violence justification (+0.40) while simultaneously showing lower state violence justification (−0.22). As the within-between analysis in Section 5.2.1 demonstrates, this state violence pattern is primarily attributable to selection — individuals who tend to participate more already hold lower state violence justification — rather than to attitudinal change produced by participation itself.
 
 
 ### The Education "Paradox Effect"
@@ -702,16 +844,20 @@ panel_a <- ggplot(pred_df, aes(x = x, y = predicted,
                                 fill = participation)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
               alpha = 0.2, color = NA) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2.5) +
-  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
-  scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
+  geom_line(aes(linetype = participation), linewidth = 1) +
+  geom_point(aes(shape = participation), size = 2.5) +
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4"),
+                     name = "Participation") +
+  scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4"),
+                    name = "Participation") +
+  scale_linetype_manual(values = c("Did not participate" = "dashed", "Participated" = "solid"),
+                        name = "Participation") +
+  scale_shape_manual(values = c("Did not participate" = 17, "Participated" = 16),
+                     name = "Participation") +
   labs(
     title = "Protest Violence",
     x = "Education Level",
-    y = "Justification (predicted)",
-    color = "Participation",
-    fill = "Participation"
+    y = "Justification (predicted)"
   ) +
   theme_minimal(base_size = 15) +
   theme(
@@ -735,16 +881,20 @@ panel_b <- ggplot(pred_df_est, aes(x = x, y = predicted,
                                     fill = participation)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
               alpha = 0.2, color = NA) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2.5) +
-  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
-  scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4")) +
+  geom_line(aes(linetype = participation), linewidth = 1) +
+  geom_point(aes(shape = participation), size = 2.5) +
+  scale_color_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4"),
+                     name = "Participation") +
+  scale_fill_manual(values = c("Did not participate" = "#F8766D", "Participated" = "#00BFC4"),
+                    name = "Participation") +
+  scale_linetype_manual(values = c("Did not participate" = "dashed", "Participated" = "solid"),
+                        name = "Participation") +
+  scale_shape_manual(values = c("Did not participate" = 17, "Participated" = 16),
+                     name = "Participation") +
   labs(
     title = "State Violence",
     x = "Education Level",
-    y = "Justification (predicted)",
-    color = "Participation",
-    fill = "Participation"
+    y = "Justification (predicted)"
   ) +
   theme_minimal(base_size = 15) +
   theme(
@@ -768,33 +918,33 @@ plot_final <- (panel_a | panel_b) +
 plot_final
 ```
 
-@fig-paradoja-educacion reveals both the "educational paradox" (H1a–H1b) and the bidirectional reconfiguration (H2a–H2b) through direct comparison of violence types. Panel A shows the paradox for protest violence: among non-participants, higher education reduces justification (descending red line from ~1.95 at secondary education to ~1.75 at university complete), consistent with the civilizing effect. Among participants, however, education inverts its effect (ascending blue line from ~2.20 at secondary education to ~2.35 at technical college incomplete), showing that mobilization experience overrides the inhibitory effect of cultural capital and amplifies the legitimization of tactical violence.
+@fig-paradoja-educacion reveals both the "educational paradox" (H1a–H1b) and the bidirectional reconfiguration (H2a–H2b) through direct comparison of violence types. Panel A shows the pattern for protest violence: among non-participants, higher education is associated with lower justification (descending red line from ~1.95 at secondary education to ~1.75 at university complete), consistent with the civilizing effect. Among participants, however, the direction reverses (ascending blue line from ~2.20 at secondary education to ~2.35 at technical college incomplete), suggesting that mobilization experience is associated with higher justification even among the most educated groups.
 
 Panel B reveals the contrasting pattern for state violence, confirming H2a–H2b. Among non-participants, both lines remain nearly parallel across education levels with no meaningful gradient, indicating that education alone does not generate a critical framework toward repression. Among participants, the blue line declines markedly at university levels — the only educational group for which participation generates significant rejection of state violence (university complete: −0.18***; university incomplete: −0.16*). Read together, the two panels confirm the bidirectionality of the reconfiguration: university-educated participants simultaneously legitimize protest violence and reject state violence, crystallizing the dual moral framework predicted in H2a–H2b.
 
 ## Bidirectional Reconfiguration of Violence Justification (Protest Violence vs. State Violence)
 
-The interaction models (Model 1b and Model 2b) reveal the bidirectional dynamic predicted in H2a–H2b (university-educated). H2a is fully confirmed: for protest violence, university education reduces justification among non-participants ($-0.13***$), but participation generates an increase ($+0.27***$) magnified by positive interactions with higher education (technical college incomplete: $+0.28*$; university complete: $+0.13**$), nullifying the civilizing effect. H2b is fully confirmed: for state violence, the pattern reverses completely: education alone ($+0.06$, ns) and participation alone ($-0.04$, ns) generate no effects, but their negative interactions produce significant rejection among university-educated individuals (incomplete: $-0.16*$; complete: $-0.18***$), showing that only the combination of university education + participation activates the critical framework toward repression.
+The interaction models (Model 1b and Model 2b) reveal the bidirectional dynamic predicted in H2a–H2b (university-educated). H2a is supported: for protest violence, university education is associated with lower justification among non-participants ($-0.13***$), but participation is associated with an increase ($+0.27***$) that is larger at higher education levels (technical college incomplete: $+0.28*$; university complete: $+0.13**$), consistent with the nullification of the civilizing effect. H2b is supported in terms of the observed association: for state violence, education alone ($+0.06$, ns) and participation alone ($-0.04$, ns) show no independent effects, but their negative interactions produce significant lower justification among university-educated individuals (incomplete: $-0.16*$; complete: $-0.18***$), indicating that the combination of university education and participation is associated with lower acceptance of state repression. As shown in the within-between analysis (Section 5.2.1), however, the within-person component of this state violence effect is non-significant, suggesting that this pattern predominantly reflects pre-existing attitudinal differences among habitual protesters rather than a socialization process generated by participation itself.
 
-The controls confirm the impact of the 2019 outbreak: moderate increase in protest justification ($+0.05*$) but collapse in state violence ($-0.40***$), radically transforming attitudes toward police repression. Ideology operates in opposite directions: right-wing ideology reduces justification of protests ($-0.03***$) but increases that of state violence ($+0.05***$). Women reject state violence more ($-0.13***$) with no differences in protests. This pattern confirms that the bidirectional reconfiguration predicted in H2a–H2b (legitimizing protests, rejecting repression) is complete only among those who combine university education with direct experience of mobilization, crystallizing the sophisticated dual moral framework.
+The controls confirm the impact of the 2019 outbreak: moderate increase in protest justification ($+0.05*$) but sharp fall in state violence ($-0.40***$), substantially reconfiguring attitudes toward police repression. Ideology operates in opposite directions: right-wing ideology reduces justification of protests ($-0.03***$) but increases that of state violence ($+0.05***$). Women reject state violence more ($-0.13***$) with no differences in protests. This pattern indicates that the bidirectional reconfiguration predicted in H2a–H2b is most pronounced among those who combine university education with direct experience of mobilization. The protest violence component of this reconfiguration involves both socialization and selection, while the state violence component appears driven primarily by selection — a distinction documented in the within-between models.
 
 ```{r}
 #| label: fig-bidireccional-tiempo
-#| fig-cap: "Temporal evolution of bidirectional reconfiguration by education and participation (2016–2023)"
+#| fig-cap: "Temporal evolution of bidirectional reconfiguration: secondary vs. university education (2016–2023)"
 #| fig-width: 12
-#| fig-height: 14
+#| fig-height: 9
 #| dpi: 300
 #| echo: false
 #| warning: false
 
 # Get predictions for protest violence
 pred_protestas_tiempo <- ggpredict(mod_educ_protesta_int,
-                                   terms = c("year", "protesta_dummy", "educ_cat_unordered [High School or less, Technical College incomplete, Technical College complete, University complete]"),
+                                   terms = c("year", "protesta_dummy", "educ_cat_unordered [High School or less, University complete]"),
                                    typical = "mean")
 
 # Get predictions for state violence
 pred_estatal_tiempo <- ggpredict(mod_educ_estatal_int,
-                                 terms = c("year", "protesta_dummy", "educ_cat_unordered [High School or less, Technical College incomplete, Technical College complete, University complete]"),
+                                 terms = c("year", "protesta_dummy", "educ_cat_unordered [High School or less, University complete]"),
                                  typical = "mean")
 
 # Convert to dataframes
@@ -815,8 +965,8 @@ pred_combined <- rbind(pred_protestas_df, pred_estatal_df)
 
 # Create plot with facets by education and participation
 ggplot(pred_combined, aes(x = x, y = predicted, color = violence_type, group = violence_type)) +
-  geom_line(linewidth = 1.2) +
-  geom_point(size = 2.5) +
+  geom_line(aes(linetype = violence_type), linewidth = 1.2) +
+  geom_point(aes(shape = violence_type), size = 2.5) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = violence_type),
               alpha = 0.15, color = NA) +
   facet_grid(participation ~ education,
@@ -825,16 +975,22 @@ ggplot(pred_combined, aes(x = x, y = predicted, color = violence_type, group = v
                                 "Participated" = "Participants")
              )) +
   scale_color_manual(values = c("Protest Violence" = "#EFC000FF",
-                                 "State Violence" = "#0073C2FF")) +
+                                 "State Violence" = "#0073C2FF"),
+                     name = "Type of Violence") +
   scale_fill_manual(values = c("Protest Violence" = "#EFC000FF",
-                                "State Violence" = "#0073C2FF")) +
+                                "State Violence" = "#0073C2FF"),
+                    name = "Type of Violence") +
+  scale_linetype_manual(values = c("Protest Violence" = "solid",
+                                    "State Violence" = "dashed"),
+                        name = "Type of Violence") +
+  scale_shape_manual(values = c("Protest Violence" = 16,
+                                 "State Violence" = 17),
+                     name = "Type of Violence") +
   geom_vline(xintercept = 2019, linetype = "dashed", color = "red", alpha = 0.5) +
   labs(
-    title = "Bidirectional Reconfiguration: Temporal Evolution by Education and Participation",
+    title = "Bidirectional Reconfiguration: Secondary vs. University Education (2016–2023)",
     x = "Year",
     y = "Predicted Violence Justification",
-    color = "Type of Violence",
-    fill = "Type of Violence",
     caption = "Dashed red line: 2019 (social outbreak). Shaded areas: 95% CI. Other predictors at mean values.\nCompiled by the author based on ELSOC 2016–2023."
   ) +
   theme_minimal(base_size = 13) +
@@ -849,8 +1005,8 @@ ggplot(pred_combined, aes(x = x, y = predicted, color = violence_type, group = v
   ylim(1.3, 2.4)
 ```
 
-@fig-bidireccional-tiempo visualizes the temporal dynamics of the bidirectional reconfiguration predicted in H2a–H2b, showing that the dual moral framework requires both education and participation. Among non-participants (top row), the yellow (protests) and blue (state) lines remain parallel and close across all education levels, confirming that without participation there is no bidirectional reconfiguration despite the university civilizing effect (H1a operates but H2b is not activated).
+@fig-bidireccional-tiempo visualizes the temporal dynamics of the bidirectional reconfiguration predicted in H2a–H2b through the direct contrast between secondary and university education — the two polar cases that most clearly reveal whether the dual moral framework requires university socialization.
 
-Among participants (bottom row), three patterns emerge for evaluating H2a–H2b. Secondary/technical education shows partial rejection of H2a–H2b: elevated protest violence justification (+0.27 to +0.55, confirming H2a) but without significant rejection of state violence (rejecting H2b), evidencing tactical legitimization without a critical framework toward repression. Technical college incomplete reaches the highest radicalization on protests (>2.2 in 2019, $+0.28*$) but maintains parallel lines, confirming that technical capital without university socialization does not generate the normative differentiation predicted in H2b.
+Among non-participants (top row), both education levels show parallel lines between protest and state violence throughout the entire period, confirming that participation is a necessary condition for the bidirectional reconfiguration: without mobilization experience, neither educational level generates the divergence between violence types predicted in H2a–H2b.
 
-The complete dual framework predicted in H2a–H2b is confirmed exclusively among university-educated participants: (1) a sustained elevated yellow line (~2.0–2.1), nullifying the civilizing effect and confirming H2a; (2) a dramatic collapse of the blue line in 2019 from ~1.75 to ~1.35, the lowest level in the figure ($-0.40***$), confirming H2b; (3) maximum post-2019 divergence with a gap of ~0.7 points, evidencing the permanence of the dual framework. This pattern confirms that H2a and H2b are jointly satisfied only under the critical combination of university education + mobilization experience, crystallizing the sophisticated dual normative framework.
+Among participants (bottom row), the contrast is clear. Secondary-educated participants show elevated protest violence justification post-2019 (consistent with H2a) but near-parallel lines with state violence, which does not support H2b: they show higher acceptance of tactical violence but without a corresponding rejection of state repression. University-educated participants display the pattern consistent with the full dual framework: (1) a sustained elevated yellow line (~2.0–2.1), at odds with the civilizing effect and consistent with H2a; (2) a notable decline of the blue line in 2019 from ~1.75 to ~1.35 ($-0.40***$), consistent with H2b; (3) a post-2019 divergence of ~0.7 points between both violence types. This direct comparison is consistent with H2a and H2b being jointly observable only under the combination of university education and mobilization experience.
