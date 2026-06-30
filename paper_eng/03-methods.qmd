@@ -65,7 +65,7 @@ All models include the following control variables to reduce confounding and imp
 
 - Political ideology: Self-placement scale from 0 (far left) to 10 (far right), standardized to mean 0 and standard deviation 1.
 
-- Time: Linear time trend (wave coded 0–6) to control for systematic changes in attitudes over the study period (2016–2023), including the impact of the 2019 social uprising.
+- Survey wave: Year fixed effects (indicator variables for each survey year, with 2016 as the reference category) to control for period-specific shifts in attitudes over the study period (2016–2023). This specification imposes no parametric functional form on the temporal trajectory, which is appropriate given the non-linear attitudinal shock associated with the 2019 uprising visible in the descriptive data.
 
 ## Analytical Strategy
 
@@ -108,10 +108,10 @@ where:
 **Integrated Model**
 
 $$
-y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \gamma_{20} t + u_{0j} + \varepsilon_{tj}
+y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \sum_{k \in \mathcal{Y}} \delta_k D_{kt} + u_{0j} + \varepsilon_{tj}
 $$
 
-where $t$ represents time (measurement wave, coded as 0, 1, 2, ..., 6 for waves 2016-2023). This model decomposes the total variance into two components: variance between individuals ($\sigma^2_u$, captured by the random intercepts) and variance within individuals over time ($\sigma^2_\varepsilon$, residual error). The intraclass correlation coefficient (ICC) quantifies the proportion of total variance attributable to differences between individuals. The parameter $\gamma_{20}$ captures the average linear temporal trend in the justification of violence.
+where $\mathcal{Y} = \{2017, 2018, 2019, 2022, 2023\}$ and $D_{kt}$ is an indicator equal to 1 if observation $t$ belongs to year $k$ (2016 as the reference category). This model decomposes the total variance into two components: variance between individuals ($\sigma^2_u$, captured by the random intercepts) and variance within individuals over time ($\sigma^2_\varepsilon$, residual error). The intraclass correlation coefficient (ICC) quantifies the proportion of total variance attributable to differences between individuals. The parameters $\delta_k$ capture year-specific deviations from the 2016 baseline, accommodating the non-linear temporal dynamics visible in Figure 2 without imposing a parametric form on the trajectory.
 
 ### Interaction Models
 
@@ -122,7 +122,7 @@ To test the central hypotheses of this study, which predict that the effects of 
 $$
 \begin{aligned}
 y_{tj} = \gamma_{00} + \sum_{k=1}^{4} \gamma_{0k} \text{Education}_{kj} + \gamma_{10} \text{Participation}_{tj} + \sum_{k=1}^{4} \gamma_{1k} (\text{Education}_{kj} \times \text{Participation}_{tj}) + \\
-\gamma_{20} t + \text{Controls} + u_{0j} + \varepsilon_{tj}
+\sum_{k \in \mathcal{Y}} \delta_k D_{kt} + \text{Controls} + u_{0j} + \varepsilon_{tj}
 \end{aligned}
 $$
 

@@ -37,16 +37,15 @@ elsoc_final_2 <- elsoc_final_2 %>%
 # Create consistent protest violence index (only variables available in all waves)
 elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
-    # Consistent temporal index (students and workers only)
+    # Consistent temporal index (students and workers only — items available in all six waves)
     justif_violencia_protesta_consistente = rowMeans(
       dplyr::select(., violencia_trabajadores, violencia_estudiantes),
       na.rm = TRUE
-    ),
-    # Broad index (all variables available per wave)
-    justif_violencia_protesta_amplio = justif_violencia_protesta
+    )
   )
 
-# Relabel education factor to English
+# Relabel education factor to English (positional — must match levels(educ_cat_unordered))
+stopifnot(nlevels(elsoc_final_2$educ_cat_unordered) == 5)
 elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
     educ_cat_unordered = factor(

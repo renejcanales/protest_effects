@@ -43,13 +43,11 @@ elsoc_final_2 <- elsoc_final_2 %>%
 # 2nd Step: Create consistent index of violence in protests (only variables in all waves)
 elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
-    # Consistent temporal index (students and workers only)
+    # Consistent temporal index (students and workers only — items available in all six waves)
     justif_violencia_protesta_consistente = rowMeans(
       dplyr::select(., violencia_trabajadores, violencia_estudiantes),
       na.rm = TRUE
-    ),
-    # Broad index (all variables available per wave)
-    justif_violencia_protesta_amplio = justif_violencia_protesta
+    )
   )
 
 # Check availability per wave
@@ -82,7 +80,8 @@ The patterns observed in @tbl-justificacion-educ reveal a notable trend. Among n
 #| warning: false
 #| results: asis
 
-# Redefine factor labels:
+# Redefine factor labels (positional — must match order of levels(educ_cat_unordered)):
+stopifnot(nlevels(elsoc_final_2$educ_cat_unordered) == 5)
 elsoc_final_2 <- elsoc_final_2 %>%
   mutate(
     educ_cat_unordered = factor(
@@ -709,7 +708,7 @@ ccoef_rewb_int <- list(
 
 @tbl-modelos-rewb-int extends the decomposition by interacting education with both participation components, yielding a critical test of whether the educational paradox in protest violence reflects differential socialization or differential sorting. For protest violence (Model 4a), the evidence most consistently supports a sorting account: the education × within-person interaction for university complete is negligible and non-significant (β = .004, *p* = .945), while the education × between-person interaction is substantial and significant (β = .377, *p* < .001). University-educated protesters show essentially the same within-person socialization effect as lower-educated groups — participation shifts their attitudes no more than it does for the reference category — but they enter each wave with substantially higher baseline protest violence justification. The educational paradox documented in @tbl-modelos-interaccion is most consistent with a selection account: the cultural capital of university education appears to sort individuals into protest from a position of pre-existing permissiveness toward disruptive violence, rather than amplifying their responsiveness to participation.
 
-For state violence (Model 4b), the interaction tells a more nuanced story. For lower-educated groups, the within-person effect of participation on state violence remains near zero and non-significant (base β = .039, ns). However, university-incomplete and university-complete groups show significant differential within-person effects (β = −.212, *p* = .016, and β = −.136, *p* = .032, respectively), implying total within-person effects of −.173 and −.097 — genuine attitudinal shifts when these individuals transition between participating and non-participating waves. This suggests that participation does produce some within-person reduction in state violence tolerance specifically among the most educated, qualifying the pure selection story. Nonetheless, the dominant mechanism for state violence remains sorting: the between-person effect is substantial for the reference category (β = −.368, *p* < .001) and further amplified for university completers (additional β = −.212, *p* = .059). The overall picture thus combines a selection-dominant pattern with a partial socialization process that operates exclusively at the upper end of the educational distribution.
+For state violence (Model 4b), the interaction tells a more nuanced story. For lower-educated groups, the within-person effect of participation on state violence remains near zero and non-significant (base β = .039, ns). However, university-incomplete and university-complete groups show significant differential within-person effects (within-person interaction: β = −.212, *p* = .016 for university incomplete; β = −.136, *p* = .032 for university complete), implying total within-person effects of −.173 and −.097 respectively — genuine attitudinal shifts when these individuals transition between participating and non-participating waves. This suggests that participation does produce some within-person reduction in state violence tolerance specifically among the most educated, qualifying the pure selection story. Nonetheless, the dominant mechanism for state violence remains sorting: the between-person effect is substantial for the reference category (β = −.368, *p* < .001) and further amplified for university completers (between-person interaction: β = −.212, *p* = .059 — a distinct coefficient that coincides numerically with the within-person interaction for university-incomplete above). The overall picture thus combines a selection-dominant pattern with a partial socialization process that operates exclusively at the upper end of the educational distribution.
 
 These results also address a potential concern about the power of within-person estimates. Of the 3,627 individuals meeting the minimum three-wave inclusion criterion, 244 were subsequently excluded via listwise deletion on model covariates (ideology, age, gender, and outcome variables), yielding the analytical sample of 3,383 used in all regression models. Within the broader criterion-eligible panel of 3,627, 1,262 (34.8%) changed participation status at least once across waves, and within-person variation accounts for 54.8% of total participation variance. The within-null for state violence in Model 3b therefore cannot be attributed to insufficient variation in participation across waves.
 
