@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="René Canales-Sellés">
+<meta name="author" content="Daniel Miranda">
+
+<title>Attitudes towards political violence in Chile’s cycle of political conflict: A longitudinal analysis focusing on education and participation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="paper_files/libs/clipboard/clipboard.min.js"></script>
+<script src="paper_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="paper_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="paper_files/libs/quarto-html/popper.min.js"></script>
+<script src="paper_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="paper_files/libs/quarto-html/anchor.min.js"></script>
+<link href="paper_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="paper_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="paper_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="paper_files/libs/bootstrap/bootstrap-803d5c77f4fa6b4fc92c05096d86a274.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Attitudes towards political violence in Chile’s cycle of political conflict: A longitudinal analysis focusing on education and participation</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">René Canales-Sellés <a href="mailto:renecanales@uc.cl" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0002-4299-2725" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Bremen International Graduate School of Social Sciences, University of Bremen
+            </p>
+        </div>
+      <div class="quarto-title-meta-contents">
+      <p class="author">Daniel Miranda <a href="mailto:danmiranda@uchile.cl" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3143-8502" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Department of Psychology, University of Chile
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      <p>The Chilean social uprising of October 2019 poses a paradox for political sociology: why did highly educated sectors—typically associated with democratic moderation—show greater acceptance of disruptive political violence? Using panel data from ELSOC (2016–2023; N = 3,383 individuals, 15,110 observations), we examine how educational attainment and protest participation jointly relate to violence justification via multilevel models. Among non-participants, higher education is associated with lower violence justification—consistent with the “civilizing effect.” Among protesters, university-educated individuals exhibit the highest protest violence justification while showing the lowest state violence tolerance. Within-between decomposition indicates this bidirectional pattern is more consistent with sorting than with socialization: habitual university-educated protesters already hold these attitudinal configurations rather than appearing to acquire them through participation. A partial within-person association consistent with socialization is also observed for state violence, exclusively among university-educated groups. These findings reposition the educational paradox from a transformation story to a conjunctural moral alignment shaped primarily by who mobilizes, contributing to debates on political socialization and the legitimacy of transgression in unequal democracies.</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="paper.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="justify">
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>18 October 2019 marked a turning point in Chile’s political history. What began as a mass refusal to pay fares on the Santiago metro — initiated by students in response to an increase in public transport fares — quickly became, within a matter of hours, the largest protest since the return to democracy <span class="citation" data-cites="somma_no_2021a">(<a href="#ref-somma_no_2021a" role="doc-biblioref">Somma et al., 2021</a>)</span>. For several weeks, thousands of people took to the streets across the country, challenging both the neoliberal legacy of the dictatorship <span class="citation" data-cites="canalesceron_pregunta_2022 garces_october_2019 araujo_circuit_2022">(<a href="#ref-canalesceron_pregunta_2022" role="doc-biblioref">Canales Cerón, 2022</a>; <a href="#ref-garces_october_2019" role="doc-biblioref">Garcés, 2019</a>; <a href="#ref-araujo_circuit_2022" role="doc-biblioref">Araujo, 2022</a>)</span> as the historical limits of collective action <span class="citation" data-cites="somma_no_2021a cox_2019_2024 pleyers_estallido_2023">(<a href="#ref-somma_no_2021a" role="doc-biblioref">Somma et al., 2021</a>; <a href="#ref-cox_2019_2024" role="doc-biblioref">Cox et al., 2024</a>; <a href="#ref-pleyers_estallido_2023" role="doc-biblioref">Pleyers, 2023</a>)</span>. The so-called ‘Chilean Spring’ combined mass participation, broad-based social engagement and confrontational tactics on an unprecedented scale: from mass marches to road blockades, clashes with the Carabineros and attacks on public infrastructure <span class="citation" data-cites="rivera_exposure_2025a">(<a href="#ref-rivera_exposure_2025a" role="doc-biblioref">Rivera et al., 2025</a>)</span>.</p>
+<p>The government’s response was equally extraordinary. The government of then-President Sebastián Piñera declared a state of emergency and deployed military personnel onto the streets for the first time since the restoration of democracy <span class="citation" data-cites="somma_no_2021a thaler_framing_2023">(<a href="#ref-somma_no_2021a" role="doc-biblioref">Somma et al., 2021</a>; <a href="#ref-thaler_framing_2023" role="doc-biblioref">Thaler et al., 2023</a>)</span>. The crackdown resulted in more than 8,000 victims of police violence, over 400 cases of eye injuries and at least 34 deaths, which, according to Amnesty International, constituted the most serious human rights crisis since the end of the dictatorship <span class="citation" data-cites="amnistia_ojos_2020 human_chile_2019 rodriguez_ocular_2021">(<a href="#ref-amnistia_ojos_2020" role="doc-biblioref">Amnistía Internacional, 2020</a>; <a href="#ref-human_chile_2019" role="doc-biblioref">Human Rights Watch, 2019</a>; <a href="#ref-rodriguez_ocular_2021" role="doc-biblioref">Rodríguez et al., 2021</a>)</span>. This situation intensified media and political polarisation and placed a persistent question at the centre of public debate: when, and for whom, is political violence legitimate?</p>
+<p>Both forms of violence are governed by different logics and have distinct effects on the dynamics of protests. State violence refers to repressive actions carried out by state agents — such as the police or the armed forces — with the aim of dispersing or demobilising protesters, a phenomenon that some scholars refer to as ‘police management of protests’ <span class="citation" data-cites="steinert-threlkeld_how_2022">(<a href="#ref-steinert-threlkeld_how_2022" role="doc-biblioref">Steinert-Threlkeld et al., 2022</a>)</span>. Protesters’ violence, by contrast, refers to disruptive or destructive physical actions carried out by the protesters themselves during a demonstration. Beyond their origins, the two forms also differ in their effects: whilst state violence can lead to both mobilisation and demobilisation depending on its intensity, protester violence tends to systematically reduce the scale of protests by undermining their legitimacy and discouraging the participation of third parties <span class="citation" data-cites="steinert-threlkeld_how_2022">(<a href="#ref-steinert-threlkeld_how_2022" role="doc-biblioref">Steinert-Threlkeld et al., 2022</a>)</span>.</p>
+<p>Several studies have shown that the justification of violence during the uprising was not uniform. Disi Pavlic et al. <span class="citation" data-cites="disipavlic_justification_2025a">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span> show that acceptance of violence varies according to temporal, spatial and ideological proximity, whilst González and Le Foulon <span class="citation" data-cites="gonzalez_20192020_2020a">(<a href="#ref-gonzalez_20192020_2020a" role="doc-biblioref">Gonzalez et al., 2020</a>)</span> note that the most active protesters — young, educated and left-leaning — justified violence during the protests more frequently than those who remained on the sidelines of these events. This pattern runs counter to what one might expect, given the classical literature which associates education with greater acceptance of democratic norms and a rejection of violence <span class="citation" data-cites="dewey_democracy_2024 lipset_social_1959a nie_education_1996a">(<a href="#ref-dewey_democracy_2024" role="doc-biblioref">Dewey et al., 2024</a>; <a href="#ref-lipset_social_1959a" role="doc-biblioref">Lipset, 1959</a>; <a href="#ref-nie_education_1996a" role="doc-biblioref">Nie et al., 1996</a>)</span>. How, then, can we explain the fact that those with higher levels of education showed a greater willingness to justify violence during the cycle of mobilisation?</p>
+<p>This study contributes new insights to the existing literature in two areas that have not been explored in previous research. Firstly, Disi Pavlic et al. <span class="citation" data-cites="disipavlic_justification_2025a">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">2025</a>)</span> document that acceptance of violence varies by proximity to protest and policing style, and note that these effects differ by ideology and prior experience — but their design treats education as a contextualizing covariate rather than as the primary analytical explanandum, and does not examine how educational attainment moderates the effect of participation itself. Our contribution is therefore not simply to add an interaction term: we place the education × participation combination at the analytical center and adjudicate between two competing mechanisms — attitudinal sorting versus experiential socialization — using within-between decomposition models that prior work in this area has not applied. Secondly, the existing literature has largely treated protest violence and state violence as independent outcomes. We show that their divergent trajectories among educated participants are not coincidental, but rather constitute a unified bidirectional phenomenon: protesters with a university education simultaneously legitimise protest violence and delegitimise state repression. This asymmetry is not apparent in models that examine each type of violence in isolation, and cannot be attributed solely to education; rather, it requires the specific combination of educational trajectories and protest participation. Our within-between analysis indicates this combination is more consistent with the sorting of attitudinally distinct individuals into protest than with their transformation through participation — though, as we show below, this conclusion holds more cleanly for protest violence than for state violence, where a partial within-person socialization effect also emerges among university-educated groups.</p>
+<p>This hypothesis has clear theoretical roots. The resource model <span class="citation" data-cites="brady_ses_1995a verba_voice_2002">(<a href="#ref-brady_ses_1995a" role="doc-biblioref">Brady et al., 1995</a>; <a href="#ref-verba_voice_2002" role="doc-biblioref">Verba et al., 2002</a>)</span> argues that political participation and attitudes depend on differential access to resources — education, time, money and civic skills — such that higher levels of education are associated with more conventional attitudes and greater commitment to institutional norms. However, much of the literature on political attitudes and conflict has extended this hypothesis beyond its original parameters, arguing that the effects of resources such as education depend on the context of action and on individuals’ participatory experiences. McAdam <span class="citation" data-cites="mcadam_assessing_2009">(<a href="#ref-mcadam_assessing_2009" role="doc-biblioref">D. McAdam et al., 2009</a>)</span> demonstrated that high-risk activism has lasting ‘biographical consequences’: it alters interpretative frameworks, collective identities and moral judgements regarding the legitimacy of action. Participation in protests exposes people to alternative discourses, fosters group solidarity and, in repressive contexts, can bring them into direct confrontation with state violence <span class="citation" data-cites="snow_ideology_1988a olcese_streets_2014">(<a href="#ref-snow_ideology_1988a" role="doc-biblioref">Snow et al., 1988</a>; <a href="#ref-olcese_streets_2014" role="doc-biblioref">Olcese et al., 2014</a>)</span>.</p>
+<p>These experiences not only reshape political attitudes, but also influence the way in which the effects of education are reflected in the justification of violence <span class="citation" data-cites="dahlum_students_2019a">(<a href="#ref-dahlum_students_2019a" role="doc-biblioref">Dahlum, 2019</a>)</span>. Therefore, participation in protests does not influence attitudes in a uniform manner; rather, it activates differentiated potentials for change that originate in biographical trajectories and repertoires of collective action <span class="citation" data-cites="mcadam_biographical_1989a tarrow_power_1998 snow_ideology_1988a">(<a href="#ref-mcadam_biographical_1989a" role="doc-biblioref">Doug McAdam, 1989</a>; <a href="#ref-tarrow_power_1998" role="doc-biblioref">Tarrow, 1998</a>; <a href="#ref-snow_ideology_1988a" role="doc-biblioref">Snow et al., 1988</a>)</span>. In this regard, the justification of political violence constitutes a central dimension for the health of democracies: when broad sections of the public perceive violence as a legitimate means of collective action, the normative foundations of the democratic order are eroded and the scope for radicalisation and conflict widens <span class="citation" data-cites="muller_crossnational_1990 norris_democratic_2011">(<a href="#ref-muller_crossnational_1990" role="doc-biblioref">Muller et al., 1990</a>; <a href="#ref-norris_democratic_2011" role="doc-biblioref">Norris, 2011</a>)</span>. Understanding which factors determine these attitudes — and under what conditions they change — is therefore essential to understanding the stability and quality of contemporary political systems.</p>
+<p>This study proposes a conditional model for understanding attitudes towards political violence. The effects of education depend on participation in protests and on the type of violence under analysis: among non-participants, higher education is associated with lower violence justification; among protesters, this pattern reverses for protest violence while inverting again for state violence, producing a bidirectional configuration concentrated among the most educated and mobilized. Two competing mechanisms could generate this pattern. The <em>cognitive amplification</em> account holds that higher education provides interpretative resources that, when activated by the experience of mobilisation, enable individuals to construct legitimising frameworks for disruptive violence and to reject state repression. The <em>attitudinal sorting</em> account holds that protest participation selects university-educated individuals who already hold these configurations, rather than transforming their attitudes. These mechanisms have distinct within-person signatures, which we assess using within-between (REWB) decomposition models. The results, as documented below, favour the sorting account for protest violence, while revealing a partial socialization process for state violence specifically among university-educated groups.</p>
+<p>However, it is important to recognise that this is not a static phenomenon. Attitudes towards political violence vary over time depending on the intensity of the conflict cycle: the levels and forms of justification observed before, during and after the outbreak differ substantially, giving rise to attitudinal trajectories that are reconfigured as the context of mobilisation evolves <span class="citation" data-cites="disipavlic_nearness_2021a">(<a href="#ref-disipavlic_nearness_2021a" role="doc-biblioref">Disi Pavlic, 2021</a>)</span>. Addressing this temporal dimension is therefore not a secondary methodological refinement, but a necessary condition for capturing the dynamic nature of the phenomenon. The central question of this study is, therefore: how do education and participation in protests interact to shape attitudes towards political violence in the Chilean context over time?</p>
+<p>The aim of this study is to contribute to two lines of research. Firstly, to the literature on education and political attitudes, by assessing the ‘civilising effect’ in relation to the participatory context <span class="citation" data-cites="nie_education_1996a weakliem_effects_2002a">(<a href="#ref-nie_education_1996a" role="doc-biblioref">Nie et al., 1996</a>; <a href="#ref-weakliem_effects_2002a" role="doc-biblioref">Weakliem, 2002</a>)</span>. Secondly, it contributes to the literature on political participation and socialisation <span class="citation" data-cites="mcadam_biographical_1989a giugni_social_2004">(<a href="#ref-mcadam_biographical_1989a" role="doc-biblioref">Doug McAdam, 1989</a>; <a href="#ref-giugni_social_2004" role="doc-biblioref">Giugni, 2004</a>)</span>, by examining whether participation interacts with cognitive (educational) resources in complex ways, thereby shaping individuals’ interpretative frameworks. Overall, this study aims to shed light on the foundations of the legitimisation of violence during the period of political conflict in Chile, documenting a bidirectional moral configuration among educated protesters and assessing the degree to which it reflects sorting versus experiential change. The Chilean case offers an exceptional empirical framework for this purpose. The 2019 social uprising not only triggered mass participatory dynamics but also condensed, within a short period, an unusual combination of structural discontent, institutional exhaustion and state repression perceived as illegitimate — conditions which, taken together, allow us to examine precisely how educational trajectories and participation jointly shape attitudes towards political violence. Analysing this cycle of conflict therefore enables us to empirically test a more general thesis: that the moral configurations which characterise protest participants are not simply a product of mobilisation but reflect, in substantial part, who chooses to mobilise and what attitudinal predispositions they bring to that choice.</p>
+</section>
+<section id="theoretical-background" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Theoretical Background</h1>
+<section id="justification-of-violence" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="justification-of-violence"><span class="header-section-number">2.1</span> Justification of Violence</h2>
+<p>The willingness to justify violence in protest contexts is a complex phenomenon, one that distinguishes between attitudes toward violence exercised by protesters and that employed by state forces <span class="citation" data-cites="marx_policing_1998 disipavlic_justification_2025a">(<a href="#ref-marx_policing_1998" role="doc-biblioref">Marx, 1998</a>; <a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span>. Protester violence tends to be evaluated as destabilizing to the political order and therefore illegitimate by definition, while state violence—protest policing—is framed as a functional measure for maintaining social order <span class="citation" data-cites="davenport_protesting_2011 tilly_politics_2003">(<a href="#ref-davenport_protesting_2011" role="doc-biblioref">Davenport et al., 2011</a>; <a href="#ref-tilly_politics_2003" role="doc-biblioref">Tilly, 2003</a>)</span>, granting it a presumption of institutional justification that protester violence lacks <span class="citation" data-cites="disipavlic_justification_2025a">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span>.</p>
+<p>This normative asymmetry has empirical consequences: civic judgment does not operate neutrally, but rather against differentiated expectations depending on which actor exercises force <span class="citation" data-cites="jamte_when_2024">(<a href="#ref-jamte_when_2024" role="doc-biblioref">Jämte et al., 2024</a>)</span>. Approval of police violence may increase when directed against unpopular groups <span class="citation" data-cites="ellner_contrasting_2003">(<a href="#ref-ellner_contrasting_2003" role="doc-biblioref">Ellner, 2003</a>)</span>, but the same violence erodes state legitimacy when perceived as unjust <span class="citation" data-cites="gorecki_electoral_2013 perez-linan_presidential_2010">(<a href="#ref-gorecki_electoral_2013" role="doc-biblioref">Górecki, 2013</a>; <a href="#ref-perez-linan_presidential_2010" role="doc-biblioref">Pérez-Liñán et al., 2010</a>)</span>. Conversely, protester violence can shift from illegitimate to justifiable when the state is perceived as the original aggressor <span class="citation" data-cites="disipavlic_justification_2025a">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span>.</p>
+</section>
+<section id="policing-and-its-effects-on-citizens-attitudes" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="policing-and-its-effects-on-citizens-attitudes"><span class="header-section-number">2.2</span> Policing and Its Effects on Citizens’ Attitudes</h2>
+<p>Research shows that policing style has substantive effects on how citizens evaluate violence in protests. Escalated force can trigger radicalization and escalation when perceived as disproportionate <span class="citation" data-cites="koopmans_dynamics_1993 francisco_relationship_1995">(<a href="#ref-koopmans_dynamics_1993" role="doc-biblioref">Koopmans, 1993</a>; <a href="#ref-francisco_relationship_1995" role="doc-biblioref">Francisco, 1995</a>)</span>, eroding the legitimacy of both the police and the government <span class="citation" data-cites="bonner_constructing_2022">(<a href="#ref-bonner_constructing_2022" role="doc-biblioref">Bonner et al., 2022</a>)</span>. The literature distinguishes between a negotiated management model, which prioritizes communication and minimal use of force, and an escalated force model, based on coercion <span class="citation" data-cites="dellaporta_policing_2007">(<a href="#ref-dellaporta_policing_2007" role="doc-biblioref">Della Porta et al., 2007</a>)</span>; and more recently, between active policing—direct intervention involving chemical agents, projectiles, and arrests—and passive policing—selective monitoring and containment <span class="citation" data-cites="disipavlic_justification_2025a">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span>.</p>
+<p>Drawing on procedural justice theory <span class="citation" data-cites="tyler_group_2003">(<a href="#ref-tyler_group_2003" role="doc-biblioref">Tyler et al., 2003</a>)</span>, when police conduct is perceived as unjust, institutional legitimacy is eroded and the justification of resistance increases <span class="citation" data-cites="gerber_justifying_2017 sunshine_role_2003">(<a href="#ref-gerber_justifying_2017" role="doc-biblioref">Monica M. Gerber et al., 2017</a>; <a href="#ref-sunshine_role_2003" role="doc-biblioref">Sunshine et al., 2003</a>)</span>. Crucially, these effects are not uniform: they vary according to ideology and prior protest experience <span class="citation" data-cites="disipavlic_justification_2025a">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span>. In Chile, the legitimacy crisis of the Carabineros during the 2019 uprising illustrates this mechanism: the widespread reports of human rights violations normalized the justification of protest violence as legitimate self-defense <span class="citation" data-cites="gerber_legitimidad_2023 carrascopaillamilla_predictors_2023">(<a href="#ref-gerber_legitimidad_2023" role="doc-biblioref">Mónica M. Gerber et al., 2023</a>; <a href="#ref-carrascopaillamilla_predictors_2023" role="doc-biblioref">Carrasco Paillamilla et al., 2023</a>)</span>. What is particularly relevant for this study is that direct experience with policing—through participation in protests—constitutes one of the primary triggers of attitudinal change.</p>
+</section>
+<section id="education-and-attitudes-toward-violence-in-protests" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="education-and-attitudes-toward-violence-in-protests"><span class="header-section-number">2.3</span> Education and Attitudes toward Violence in Protests</h2>
+<p>The classical “civilizing effect” argument <span class="citation" data-cites="lipset_social_1959a almond_civic_1963">(<a href="#ref-lipset_social_1959a" role="doc-biblioref">Lipset, 1959</a>; <a href="#ref-almond_civic_1963" role="doc-biblioref">ALMOND et al., 1963</a>)</span> holds that education fosters the internalization of democratic norms and reduces the propensity to accept political violence, by developing cognitive skills that enable individuals to adopt moderate positions <span class="citation" data-cites="converse_change_1972 nie_education_1996a">(<a href="#ref-converse_change_1972" role="doc-biblioref">Converse, 1972</a>; <a href="#ref-nie_education_1996a" role="doc-biblioref">Nie et al., 1996</a>)</span>, promoting values of tolerance and institutional respect <span class="citation" data-cites="siegel_kohlberg_1981">(<a href="#ref-siegel_kohlberg_1981" role="doc-biblioref">Siegel, 1981</a>)</span>, and strengthening subjective political efficacy <span class="citation" data-cites="dyrstad_explaining_2020">(<a href="#ref-dyrstad_explaining_2020" role="doc-biblioref">Dyrstad et al., 2020</a>)</span>. Under this paradigm, the justification of violence is a residue of educational deficit.</p>
+<p>However, this model faces significant empirical limitations. Studies with robust causal designs show that the direct effects of education on political attitudes are largely explained by self-selection <span class="citation" data-cites="kam_reconsidering_2008 berinsky_education_2011a">(<a href="#ref-kam_reconsidering_2008" role="doc-biblioref">Kam et al., 2008</a>; <a href="#ref-berinsky_education_2011a" role="doc-biblioref">Berinsky et al., 2011</a>)</span>. Moreover, counterintuitive evidence—such as the presence of highly educated individuals in violent organizations—suggests that the effects of education are context-contingent <span class="citation" data-cites="krueger_education_2003 fair_who_2006">(<a href="#ref-krueger_education_2003" role="doc-biblioref">Krueger et al., 2003</a>; <a href="#ref-fair_who_2006" role="doc-biblioref">Fair et al., 2006</a>)</span>.</p>
+<p>This has prompted a reconceptualization: rather than a universal inhibitory effect, education operates as a conditional cognitive amplifier <span class="citation" data-cites="nie_education_1996a sabucedo_importance_2018">(<a href="#ref-nie_education_1996a" role="doc-biblioref">Nie et al., 1996</a>; <a href="#ref-sabucedo_importance_2018" role="doc-biblioref">Sabucedo et al., 2018</a>)</span>. Its primary function is not to instill tolerance, but to provide cognitive sophistication—the analytical tools to construct complex moral frameworks that can both delegitimize and legitimize violence depending on situational context. In settings of high inequality and institutions perceived as unjust, this sophistication enables individuals to frame violence as an exceptional yet principled response consistent with notions of justice <span class="citation" data-cites="dellaporta_global_2017 varlik_education_2025">(<a href="#ref-dellaporta_global_2017" role="doc-biblioref"><span class="nocase">della Porta</span>, 2017</a>; <a href="#ref-varlik_education_2025" role="doc-biblioref">Varlık et al., 2025</a>)</span>.</p>
+<p>One candidate activation mechanism, under the cognitive amplification account, is direct participation in protests. The situated experience of protesting exposes individuals to state repression, to elaborated ideological narratives that distinguish between types of violence <span class="citation" data-cites="tilly_politics_2003 benford_framing_2000">(<a href="#ref-tilly_politics_2003" role="doc-biblioref">Tilly, 2003</a>; <a href="#ref-benford_framing_2000" role="doc-biblioref">Benford et al., 2000</a>)</span>, and to identity pressures that reconfigure the relative weight of different moral considerations <span class="citation" data-cites="polletta_collective_2001 vanstekelenburg_social_2013">(<a href="#ref-polletta_collective_2001" role="doc-biblioref">Polletta et al., 2001</a>; <a href="#ref-vanstekelenburg_social_2013" role="doc-biblioref">Van Stekelenburg et al., 2013</a>)</span>. More educated individuals possess greater capacity to manage these tensions through cognitive compartmentalization: they can maintain general democratic values while constructing situational exceptions that frame protest violence as “legitimate self-defense” <span class="citation" data-cites="tetlock_value_1986 disipavlic_justification_2025a">(<a href="#ref-tetlock_value_1986" role="doc-biblioref">Tetlock, 1986</a>; <a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span>. Less educated individuals, by contrast, tend toward more consistent positions that do not vary as much with context <span class="citation" data-cites="krueger_education_2003">(<a href="#ref-krueger_education_2003" role="doc-biblioref">Krueger et al., 2003</a>)</span>.</p>
+<p>In this way, the cognitive amplification account predicts that the effect of education is conditional on protest experience: among non-participants, the civilizing effect would operate by reducing the justification of violence; among participants, cognitive sophistication would be activated to tactically legitimize what would otherwise be rejected in the abstract.</p>
+<p>This gives rise to what may be termed (H1) the education paradox effect, whereby:</p>
+<ul>
+<li><p>H1a: Among individuals who do not participate in protests, higher educational attainment is associated with lower justification of violence in demonstrations, consistent with the “civilizing effect” of education.</p></li>
+<li><p>H1b: Among individuals who do participate in protests, the effect of education reverses: university-educated individuals show greater justification of violence in demonstrations compared to those with lower levels of education.</p></li>
+</ul>
+<p>Under this account, the explanation would lie in the fact that education fosters more sophisticated political thinking, but operating differently depending on participation: non-participants would draw on this capacity to reinforce their commitment to nonviolent democracy and abstract norms of tolerance, while participants would employ that same sophistication to construct ideological frameworks that allow them to tactically legitimize violence as a valid political instrument in specific protest contexts, without necessarily abandoning their broader democratic values.</p>
+</section>
+<section id="protest-participation-and-attitudinal-change" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="protest-participation-and-attitudinal-change"><span class="header-section-number">2.4</span> Protest Participation and Attitudinal Change</h2>
+<p>The classical literature on political participation has tended to treat it as the result of pre-existing characteristics: people participate because they already hold certain attitudes, resources, and predispositions <span class="citation" data-cites="verba_voice_2002">(<a href="#ref-verba_voice_2002" role="doc-biblioref">Verba et al., 2002</a>)</span>. More recent research, however, has challenged this linear model, showing that participation not only reflects prior orientations but transforms them <span class="citation" data-cites="mcadam_biographical_1989a passy_biographical_2018">(<a href="#ref-mcadam_biographical_1989a" role="doc-biblioref">Doug McAdam, 1989</a>; <a href="#ref-passy_biographical_2018" role="doc-biblioref">Passy et al., 2018</a>)</span>. McAdam’s seminal work <span class="citation" data-cites="mcadam_biographical_1989a">(<a href="#ref-mcadam_biographical_1989a" role="doc-biblioref">Doug McAdam, 1989</a>)</span> on the 1964 Freedom Summer project was pioneering in documenting this effect: comparing participants with a control group of similar characteristics who ultimately did not attend, he found that those who did participate underwent lasting transformations in their political and moral dispositions, regardless of their initial predispositions.</p>
+<p>Since then, the literature has identified two main mechanisms through which participation produces attitudinal change <span class="citation" data-cites="passy_biographical_2018 crossley_reproduction_2003 pavlic_nearness_2021">(<a href="#ref-passy_biographical_2018" role="doc-biblioref">Passy et al., 2018</a>; <a href="#ref-crossley_reproduction_2003" role="doc-biblioref">Crossley, 2003</a>; <a href="#ref-pavlic_nearness_2021" role="doc-biblioref">Pavlic, 2021</a>)</span>. The first is exposure to new cognitive frameworks: social movements elaborate interpretive schemas that allow for the reframing of conflict, justice, and violence <span class="citation" data-cites="snow_ideology_1988a benford_framing_2000 lioy_would_2024">(<a href="#ref-snow_ideology_1988a" role="doc-biblioref">Snow et al., 1988</a>; <a href="#ref-benford_framing_2000" role="doc-biblioref">Benford et al., 2000</a>; <a href="#ref-lioy_would_2024" role="doc-biblioref">Lioy, 2024</a>)</span>. Participation embedded in these environments can produce frame transformation, whereby previously illegitimate practices—such as certain forms of violence—are recast as “legitimate self-defense” or “necessary resistance.” The second mechanism is direct experience with state repression, which generates a moral reframing: what was previously “illegitimate violence” becomes “defensive violence,” while police action ceases to be perceived as order and comes to be seen as structural violence <span class="citation" data-cites="tyler_group_2003 gerber_justifying_2017">(<a href="#ref-tyler_group_2003" role="doc-biblioref">Tyler et al., 2003</a>; <a href="#ref-gerber_justifying_2017" role="doc-biblioref">Monica M. Gerber et al., 2017</a>)</span>.</p>
+<p>Both mechanisms operate asymmetrically with respect to the actor exercising violence. Exposure to repression tends to increase the justification of protester violence by validating narratives of resistance, while simultaneously reducing the justification of state violence by eroding its perceived legitimacy <span class="citation" data-cites="disipavlic_justification_2025a jamte_when_2024">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>; <a href="#ref-jamte_when_2024" role="doc-biblioref">Jämte et al., 2024</a>)</span>. Evidence from the Chilean case is consistent with this pattern: participation in the 2019 social uprising increased acceptance of confrontational tactics among protesters, particularly among those who experienced intense forms of state coercion <span class="citation" data-cites="rivera_exposure_2025a disipavlic_justification_2025a">(<a href="#ref-rivera_exposure_2025a" role="doc-biblioref">Rivera et al., 2025</a>; <a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span>.</p>
+</section>
+<section id="heterogeneity-by-education" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="heterogeneity-by-education"><span class="header-section-number">2.5</span> Heterogeneity by Education</h2>
+<p>This hypothesized transformative effect, if it exists, would not be homogeneous, but rather mediated by participants’ social and educational position <span class="citation" data-cites="giugni_social_2004 passy_biographical_2018">(<a href="#ref-giugni_social_2004" role="doc-biblioref">Giugni, 2004</a>; <a href="#ref-passy_biographical_2018" role="doc-biblioref">Passy et al., 2018</a>)</span>. As argued in the previous section, individuals with higher education possess greater cognitive sophistication to process and rearticulate complex moral frameworks <span class="citation" data-cites="nie_education_1996a">(<a href="#ref-nie_education_1996a" role="doc-biblioref">Nie et al., 1996</a>)</span>. In participatory contexts, this capacity is activated: more educated individuals have greater resources to internalize the justificatory frameworks circulating within social movements and to construct situational exceptions that legitimize protest violence without abandoning broader democratic values <span class="citation" data-cites="tetlock_value_1986 sabucedo_importance_2018">(<a href="#ref-tetlock_value_1986" role="doc-biblioref">Tetlock, 1986</a>; <a href="#ref-sabucedo_importance_2018" role="doc-biblioref">Sabucedo et al., 2018</a>)</span>. Less educated individuals, by contrast, tend toward more stable positions that do not vary as much in response to participatory experience <span class="citation" data-cites="krueger_education_2003">(<a href="#ref-krueger_education_2003" role="doc-biblioref">Krueger et al., 2003</a>)</span>.</p>
+<p>It should be noted, however, that these effects may be temporally unstable. Rivera et al. <span class="citation" data-cites="rivera_exposure_2025a">(<a href="#ref-rivera_exposure_2025a" role="doc-biblioref">Rivera et al., 2025</a>)</span> and Disi Pavlic et al. <span class="citation" data-cites="disipavlic_justification_2025a">(<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">Disi Pavlic et al., 2025</a>)</span> document that attitudinal changes induced by participation tend to attenuate over time, suggesting that biographical transformation depends not only on the participatory experience itself, but on the continuity of activism and the structural conditions that sustain it.</p>
+<p>The central hypothesis is that the transformative effects of participation are not uniform, but rather depend on the interaction between educational socialization and protest experience. Education provides the cognitive capacity to construct sophisticated moral justifications; participation, in turn, provides the emotional and symbolic conditions that make such elaboration necessary. The result is a bidirectional reconfiguration of moral frameworks: those who participate reinterpret state violence as illegitimate and protester violence as legitimate. Given the foregoing, we expect:</p>
+<ul>
+<li><p>H2a: University-educated individuals who participate in protests show greater justification of violence exercised by protesters, compared to university-educated non-participants.</p></li>
+<li><p>H2b: The same participating university-educated individuals show lower justification of violence exercised by the state, compared to university-educated non-participants.</p></li>
+</ul>
+<p>Under the socialization account, participation in protests would thus function not as a passive reflection of pre-existing attitudes, but as a process of moral and political relearning, in which more educated individuals—precisely because of their cognitive sophistication—would be best positioned to coherently reformulate their normative principles in light of experience. In this way, collective action becomes the space in which the tensions between education, structural inequality, and the legitimacy of political violence are rearticulated.</p>
+</section>
+</section>
+<section id="the-chilean-case-from-structural-discontent-to-justification" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> The Chilean Case: From Structural Discontent to Justification</h1>
+<section id="the-breakdown-of-the-social-compact" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="the-breakdown-of-the-social-compact"><span class="header-section-number">3.1</span> The Breakdown of the Social Compact</h2>
+<p>The study of the Chilean protest cycle that began in October 2019 is critical not only because of its historical magnitude, but because it represents the collapse of the post-transition social compact and offers a critical laboratory for analyzing the relationship between inequality, education, and political violence. Chile did not experience a mere acceleration of prior trends, but a tectonic rupture in democratic coexistence. According to data from the Observatorio de Conflictos <span class="citation" data-cites="joignant_coes_2020 somma_no_2021a">(<a href="#ref-joignant_coes_2020" role="doc-biblioref">Joignant et al., 2020</a>; <a href="#ref-somma_no_2021a" role="doc-biblioref">Somma et al., 2021</a>)</span>, the final quarter of 2019 recorded more than 2,700 contentious events—a figure nine times higher than the historical average of conflict observed in the preceding decade.</p>
+<p>This phenomenon is distinguished not only by its scale, but by the centrality that violence acquired as a repertoire of action and political expression. During the uprising, the proportion of protests involving violence exceeded 40%, a qualitative leap relative to previous cycles <span class="citation" data-cites="joignant_coes_2020 joignant_social_2024a">(<a href="#ref-joignant_coes_2020" role="doc-biblioref">Joignant et al., 2020</a>; <a href="#ref-joignant_social_2024a" role="doc-biblioref">Joignant et al., 2024</a>)</span>. Even more significant for the analysis of political attitudes is the absence of organic leadership that characterized the movement: unlike the 2011 student mobilizations <span class="citation" data-cites="joignant_coes_2020 donoso_social_2023a">(<a href="#ref-joignant_coes_2020" role="doc-biblioref">Joignant et al., 2020</a>; <a href="#ref-donoso_social_2023a" role="doc-biblioref">Donoso et al., 2023</a>)</span>, where actors and demands were clearly identified, in 2019 some 68% of contentious actions lacked an articulated or identifiable demand. This scenario of anomie and institutional overflow validates the need to study how citizens reconfigure their moral frameworks and their justification of violence when traditional channels of conflict resolution are perceived as exhausted. In this regard, the Chilean case illustrates how the triad of violence, poverty, and lack of educational opportunities—if not addressed in an integrated manner—generates cycles of structural inequality that perpetuate social conflict <span class="citation" data-cites="varlik_education_2025">(<a href="#ref-varlik_education_2025" role="doc-biblioref">Varlık et al., 2025</a>)</span>.</p>
+</section>
+<section id="the-legitimacy-crisis-and-the-dynamics-of-intergroup-violence" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-legitimacy-crisis-and-the-dynamics-of-intergroup-violence"><span class="header-section-number">3.2</span> The Legitimacy Crisis and the Dynamics of Intergroup Violence</h2>
+<p>To understand why violence became an acceptable resource for broad sectors of the population, it is essential to analyze the dynamic interaction between protesters and security forces. Political violence during this period was not a unidirectional phenomenon, but the result of a profound crisis of institutional legitimacy. Empirical evidence gathered during the conflict shows that the perception of procedural injustice in the conduct of the Carabineros—characterized by the excessive use of force and degrading treatment—drastically eroded the moral authority of the police <span class="citation" data-cites="gerber_legitimidad_2023">(<a href="#ref-gerber_legitimidad_2023" role="doc-biblioref">Mónica M. Gerber et al., 2023</a>)</span>.</p>
+<p>There is a significant inverse relationship between legitimacy and violence: the lower the perceived legitimacy of the police, the greater the justification of violence by protesters as a valid tool for “social change” <span class="citation" data-cites="gerber_legitimidad_2023">(<a href="#ref-gerber_legitimidad_2023" role="doc-biblioref">Mónica M. Gerber et al., 2023</a>)</span>. This finding is crucial for the argument developed here, as it indicates that state repression, far from restoring order, generated a backlash effect that morally validated radicalization. By perceiving authority as unjust and illegitimate, citizens came to reframe civilian violence not as criminality, but as an act of resistance and the reclamation of rights. Chile thus configured itself during this period as a scenario of reciprocal intergroup violence, in which police violence for social control and civilian violence for political change mutually reinforced each other, breaking down the normative barriers that had traditionally contained conflict.</p>
+</section>
+<section id="the-educational-paradox-from-the-promise-of-mobility-to-the-politicization-of-discontent" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-educational-paradox-from-the-promise-of-mobility-to-the-politicization-of-discontent"><span class="header-section-number">3.3</span> The Educational Paradox: From the Promise of Mobility to the Politicization of Discontent</h2>
+<p>With respect to education, the Chilean case challenges classical modernization theories that linearly associate educational expansion with social pacification and democratic consolidation. While the country experienced a rapid massification of higher education—moving from a gross enrollment rate of 16.8% in 1990 to 59% in 2012—this process unfolded under a radical market logic that incubated new conflicts <span class="citation" data-cites="bellei_2011_2014">(<a href="#ref-bellei_2011_2014" role="doc-biblioref">Bellei et al., 2014</a>)</span>. Enrollment expansion was not driven by the state, but by the proliferation of private institutions and financing mechanisms such as the State-Guaranteed Student Loan (CAE), resulting in 78% of higher education expenditure being borne by families—the highest share in the OECD <span class="citation" data-cites="bellei_2011_2014">(<a href="#ref-bellei_2011_2014" role="doc-biblioref">Bellei et al., 2014</a>)</span>.</p>
+<p>This structure generated a “welfare paradox”: rather than acting as a social equalizer, education reproduced stratification and imposed a heavy debt burden on working-class households and emerging middle sectors. Far from producing conformism, this tension transformed students into critical political actors. As Donoso et al. <span class="citation" data-cites="donoso_social_2023a">(<a href="#ref-donoso_social_2023a" role="doc-biblioref">Donoso et al., 2023</a>)</span> argue, the 2011 student movement not only placed education on the public agenda but generated a “repoliticization” of citizenship, demonstrating that higher levels of education provide the cognitive and civic resources necessary to challenge the status quo. Education in Chile thus operated as a catalyst for mobilization, with the most educated sectors acting not as buffers against conflict, but as vanguards that articulated a structural critique of the neoliberal model <span class="citation" data-cites="joignant_social_2024a">(<a href="#ref-joignant_social_2024a" role="doc-biblioref">Joignant et al., 2024</a>)</span>.</p>
+</section>
+</section>
+<section id="data-and-methods" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Data and Methods</h1>
+<section id="data" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="data"><span class="header-section-number">4.1</span> Data</h2>
+<p>This study uses data from the Longitudinal Social Study of Chile (ELSOC), a panel survey implemented by the Center for Social Conflict and Cohesion Studies (COES) that collects information on the country’s urban adult population. The survey is designed to examine individuals’ attitudes, perceptions, and behaviors regarding issues of social conflict and cohesion. Its panel design allows the same individuals to be tracked over time, offering a unique window into the evolution of Chilean society. The survey has been administered annually since 2016, with the exception of 2020 due to the COVID-19 pandemic, accumulating seven waves of data (2016, 2017, 2018, 2019, 2021, 2022, and 2023). Critically for the present analysis, the 2019 wave was conducted after the onset of the social uprising of October 18, making it the first wave to capture attitudes formed in the context of mass mobilization and state repression — rendering it analytically interpretable as a post-estallido measurement rather than a pre-event baseline.</p>
+<p>ELSOC employs a probabilistic, multi-stage cluster sampling design covering both major urban centers and medium and small cities across the country. The sampling frame was stratified proportionally by urban population size (in six categories), with households randomly selected from 1,067 census blocks. The target population includes men and women aged 18 to 75 residing in private dwellings.</p>
+<p>For the analyses reported here, and after applying an inclusion criterion requiring respondents to have participated in at least three waves and having valid data on all analytical variables, the analytical sample comprises between 15,103 and 15,110 observations nested within 3,382–3,383 individuals across six waves (2016–2019, 2022–2023). The 2021 wave was excluded because the violence justification items were not administered in that round. The small variation in N across models reflects differential item-level missingness in each dependent variable. The survey, its methodological manuals, and datasets are publicly available through the COES portal <a href="https://coes.cl/elsoc/">https://coes.cl/elsoc/</a> and the Harvard Dataverse repository <a href="https://dataverse.harvard.edu/dataverse/elsoc">https://dataverse.harvard.edu/dataverse/elsoc</a>.</p>
+</section>
+<section id="variables" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="variables"><span class="header-section-number">4.2</span> Variables</h2>
+<section id="dependent-variables-justification-of-political-violence" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="dependent-variables-justification-of-political-violence"><span class="header-section-number">4.2.1</span> Dependent Variables: Justification of Political Violence</h3>
+<p>Two indices were constructed to measure attitudes toward political violence, capturing the justification of violence exercised by different types of actors in specific political contexts.</p>
+<p>The Protest Violence Justification Index is composed of the average of two items measuring the degree to which respondents justify disruptive actions carried out by social actors in contexts of mobilization:</p>
+<ol type="1">
+<li><p>A group of striking workers blocking the street with barricades to demand compliance with their labor rights.</p></li>
+<li><p>Students throwing stones at the Carabineros during a march for education.</p></li>
+</ol>
+<p>Each item was measured on a 5-point Likert scale ranging from 1 = “Never justified” to 5 = “Always justified.” The index was calculated as the arithmetic mean of both items when the respondent answered at least one of them, yielding a continuous scale from 1 to 5 where higher values indicate greater justification of protest violence. The internal consistency of the index is satisfactory, with a Cronbach’s alpha of 0.82 in the analytical sample, indicating that the items capture a common latent construct.</p>
+<p>The State Violence Justification Index is composed of the average of two items measuring the justification of violence exercised by the Carabineros de Chile (law enforcement) in public order control contexts:</p>
+<ol type="1">
+<li><p>The Carabineros using violence to repress a peaceful demonstration.</p></li>
+<li><p>The Carabineros forcibly evicting people who have occupied buildings or universities.</p></li>
+</ol>
+<p>Each item was measured on the same 5-point scale. The index was calculated as the mean of both items (requiring a response to at least one), also yielding a continuous scale from 1 to 5. The correlation between the two items is r = 0.58 (p &lt; 0.001), indicating that they measure related but distinguishable aspects of attitudes toward police violence.</p>
+<p>It is important to note that these two indices capture conceptually distinct forms of political violence: “bottom-up” violence exercised by mobilized social actors versus “top-down” violence exercised by state agents. As shown in the correlation matrix in Table 1, the two indices are negatively correlated (r = −0.23, p &lt; 0.001), suggesting that justifying one type of violence tends to be associated with lower justification of the other, though the correlation is far from perfect. This empirical distinction validates the strategy of analyzing both types of violence separately.</p>
+</section>
+<section id="independent-variables-education-and-protest-participation" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="independent-variables-education-and-protest-participation"><span class="header-section-number">4.2.2</span> Independent Variables: Education and Protest Participation</h3>
+<p>Respondent education was operationalized as a five-level categorical variable based on the highest level of education attained:</p>
+<ol type="1">
+<li><p>Complete secondary education or less</p></li>
+<li><p>Incomplete tertiary non-university education (begun but not completed)</p></li>
+<li><p>Complete tertiary non-university education (technical-professional degree or equivalent)</p></li>
+<li><p>Incomplete university education (begun but not completed)</p></li>
+<li><p>Complete university education (undergraduate or postgraduate degree)</p></li>
+</ol>
+<p>This categorization is treated as an unordered factor, using “complete secondary education or less” as the reference category. The decision not to treat education as an ordinal variable reflects prior evidence suggesting that the effects of education on political attitudes are not necessarily linear, and that there are qualitative differences between technical and university education that go beyond years of schooling <span class="citation" data-cites="nie_education_1996a">(<a href="#ref-nie_education_1996a" role="doc-biblioref">Nie et al., 1996</a>)</span>.</p>
+<p>Protest participation was operationalized as a dichotomous variable indicating whether the respondent participated in demonstrations, marches, or protests during the previous 12 months (1 = Participated, 0 = Did not participate), based on the question: “During the last 12 months, have you participated in demonstrations or marches?” This variable captures retrospectively reported participation and is therefore subject to potential recall and social desirability biases, although prior evidence suggests that protest participation reports have reasonable validity when the reference period is relatively short <span class="citation" data-cites="walgrave_missing_2014">(<a href="#ref-walgrave_missing_2014" role="doc-biblioref">Walgrave et al., 2014</a>)</span>.</p>
+</section>
+<section id="control-variables" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="control-variables"><span class="header-section-number">4.2.3</span> Control Variables</h3>
+<p>All models include the following control variables to reduce confounding and improve the precision of the estimates:</p>
+<ul>
+<li><p>Age: In years at the time of each wave (continuous variable, centered at the mean).</p></li>
+<li><p>Gender: Dichotomous variable (1 = Woman, 0 = Man).</p></li>
+<li><p>Political ideology: Self-placement scale from 0 (far left) to 10 (far right), standardized to mean 0 and standard deviation 1.</p></li>
+<li><p>Survey wave: Year fixed effects (indicator variables for each survey year, with 2016 as the reference category) to control for period-specific shifts in attitudes over the study period (2016–2023). This specification imposes no parametric functional form on the temporal trajectory, which is appropriate given the non-linear attitudinal shock associated with the 2019 uprising visible in the descriptive data.</p></li>
+</ul>
+</section>
+</section>
+<section id="analytical-strategy" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="analytical-strategy"><span class="header-section-number">4.3</span> Analytical Strategy</h2>
+<p>The longitudinal nature of the data implies that the same individuals are observed on multiple occasions over time. This data structure—in which Level 1 observations (measurements over time) are nested within Level 2 individuals—violates one of the fundamental assumptions of standard regression models: the independence of observations <span class="citation" data-cites="snijders_multilevel_2012">(<a href="#ref-snijders_multilevel_2012" role="doc-biblioref">Snijders et al., 2012</a>)</span>. Responses from the same individual across waves are highly likely to be correlated, as they reflect stable characteristics of that person (personality, deep-seated values, prior formative experiences) that consistently shape their attitudes over time.</p>
+<p>Ignoring this within-individual temporal dependence would yield biased estimates (standard errors that are too small), artificially inflating statistical significance and leading to invalid conclusions <span class="citation" data-cites="raudenbush_hierarchical_2010 gelman_data_2021">(<a href="#ref-raudenbush_hierarchical_2010" role="doc-biblioref">Raudenbush et al., 2010</a>; <a href="#ref-gelman_data_2021" role="doc-biblioref">Gelman et al., 2021</a>)</span>. Multilevel models (also referred to as hierarchical linear models, mixed-effects models, or variance component models) offer an explicit solution to this problem by simultaneously modeling both between-individual heterogeneity and within-individual dependence over time <span class="citation" data-cites="singer_applied_2003a">(<a href="#ref-singer_applied_2003a" role="doc-biblioref">Singer et al., 2003</a>)</span>. As Hox et al. <span class="citation" data-cites="hox_multilevel_2018">(<a href="#ref-hox_multilevel_2018" role="doc-biblioref">Hox et al., 2018</a>)</span> note, these models allow the total variation to be decomposed into its structural components and the uncertainty of parameters to be correctly estimated in the presence of intra-group dependence.</p>
+<p>The general model equations for Level 1 (observation over time) and Level 2 (individual) are as follows:</p>
+<p><strong>Level 1 (within-individual)</strong></p>
+<p><span class="math display">
+y_{tj} = \beta_{0j} + \beta_{1j} X_{tj} + \varepsilon_{tj}
+</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">y_{tj}</span>: Justification of violence for individual <span class="math inline">j</span> at time <span class="math inline">t</span>.</li>
+<li><span class="math inline">X_{tj}</span>: Level 1 variables (time), such as participation in protests, age, etc.</li>
+<li><span class="math inline">\varepsilon_{tj}</span>: Residual error at the observation level.</li>
+</ul>
+<p><strong>Level 2 (between-individual)</strong></p>
+<p><span class="math display">
+\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}
+</span></p>
+<p><span class="math display">
+\beta_{1j} = \gamma_{10}
+</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\gamma_{00}</span>: General intercept (overall mean).</li>
+<li><span class="math inline">\gamma_{01}</span>: Effect of Level 2 predictors (between individuals).</li>
+<li><span class="math inline">\gamma_{10}</span>: Fixed effect of Level 1 predictors (within individuals).</li>
+<li><span class="math inline">Z_j</span>: Predictors that do not vary over time (education, gender).</li>
+<li><span class="math inline">u_{0j}</span>: Random effect of the intercept for individual <span class="math inline">j</span>.</li>
+</ul>
+<p><strong>Integrated Model</strong></p>
+<p><span class="math display">
+y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \sum_{k \in \mathcal{Y}} \delta_k D_{kt} + u_{0j} + \varepsilon_{tj}
+</span></p>
+<p>where <span class="math inline">\mathcal{Y} = \{2017, 2018, 2019, 2022, 2023\}</span> and <span class="math inline">D_{kt}</span> is an indicator equal to 1 if observation <span class="math inline">t</span> belongs to year <span class="math inline">k</span> (2016 as the reference category). This model decomposes the total variance into two components: variance between individuals (<span class="math inline">\sigma^2_u</span>, captured by the random intercepts) and variance within individuals over time (<span class="math inline">\sigma^2_\varepsilon</span>, residual error). The intraclass correlation coefficient (ICC) quantifies the proportion of total variance attributable to differences between individuals. The parameters <span class="math inline">\delta_k</span> capture year-specific deviations from the 2016 baseline, accommodating the non-linear temporal dynamics visible in Figure 2 without imposing a parametric form on the trajectory.</p>
+<section id="interaction-models" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="interaction-models"><span class="header-section-number">4.3.1</span> Interaction Models</h3>
+<p><strong>Interaction between Education and Participation</strong></p>
+<p>To test the central hypotheses of this study, which predict that the effects of education on the justification of violence are contingent upon participation in protests, we estimate models that include multiplicative interaction terms:</p>
+<p><span class="math display">
+\begin{aligned}
+y_{tj} = \gamma_{00} + \sum_{k=1}^{4} \gamma_{0k} \text{Education}_{kj} + \gamma_{10} \text{Participation}_{tj} + \sum_{k=1}^{4} \gamma_{1k} (\text{Education}_{kj} \times \text{Participation}_{tj}) + \\
+\sum_{k \in \mathcal{Y}} \delta_k D_{kt} + \text{Controls} + u_{0j} + \varepsilon_{tj}
+\end{aligned}
+</span></p>
+<p>Given that education is a categorical variable with 5 levels (4 dummies), this model estimates 4 interaction coefficients (<span class="math inline">\gamma_{11}, \gamma_{12}, \gamma_{13}, \gamma_{14}</span>), one for each educational level relative to the reference category.</p>
+<p>The interpretation of interaction terms in multilevel models follows the standard logic: the interaction coefficient represents how much the effect of participation in protests on the justification of violence changes when moving from one educational category to another. Marginal effects plots (predicted values) are used to visualize these interactions in an intuitive manner.</p>
+</section>
+<section id="choice-of-distribution-and-link-function" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="choice-of-distribution-and-link-function"><span class="header-section-number">4.3.2</span> Choice of Distribution and Link Function</h3>
+<p>The main dependent variable is the continuous violence justification index (scale 1–5). Although technically ordinal (discrete ordered levels), treating it as a continuous variable is justified on three methodological and substantive grounds. First, the indices average responses across multiple items (2 for protest violence, 2 for state violence), producing a more continuous and approximately normal distribution in the sample. Second, prior work in psychology and political science has shown that Likert scales with 5 or more points can be treated as continuous without substantial loss of information when multiple items are averaged <span class="citation" data-cites="norman_likert_2010 lubke_applying_2004">(<a href="#ref-norman_likert_2010" role="doc-biblioref">Norman, 2010</a>; <a href="#ref-lubke_applying_2004" role="doc-biblioref">Lubke et al., 2004</a>)</span>. Third, using continuous variables allows effects to be interpreted in terms of average changes on the justification scale, which is more intuitive and better captures subtle gradations in attitudes.</p>
+<p>The main models are therefore estimated using Generalized Linear Mixed Models (GLMM) with a Gaussian (normal) distribution and identity link function, incorporating random intercepts by individual to account for the hierarchical structure of the data. This specification is equivalent to a standard multilevel linear regression model and is estimated via restricted maximum likelihood (REML), which produces unbiased estimates of the variance components in finite samples <span class="citation" data-cites="raudenbush_hierarchical_2010">(<a href="#ref-raudenbush_hierarchical_2010" role="doc-biblioref">Raudenbush et al., 2010</a>)</span>.</p>
+</section>
+</section>
+<section id="software-and-reproducibility" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="software-and-reproducibility"><span class="header-section-number">4.4</span> Software and Reproducibility</h2>
+<p>All statistical analyses were conducted in R (version 4.3.1) using the glmmTMB package <span class="citation" data-cites="brooks_glmmtmb_2017">(<a href="#ref-brooks_glmmtmb_2017" role="doc-biblioref"><span class="nocase">Brooks et al.</span>, 2017</a>)</span> for the estimation of generalized mixed models, ggeffects <span class="citation" data-cites="ludecke_ggeffects_2018">(<a href="#ref-ludecke_ggeffects_2018" role="doc-biblioref">Lüdecke, 2018</a>)</span> for the calculation of marginal effects and adjusted predictions, and ggplot2 <span class="citation" data-cites="wickham_ggplot2_2016">(<a href="#ref-wickham_ggplot2_2016" role="doc-biblioref">Wickham, 2016</a>)</span> for the visualization of results. Complete analysis scripts—including code for data cleaning, variable construction, model estimation, and figure generation—are available in an <a href="https://osf.io/ybuz5/overview?view_only=469f99b4bac841eeb344b3ce049e50b8">OSF project</a>, for transparency and replicability of the reported findings.</p>
+</section>
+</section>
+<section id="results" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Results</h1>
+<p>This section presents the findings on the factors shaping the justification of violence in the context of social protest in Chile.</p>
+<section id="descriptive-statistics" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="descriptive-statistics"><span class="header-section-number">5.1</span> Descriptive Statistics</h2>
+<section id="justification-of-violence-by-education-level" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="justification-of-violence-by-education-level"><span class="header-section-number">5.1.1</span> Justification of Violence by Education Level</h3>
+<p>The patterns observed in <a href="#tbl-justificacion-educ" class="quarto-xref">Table&nbsp;1</a> reveal a notable trend. Among non-participants, higher education levels tend to be associated with lower justification of protest violence, with means declining from approximately 1.90 to 1.80. However, this trend reverses among those who do participate: participants with university education display the highest justification levels, reaching means around 2.29 and 2.27. This differentiated effect of education appears to be specific to protest violence, as, by contrast, the justification of state violence shows a much more stable pattern, with considerably smaller variation across educational levels.</p>
+<div id="tbl-justificacion-educ" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-justificacion-educ-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Justification of violence by education level and protest participation
+</figcaption>
+<div aria-describedby="tbl-justificacion-educ-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+
+</div>
+</figure>
+</div>
+</section>
+<section id="temporal-evolution-justification-of-violence-and-protest-participation-20162023" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="temporal-evolution-justification-of-violence-and-protest-participation-20162023"><span class="header-section-number">5.1.2</span> Temporal Evolution: Justification of Violence and Protest Participation (2016–2023)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-evolucion-temporal" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-evolucion-temporal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-evolucion-temporal-1.png" class="img-fluid figure-img" style="width:85.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-evolucion-temporal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Evolution of protest participation 2016–2023
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The temporal pattern analysis of <a href="#fig-evolucion-temporal" class="quarto-xref">Figure&nbsp;1</a> shows a result consistent with the observed protest cycle context. In 2019 — the year of the social outbreak — the highest average protest participation rate is recorded, reflecting the intensity of mobilization. In the post-2019 period, although participation declines from its peak, it remains at slightly higher levels than those observed before 2019, until its fall between 2021 and 2023, where it reaches its lowest average across the entire reported cycle.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-participacion-estratificada" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-participacion-estratificada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-participacion-estratificada-1.png" class="img-fluid figure-img" style="width:85.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-participacion-estratificada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Temporal divergence between protest violence and state violence justification (2016–2023)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-participacion-estratificada" class="quarto-xref">Figure&nbsp;2</a> reveals a striking temporal inversion in the moral hierarchy surrounding political violence. Pre-2019 (2016–2018), state violence consistently received higher justification than protest violence at the aggregate level (gap of −0.09 to −0.26 points), suggesting a baseline in which coercive force by state agents was viewed more leniently than disruptive actions by protesters. In 2019, this hierarchy reverses dramatically: protest violence rises to its sample-wide peak (~1.91) while state violence falls to its minimum (~1.53), producing a gap in the opposite direction (+0.38 points, protest &gt; state). This reversal reflects the impact of the uprising — both the surge in protest participation and the delegitimization of state repression in a context of widely perceived police brutality.</p>
+<p>In the post-2019 period (2022–2023), the pre-2019 hierarchy reasserts itself: state violence justification rises progressively while protest violence declines, with state again exceeding protest justification by 0.15–0.29 points. This pattern suggests that 2019 constituted a critical but temporary moral inversion — the uprising briefly reversed the default hierarchy, but the post-uprising period has seen a reversion in the broader population toward the baseline pattern in which state coercion is viewed more permissively than collective disruptive action. The aggregate convergence therefore reflects the attitudinal trajectories of the non-participating majority more than those of habitual protesters, whose patterns are captured in the interaction models that follow.</p>
+</section>
+</section>
+<section id="regression-analyses" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="regression-analyses"><span class="header-section-number">5.2</span> Regression Analyses</h2>
+<div id="tbl-modelos-principales" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modelos-principales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Main models of violence justification
+</figcaption>
+<div aria-describedby="tbl-modelos-principales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+
+</div>
+</figure>
+</div>
+<p><a href="#tbl-modelos-principales" class="quarto-xref">Table&nbsp;2</a> presents two main models guiding the analysis of this study. Model 1 examines the effects of education and protest participation on protest violence justification, and Model 2 evaluates those same effects on state violence justification. Both models include random effects by individual and controls for age, gender, ideology, and year.</p>
+<p>The results reveal differentiated patterns depending on the type of violence. For protest violence, participation shows a consistent positive effect, increasing justification by approximately 0.36 points. By contrast, for state violence, the direct effect of participation is negative and highly significant, showing that protest participants do not more readily justify police repression.</p>
+<p>The controls operate consistently: right-wing ideology reduces justification of protest violence (~-0.03 per point on the scale) but increases it for state violence (~+0.05). Women reject state violence more (~-0.13) with no differences on protest violence. The year 2019 shows the most dramatic contrast: a moderate increase in protest violence justification but a sharp fall in state violence justification (~-0.40), reflecting the impact of the social outbreak on attitudes toward police repression.</p>
+<div id="tbl-modelos-interaccion" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modelos-interaccion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Interaction models for violence justification
+</figcaption>
+<div aria-describedby="tbl-modelos-interaccion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+
+</div>
+</figure>
+</div>
+<p>The models in <a href="#tbl-modelos-interaccion" class="quarto-xref">Table&nbsp;3</a> reveal that the effect of participation varies significantly by education level. For protest violence, the interactions between education and participation are positive, indicating that the legitimizing effect of participating is stronger among more educated individuals. A person with complete university education who participates increases their justification by 0.40 points versus 0.27 for secondary education, evidencing the “educational paradox”: education reduces justification among non-participants (-0.13***) but amplifies the effect of participation.</p>
+<p>For state violence, the pattern reverses completely. The interactions are negative (university incomplete: -0.16<em>; university complete: -0.18</em>**), indicating that only the combination of university education + participation generates significant rejection of repression (total effect: -0.22 points). Education alone (+0.06, ns) or participation alone (-0.04, ns) are insufficient; it is their interaction that activates the differentiated rejection.</p>
+<p>The bidirectional reconfiguration (legitimizing protests, rejecting repression) is clearest among university-educated participants, consistent with the dual moral framework requiring both higher education and direct mobilization experience.</p>
+<section id="disentangling-selection-from-socialization-a-within-between-analysis" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="disentangling-selection-from-socialization-a-within-between-analysis"><span class="header-section-number">5.2.1</span> Disentangling Selection from Socialization: A Within-Between Analysis</h3>
+<p>A key interpretive challenge in the models above is that the participation effect may reflect selection (individuals with pre-existing radical attitudes self-select into protests) rather than socialization (participation itself transforms attitudes). The random-intercept models above control for stable individual differences but do not directly decompose the participation effect into these two components. To address this, we estimate a within-between (REWB) model <span class="citation" data-cites="bell_explaining_2015a">(<a href="#ref-bell_explaining_2015a" role="doc-biblioref">Bell et al., 2015</a>)</span> that decomposes protest participation into: (a) the within-person component — deviations from each individual’s mean participation across waves, capturing attitudinal change associated with varying participation over time — and (b) the between-person component — each individual’s mean participation, capturing stable propensity to participate and thereby indexing potential selection bias.</p>
+<div id="tbl-modelos-rewb" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modelos-rewb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Within-between models: decomposing participation into within- and between-person components
+</figcaption>
+<div aria-describedby="tbl-modelos-rewb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+
+</div>
+</figure>
+</div>
+<p><a href="#tbl-modelos-rewb" class="quarto-xref">Table&nbsp;4</a> decomposes the participation effect into within- and between-person components. For protest violence (Model 3a), both components are statistically significant. The within-person coefficient (β = .252, <em>p</em> &lt; .001) indicates that individuals show higher justification in waves where they participate relative to their own non-participating waves — consistent with a socialization process. The between-person coefficient is substantially larger (β = .686, <em>p</em> &lt; .001), indicating that individuals who participate more frequently across waves already hold considerably higher baseline justifications — consistent with selection. Both mechanisms thus operate simultaneously for protest violence, though the selection component explains the larger share.</p>
+<p>For state violence (Model 3b), the decomposition reveals a different pattern. The within-person coefficient (β = −.044, <em>p</em> = ns) is not significant, while the between-person coefficient is significant and substantially negative (β = −.432, <em>p</em> &lt; .001). This suggests that the negative association between participation and state violence justification documented in Models 1–2 reflects predominantly pre-existing attitudinal differences rather than within-person change produced by participation itself: individuals who participate more frequently across waves already show lower state violence justification, consistent with a selection-dominant process. These results qualify the interpretation of H2b — the observed pattern appears driven primarily by the sorting of attitudinally distinct individuals into protest, rather than by experiential moral reframing generated by participation.</p>
+<div id="tbl-modelos-rewb-int" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modelos-rewb-int-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Within-between models with education × participation interaction (Models 4a–4b): decomposing socialization and selection by educational level
+</figcaption>
+<div aria-describedby="tbl-modelos-rewb-int-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+
+</div>
+</figure>
+</div>
+<p><a href="#tbl-modelos-rewb-int" class="quarto-xref">Table&nbsp;5</a> extends the decomposition by interacting education with both participation components, yielding a critical test of whether the educational paradox in protest violence reflects differential socialization or differential sorting. For protest violence (Model 4a), the evidence most consistently supports a sorting account: the education × within-person interaction for university complete is negligible and non-significant (β = .004, <em>p</em> = .945), while the education × between-person interaction is substantial and significant (β = .377, <em>p</em> &lt; .001). University-educated protesters show essentially the same within-person socialization effect as lower-educated groups — participation shifts their attitudes no more than it does for the reference category — but they enter each wave with substantially higher baseline protest violence justification. The educational paradox documented in <a href="#tbl-modelos-interaccion" class="quarto-xref">Table&nbsp;3</a> is most consistent with a selection account: the cultural capital of university education appears to sort individuals into protest from a position of pre-existing permissiveness toward disruptive violence, rather than amplifying their responsiveness to participation.</p>
+<p>For state violence (Model 4b), the interaction tells a more nuanced story. For lower-educated groups, the within-person effect of participation on state violence remains near zero and non-significant (base β = .039, ns). However, university-incomplete and university-complete groups show significant differential within-person effects (within-person interaction: β = −.212, <em>p</em> = .016 for university incomplete; β = −.136, <em>p</em> = .032 for university complete), implying total within-person effects of −.173 and −.097 respectively — genuine attitudinal shifts when these individuals transition between participating and non-participating waves. This suggests that participation does produce some within-person reduction in state violence tolerance specifically among the most educated, qualifying the pure selection story. Nonetheless, the dominant mechanism for state violence remains sorting: the between-person effect is substantial for the reference category (β = −.368, <em>p</em> &lt; .001) and further amplified for university completers (between-person interaction: β = −.212, <em>p</em> = .059 — a distinct coefficient that coincides numerically with the within-person interaction for university-incomplete above). The overall picture thus combines a selection-dominant pattern with a partial socialization process that operates exclusively at the upper end of the educational distribution.</p>
+<p>These results also address a potential concern about the power of within-person estimates. Of the 3,627 individuals meeting the minimum three-wave inclusion criterion, 244 were subsequently excluded via listwise deletion on model covariates (ideology, age, gender, and outcome variables), yielding the analytical sample of 3,383 used in all regression models. Within the broader criterion-eligible panel of 3,627, 1,262 (34.8%) changed participation status at least once across waves, and within-person variation accounts for 54.8% of total participation variance. The within-null for state violence in Model 3b therefore cannot be attributed to insufficient variation in participation across waves.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-efectos-marginales" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-efectos-marginales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-efectos-marginales-1.png" class="img-fluid figure-img" style="width:85.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-efectos-marginales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Marginal effects of protest participation on violence justification by education
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-efectos-marginales" class="quarto-xref">Figure&nbsp;3</a> visualizes the marginal effects of participation by education, allowing direct evaluation of the hypotheses about differential effects.</p>
+<p>In Panel A, all education levels show significant positive associations between participation and protest violence justification, with magnitudes ranging from +0.27 (secondary education) to +0.55 (technical college incomplete). The association is stronger among technical college (+0.55) and university (+0.40) than among secondary education (+0.27), indicating that education amplifies the effect of participation rather than dampening it — a pattern at odds with the civilizing effect hypothesis among those who mobilize.</p>
+<p>Panel B shows that only university-educated individuals have significant negative marginal effects on state violence justification (−0.20 to −0.22), while secondary and technical education show null effects (grey points on the red line). University-educated participants thus show higher protest violence justification (+0.40) while simultaneously showing lower state violence justification (−0.22). As the within-between analysis in Section 5.2.1 suggests, this state violence pattern is most consistent with a sorting account — individuals who tend to participate more appear to already hold lower state violence justification — rather than attitudinal change produced by participation itself.</p>
+</section>
+<section id="the-education-paradox-effect" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="the-education-paradox-effect"><span class="header-section-number">5.2.2</span> The Education “Paradox Effect”</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-paradoja-educacion" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-paradoja-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-paradoja-educacion-1.png" class="img-fluid figure-img" style="width:85.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-paradoja-educacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Predicted values of violence justification by education and participation type
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-paradoja-educacion" class="quarto-xref">Figure&nbsp;4</a> shows both the “educational paradox” (H1a–H1b) and the bidirectional reconfiguration (H2a–H2b) through direct comparison of violence types. Panel A shows the pattern for protest violence: among non-participants, higher education is associated with lower justification (descending red line from ~1.95 at secondary education to ~1.75 at university complete), consistent with the civilizing effect. Among participants, however, the direction reverses (ascending blue line from ~2.20 at secondary education to ~2.35 at technical college incomplete), suggesting that mobilization experience is associated with higher justification even among the most educated groups.</p>
+<p>Panel B reveals the contrasting pattern for state violence, consistent with H2a–H2b. Among non-participants, both lines remain nearly parallel across education levels with no meaningful gradient, indicating that education alone does not generate a critical framework toward repression. Among participants, the blue line declines markedly at university levels — the only educational group for which participation is associated with lower state violence justification (university complete: −0.18**<em>; university incomplete: −0.16</em>). Read together, the two panels are consistent with the bidirectionality of the reconfiguration: university-educated participants simultaneously show higher protest violence justification and lower state violence justification, consistent with the dual moral framework predicted in H2a–H2b.</p>
+</section>
+</section>
+<section id="bidirectional-reconfiguration-of-violence-justification-protest-violence-vs.-state-violence" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="bidirectional-reconfiguration-of-violence-justification-protest-violence-vs.-state-violence"><span class="header-section-number">5.3</span> Bidirectional Reconfiguration of Violence Justification (Protest Violence vs.&nbsp;State Violence)</h2>
+<p>The interaction models (Model 1b and Model 2b) reveal the bidirectional dynamic predicted in H2a–H2b (university-educated). H2a is supported: for protest violence, university education is associated with lower justification among non-participants (<span class="math inline">-0.13***</span>), but participation is associated with an increase (<span class="math inline">+0.27***</span>) that is larger at higher education levels (technical college incomplete: <span class="math inline">+0.28*</span>; university complete: <span class="math inline">+0.13**</span>), consistent with the nullification of the civilizing effect. H2b is supported in terms of the observed association: for state violence, education alone (<span class="math inline">+0.06</span>, ns) and participation alone (<span class="math inline">-0.04</span>, ns) show no independent effects, but their negative interactions produce significant lower justification among university-educated individuals (incomplete: <span class="math inline">-0.16*</span>; complete: <span class="math inline">-0.18***</span>), indicating that the combination of university education and participation is associated with lower acceptance of state repression. As shown in the within-between analysis (Section 5.2.1), however, the within-person component of this state violence effect is non-significant, suggesting that this pattern predominantly reflects pre-existing attitudinal differences among habitual protesters rather than a socialization process generated by participation itself.</p>
+<p>The controls are consistent with the impact of the 2019 outbreak: moderate increase in protest justification (<span class="math inline">+0.05*</span>) but sharp fall in state violence (<span class="math inline">-0.40***</span>), substantially reconfiguring attitudes toward police repression. Ideology operates in opposite directions: right-wing ideology reduces justification of protests (<span class="math inline">-0.03***</span>) but increases that of state violence (<span class="math inline">+0.05***</span>). Women reject state violence more (<span class="math inline">-0.13***</span>) with no differences in protests. This pattern indicates that the bidirectional reconfiguration predicted in H2a–H2b is most pronounced among those who combine university education with direct experience of mobilization. The protest violence component of this reconfiguration involves both socialization and selection, while the state violence component appears driven primarily by selection — a distinction documented in the within-between models.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bidireccional-tiempo" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bidireccional-tiempo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-bidireccional-tiempo-1.png" class="img-fluid figure-img" style="width:85.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bidireccional-tiempo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Temporal evolution of bidirectional reconfiguration: secondary vs.&nbsp;university education (2016–2023)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-bidireccional-tiempo" class="quarto-xref">Figure&nbsp;5</a> visualizes the temporal dynamics of the bidirectional reconfiguration predicted in H2a–H2b through the direct contrast between secondary and university education — the two polar cases that most clearly reveal whether the dual moral framework requires university socialization.</p>
+<p>Among non-participants (top row), both education levels show parallel lines between protest and state violence throughout the entire period, confirming that participation is a necessary condition for the bidirectional reconfiguration: without mobilization experience, neither educational level generates the divergence between violence types predicted in H2a–H2b.</p>
+<p>Among participants (bottom row), the contrast is clear. Secondary-educated participants show elevated protest violence justification post-2019 (consistent with H2a) but near-parallel lines with state violence, which does not support H2b: they show higher acceptance of tactical violence but without a corresponding rejection of state repression. University-educated participants display the pattern consistent with the full dual framework: (1) a sustained elevated yellow line (~2.0–2.1), at odds with the civilizing effect and consistent with H2a; (2) a notable decline of the blue line in 2019 from ~1.75 to ~1.35 (<span class="math inline">-0.40***</span>), consistent with H2b; (3) a post-2019 divergence of ~0.7 points between both violence types. This direct comparison is consistent with H2a and H2b being jointly observable only under the combination of university education and mobilization experience.</p>
+</section>
+</section>
+<section id="discussion-and-conclusions" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Discussion and Conclusions</h1>
+<p>As outlined at the outset, this article departs from a fundamental question raised by the 2019 social uprising: why and how did sectors traditionally associated with political moderation and institutional attachment come to legitimize disruptive forms of political violence? The findings complicate classical linear conceptions of education’s role. The “civilizing effect” hypothesis holds — but only for those who observe politics from a distance. Among protesters, the expected pattern inverts. Crucially, however, within-between decomposition suggests this inversion is driven primarily by sorting rather than transformation: protest participation does not produce stronger attitudinal shifts among the educated, but reveals that those who habitually mobilize already hold qualitatively different political orientations. What our study documents is not that protest transforms the educated, but that it surfaces who they already were.</p>
+<p>The classical literature in political sociology has long defended the “civilizing effect” hypothesis <span class="citation" data-cites="lipset_social_1959a nie_education_1996a">(<a href="#ref-lipset_social_1959a" role="doc-biblioref">Lipset, 1959</a>; <a href="#ref-nie_education_1996a" role="doc-biblioref">Nie et al., 1996</a>)</span>, premised on the idea that education fosters tolerance and rejection of violence as a mode of political action. The findings of this study confirm this relationship, but with a critical qualification: it holds only for those who observe politics from a distance.</p>
+<p>Among non-participants, higher education is indeed associated with lower justification of violence. However, once protest participation is introduced, this relationship reverses — consistent with Hypothesis 1 (H1). University-educated participants not only justify violence more than their non-mobilized peers; they reach the highest justification levels in the entire sample, surpassing even those with the lowest levels of formal education.</p>
+<p>This pattern is consistent with a cognitive amplification mechanism: the cultural capital of higher education may provide conceptual resources for constructing legitimizing frameworks <span class="citation" data-cites="snow_ideology_1988a">(<a href="#ref-snow_ideology_1988a" role="doc-biblioref">Snow et al., 1988</a>)</span> that render tactical violence compatible with democratic values in contexts of confrontation. However, the within-between decomposition detailed in Section 5.2.1 places a critical constraint on this interpretation. For protest violence, university-educated participants show no greater within-person socialization effect than lower-educated groups — they are not more responsive to participation’s transformative influence. Cognitive amplification through the experience of mobilization is therefore unlikely to be the primary driver of the educational paradox. The more parsimonious account, consistent with the evidence, is that university education concentrates individuals with pre-existing political orientations that are subsequently expressed in participation and attitudes alike.</p>
+<p>This selection account is not simply an alternative that “cannot be ruled out” — the within-between interaction analysis (Section 5.2.1) provides direct evidence that the education × between-person effect dominates the education × within-person effect for protest violence. University-educated individuals who habitually participate enter each wave already holding higher baseline protest violence justification, rather than incrementally developing it through participation. Whether the pre-existing orientations that drive this sorting reflect campus-based political socialization that predates any individual wave, network embeddedness in activist communities, or deeper biographical factors remains beyond the scope of the present data. Future research should use pre-participation attitudinal measures or panel designs that begin before individuals enter mobilization cycles to better isolate the formative role of university contexts from the selection into protest itself.</p>
+<p>The sorting account raises a further question about the developmental origins of the pre-existing orientations that distinguish habitual protesters. One important dimension concerns the distinction between those actively embedded in university contexts (enrolled students) and those who hold university credentials but have left campus (graduates or dropouts). The literature on university socialization <span class="citation" data-cites="gurin_diversity_2002">(<a href="#ref-gurin_diversity_2002" role="doc-biblioref">Gurin et al., 2002</a>)</span> suggests that formative political orientations are not solely a product of accumulated educational credentials, but of prolonged immersion in spaces of deliberation, ideological diversity, and student activism characteristic of campus life.</p>
+<p>If the attitudinal configurations that select university-educated individuals into protest are shaped primarily through campus-based socialization, then enrolled students would be expected to display qualitatively different patterns from those who have transitioned to the labor market. This distinction is especially relevant in Chile, where the university student movement has historically been a central actor in social protest (2006, 2011, 2019). Future research should disaggregate the “university-educated” category into enrolled students, recent graduates, and longer-term graduates, in order to assess at what biographical moment the sorting process between future participants and non-participants diverges and whether the educational paradox attenuates with distance from campus.</p>
+<p>Political participation thus appears to surface rather than produce the moral frameworks of educated mobilizers. The higher protest violence justification and lower state violence tolerance that characterize university-educated protesters may reflect orientations already consolidated through prior socialization — campus-based, network-mediated, or biographical — rather than attitudes reshaped by the experience of mobilization itself. This sorting, however, is context-dependent: it is most visible during the 2019 cycle, when protest activity peaked and attitudinal configurations were most sharply expressed. This mechanism-level finding extends the contribution of <span class="citation" data-cites="disipavlic_justification_2025a">Disi Pavlic et al. (<a href="#ref-disipavlic_justification_2025a" role="doc-biblioref">2025</a>)</span>, who document that acceptance of violence varies by proximity to protest and policing style — and note that these effects differ by ideology and prior experience — but treat education as a contextualizing covariate and do not examine how educational attainment moderates the participation effect or adjudicate whether the resulting pattern reflects attitudinal sorting or experiential socialization. Perhaps the most substantive finding for understanding contemporary Chilean conflict is the documentation of a bidirectional reconfiguration of attitudes. Contrary to the view that the uprising generated generalized anomie or indiscriminate validation of all forms of violence, the data reveal the emergence of a highly sophisticated dual moral framework — particularly among educated participants.</p>
+<p>The data show that protesters — and in particular those who combine university education with active participation — operated under a logic of selective delegitimization during the most intense moment of the conflict. In 2019, while showing higher justification of disruptive violence as a political tool (presumably in response to a perceived institutional vacuum), they simultaneously showed lower justification of state repression. This pattern is consistent with procedural justice theory <span class="citation" data-cites="tyler_restorative_2006">(<a href="#ref-tyler_restorative_2006" role="doc-biblioref">Tyler, 2006</a>)</span>: when police conduct is perceived as unjust or disproportionate, state legitimacy erodes and protest resistance acquires moral valence.</p>
+<p>An important qualification to this interpretation emerges from the within-between analysis. The REWB models (Table 3) show that for protest violence, both socialization and selection operate simultaneously, though selection is stronger. The interaction REWB models (Table 4) sharpen this finding considerably: the education × within-person interaction for university completers is negligible (β = .004, ns), while the education × between-person interaction is large and significant (β = .377, <em>p</em> &lt; .001). The educational paradox in protest violence is most consistent with a selection account — highly educated protesters appear to enter each wave already holding more permissive attitudes toward disruptive violence, rather than being more responsive to participation’s transformative influence. The “cognitive amplification” narrative, which posits that university education equips individuals to reinterpret violence as legitimate resistance when they mobilize, receives no support from within-person analysis.</p>
+<p>For state violence, the interaction model reveals a more differentiated picture. The within-null documented in Model 3b (β = −.044, ns) is an average that conceals education-specific heterogeneity: university-educated groups show significant within-person reductions in state violence justification when they participate (total within-person effects of −.173 for university incomplete and −.097 for university complete, both p &lt; .05). Participation therefore does produce some genuine within-person attitudinal shift for the most educated — a partial socialization process absent in lower-education groups. Nevertheless, the dominant mechanism remains sorting: between-person effects are substantially larger than within-person effects across all education levels, and the between-person effect is further amplified for university completers. Whether this partial socialization reflects specific exposure to police conduct in protest contexts, ongoing campus-based political discussion, or accumulated exposure to movement frames remains an open question for future research.</p>
+<p>The temporal dynamics of this effect reveal a more complex picture than a permanent moral fracture. At the aggregate level, the 2019 reversal of the pre-existing hierarchy (protest justification exceeding state justification for the first time) did not persist: post-2019 data (2022–2023 waves) show state violence justification rising progressively while protest violence declines, re-establishing the pre-2019 pattern in which state coercion is viewed more permissively than collective disruptive action across the full sample. This aggregate reversion reflects predominantly the trajectory of non-participants, who form the majority of respondents. Among habitual participants — particularly university-educated ones — the bidirectional moral framework (higher protest, lower state) shows more persistence, though also partial convergence as the intensity of mobilization subsided.</p>
+<p>This temporal pattern is consistent with models of context effects, in which acute political crises generate temporary attitudinal realignments that attenuate once collective effervescence declines <span class="citation" data-cites="snow_protest_2014">(<a href="#ref-snow_protest_2014" role="doc-biblioref">Snow et al., 2014</a>)</span>. The post-2019 normalization in aggregate violence attitudes suggests that the uprising produced a conjunctural moral inversion rather than a durable restructuring of the rules governing legitimate force. Non-participants appear to have reverted toward pre-2019 baselines, while habitual protesters with higher education maintain relatively more stable configurations — though even among them, the 2019 peak has not been sustained.</p>
+<p>It is important to note, however, that convergence does not imply a full return to the pre-uprising status quo. The 2022–2023 trajectories still differ from the pre-2019 period, and the experience of the uprising has left an identitarian mark on participants, particularly among the more educated sectors. The study shows that, during the critical moment of 2019, political violence was legitimized primarily by the most educated and socially integrated participants — challenging conventional readings that attribute political violence to marginality. Yet this legitimization was predominantly conjunctural, responding to the specific context of police repression and institutional crisis, rather than consolidating as a permanent cultural transformation of the moral rules governing the use of force.</p>
+<section id="limitations" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="limitations"><span class="header-section-number">6.1</span> Limitations</h2>
+<p>Several limitations of this study should be acknowledged. First, protest participation is operationalized as retrospective self-report over the preceding twelve months, which introduces potential recall bias and social desirability effects. Although prior evidence suggests that short-reference-period participation reports have reasonable validity <span class="citation" data-cites="walgrave_missing_2014">(<a href="#ref-walgrave_missing_2014" role="doc-biblioref">Walgrave et al., 2014</a>)</span>, the measure may be systematically inflated among respondents who identify more strongly with social movements, creating a correlation between the measurement error and the predictor itself.</p>
+<p>Second, the inclusion criterion requiring at least three completed waves may introduce attrition bias. Respondents who remained in the panel across multiple waves are likely to differ systematically from those who dropped out — potentially in terms of stability, civic engagement, or educational attainment — which could affect the generalizability of findings to the broader Chilean adult population.</p>
+<p>Third, while the within-between (REWB) decomposition addresses selection on time-stable characteristics, it does not eliminate the possibility of time-varying confounding. Shocks or life events that occur simultaneously with changes in participation status — such as job loss, relocation, exposure to police violence at a specific event, or entry into activist networks — could produce spurious within-person associations between participation and attitudes. The partial within-person socialization effect documented for state violence among university-educated groups should therefore be interpreted as a plausible pattern rather than a causal estimate.</p>
+<p>Fourth, the language used in this paper to describe patterns (“reveals”, “confirms”, “demonstrates”) should be read as shorthand for conditional claims about observed associations in observational data rather than as assertions of causal identification. The study’s design identifies the joint distribution of education, participation, and violence attitudes longitudinally, but falls short of the experimental or quasi-experimental standards required for causal inference. These limitations define an agenda for future research: panel designs with pre-participation baselines, matching or instrumental variable approaches, and administrative records of participation would each address specific sources of bias that observational self-report data cannot fully resolve.</p>
+</section>
+</section>
+<section id="references" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-almond_civic_1963" class="csl-entry" role="listitem">
+ALMOND, G. A. and VERBA, S., <em>The <span>Civic Culture</span></em>, Princeton University Press, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/j.ctt183pnr2">https://www.jstor.org/stable/j.ctt183pnr2</a>, 1963.
+</div>
+<div id="ref-amnistia_ojos_2020" class="csl-entry" role="listitem">
+Amnistía Internacional, Ojos Sobre <span>Chile</span>: <span>Violencia</span> Policial y Responsabilidad de Mando Durante El Estallido Social, AMR 22/3133/2020, 2020.
+</div>
+<div id="ref-araujo_circuit_2022" class="csl-entry" role="listitem">
+Araujo, K., <em><a href="https://doi.org/10.1017/9781009310697">The Circuit of Detachment in <span>Chile</span>: Understanding the Fate of a Neoliberal Laboratory</a></em>, Cambridge, United Kingdom ; New York, NY: Cambridge University Press, 2022.
+</div>
+<div id="ref-bell_explaining_2015a" class="csl-entry" role="listitem">
+Bell, A. and Jones, K., Explaining <span>Fixed Effects</span>: <span>Random Effects Modeling</span> of <span>Time-Series Cross-Sectional</span> and <span>Panel Data</span>, <em>Political Science Research and Methods</em>, vol. <strong>3</strong>, no. 1, pp. 133–53, accessed June 25, 2026, January 2015. DOI: <a href="https://doi.org/10.1017/psrm.2014.7">10.1017/psrm.2014.7</a>
+</div>
+<div id="ref-bellei_2011_2014" class="csl-entry" role="listitem">
+Bellei, C., Cabalin, C. and Orellana, V., The 2011 <span>Chilean</span> Student Movement Against Neoliberal Educational Policies, <em>Studies in Higher Education</em>, vol. <strong>39</strong>, no. 3, pp. 426–40, accessed November 24, 2025, March 2014. DOI: <a href="https://doi.org/10.1080/03075079.2014.896179">10.1080/03075079.2014.896179</a>
+</div>
+<div id="ref-benford_framing_2000" class="csl-entry" role="listitem">
+Benford, R. D. and Snow, D. A., Framing <span>Processes</span> and <span>Social Movements</span>: <span>An Overview</span> and <span>Assessment</span>, <em>Annual Review of Sociology</em>, vol. <strong>26</strong>, pp. 611–39, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/223459">https://www.jstor.org/stable/223459</a>, 2000.
+</div>
+<div id="ref-berinsky_education_2011a" class="csl-entry" role="listitem">
+Berinsky, A. J. and Lenz, G. S., Education and <span>Political Participation</span>: <span>Exploring</span> the <span>Causal Link</span>, <em>Political Behavior</em>, vol. <strong>33</strong>, no. 3, pp. 357–73, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/41488848">https://www.jstor.org/stable/41488848</a>, 2011.
+</div>
+<div id="ref-bonner_constructing_2022" class="csl-entry" role="listitem">
+Bonner, M. D. and Dammert, L., Constructing Police Legitimacy During Protests: Frames and Consequences for Human Rights, <em>Policing and Society</em>, vol. <strong>32</strong>, no. 5, pp. 629–45, accessed November 24, 2025, May 2022. DOI: <a href="https://doi.org/10.1080/10439463.2021.1957887">10.1080/10439463.2021.1957887</a>
+</div>
+<div id="ref-brady_ses_1995a" class="csl-entry" role="listitem">
+Brady, H. E., Verba, S. and Schlozman, K. L., Beyond <span>SES</span>: <span>A Resource Model</span> of <span>Political Participation</span>, <em>American Political Science Review</em>, vol. <strong>89</strong>, no. 2, pp. 271–94, accessed April 8, 2026, June 1995. DOI: <a href="https://doi.org/10.2307/2082425">10.2307/2082425</a>
+</div>
+<div id="ref-brooks_glmmtmb_2017" class="csl-entry" role="listitem">
+<span class="nocase">Brooks, M., E., Kristensen, K., Benthem, van, J., Magnusson, A., Berg, C., W., Nielsen, A., Skaug, H., J., Mächler, M. and Bolker, B., M.</span>, <span class="nocase">glmmTMB Balances Speed</span> and <span>Flexibility Among Packages</span> for <span class="nocase">Zero-inflated Generalized Linear Mixed Modeling</span>, <em>The R Journal</em>, vol. <strong>9</strong>, no. 2, p. 378, accessed November 24, 2025, 2017. DOI: <a href="https://doi.org/10.32614/RJ-2017-066">10.32614/RJ-2017-066</a>
+</div>
+<div id="ref-canalesceron_pregunta_2022" class="csl-entry" role="listitem">
+Canales Cerón, M., <em><span>La pregunta de Octubre: fundación, apogeo y crisis del Chile neoliberal</span></em>, Santiago de Chile: LOM ediciones, 2022.
+</div>
+<div id="ref-carrascopaillamilla_predictors_2023" class="csl-entry" role="listitem">
+Carrasco Paillamilla, S. F. and Disi Pavlic, R., Predictors of Perceptions of Human Rights Violations During the <span>Chilean</span> Social Outburst of 2019, <em>Frontiers in Psychology</em>, vol. <strong>14</strong>, p. 1133428, accessed November 24, 2025, April 2023. DOI: <a href="https://doi.org/10.3389/fpsyg.2023.1133428">10.3389/fpsyg.2023.1133428</a>
+</div>
+<div id="ref-converse_change_1972" class="csl-entry" role="listitem">
+Converse, P., Change in the <span>American</span> Electorate, <em>The Human Meaning of Social Change/Russell Sage Foundation</em>, 1972.
+</div>
+<div id="ref-cox_2019_2024" class="csl-entry" role="listitem">
+Cox, L., González, R. and Le Foulon, C., The 2019 <span>Chilean Social Upheaval</span>: <span>A Descriptive Approach</span>, <em>Journal of Politics in Latin America</em>, vol. <strong>16</strong>, no. 1, pp. 68–89, accessed November 24, 2025, April 2024. DOI: <a href="https://doi.org/10.1177/1866802X231203747">10.1177/1866802X231203747</a>
+</div>
+<div id="ref-crossley_reproduction_2003" class="csl-entry" role="listitem">
+Crossley, N., From <span>Reproduction</span> to <span>Transformation</span>: <span>Social Movement Fields</span> and the <span>Radical Habitus</span>, <em>Theory, Culture &amp; Society</em>, vol. <strong>20</strong>, no. 6, pp. 43–68, accessed November 24, 2025, December 2003. DOI: <a href="https://doi.org/10.1177/0263276403206003">10.1177/0263276403206003</a>
+</div>
+<div id="ref-dahlum_students_2019a" class="csl-entry" role="listitem">
+Dahlum, S., Students in the <span>Streets</span>: <span>Education</span> and <span>Nonviolent Protest</span>, <em>Comparative Political Studies</em>, vol. <strong>52</strong>, no. 2, pp. 277–309, accessed April 8, 2026, February 2019. DOI: <a href="https://doi.org/10.1177/0010414018758761">10.1177/0010414018758761</a>
+</div>
+<div id="ref-davenport_protesting_2011" class="csl-entry" role="listitem">
+Davenport, C., Soule, S. A. and Armstrong, D. A., Protesting <span>While Black</span>? <span>The Differential Policing</span> of <span>American Activism</span>, 1960 to 1990, <em>American Sociological Review</em>, vol. <strong>76</strong>, no. 1, pp. 152–78, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/25782184">https://www.jstor.org/stable/25782184</a>, 2011.
+</div>
+<div id="ref-dellaporta_global_2017" class="csl-entry" role="listitem">
+<span class="nocase">della Porta, D. Ed.</span>, <em>Global <span>Diffusion</span> of <span>Protest</span>: <span>Riding</span> the <span>Protest Wave</span> in the <span>Neoliberal Crisis</span></em>, Amsterdam University Press, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/j.ctt1zkjxq0">https://www.jstor.org/stable/j.ctt1zkjxq0</a>, 2017.
+</div>
+<div id="ref-dellaporta_policing_2007" class="csl-entry" role="listitem">
+Della Porta, D. and Fillieule, O., <a href="https://doi.org/10.1002/9780470999103.ch10">Policing <span>Social Protest</span></a>, in <em>The <span>Blackwell Companion</span> to <span>Social Movements</span></em>, D. A. Snow S. A. Soule and H. Kriesi, Eds., Oxford, UK: Blackwell Publishing Ltd, accessed November 24, 2025, pp. 217–41, 2007.
+</div>
+<div id="ref-dewey_democracy_2024" class="csl-entry" role="listitem">
+Dewey, J. and Tampio, N., <em>Democracy and Education</em>, New York: Columbia University Press, 2024.
+</div>
+<div id="ref-disipavlic_nearness_2021a" class="csl-entry" role="listitem">
+Disi Pavlic, R., The <span>Nearness</span> of <span>Youth</span>: <span>Spatial</span> and <span>Temporal Effects</span> of <span>Protests</span> on <span>Political Attitudes</span> in <span>Chile</span>, <em>Latin American Politics and Society</em>, vol. <strong>63</strong>, no. 1, pp. 72–94, accessed April 8, 2026, February 2021. DOI: <a href="https://doi.org/10.1017/lap.2020.33">10.1017/lap.2020.33</a>
+</div>
+<div id="ref-disipavlic_justification_2025a" class="csl-entry" role="listitem">
+Disi Pavlic, R., Medel, R. M., Bargsted, M. and Somma, N. M., Justification of Violence, Ideological Preferences, and Exposure to Protests: Causal Evidence from the 2019 <span>Chilean</span> Social Unrest, <em>Social Forces</em>, p. soaf102, accessed November 24, 2025, July 2025. DOI: <a href="https://doi.org/10.1093/sf/soaf102">10.1093/sf/soaf102</a>
+</div>
+<div id="ref-donoso_social_2023a" class="csl-entry" role="listitem">
+Donoso, S., Pavlic, R. D. and Cumsille R., B., Social Policy Expansion from Below? <span>The</span> Case of <span>Chile</span>’s Student Movement and Free Tuition Higher Education, <em>World Development</em>, vol. <strong>167</strong>, p. 106213, July 2023. DOI: <a href="https://doi.org/10.1016/j.worlddev.2023.106213">10.1016/j.worlddev.2023.106213</a>
+</div>
+<div id="ref-dyrstad_explaining_2020" class="csl-entry" role="listitem">
+Dyrstad, K. and Hillesund, S., Explaining <span>Support</span> for <span>Political Violence</span>, <em>The Journal of Conflict Resolution</em>, vol. <strong>64</strong>, no. 9, pp. 1724–53, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/48631689">https://www.jstor.org/stable/48631689</a>, 2020.
+</div>
+<div id="ref-ellner_contrasting_2003" class="csl-entry" role="listitem">
+Ellner, S., The <span>Contrasting Variants</span> of the <span>Populism</span> of <span>Hugo Chávez</span> and <span>Alberto Fujimori</span>, <em>Journal of Latin American Studies</em>, vol. <strong>35</strong>, no. 1, pp. 139–62, accessed June 24, 2026, February 2003. DOI: <a href="https://doi.org/10.1017/S0022216X02006685">10.1017/S0022216X02006685</a>
+</div>
+<div id="ref-fair_who_2006" class="csl-entry" role="listitem">
+Fair, C. C. and Shepherd, B., Who <span>Supports Terrorism</span>? <span>Evidence</span> from <span>Fourteen Muslim Countries</span>, <em>Studies in Conflict &amp; Terrorism</em>, vol. <strong>29</strong>, no. 1, pp. 51–74, accessed November 24, 2025, January 2006. DOI: <a href="https://doi.org/10.1080/10576100500351318">10.1080/10576100500351318</a>
+</div>
+<div id="ref-francisco_relationship_1995" class="csl-entry" role="listitem">
+Francisco, R. A., The <span>Relationship</span> Between <span>Coercion</span> and <span>Protest</span>: <span>An Empirical Evaluation</span> in <span>Three Coercive States</span>, <em>The Journal of Conflict Resolution</em>, vol. <strong>39</strong>, no. 2, pp. 263–82, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/174413">https://www.jstor.org/stable/174413</a>, 1995.
+</div>
+<div id="ref-garces_october_2019" class="csl-entry" role="listitem">
+Garcés, M., October 2019: <span>Social Uprising</span> in <span>Neoliberal Chile</span>, <em>Journal of Latin American Cultural Studies</em>, vol. <strong>28</strong>, no. 3, pp. 483–91, accessed November 24, 2025, July 2019. DOI: <a href="https://doi.org/10.1080/13569325.2019.1696289">10.1080/13569325.2019.1696289</a>
+</div>
+<div id="ref-gelman_data_2021" class="csl-entry" role="listitem">
+Gelman, A. and Hill, J., <em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>, Cambridge: Cambridge Univ. Press, 2021.
+</div>
+<div id="ref-gerber_justifying_2017" class="csl-entry" role="listitem">
+Gerber, Monica M. and Jackson, J., Justifying Violence: Legitimacy, Ideology and Public Support for Police Use of Force, <em>Psychology, Crime &amp; Law</em>, vol. <strong>23</strong>, no. 1, pp. 79–95, accessed November 24, 2025, January 2017. DOI: <a href="https://doi.org/10.1080/1068316X.2016.1220556">10.1080/1068316X.2016.1220556</a>
+</div>
+<div id="ref-gerber_legitimidad_2023" class="csl-entry" role="listitem">
+Gerber, Mónica M., Figueiredo, A., Sáez, L. and Orchard, M., Legitimidad, <span>Justicia</span> y <span>Justificación</span> de La <span>Violencia Intergrupal</span> Entre <span>Carabineros</span> y <span>Manifestantes</span> En <span>Chile</span>, <em>Psykhe (Santiago)</em>, vol. <strong>32</strong>, pp. 0–0, 2023.
+</div>
+<div id="ref-giugni_social_2004" class="csl-entry" role="listitem">
+Giugni, M., <em>Social Protest and Policy Change: Ecology, Antinuclear, and Peace Movements in Comparative Perspective</em>, Lanham: Rowman &amp; Littlefield, 2004.
+</div>
+<div id="ref-gonzalez_20192020_2020a" class="csl-entry" role="listitem">
+Gonzalez, R. and Morán, C. L. F., The 2019–2020 <span>Chilean</span> Protests: <span>A</span> First Look at Their Causes and Participants, <em>International Journal of Sociology</em>, vol. <strong>50</strong>, no. 3, pp. 227–35, accessed November 24, 2025, May 2020. DOI: <a href="https://doi.org/10.1080/00207659.2020.1752499">10.1080/00207659.2020.1752499</a>
+</div>
+<div id="ref-gorecki_electoral_2013" class="csl-entry" role="listitem">
+Górecki, M. A., Electoral Context, Habit-Formation and Voter Turnout: <span>A</span> New Analysis, <em>Electoral Studies</em>, vol. <strong>32</strong>, no. 1, pp. 140–52, accessed June 24, 2026, March 2013. DOI: <a href="https://doi.org/10.1016/j.electstud.2012.09.005">10.1016/j.electstud.2012.09.005</a>
+</div>
+<div id="ref-gurin_diversity_2002" class="csl-entry" role="listitem">
+Gurin, P., Dey, E., Hurtado, S. and Gurin, G., Diversity and <span>Higher Education</span>: <span>Theory</span> and <span>Impact</span> on <span>Educational Outcomes</span>, <em>Harvard Educational Review</em>, vol. <strong>72</strong>, no. 3, pp. 330–67, accessed March 23, 2026, September 2002. DOI: <a href="https://doi.org/10.17763/haer.72.3.01151786u134n051">10.17763/haer.72.3.01151786u134n051</a>
+</div>
+<div id="ref-hox_multilevel_2018" class="csl-entry" role="listitem">
+Hox, J. J., Moerbeek, M. and Schoot, R. van de, <em><a href="https://doi.org/10.4324/9781315650982">Multilevel Analysis: Techniques and Applications</a></em>, New York, NY: Routledge, Taylor &amp; Francis Group, 2018.
+</div>
+<div id="ref-human_chile_2019" class="csl-entry" role="listitem">
+Human Rights Watch, Chile: <span>Llamado</span> Urgente a Una Reforma Policial Tras Las Protestas., November 2019.
+</div>
+<div id="ref-jamte_when_2024" class="csl-entry" role="listitem">
+Jämte, J., Lundstedt, M. and Wennerhag, M., When <span>Do Radical Flanks Use Violence</span>? <span>Conditions</span> for <span>Violent Protest</span> in <span>Radical Left-Libertarian Activism</span> in <span>Sweden</span>, 1997–2016, <em>Terrorism and Political Violence</em>, vol. <strong>36</strong>, no. 5, pp. 679–98, accessed June 24, 2026, July 2024. DOI: <a href="https://doi.org/10.1080/09546553.2023.2189966">10.1080/09546553.2023.2189966</a>
+</div>
+<div id="ref-joignant_social_2024a" class="csl-entry" role="listitem">
+Joignant, A. and Somma, N. M. Eds., <em><a href="https://doi.org/10.1007/978-3-031-58132-8">Social <span>Protest</span> and <span>Conflict</span> in <span>Radical Neoliberalism</span>: <span>Chile</span>, 2008–2020</a></em>, Cham: Springer Nature Switzerland, accessed November 24, 2025, 2024.
+</div>
+<div id="ref-joignant_coes_2020" class="csl-entry" role="listitem">
+Joignant, A., Somma, N., Garretón, M., and Capos, T., Informe <span>Anual Observatorio</span> de <span>Conflictos</span> 2020, Centro de Estudios de Conflicto y Cohesión Social (COES), 2020.
+</div>
+<div id="ref-kam_reconsidering_2008" class="csl-entry" role="listitem">
+Kam, C. D. and Palmer, C. L., Reconsidering the <span>Effects</span> of <span>Education</span> on <span>Political Participation</span>, <em>The Journal of Politics</em>, vol. <strong>70</strong>, no. 3, pp. 612–31, accessed November 24, 2025, July 2008. DOI: <a href="https://doi.org/10.1017/S0022381608080651">10.1017/S0022381608080651</a>
+</div>
+<div id="ref-koopmans_dynamics_1993" class="csl-entry" role="listitem">
+Koopmans, R., The <span>Dynamics</span> of <span>Protest Waves</span>: <span>West Germany</span>, 1965 to 1989, <em>American Sociological Review</em>, vol. <strong>58</strong>, no. 5, p. 637, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/2096279">https://www.jstor.org/stable/2096279</a>, October 1993. DOI: <a href="https://doi.org/10.2307/2096279">10.2307/2096279</a>
+</div>
+<div id="ref-krueger_education_2003" class="csl-entry" role="listitem">
+Krueger, A. B. and Malečková, J., Education, <span>Poverty</span> and <span>Terrorism</span>: <span>Is There</span> a <span>Causal Connection</span>?, <em>The Journal of Economic Perspectives</em>, vol. <strong>17</strong>, no. 4, pp. 119–44, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/3216934">https://www.jstor.org/stable/3216934</a>, 2003.
+</div>
+<div id="ref-lioy_would_2024" class="csl-entry" role="listitem">
+Lioy, A., <span>“<span>I Would Prefer Not To</span>”</span>: <span>Establishing</span> the <span>Missing Link</span> Between <span>Invalid Voting</span> and <span>Public Protest</span> in <span>Latin America</span>, <em>Latin American Politics and Society</em>, vol. <strong>66</strong>, no. 1, pp. 106–32, accessed June 25, 2026, February 2024. DOI: <a href="https://doi.org/10.1017/lap.2023.29">10.1017/lap.2023.29</a>
+</div>
+<div id="ref-lipset_social_1959a" class="csl-entry" role="listitem">
+Lipset, S. M., Some <span>Social Requisites</span> of <span>Democracy</span>: <span>Economic Development</span> and <span>Political Legitimacy</span>, <em>American Political Science Review</em>, vol. <strong>53</strong>, no. 1, pp. 69–105, 1959. DOI: <a href="https://doi.org/10.2307/1951731">10.2307/1951731</a>
+</div>
+<div id="ref-lubke_applying_2004" class="csl-entry" role="listitem">
+Lubke, G. H. and Muthén, B. O., Applying <span>Multigroup Confirmatory Factor Models</span> for <span>Continuous Outcomes</span> to <span>Likert Scale Data Complicates Meaningful Group Comparisons</span>, <em>Structural Equation Modeling: A Multidisciplinary Journal</em>, vol. <strong>11</strong>, no. 4, pp. 514–34, accessed November 24, 2025, October 2004. DOI: <a href="https://doi.org/10.1207/s15328007sem1104_2">10.1207/s15328007sem1104_2</a>
+</div>
+<div id="ref-ludecke_ggeffects_2018" class="csl-entry" role="listitem">
+Lüdecke, D., Ggeffects: <span>Tidy Data Frames</span> of <span>Marginal Effects</span> from <span>Regression Models</span>, <em>Journal of Open Source Software</em>, vol. <strong>3</strong>, no. 26, p. 772, accessed November 24, 2025, June 2018. DOI: <a href="https://doi.org/10.21105/joss.00772">10.21105/joss.00772</a>
+</div>
+<div id="ref-marx_policing_1998" class="csl-entry" role="listitem">
+Marx, G. T., <em>Policing <span>Protest</span></em>, University of Minnesota Press, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/10.5749/j.ctttv1tv">https://www.jstor.org/stable/10.5749/j.ctttv1tv</a>, 1998.
+</div>
+<div id="ref-mcadam_assessing_2009" class="csl-entry" role="listitem">
+McAdam, D. and Brandt, C., Assessing the <span>Effects</span> of <span>Voluntary Youth Service</span>: <span>The Case</span> of <span>Teach</span> for <span>America</span>, <em>Social Forces</em>, vol. <strong>88</strong>, no. 2, pp. 945–69, accessed November 24, 2025, December 2009. DOI: <a href="https://doi.org/10.1353/sof.0.0279">10.1353/sof.0.0279</a>
+</div>
+<div id="ref-mcadam_biographical_1989a" class="csl-entry" role="listitem">
+McAdam, Doug, The <span>Biographical Consequences</span> of <span>Activism</span>, <em>American Sociological Review</em>, vol. <strong>54</strong>, no. 5, p. 744, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/2117751">https://www.jstor.org/stable/2117751</a>, October 1989. DOI: <a href="https://doi.org/10.2307/2117751">10.2307/2117751</a>
+</div>
+<div id="ref-muller_crossnational_1990" class="csl-entry" role="listitem">
+Muller, E. N. and Weede, E., Cross-<span>National Variation</span> in <span>Political Violence</span>: <span>A Rational Action Approach</span>, <em>Journal of Conflict Resolution</em>, vol. <strong>34</strong>, no. 4, pp. 624–51, accessed November 24, 2025, December 1990. DOI: <a href="https://doi.org/10.1177/0022002790034004003">10.1177/0022002790034004003</a>
+</div>
+<div id="ref-nie_education_1996a" class="csl-entry" role="listitem">
+Nie, N. H., Junn, J. and Stehlik-Barry, K., <em>Education and Democratic Citizenship in <span>America</span></em>, Chicago: University of Chicago Press, 1996.
+</div>
+<div id="ref-norman_likert_2010" class="csl-entry" role="listitem">
+Norman, G., Likert Scales, Levels of Measurement and the <span>“Laws”</span> of Statistics, <em>Advances in Health Sciences Education</em>, vol. <strong>15</strong>, no. 5, pp. 625–32, accessed November 24, 2025, December 2010. DOI: <a href="https://doi.org/10.1007/s10459-010-9222-y">10.1007/s10459-010-9222-y</a>
+</div>
+<div id="ref-norris_democratic_2011" class="csl-entry" role="listitem">
+Norris, P., <em><a href="https://doi.org/10.1017/CBO9780511973383">Democratic <span>Deficit</span>: <span>Critical Citizens Revisited</span></a></em>, Cambridge University Press, accessed June 24, 2026, 2011.
+</div>
+<div id="ref-olcese_streets_2014" class="csl-entry" role="listitem">
+Olcese, C., Saunders, C. and Tzavidis, N., In the Streets with a Degree: <span>How</span> Political Generations, Educational Attainment and Student Status Affect Engagement in Protest Politics, <em>International Sociology</em>, vol. <strong>29</strong>, no. 6, pp. 525–45, accessed April 8, 2026, November 2014. DOI: <a href="https://doi.org/10.1177/0268580914551305">10.1177/0268580914551305</a>
+</div>
+<div id="ref-passy_biographical_2018" class="csl-entry" role="listitem">
+Passy, F. and Monsch, G.-A., <a href="https://doi.org/10.1002/9781119168577.ch28">Biographical <span>Consequences</span> of <span>Activism</span></a>, in <em>The <span>Wiley Blackwell Companion</span> to <span>Social Movements</span></em>, D. A. Snow S. A. Soule H. Kriesi and H. J. McCammon, Eds., Wiley, accessed November 24, 2025, pp. 499–514, 2018.
+</div>
+<div id="ref-pavlic_nearness_2021" class="csl-entry" role="listitem">
+Pavlic, R. D., The <span>Nearness</span> of <span>Youth</span>, <em>Latin American Politics and Society</em>, vol. <strong>63</strong>, no. 1, pp. 72–94, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/27116370">https://www.jstor.org/stable/27116370</a>, 2021.
+</div>
+<div id="ref-perez-linan_presidential_2010" class="csl-entry" role="listitem">
+Pérez-Liñán, A. S. and Pérez-Liñán, A. S., <em>Presidential Impeachment and the New Political Instability in <span>Latin America</span></em>, New York, NY: Cambridge University Press, 2010.
+</div>
+<div id="ref-pleyers_estallido_2023" class="csl-entry" role="listitem">
+Pleyers, G., El Estallido Chileno a La Luz de La Década Global de Los Movimientos Sociales, <em>Polis</em>, vol. <strong>22</strong>, no. 65, May 2023. DOI: <a href="http://dx.doi.org/10.32735/s0718-6568/2023-n65-1868">http://dx.doi.org/10.32735/s0718-6568/2023-n65-1868</a>
+</div>
+<div id="ref-polletta_collective_2001" class="csl-entry" role="listitem">
+Polletta, F. and Jasper, J. M., Collective <span>Identity</span> and <span>Social Movements</span>, <em>Annual Review of Sociology</em>, vol. <strong>27</strong>, no. 1, pp. 283–305, accessed November 24, 2025, August 2001. DOI: <a href="https://doi.org/10.1146/annurev.soc.27.1.283">10.1146/annurev.soc.27.1.283</a>
+</div>
+<div id="ref-raudenbush_hierarchical_2010" class="csl-entry" role="listitem">
+Raudenbush, S. and Bryk, A. S., <em>Hierarchical Linear Models: Applications and Data Analysis Methods</em>, Thousand Oaks, Calif.: Sage Publ, 2010.
+</div>
+<div id="ref-rivera_exposure_2025a" class="csl-entry" role="listitem">
+Rivera, S., Severino, F. and Visconti, G., Exposure to Protests and Support for Different Forms of Violence: <span>Evidence</span> from the 2019 Social Outburst in <span>Chile</span>, <em>Research &amp; Politics</em>, vol. <strong>12</strong>, no. 3, p. 20531680251355242, accessed November 24, 2025, July 2025. DOI: <a href="https://doi.org/10.1177/20531680251355242">10.1177/20531680251355242</a>
+</div>
+<div id="ref-rodriguez_ocular_2021" class="csl-entry" role="listitem">
+Rodríguez, Á., Peña, S., Cavieres, I., Vergara, M. J., Pérez, M., Campos, M., Peredo, D., et al., Ocular Trauma by Kinetic Impact Projectiles During Civil Unrest in <span>Chile</span>, <em>Eye</em>, vol. <strong>35</strong>, no. 6, pp. 1666–72, accessed November 24, 2025, June 2021. DOI: <a href="https://doi.org/10.1038/s41433-020-01146-w">10.1038/s41433-020-01146-w</a>
+</div>
+<div id="ref-sabucedo_importance_2018" class="csl-entry" role="listitem">
+Sabucedo, J.-M., Dono, M., Alzate, M. and Seoane, G., The <span>Importance</span> of <span>Protesters</span>’ <span>Morals</span>: <span>Moral Obligation</span> as a <span>Key Variable</span> to <span>Understand Collective Action</span>, <em>Frontiers in Psychology</em>, vol. <strong>Volume 9 - 2018</strong>, 2018.
+</div>
+<div id="ref-siegel_kohlberg_1981" class="csl-entry" role="listitem">
+Siegel, H., Kohlberg, <span>Moral Adequacy</span>, and the <span>Justification</span> of <span>Educational Interventions</span>, <em>Educational Theory</em>, vol. <strong>31</strong>, no. 3–4, pp. 275–84, accessed November 24, 2025, October 1981. DOI: <a href="https://doi.org/10.1111/j.1741-5446.1981.tb00970.x">10.1111/j.1741-5446.1981.tb00970.x</a>
+</div>
+<div id="ref-singer_applied_2003a" class="csl-entry" role="listitem">
+Singer, J. D. and Willett, J. B., <em><a href="https://doi.org/10.1093/acprof:oso/9780195152968.001.0001">Applied <span>Longitudinal Data Analysis</span>: <span>Modeling Change</span> and <span>Event Occurrence</span></a></em>, Oxford University PressNew York, accessed November 24, 2025, 2003.
+</div>
+<div id="ref-snijders_multilevel_2012" class="csl-entry" role="listitem">
+Snijders, T. A. B. and Bosker, R. J., <em>Multilevel Analysis: An Introduction to Basic and Advanced Multilevel Modeling</em>, Los Angeles, Calif.: SAGE, 2012.
+</div>
+<div id="ref-snow_ideology_1988a" class="csl-entry" role="listitem">
+Snow, D. A. and Benford, R. D., Ideology, <span>Frame Resonance</span>, and <span>Participant Mobilization</span>, <em>International Social Movement Research</em>, vol. <strong>1</strong>, pp. 197–218, 1988.
+</div>
+<div id="ref-snow_protest_2014" class="csl-entry" role="listitem">
+Snow, D. A. and Moss, D. M., Protest on the <span>Fly</span>: <span>Toward</span> a <span>Theory</span> of <span>Spontaneity</span> in the <span>Dynamics</span> of <span>Protest</span> and <span>Social Movements</span>, <em>American Sociological Review</em>, vol. <strong>79</strong>, no. 6, pp. 1122–43, accessed June 24, 2026, December 2014. DOI: <a href="https://doi.org/10.1177/0003122414554081">10.1177/0003122414554081</a>
+</div>
+<div id="ref-somma_no_2021a" class="csl-entry" role="listitem">
+Somma, N. M., Bargsted, M., Disi Pavlic, R. and Medel, R. M., No Water in the Oasis: The <span>Chilean Spring</span> of 2019–2020, <em>Social Movement Studies</em>, vol. <strong>20</strong>, no. 4, pp. 495–502, accessed November 24, 2025, July 2021. DOI: <a href="https://doi.org/10.1080/14742837.2020.1727737">10.1080/14742837.2020.1727737</a>
+</div>
+<div id="ref-steinert-threlkeld_how_2022" class="csl-entry" role="listitem">
+Steinert-Threlkeld, Z. C., Chan, A. M. and Joo, J., How <span>State</span> and <span>Protester Violence Affect Protest Dynamics</span>, <em>The Journal of Politics</em>, vol. <strong>84</strong>, no. 2, pp. 798–813, accessed April 8, 2026, April 2022. DOI: <a href="https://doi.org/10.1086/715600">10.1086/715600</a>
+</div>
+<div id="ref-sunshine_role_2003" class="csl-entry" role="listitem">
+Sunshine, J. and Tyler, T. R., The <span>Role</span> of <span>Procedural Justice</span> and <span>Legitimacy</span> in <span>Shaping Public Support</span> for <span>Policing</span>, <em>Law &amp; Society Review</em>, vol. <strong>37</strong>, no. 3, pp. 513–48, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/1555077">https://www.jstor.org/stable/1555077</a>, 2003.
+</div>
+<div id="ref-tarrow_power_1998" class="csl-entry" role="listitem">
+Tarrow, S. G. Ed., <em>Power in Movement: Social Movements and Contentious Politics</em>, Cambridge [England] New York: Cambridge University Press, 1998.
+</div>
+<div id="ref-tetlock_value_1986" class="csl-entry" role="listitem">
+Tetlock, P. E., A Value Pluralism Model of Ideological Reasoning., <em>Journal of Personality and Social Psychology</em>, vol. <strong>50</strong>, no. 4, pp. 819–27, accessed November 24, 2025, April 1986. DOI: <a href="https://doi.org/10.1037/0022-3514.50.4.819">10.1037/0022-3514.50.4.819</a>
+</div>
+<div id="ref-thaler_framing_2023" class="csl-entry" role="listitem">
+Thaler, K. M., Mueller, L. and Mosinger, E., Framing <span>Police Violence</span>: <span>Repression</span>, <span>Reform</span>, and the <span>Power</span> of <span>History</span> in <span>Chile</span>, <em>The Journal of Politics</em>, vol. <strong>85</strong>, no. 4, pp. 1198–1213, accessed November 24, 2025, October 2023. DOI: <a href="https://doi.org/10.1086/724967">10.1086/724967</a>
+</div>
+<div id="ref-tilly_politics_2003" class="csl-entry" role="listitem">
+Tilly, C., <em><a href="https://doi.org/10.1017/CBO9780511819131">The <span>Politics</span> of <span>Collective Violence</span></a></em>, Cambridge University Press, accessed November 24, 2025, 2003.
+</div>
+<div id="ref-tyler_restorative_2006" class="csl-entry" role="listitem">
+Tyler, T. R., Restorative <span>Justice</span> and <span>Procedural Justice</span>: <span>Dealing</span> with <span>Rule Breaking</span>, <em>Journal of Social Issues</em>, vol. <strong>62</strong>, no. 2, pp. 307–26, accessed November 24, 2025, June 2006. DOI: <a href="https://doi.org/10.1111/j.1540-4560.2006.00452.x">10.1111/j.1540-4560.2006.00452.x</a>
+</div>
+<div id="ref-tyler_group_2003" class="csl-entry" role="listitem">
+Tyler, T. R. and Blader, S. L., The <span>Group Engagement Model</span>: <span>Procedural Justice</span>, <span>Social Identity</span>, and <span>Cooperative Behavior</span>, <em>Personality and Social Psychology Review</em>, vol. <strong>7</strong>, no. 4, pp. 349–61, accessed November 24, 2025, November 2003. DOI: <a href="https://doi.org/10.1207/S15327957PSPR0704_07">10.1207/S15327957PSPR0704_07</a>
+</div>
+<div id="ref-vanstekelenburg_social_2013" class="csl-entry" role="listitem">
+Van Stekelenburg, J. and Klandermans, B., The Social Psychology of Protest, <em>Current Sociology</em>, vol. <strong>61</strong>, no. 5–6, pp. 886–905, accessed November 24, 2025, September 2013. DOI: <a href="https://doi.org/10.1177/0011392113479314">10.1177/0011392113479314</a>
+</div>
+<div id="ref-varlik_education_2025" class="csl-entry" role="listitem">
+Varlık, S., Akpınar, S., Akpınar, Ö. and Görünü, R. M., Education as an Antidote to Violence and Social Inequality, <em>Humanities and Social Sciences Communications</em>, accessed November 24, 2025, November 2025. DOI: <a href="https://doi.org/10.1057/s41599-025-06192-x">10.1057/s41599-025-06192-x</a>
+</div>
+<div id="ref-verba_voice_2002" class="csl-entry" role="listitem">
+Verba, S., Schlozman, K. L. and Brady, H. E., <em>Voice and Equality: Civic Voluntarism in <span>American</span> Politics</em>, Cambridge, Mass.: Harvard Univ. Press, 2002.
+</div>
+<div id="ref-walgrave_missing_2014" class="csl-entry" role="listitem">
+Walgrave, S. and Wouters, R., The <span>Missing Link</span> in the <span>Diffusion</span> of <span>Protest</span>: <span>Asking Others</span>, <em>American Journal of Sociology</em>, vol. <strong>119</strong>, no. 6, pp. 1670–1709, accessed November 24, 2025, from <a href="https://www.jstor.org/stable/10.1086/676853">https://www.jstor.org/stable/10.1086/676853</a>, 2014. DOI: <a href="https://doi.org/10.1086/676853">10.1086/676853</a>
+</div>
+<div id="ref-weakliem_effects_2002a" class="csl-entry" role="listitem">
+Weakliem, D. L., The <span>Effects</span> of <span>Education</span> on <span>Political Opinions</span>: <span>An International Study</span>, <em>International Journal of Public Opinion Research</em>, vol. <strong>14</strong>, no. 2, pp. 141–57, accessed November 24, 2025, June 2002. DOI: <a href="https://doi.org/10.1093/ijpor/14.2.141">10.1093/ijpor/14.2.141</a>
+</div>
+<div id="ref-wickham_ggplot2_2016" class="csl-entry" role="listitem">
+Wickham, H., <em><a href="https://doi.org/10.1007/978-3-319-24277-4">Ggplot2</a></em>, Cham: Springer International Publishing, accessed June 24, 2026, 2016.
+</div>
+</div>
+</section>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

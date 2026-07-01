@@ -69,6 +69,7 @@
 
 
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -233,7 +234,7 @@ participation}
                   Department of Psychology, University of Chile
               }
       
-\date{June, 2026}
+\date{July, 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -578,7 +579,7 @@ frameworks that can both delegitimize and legitimize violence depending
 on situational context. In settings of high inequality and institutions
 perceived as unjust, this sophistication enables individuals to frame
 violence as an exceptional yet principled response consistent with
-notions of justice (\citeproc{ref-dellaporta_global_2017}{della Porta,
+notions of justice (\citeproc{ref-dellaporta_global_2017}{{della Porta},
 2017}; \citeproc{ref-varlik_education_2025}{Varlık et al., 2025}).
 
 One candidate activation mechanism, under the cognitive amplification
@@ -1169,7 +1170,7 @@ of the variance components in finite samples
 Reproducibility}\label{software-and-reproducibility}
 
 All statistical analyses were conducted in R (version 4.3.1) using the
-glmmTMB package (\citeproc{ref-brooks_glmmtmb_2017}{Brooks et al.,
+glmmTMB package (\citeproc{ref-brooks_glmmtmb_2017}{{Brooks et al.},
 2017}) for the estimation of generalized mixed models, ggeffects
 (\citeproc{ref-ludecke_ggeffects_2018}{Lüdecke, 2018}) for the
 calculation of marginal effects and adjusted predictions, and ggplot2
@@ -1308,43 +1309,6 @@ trajectories of the non-participating majority more than those of
 habitual protesters, whose patterns are captured in the interaction
 models that follow.
 
-\begin{figure}[H]
-
-\centering{
-
-\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-estallido-1-1.pdf}
-
-}
-
-\caption{\label{fig-estallido-1}Comparison of violence justification
-before (2016--2018) and after (2022--2023) the social outbreak by
-education and participation}
-
-\end{figure}%
-
-Figure~\ref{fig-estallido-1} presents the direct comparison of violence
-justification by education and participation status between the pre-2019
-period (2016--2018) and the post-2019 period (2022--2023), providing
-evidence on the permanent character of the political shock.
-
-Panel A (protest violence) shows that among non-participants all
-educational groups register a moderate increase post-2019, while among
-participants all levels maintain consistently elevated justifications
-(\textasciitilde2.0--2.3) with overlapping confidence intervals ---
-mobilization experience equalizes attitudes regardless of cultural
-capital, and the gap between participants and non-participants remains
-stable across both periods, consistent with the participation effect
-persisting years after the outbreak. Panel B (state violence) shows a
-more dramatic shift: among non-participants a substantial increase is
-observed post-2019 across all educational groups, reflecting the
-normalization of repression justification even among more educated
-sectors. Among participants, the pattern reverses --- all groups show
-lower justifications post-2019, with university completers maintaining
-consistently low levels throughout. The pre/post contrast is consistent
-with the 2019 outbreak having generated a persistent inflection point,
-with divergent trajectories apparent 3--4 years after the critical
-event.
-
 \subsection{Regression Analyses}\label{regression-analyses}
 
 \begin{table}
@@ -1357,7 +1321,7 @@ justification}
 \scalebox{0.8}{
 \begin{tabular}{l c c}
 \toprule
- & Model 1 & Model 2 \\
+ & Model 1: Protest Violence & Model 2: State Violence \\
 \midrule
 Education (Ref. = High School or less) &               &               \\
                                        &               &               \\
@@ -1401,8 +1365,6 @@ Var: idencuesta                        & $.134$        & $.197$        \\
 \multicolumn{3}{l}{\scriptsize{*** p < 0.001; ** p < 0.01; * p < 0.05}}
 \end{tabular}
 }
-\caption{}
-\label{}
 
 }
 
@@ -1441,7 +1403,7 @@ justification}
 \scalebox{0.8}{
 \begin{tabular}{l c c}
 \toprule
- & Model 1b & Model 2b \\
+ & Model 1b: Protest Violence & Model 2b: State Violence \\
 \midrule
 Education (Ref. = High School or less)       &               &               \\
                                              &               &               \\
@@ -1495,8 +1457,6 @@ Var: idencuesta                              & $.133$        & $.197$        \\
 \multicolumn{3}{l}{\scriptsize{*** p < 0.001; ** p < 0.01; * p < 0.05}}
 \end{tabular}
 }
-\caption{}
-\label{}
 
 }
 
@@ -1554,7 +1514,7 @@ participation into within- and between-person components}
 \scalebox{0.8}{
 \begin{tabular}{l c c}
 \toprule
- & Model 3a & Model 3b \\
+ & Model 3a: Protest Violence & Model 3b: State Violence \\
 \midrule
 Education (Ref. = High School or less)    &               &               \\
                                           &               &               \\
@@ -1602,8 +1562,6 @@ Var: idencuesta                           & $.129$        & $.194$        \\
 \multicolumn{3}{l}{\scriptsize{*** p < 0.001; ** p < 0.01; * p < 0.05. Within-person = deviation from individual mean; Between-person = individual mean across waves.}}
 \end{tabular}
 }
-\caption{}
-\label{}
 
 }
 
@@ -1647,7 +1605,7 @@ socialization and selection by educational level}
 \scalebox{0.85}{
 \begin{tabular}{l c c}
 \toprule
- & Model 4a & Model 4b \\
+ & Model 4a: Protest Violence & Model 4b: State Violence \\
 \midrule
 Within-person (socialization)                     &              &               \\
                                                   &              &               \\
@@ -1683,8 +1641,6 @@ Var: idencuesta                                   & $.128$       & $.194$       
 \multicolumn{3}{l}{\scriptsize{*** p < 0.001; ** p < 0.01; * p < 0.05. Interaction coefficients represent differential effects relative to the High School reference. Education main effects, controls, and year dummies omitted.}}
 \end{tabular}
 }
-\caption{}
-\label{}
 
 }
 
@@ -2150,7 +2106,7 @@ data cannot fully resolve.
 
 \section{References}\label{references}
 
-\phantomsection\label{refs}
+\protect\phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
 \bibitem[\citeproctext]{ref-almond_civic_1963}
 ALMOND, G. A. and VERBA, S., \emph{The {Civic Culture}}, Princeton
@@ -2208,8 +2164,8 @@ Review}, vol. \textbf{89}, no. 2, pp. 271--94, accessed April 8, 2026,
 June 1995. DOI: \href{https://doi.org/10.2307/2082425}{10.2307/2082425}
 
 \bibitem[\citeproctext]{ref-brooks_glmmtmb_2017}
-Brooks, M., E., Kristensen, K., Benthem, van, J., Magnusson, A., Berg,
-C., W., Nielsen, A., Skaug, H., J., Mächler, M. and Bolker, B., M.,
+{Brooks, M., E., Kristensen, K., Benthem, van, J., Magnusson, A., Berg,
+C., W., Nielsen, A., Skaug, H., J., Mächler, M. and Bolker, B., M.},
 {glmmTMB Balances Speed} and {Flexibility Among Packages} for
 {Zero-inflated Generalized Linear Mixed Modeling}, \emph{The R Journal},
 vol. \textbf{9}, no. 2, p. 378, accessed November 24, 2025, 2017. DOI:
@@ -2258,9 +2214,9 @@ Black}? {The Differential Policing} of {American Activism}, 1960 to
 \url{https://www.jstor.org/stable/25782184}, 2011.
 
 \bibitem[\citeproctext]{ref-dellaporta_global_2017}
-della Porta, D. Ed., \emph{Global {Diffusion} of {Protest}: {Riding} the
-{Protest Wave} in the {Neoliberal Crisis}}, Amsterdam University Press,
-accessed November 24, 2025, from
+{della Porta, D. Ed.}, \emph{Global {Diffusion} of {Protest}: {Riding}
+the {Protest Wave} in the {Neoliberal Crisis}}, Amsterdam University
+Press, accessed November 24, 2025, from
 \url{https://www.jstor.org/stable/j.ctt1zkjxq0}, 2017.
 
 \bibitem[\citeproctext]{ref-dellaporta_policing_2007}
