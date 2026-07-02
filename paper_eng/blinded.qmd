@@ -1,0 +1,89 @@
+---
+title: "Attitudes towards political violence in Chile’s cycle of political conflict: A longitudinal analysis focusing on education and participation"
+date: today
+date-format: "MMMM, YYYY"
+format:
+  html: 
+    latex-environment: true
+    code-fold: true
+    html-math-method: katex
+    number-sections: true
+    code-link: true
+    title-block-banner: true
+    theme:
+      - pretty.scss
+  pdf: 
+    pdf-engine: xelatex
+    geometry: margin=2cm
+    template-partials: 
+      - title.tex
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \usepackage{array}
+        \usepackage{colortbl}
+        \usepackage{threeparttable}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+    number-sections: true
+editor: source
+bibliography: "input/bib/protest-effect.bib"
+csl: "input/bib/chicago.csl"
+author: " "
+abstract: |
+ The Chilean social uprising of October 2019 poses a paradox for political sociology: why did highly educated sectors—typically associated with democratic moderation—show greater acceptance of disruptive political violence? Using panel data from ELSOC (2016–2023; N = 3,383 individuals, 15,110 observations), we examine how educational attainment and protest participation jointly relate to violence justification via multilevel models. Among non-participants, higher education is associated with lower violence justification—consistent with the "civilizing effect." Among protesters, university-educated individuals exhibit the highest protest violence justification while showing the lowest state violence tolerance. Within-between decomposition indicates this bidirectional pattern is more consistent with sorting than with socialization: habitual university-educated protesters already hold these attitudinal configurations rather than appearing to acquire them through participation. A partial within-person association consistent with socialization is also observed for state violence, exclusively among university-educated groups. These findings reposition the educational paradox from a transformation story to a conjunctural moral alignment shaped primarily by who mobilizes, contributing to debates on political socialization and the legitimacy of transgression in unequal democracies.
+Keywords: Political violence · Protest participation · Education · Political attitudes · Chile
+link-citations: true
+linestretch: 1.5
+mainfont: Times New Roman
+fontsize: 13pt          
+colorlinks: true
+fig-height: 4
+fig-width: 7.5
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo=FALSE, 
+                      warning = FALSE,
+                      message = FALSE, 
+                      cache = TRUE,
+                      out.width = '85%',
+                      fig.pos= "H")
+options(scipen=999)
+options(kableExtra.auto_format = FALSE)
+options(knitr.kable.NA = '')
+options(knitr.graphics.error = FALSE)
+Sys.setlocale("LC_ALL", "ES_ES.UTF-8")
+table_format = if (knitr::is_html_output()) {
+   #conditional instructions for kable
+   "html" #if html set "html" in format
+ } else if (knitr::is_latex_output()) {
+   "latex"#if latex set "latex" in format
+ }
+
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+
+```
+
+
+:::: {.justify}
+
+{{< include 01-introduction.qmd >}}
+
+{{< include 02-antecedents.qmd >}}
+
+{{< include 03-methods.qmd >}}
+
+{{< include 04-analisis.qmd >}}
+
+{{< include 05-discussion.qmd >}}
+
+# References
+
+::: {#refs}
+:::
+::::

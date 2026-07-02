@@ -1,0 +1,68 @@
+---
+title: "Attitudes towards political violence in Chile’s cycle of political conflict: A longitudinal analysis focusing on education and participation"
+format:
+  pdf: 
+    indent: false
+    keep-tex: true
+link-citations: true
+linestretch: 1.15       
+mainfont: Times New Roman
+fontsize: 12pt          
+geometry: "left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm"
+papersize: letter
+colorlinks: true
+fig-height: 4
+fig-width: 7.5
+header-includes:
+  - \usepackage{threeparttable}
+---
+
+## Authors Identification
+    
+**René Canales**, Bremen International Graduate School of Social Sciences, Universitat Bremen.
+
+Mary-Somerville-Str. 9, 28359 Bremen, Germany
+
+ORCID: 0009-0002-4299-2725
+
+renecanales@uc.cl
+
+
+**Daniel Miranda[^*]**, Departament of Psychology, University of Chile, Santiago de Chile.  
+
+Ignacio Carrera Pinto 1045 Ñuñoa, Santiago de Chile
+
+ORCID: 0000-0002-3143-8502
+
+danmiranda@uchile.cl
+
+## Exclusive Submission Statement
+
+The authors confirm that this article has been submitted exclusively to this journal. 
+
+## Acknowledgments
+
+The authors recognize the support of the National Research and Development Agency (ANID) through the grant from the National Fund for Scientific and Technological Development (FONDECYT) 1230922.
+
+## Authors' Contributions
+
+Author roles were classified using the Contributor Role Taxonomy [CRediT](https://credit.niso.org/) as follows: René Canales: Conceptualization, Supervision Methodology, Formal analysis, Software, Visualization, Writing - review and editing; Daniel Miranda: Formal analysis, Writing - review and editing.
+
+
+## Conflict of Interest
+
+The authors declare no conflict of interest.
+
+## Funding
+
+This research received funding from ANID/FONDECYT grant 1230922.
+
+
+## Data Avaibility Statement
+
+The original data presented in the study are openly available in <https://dataverse.harvard.edu/api/access/datafile/10797987>
+
+Access to the data, code, and analysis presented in the study are openly available in <https://github.com/renejcanales/protest_effects>.
+
+
+[^*]: Corresponding author (danmiranda@uchile.cl - Ignacio Carrera Pinto 1045 Ñuñoa, Santiago de Chile). 
