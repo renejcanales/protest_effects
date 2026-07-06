@@ -73,60 +73,21 @@ The longitudinal nature of the data implies that the same individuals are observ
 
 Ignoring this within-individual temporal dependence would yield biased estimates (standard errors that are too small), artificially inflating statistical significance and leading to invalid conclusions [@raudenbush_hierarchical_2010; @gelman_data_2021]. Multilevel models (also referred to as hierarchical linear models, mixed-effects models, or variance component models) offer an explicit solution to this problem by simultaneously modeling both between-individual heterogeneity and within-individual dependence over time [@singer_applied_2003a]. As Hox et al. [@hox_multilevel_2018] note, these models allow the total variation to be decomposed into its structural components and the uncertainty of parameters to be correctly estimated in the presence of intra-group dependence.
 
-The general model equations for Level 1 (observation over time) and Level 2 (individual) are as follows:
-
-**Level 1 (within-individual)**
-
-$$
-y_{tj} = \beta_{0j} + \beta_{1j} X_{tj} + \varepsilon_{tj}
-$$
-
-where:
-
-- $y_{tj}$: Justification of violence for individual $j$ at time $t$.
-- $X_{tj}$: Level 1 variables (time), such as participation in protests, age, etc.
-- $\varepsilon_{tj}$: Residual error at the observation level.
-
-**Level 2 (between-individual)**
-
-$$
-\beta_{0j} = \gamma_{00} + \gamma_{01} Z_j + u_{0j}
-$$
-
-$$
-\beta_{1j} = \gamma_{10}
-$$
-
-where:
-
-- $\gamma_{00}$: General intercept (overall mean).
-- $\gamma_{01}$: Effect of Level 2 predictors (between individuals).
-- $\gamma_{10}$: Fixed effect of Level 1 predictors (within individuals).
-- $Z_j$: Predictors that do not vary over time (education, gender).
-- $u_{0j}$: Random effect of the intercept for individual $j$.
-
-**Integrated Model**
+Combining the within-individual (Level 1) and between-individual (Level 2) components of the model into a single integrated equation yields the general model estimated throughout this study:
 
 $$
 y_{tj} = \gamma_{00} + \gamma_{01} Z_j + \gamma_{10} X_{tj} + \sum_{k \in \mathcal{Y}} \delta_k D_{kt} + u_{0j} + \varepsilon_{tj}
 $$
 
-where $\mathcal{Y} = \{2017, 2018, 2019, 2022, 2023\}$ and $D_{kt}$ is an indicator equal to 1 if observation $t$ belongs to year $k$ (2016 as the reference category). This model decomposes the total variance into two components: variance between individuals ($\sigma^2_u$, captured by the random intercepts) and variance within individuals over time ($\sigma^2_\varepsilon$, residual error). The intraclass correlation coefficient (ICC) quantifies the proportion of total variance attributable to differences between individuals. The parameters $\delta_k$ capture year-specific deviations from the 2016 baseline, accommodating the non-linear temporal dynamics visible in Figure 2 without imposing a parametric form on the trajectory.
+where $y_{tj}$ is the justification of violence for individual $j$ at time $t$; $X_{tj}$ denotes Level 1 (time-varying) predictors, such as protest participation and age; $Z_j$ denotes Level 2 (time-invariant) predictors, such as education and gender; $\gamma_{01}$ and $\gamma_{10}$ are their respective fixed effects; $\mathcal{Y} = \{2017, 2018, 2019, 2022, 2023\}$ and $D_{kt}$ is an indicator equal to 1 if observation $t$ belongs to year $k$ (2016 as the reference category); $u_{0j}$ is the random effect of the intercept for individual $j$; and $\varepsilon_{tj}$ is the residual error at the observation level. The separate Level 1 and Level 2 equations from which this expression is derived are reported in Annex E.
+
+This model decomposes the total variance into two components: variance between individuals ($\sigma^2_u$, captured by the random intercepts) and variance within individuals over time ($\sigma^2_\varepsilon$, residual error). The intraclass correlation coefficient (ICC) quantifies the proportion of total variance attributable to differences between individuals. The parameters $\delta_k$ capture year-specific deviations from the 2016 baseline, accommodating the non-linear temporal dynamics visible in Figure 2 without imposing a parametric form on the trajectory.
 
 ### Interaction Models
 
 **Interaction between Education and Participation**
 
-To test the central hypotheses of this study, which predict that the effects of education on the justification of violence are contingent upon participation in protests, we estimate models that include multiplicative interaction terms:
-
-$$
-\begin{aligned}
-y_{tj} = \gamma_{00} + \sum_{k=1}^{4} \gamma_{0k} \text{Education}_{kj} + \gamma_{10} \text{Participation}_{tj} + \sum_{k=1}^{4} \gamma_{1k} (\text{Education}_{kj} \times \text{Participation}_{tj}) + \\
-\sum_{k \in \mathcal{Y}} \delta_k D_{kt} + \text{Controls} + u_{0j} + \varepsilon_{tj}
-\end{aligned}
-$$
-
-Given that education is a categorical variable with 5 levels (4 dummies), this model estimates 4 interaction coefficients ($\gamma_{11}, \gamma_{12}, \gamma_{13}, \gamma_{14}$), one for each educational level relative to the reference category.
+To test the central hypotheses of this study, which predict that the effects of education on the justification of violence are contingent upon participation in protests, we estimate models that extend the equation above with multiplicative interaction terms between each education dummy and protest participation, net of the same year fixed effects and controls (the full interaction equation is reported in Annex E). Given that education is a categorical variable with 5 levels (4 dummies), this model estimates 4 interaction coefficients ($\gamma_{11}, \gamma_{12}, \gamma_{13}, \gamma_{14}$), one for each educational level relative to the reference category.
 
 The interpretation of interaction terms in multilevel models follows standard logic: the interaction coefficient represents how the effect of participation in protests on the justification of violence changes as one moves from one educational category to another. Marginal effects plots (predicted values) are used to visualize these interactions intuitively.
 
